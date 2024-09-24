@@ -1,6 +1,6 @@
 "use client";
 
-import { cn, shuffle } from "@/utils/utils";
+import { cn, digit2alpha, shuffle } from "@/utils/utils";
 import { useContext, useMemo } from "react";
 import { QuizFormContext } from "./page";
 
@@ -28,10 +28,10 @@ const QuizFormSelect = ({ quiz, showResult }: Props) => {
           <button
             key={i}
             className={cn(
-              "p-4 bg-neutral-100 border-2 font-bold rounded-full transition-transform",
+              "p-4 bg-neutral-100 border-2 font-bold rounded-full transition-transform relative",
               isShowResult &&
                 value != selection &&
-                "transform scale-95 opacity-50",
+                "opacity-50",
               isShowResult &&
                 quiz.answer == selection &&
                 "bg-green-600 border-green-300 text-white animate-pop",
@@ -43,6 +43,11 @@ const QuizFormSelect = ({ quiz, showResult }: Props) => {
             onClick={() => handleAnswer(selection)}
             disabled={isShowResult}
           >
+            <div className="absolute top-0 h-full left-2 grid place-content-center">
+              <div className="bg-black/10 size-10 rounded-full grid place-content-center">
+                {digit2alpha[i] ?? ""}
+              </div>
+            </div>
             {selection}
           </button>
         );

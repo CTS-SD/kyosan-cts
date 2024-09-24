@@ -2,8 +2,6 @@
 
 import { cn } from "@/utils/utils";
 import { CircleIcon, XIcon } from "lucide-react";
-import { useContext } from "react";
-import { QuizFormContext } from "./page";
 import { Button } from "@/components/ui/button";
 
 type Props = {
@@ -32,7 +30,7 @@ const QuizResult = ({ result, onNext, isFinal, onFinal }: Props) => {
       <div className="flex flex-col items-center">
         <div
           className={cn(
-            "text-3xl flex flex-col gap-1 items-center font-bold  p-10",
+            "text-3xl flex flex-col gap-1 items-center font-bold pt-6 pb-10",
             result.correct ? "text-green-600" : "text-red-600"
           )}
         >
@@ -48,11 +46,12 @@ const QuizResult = ({ result, onNext, isFinal, onFinal }: Props) => {
             </>
           )}
         </div>
-        <div className="mb-10">
-          正解は <span className="font-bold text-green-600">{answerText}</span>{" "}
-          です。
+        <div className="mb-10 flex flex-col items-center">
+          <div>
+            正解: <span className="font-bold text-green-600">{answerText}</span>
+          </div>
           {!result.correct && (
-            <div className="text-sm p-2">
+            <div className="text-sm p-2 text-muted-foreground">
               あなたの回答：
               <span className="">{result.userAnswer}</span>
             </div>

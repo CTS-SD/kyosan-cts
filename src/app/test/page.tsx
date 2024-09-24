@@ -75,11 +75,11 @@ export default function Home() {
         {page == "quiz" && (
           <>
             <Progress value={((round - 1) / roundMax) * 100} className="mt-2" />
-            <div className="text-lg leading-snug font-semibold rounded-lg mt-3 py-8 px-2">
+            <div className="text-lg leading-snug font-semibold rounded-lg py-10 px-2">
               {quiz.question}
             </div>
             <QuizFormContext.Provider value={{ value, setValue, isShowResult }}>
-              <div className="mt-4">
+              <div className="">
                 {quiz.type === "select" && (
                   <QuizFormSelect quiz={quiz} showResult={showResult} />
                 )}
