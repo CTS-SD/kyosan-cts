@@ -6,11 +6,10 @@ import { QuizFormContext } from "./page";
 
 type Props = {
   quiz: SelectQuiz;
-  showResult: (result: boolean, ans: string) => void;
 };
 
-const QuizFormSelect = ({ quiz, showResult }: Props) => {
-  const { value, setValue, isShowResult } = useContext(QuizFormContext);
+const QuizFormSelect = ({ quiz }: Props) => {
+  const { value, setValue, isShowResult, showResult } = useContext(QuizFormContext);
 
   const selections = useMemo(() => {
     return shuffle([quiz.answer, ...quiz.fakes]);

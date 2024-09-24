@@ -14,15 +14,30 @@ type Props = {
 const QuizResult = ({ result, onNext, isFinal, onFinal }: Props) => {
   if (!result) return null;
 
-  const answerText = (() => {
+  const answer = (() => {
     if (typeof result.quiz.answer === "string") {
       return result.quiz.answer;
     }
     if (typeof result.quiz.answer === "boolean") {
-      return result.quiz.answer;
+      return result.quiz.answer ? (
+        <CircleIcon size={24} />
+      ) : (
+        <XIcon size={24} />
+      );
     }
 
     return result.quiz.answer[0];
+  })();
+
+  const userAnswer = (() => {
+    if (typeof result.userAnswer === "string") {
+      return result.userAnswer;
+    }
+    if (typeof result.userAnswer === "boolean") {
+      return result.userAnswer ? <CircleIcon size={16} /> : <XIcon size={16} />;
+    }
+
+    return result.userAnswer[0];
   })();
 
   return (
@@ -47,13 +62,14 @@ const QuizResult = ({ result, onNext, isFinal, onFinal }: Props) => {
           )}
         </div>
         <div className="mb-10 flex flex-col items-center">
-          <div>
-            正解: <span className="font-bold text-green-600">{answerText}</span>
+          <div className="flex items-center">
+            <div>正解：</div>
+            <span className="font-bold text-green-600">{answer}</span>
           </div>
           {!result.correct && (
-            <div className="text-sm p-2 text-muted-foreground">
-              あなたの回答：
-              <span className="">{result.userAnswer}</span>
+            <div className="text-sm flex items-center p-2 text-muted-foreground">
+              <div>あなたの回答：</div>
+              <span className="">{userAnswer}</span>
             </div>
           )}
         </div>

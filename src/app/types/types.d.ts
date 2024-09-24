@@ -21,6 +21,6 @@ type Quiz = SelectQuiz | OXQuiz | InputQuiz;
 
 type Result = {
   correct: boolean;
-  userAnswer: string;
+  userAnswer: string | boolean;
   quiz: Quiz;
 };

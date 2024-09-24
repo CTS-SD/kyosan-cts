@@ -18,9 +18,9 @@ export const quizes: Quiz[] = [
       "14号館の3階にある施設で、プロダクトの発表や撮影ができる施設はどこか",
     answer: ["うんちルーム", "うんち"],
   },
-  // {
-  //   type: "ox",
-  //   question: "情報理工学部はうんちである。",
-  //   answer: true,
-  // },
+  {
+    type: "ox",
+    question: "情報理工学部はうんちである。",
+    answer: false,
+  },
 ];

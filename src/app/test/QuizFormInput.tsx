@@ -5,11 +5,11 @@ import { Button } from "@/components/ui/button";
 
 type Props = {
   quiz: InputQuiz;
-  showResult: (result: boolean, ans: string) => void;
 };
 
-const QuizFormInput = ({ quiz, showResult }: Props) => {
-  const { value, setValue, isShowResult } = useContext(QuizFormContext);
+const QuizFormInput = ({ quiz }: Props) => {
+  const { value, setValue, isShowResult, showResult } =
+    useContext(QuizFormContext);
 
   const handleAnswer = () => {
     if (!value) return;

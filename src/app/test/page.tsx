@@ -9,15 +9,29 @@ import QuizFormInput from "./QuizFormInput";
 import FinalResult from "./FinalResult";
 import StartPage from "./StartPage";
 import { Progress } from "@/components/ui/progress";
+import QuizFormOX from "./QuizFormOX";
+import { Button } from "@/components/ui/button";
+import { XIcon } from "lucide-react";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 export const QuizFormContext = createContext<{
   value: string | null | boolean;
   setValue: (value: string | null | boolean) => void;
   isShowResult: boolean;
+  showResult: (result: boolean, ans: string | boolean) => void;
 }>({
   value: null,
   setValue: () => {},
   isShowResult: false,
+  showResult: () => {},
 });
 
 const roundMax = 5;
@@ -33,7 +47,7 @@ export default function Home() {
   const [results, setResults] = useState<Result[]>([]);
   const [value, setValue] = useState<string | null | boolean>(null);
 
-  const showResult = (result: boolean, userAns: string) => {
+  const showResult = (result: boolean, userAns: string | boolean) => {
     setIsShowResult(true);
     const r = {
       correct: result,
@@ -60,7 +74,7 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen flex flex-col max-w-lg mx-auto">
+    <main className="min-h-screen flex flex-col max-w-lg mx-auto relative">
       <div className="p-4 grow flex flex-col">
         {page == "start" && <StartPage onStart={() => setPage("quiz")} />}
         {page == "result" && (
@@ -74,18 +88,41 @@ export default function Home() {
         )}
         {page == "quiz" && (
           <>
-            <Progress value={((round - 1) / roundMax) * 100} className="mt-2" />
+            <div className="flex items-center gap-2">
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button size="icon" variant="ghost" className="shrink-0">
+                    <XIcon />
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>テストを中止</DialogTitle>
+                  </DialogHeader>
+                  <DialogFooter>
+                    <Button
+                      onClick={() => {
+                        resetQuizStates();
+                        setPage("start");
+                      }}
+                    >
+                      中止する
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+              <Progress value={((round - 1) / roundMax) * 100} />
+            </div>
             <div className="text-lg leading-snug font-semibold rounded-lg py-10 px-2">
               {quiz.question}
             </div>
-            <QuizFormContext.Provider value={{ value, setValue, isShowResult }}>
+            <QuizFormContext.Provider
+              value={{ showResult, value, setValue, isShowResult }}
+            >
               <div className="">
-                {quiz.type === "select" && (
-                  <QuizFormSelect quiz={quiz} showResult={showResult} />
-                )}
-                {quiz.type === "input" && (
-                  <QuizFormInput quiz={quiz} showResult={showResult} />
-                )}
+                {quiz.type === "select" && <QuizFormSelect quiz={quiz} />}
+                {quiz.type === "input" && <QuizFormInput quiz={quiz} />}
+                {quiz.type === "ox" && <QuizFormOX quiz={quiz} />}
               </div>
             </QuizFormContext.Provider>
             {isShowResult && (
