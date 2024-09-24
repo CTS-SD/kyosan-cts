@@ -4,6 +4,7 @@ import { cn } from "@/utils/utils";
 import { CircleIcon, XIcon } from "lucide-react";
 import { useContext } from "react";
 import { QuizFormContext } from "./page";
+import { Button } from "@/components/ui/button";
 
 type Props = {
   result?: Result;
@@ -58,19 +59,13 @@ const QuizResult = ({ result, onNext, isFinal, onFinal }: Props) => {
           )}
         </div>
         {isFinal ? (
-          <button
-            onClick={() => onFinal()}
-            className="bg-black p-4 text-white  rounded-full w-full  font-bold"
-          >
+          <Button className="w-full" onClick={() => onFinal()}>
             結果を見る
-          </button>
+          </Button>
         ) : (
-          <button
-            onClick={() => onNext()}
-            className="bg-black p-4 text-white  rounded-full w-full  font-bold"
-          >
+          <Button className="w-full" onClick={() => onNext()}>
             次の問題へ
-          </button>
+          </Button>
         )}
       </div>
     </div>

@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import { QuizFormContext } from "./page";
 import { cn } from "@/utils/utils";
+import { Button } from "@/components/ui/button";
 
 type Props = {
   quiz: InputQuiz;
@@ -43,12 +44,9 @@ const QuizFormInput = ({ quiz, showResult }: Props) => {
           disabled={isShowResult}
           placeholder="回答を入力"
         />
-        <button
-          className="p-4 bg-blue-600 text-white font-bold w-full rounded-full mt-2 disabled:opacity-50"
-          disabled={isShowResult}
-        >
+        <Button className="w-full mt-4" disabled={isShowResult}>
           決定
-        </button>
+        </Button>
       </form>
     </div>
   );

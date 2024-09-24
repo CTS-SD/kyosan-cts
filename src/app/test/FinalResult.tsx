@@ -1,3 +1,4 @@
+import { Button } from "@/components/ui/button";
 import { cn } from "@/utils/utils";
 import { SlashIcon } from "lucide-react";
 
@@ -30,7 +31,11 @@ const FinalResult = ({ results, onRetry }: Props) => {
           <div>{results.length}問</div>
         </div>
       </div>
-      <button onClick={onRetry}>Retry</button>
+      <div className="mt-2 w-full">
+        <Button className="w-full" onClick={onRetry}>
+          再挑戦
+        </Button>
+      </div>
     </>
   );
 };

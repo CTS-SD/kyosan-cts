@@ -8,6 +8,7 @@ import QuizResult from "./QuizResult";
 import QuizFormInput from "./QuizFormInput";
 import FinalResult from "./FinalResult";
 import StartPage from "./StartPage";
+import { Progress } from "@/components/ui/progress";
 
 export const QuizFormContext = createContext<{
   value: string | null | boolean;
@@ -41,10 +42,10 @@ export default function Home() {
     };
     setResult(r);
     setResults((prev) => [...prev, r]);
+    setRound(round + 1);
   };
 
   const handleNext = () => {
-    setRound(round + 1);
     setQuiz(getRandomQuiz());
     setIsShowResult(false);
     setValue(null);
@@ -73,14 +74,9 @@ export default function Home() {
         )}
         {page == "quiz" && (
           <>
-            <div className="bg-neutral-100 px-4 pt-3 pb-4 border rounded-2xl">
-              <div className="flex items-baseline gap-2 font-bold">
-                <div className="text-lg">Q {round}</div>
-                <div className="text-sm text-neutral-400">/ {roundMax}</div>
-              </div>
-              <div className="text-lg leading-snug font-semibold rounded-lg mt-3">
-                {quiz.question}
-              </div>
+            <Progress value={((round - 1) / roundMax) * 100} className="mt-2" />
+            <div className="text-lg leading-snug font-semibold rounded-lg mt-3 py-8 px-2">
+              {quiz.question}
             </div>
             <QuizFormContext.Provider value={{ value, setValue, isShowResult }}>
               <div className="mt-4">
@@ -94,7 +90,7 @@ export default function Home() {
             </QuizFormContext.Provider>
             {isShowResult && (
               <QuizResult
-                isFinal={round === roundMax}
+                isFinal={round - 1 === roundMax}
                 result={result}
                 onNext={handleNext}
                 onFinal={() => setPage("result")}
