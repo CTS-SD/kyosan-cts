@@ -11,16 +11,17 @@ const QuizFormInput = ({ quiz }: Props) => {
   const { value, setValue, isShowResult, showResult } =
     useContext(QuizFormContext);
 
+  const cleanValue = typeof value == "string" ? value.trim() : "";
+
+  const isCorrect =
+    typeof quiz.answer === "string"
+      ? quiz.answer === cleanValue
+      : quiz.answer.includes(cleanValue);
+
   const handleAnswer = () => {
     if (!value) return;
 
-    const cleanValue = (value as string).trim();
-    const correct =
-      typeof quiz.answer === "string"
-        ? quiz.answer === cleanValue
-        : quiz.answer.includes(cleanValue);
-
-    showResult(correct, cleanValue);
+    showResult(isCorrect, cleanValue);
   };
 
   return (
@@ -37,16 +38,22 @@ const QuizFormInput = ({ quiz }: Props) => {
           className={cn(
             "py-4 px-6 font-bold bg-neutral-100 rounded-full w-full border-2",
             isShowResult &&
-              (quiz.answer === value
-                ? "bg-green-100 border-green-300 animate-pop"
-                : "bg-red-100 border-red-300 animate-shake")
+              (isCorrect
+                ? "bg-green-100 border-green-300 text-green-500 animate-pop"
+                : "bg-red-100 border-red-300 text-red-500 animate-shake")
           )}
           disabled={isShowResult}
           placeholder="回答を入力"
         />
-        <Button className="w-full mt-4" disabled={isShowResult}>
-          決定
-        </Button>
+        {!isShowResult && (
+          <Button
+            type="submit"
+            className="absolute bottom-4 right-4 left-4"
+            disabled={isShowResult}
+          >
+            決定
+          </Button>
+        )}
       </form>
     </div>
   );

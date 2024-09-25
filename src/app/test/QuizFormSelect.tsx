@@ -3,55 +3,68 @@
 import { cn, digit2alpha, shuffle } from "@/utils/utils";
 import { useContext, useMemo } from "react";
 import { QuizFormContext } from "./page";
+import { Button } from "@/components/ui/button";
 
 type Props = {
   quiz: SelectQuiz;
 };
 
 const QuizFormSelect = ({ quiz }: Props) => {
-  const { value, setValue, isShowResult, showResult } = useContext(QuizFormContext);
+  const { value, setValue, isShowResult, showResult } =
+    useContext(QuizFormContext);
 
   const selections = useMemo(() => {
     return shuffle([quiz.answer, ...quiz.fakes]);
   }, [quiz]);
 
-  const handleAnswer = (selection: string) => {
-    showResult(selection === quiz.answer, selection);
-    setValue(selection);
+  const handleSubmit = () => {
+    if (value == null) return;
+    showResult(value === quiz.answer, value);
   };
 
   return (
-    <div className="flex flex-col gap-2">
-      {selections.map((selection, i) => {
-        return (
-          <button
-            key={i}
-            className={cn(
-              "p-4 bg-neutral-100 border-2 font-bold rounded-full transition-transform relative",
-              isShowResult &&
-                value != selection &&
-                "opacity-50",
-              isShowResult &&
-                quiz.answer == selection &&
-                "bg-green-600 border-green-300 text-white animate-pop",
-              isShowResult &&
-                quiz.answer != selection &&
+    <>
+      <div className="flex flex-col gap-2">
+        {selections.map((selection, i) => {
+          return (
+            <button
+              key={i}
+              className={cn(
+                "p-4 bg-neutral-100 border-2 font-bold rounded-full transition-transform relative",
                 value == selection &&
-                "bg-red-600 border-red-300 text-white animate-shake"
-            )}
-            onClick={() => handleAnswer(selection)}
-            disabled={isShowResult}
-          >
-            <div className="absolute top-0 h-full left-2 grid place-content-center">
-              <div className="bg-black/10 size-10 rounded-full grid place-content-center">
-                {digit2alpha[i] ?? ""}
+                  "animate-pop bg-blue-100 text-blue-500 border-blue-300",
+                isShowResult && value != selection && "opacity-50",
+                isShowResult &&
+                  quiz.answer == selection &&
+                  "bg-green-100 border-green-300 text-green-500 animate-pop",
+                isShowResult &&
+                  quiz.answer != selection &&
+                  value == selection &&
+                  "bg-red-100 border-red-300 text-red-500 animate-shake"
+              )}
+              onClick={() => setValue(selection)}
+              disabled={isShowResult}
+            >
+              <div className="absolute top-0 h-full left-2 grid place-content-center">
+                <div className="bg-black/10 size-10 rounded-full text-black grid place-content-center">
+                  {digit2alpha[i] ?? ""}
+                </div>
               </div>
-            </div>
-            {selection}
-          </button>
-        );
-      })}
-    </div>
+              {selection}
+            </button>
+          );
+        })}
+      </div>
+      {!isShowResult && (
+        <Button
+          onClick={() => handleSubmit()}
+          className="absolute bottom-4 right-4 left-4"
+          disabled={value === null}
+        >
+          決定
+        </Button>
+      )}
+    </>
   );
 };
 

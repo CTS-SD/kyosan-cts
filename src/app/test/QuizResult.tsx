@@ -41,7 +41,7 @@ const QuizResult = ({ result, onNext, isFinal, onFinal }: Props) => {
   })();
 
   return (
-    <div className="shadow-lg border mt-auto bg-neutral-100/60 backdrop-blur-md rounded-3xl p-4  animate-grow-in sticky bottom-4">
+    <div className="shadow-lg border mt-auto bg-neutral-100/90 backdrop-blur-lg rounded-3xl p-4  animate-grow-in sticky bottom-4">
       <div className="flex flex-col items-center">
         <div
           className={cn(
