@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { getRandomQuiz } from "@/utils/utils";
 import QuizFormSelect from "./QuizFormSelect";
 import QuizResult from "./QuizResult";
 import QuizFormInput from "./QuizFormInput";
@@ -22,26 +21,32 @@ import {
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import { QuizFormContext } from "./QuizFormContext";
+import { Quiz } from "@/db/schema";
+import { client } from "@/db/hono";
 
 const roundMax = 5;
 
 type Page = "start" | "quiz" | "result";
 
+export type Result = {
+  correct: boolean;
+  userAnswer: string;
+  quiz: Quiz;
+};
+
 export default function Home() {
-  const [round, setRound] = useState(1);
-  const [quiz, setQuiz] = useState<Quiz>({
-    id: 0,
-    question: "",
-    type: "input",
-    answer: "",
-  });
+  const [round, setRound] = useState(0);
+  const [quiz, setQuiz] = useState<Quiz>();
+  const [quizList, setQuizList] = useState<Quiz[]>([]);
   const [page, setPage] = useState<Page>("start");
   const [isShowResult, setIsShowResult] = useState(false);
   const [result, setResult] = useState<Result>();
   const [results, setResults] = useState<Result[]>([]);
-  const [value, setValue] = useState<string | null | boolean>(null);
+  const [value, setValue] = useState<string | null>(null);
 
-  const showResult = (result: boolean, userAns: string | boolean) => {
+  const showResult = (result: boolean, userAns: string) => {
+    if (!quiz) return;
+
     setIsShowResult(true);
     const r = {
       correct: result,
@@ -54,17 +59,28 @@ export default function Home() {
   };
 
   const handleNext = () => {
-    setQuiz(getRandomQuiz(results.map((r) => r.quiz.id)));
+    setQuiz(quizList[round]);
     setIsShowResult(false);
     setValue(null);
   };
 
-  const resetQuizStates = () => {
-    setRound(1);
-    setQuiz(getRandomQuiz());
+  const resetQuizStates = async () => {
+    setRound(0);
+    await fetchQuizzes();
     setResults([]);
     setValue(null);
     setIsShowResult(false);
+  };
+
+  const fetchQuizzes = async () => {
+    const res = await client.api.quiz.test.$get();
+    if (!res.ok) {
+      console.error("error");
+      return;
+    }
+    const data = await res.json();
+    setQuizList(data);
+    setQuiz(data[0]);
   };
 
   return (
@@ -73,8 +89,8 @@ export default function Home() {
       <div className="p-4 grow flex flex-col">
         {page == "start" && (
           <StartPage
-            onStart={() => {
-              setQuiz(getRandomQuiz());
+            onStart={async () => {
+              await resetQuizStates();
               setPage("quiz");
             }}
           />
@@ -83,12 +99,11 @@ export default function Home() {
           <FinalResult
             results={results}
             onRetry={() => {
-              resetQuizStates();
               setPage("start");
             }}
           />
         )}
-        {page == "quiz" && (
+        {page == "quiz" && quiz && (
           <>
             <div className="flex items-center gap-2">
               <Dialog>
@@ -104,7 +119,6 @@ export default function Home() {
                   <DialogFooter>
                     <Button
                       onClick={() => {
-                        resetQuizStates();
                         setPage("start");
                       }}
                     >
@@ -113,7 +127,7 @@ export default function Home() {
                   </DialogFooter>
                 </DialogContent>
               </Dialog>
-              <Progress value={((round - 1) / roundMax) * 100} />
+              <Progress value={(round / roundMax) * 100} />
             </div>
             <div className="text-lg leading-snug font-semibold rounded-lg py-10 px-2">
               <Markdown remarkPlugins={[remarkGfm]}>{quiz.question}</Markdown>
@@ -129,7 +143,7 @@ export default function Home() {
             </QuizFormContext.Provider>
             {isShowResult && (
               <QuizResult
-                isFinal={round - 1 === roundMax}
+                isFinal={round === roundMax}
                 result={result}
                 onNext={handleNext}
                 onFinal={() => setPage("result")}

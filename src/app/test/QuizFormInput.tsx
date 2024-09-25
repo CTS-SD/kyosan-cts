@@ -2,9 +2,10 @@ import { useContext } from "react";
 import { QuizFormContext } from "./QuizFormContext";
 import { cn } from "@/utils/utils";
 import { Button } from "@/components/ui/button";
+import { Quiz } from "@/db/schema";
 
 type Props = {
-  quiz: InputQuiz;
+  quiz: Quiz;
 };
 
 const QuizFormInput = ({ quiz }: Props) => {
@@ -12,15 +13,9 @@ const QuizFormInput = ({ quiz }: Props) => {
     useContext(QuizFormContext);
 
   const cleanValue = typeof value == "string" ? value.trim() : "";
-
-  const isCorrect =
-    typeof quiz.answer === "string"
-      ? quiz.answer === cleanValue
-      : quiz.answer.includes(cleanValue);
+  const isCorrect = cleanValue === quiz.answer;
 
   const handleAnswer = () => {
-    if (!value) return;
-
     showResult(isCorrect, cleanValue);
   };
 

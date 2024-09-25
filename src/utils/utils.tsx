@@ -1,16 +1,10 @@
-import { quizzes } from "@/app/test/quizzes";
 import { QuizType } from "@/db/schema";
 import { clsx, type ClassValue } from "clsx";
 import {
   CircleIcon,
   CircleOffIcon,
-  CircleXIcon,
-  EditIcon,
   LayoutListIcon,
-  ListIcon,
-  PencilIcon,
   TextCursorIcon,
-  TextIcon,
   XIcon,
 } from "lucide-react";
 import { twMerge } from "tailwind-merge";
@@ -25,30 +19,6 @@ export function shuffle<T>(array: T[]): T[] {
     [array[i], array[j]] = [array[j], array[i]];
   }
   return array;
-}
-
-export function getRandomQuiz(exceptIndexes?: number[]): Quiz {
-  const debugQuizzes = quizzes.filter((q) => q.debug);
-
-  if (debugQuizzes.length > 0) {
-    const index = Math.floor(Math.random() * debugQuizzes.length);
-    const actualIndex = quizzes.findIndex((q) => q === debugQuizzes[index]);
-    return { ...debugQuizzes[index], id: actualIndex };
-  }
-
-  const filteredQuizzes = quizzes.filter((_, i) => !exceptIndexes?.includes(i));
-
-  if (filteredQuizzes.length === 0) {
-    const i = Math.floor(Math.random() * quizzes.length);
-    return {
-      ...quizzes[i],
-      id: i,
-    };
-  }
-
-  const index = Math.floor(Math.random() * filteredQuizzes.length);
-  const actualIndex = quizzes.findIndex((q) => q === filteredQuizzes[index]);
-  return { ...filteredQuizzes[index], id: actualIndex };
 }
 
 export const digit2alpha: { [key: number]: string } = {
@@ -80,16 +50,14 @@ export const digit2alpha: { [key: number]: string } = {
   25: "Z",
 } as const;
 
-export function getAnswerElement(answer: string | string[] | boolean) {
-  if (typeof answer === "string") {
-    return answer;
-  }
-  if (typeof answer === "boolean") {
-    return answer ? <CircleIcon size={16} /> : <XIcon size={16} />;
+export function getAnswerElement(answer: string) {
+  if (answer === "__true__") {
+    return <CircleIcon size={16} />;
+  } else if (answer === "__false__") {
+    return <XIcon size={16} />;
   }
 
-  // string[]
-  return answer[0];
+  return answer;
 }
 
 export function getQuizTypeText(type: QuizType) {

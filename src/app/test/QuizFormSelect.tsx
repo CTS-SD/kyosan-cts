@@ -4,9 +4,10 @@ import { cn, digit2alpha, shuffle } from "@/utils/utils";
 import { useContext, useMemo } from "react";
 import { QuizFormContext } from "./QuizFormContext";
 import { Button } from "@/components/ui/button";
+import { Quiz } from "@/db/schema";
 
 type Props = {
-  quiz: SelectQuiz;
+  quiz: Quiz;
 };
 
 const QuizFormSelect = ({ quiz }: Props) => {
@@ -14,7 +15,7 @@ const QuizFormSelect = ({ quiz }: Props) => {
     useContext(QuizFormContext);
 
   const selections = useMemo(() => {
-    return shuffle([quiz.answer, ...quiz.fakes]);
+    return shuffle([quiz.answer, ...(quiz.fakes ?? [])]);
   }, [quiz]);
 
   const handleSubmit = () => {

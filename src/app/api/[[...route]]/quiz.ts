@@ -1,9 +1,9 @@
 import { db } from "../../../db/db";
-import { QuizTypeEnum, quizzes } from "../../../db/schema";
+import { Quiz, QuizTypeEnum, quizzes } from "../../../db/schema";
 import { Hono } from "hono";
 import { z } from "zod";
 import { zValidator } from "@hono/zod-validator";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 
 const schemas = {
   $post: z.object({
@@ -58,6 +58,15 @@ const app = new Hono()
       .returning();
 
     return c.json(updatedQuizzes[0]);
+  })
+  .get("/test", async (c) => {
+    // return random 10 quizzes
+
+    const randomQuizzes = (await db.execute(
+      sql`SELECT * FROM quizzes ORDER BY RANDOM() LIMIT 10;`
+    )) as Quiz[];
+
+    return c.json(randomQuizzes);
   });
 
 export default app;

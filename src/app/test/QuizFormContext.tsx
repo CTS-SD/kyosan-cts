@@ -1,10 +1,10 @@
 import { createContext } from "react";
 
 export const QuizFormContext = createContext<{
-  value: string | null | boolean;
-  setValue: (value: string | null | boolean) => void;
+  value: string | null;
+  setValue: (value: string | null) => void;
   isShowResult: boolean;
-  showResult: (result: boolean, ans: string | boolean) => void;
+  showResult: (result: boolean, ans: string) => void;
 }>({
   value: null,
   setValue: () => {},
