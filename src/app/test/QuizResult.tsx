@@ -3,6 +3,7 @@
 import { cn, getAnswerElement } from "@/utils/utils";
 import { CircleIcon, XIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Result } from "./page";
 
 type Props = {
   result?: Result;
