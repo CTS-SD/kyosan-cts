@@ -5,12 +5,12 @@ import QuizListItem from "./QuizListItem";
 import { useState } from "react";
 import QuizForm from "./QuizForm";
 import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 
 type Props = {
@@ -20,26 +20,26 @@ type Props = {
 const Wrapper = ({ quizList }: Props) => {
   const [activeQuiz, setActiveQuiz] = useState<Quiz>(quizList[0]);
   const [quizzes, setQuizzes] = useState<Quiz[]>(quizList);
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [isDialogOpen, setIsDialogOpen] = useState(false);
 
   return (
     <div className="max-w-lg mx-auto">
       <div className="p-4">
         <h1 className="font-bold text-xl">問題一覧</h1>
         <div>
-          <Drawer>
-            <DrawerTrigger className="w-full" asChild>
+          <Dialog>
+            <DialogTrigger className="w-full" asChild>
               <Button className="w-full mt-4" size="sm" variant="outline">
                 + 新規作成
               </Button>
-            </DrawerTrigger>
-            <DrawerContent className="p-4">
-              <DrawerHeader>
-                <DrawerTitle>問題を作成</DrawerTitle>
-              </DrawerHeader>
+            </DialogTrigger>
+            <DialogContent className="p-4">
+              <DialogHeader>
+                <DialogTitle>問題を作成</DialogTitle>
+              </DialogHeader>
               <QuizForm setQuizzes={setQuizzes} />
-            </DrawerContent>
-          </Drawer>
+            </DialogContent>
+          </Dialog>
         </div>
         <ul className="flex flex-col gap-2 mt-4">
           {quizzes.map((quiz) => (
@@ -48,20 +48,23 @@ const Wrapper = ({ quizList }: Props) => {
               quiz={quiz}
               onClick={() => {
                 setActiveQuiz(quiz);
-                setIsDrawerOpen(true);
+                setIsDialogOpen(true);
               }}
             />
           ))}
         </ul>
       </div>
-      <Drawer
-        onOpenChange={(open) => setIsDrawerOpen(open)}
-        open={isDrawerOpen}
+      <Dialog
+        onOpenChange={(open) => setIsDialogOpen(open)}
+        open={isDialogOpen}
       >
-        <DrawerContent className="max-w-lg mx-auto p-4">
+        <DialogContent className="max-w-lg mx-auto p-4">
+          <DialogHeader>
+            <DialogTitle>問題を編集</DialogTitle>
+          </DialogHeader>
           <QuizForm quiz={activeQuiz} isEdit setQuizzes={setQuizzes} />
-        </DrawerContent>
-      </Drawer>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
