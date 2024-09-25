@@ -1,6 +1,18 @@
 import { quizzes } from "@/app/test/quizzes";
+import { QuizType } from "@/db/schema";
 import { clsx, type ClassValue } from "clsx";
-import { CircleIcon, XIcon } from "lucide-react";
+import {
+  CircleIcon,
+  CircleOffIcon,
+  CircleXIcon,
+  EditIcon,
+  LayoutListIcon,
+  ListIcon,
+  PencilIcon,
+  TextCursorIcon,
+  TextIcon,
+  XIcon,
+} from "lucide-react";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -78,4 +90,30 @@ export function getAnswerElement(answer: string | string[] | boolean) {
 
   // string[]
   return answer[0];
+}
+
+export function getQuizTypeText(type: QuizType) {
+  switch (type) {
+    case "select":
+      return "選択問題";
+    case "input":
+      return "テキスト";
+    case "ox":
+      return "マルバツ";
+    default:
+      return "?";
+  }
+}
+
+export function getQuizIcon(type: QuizType) {
+  switch (type) {
+    case "select":
+      return <LayoutListIcon size={16} />;
+    case "input":
+      return <TextCursorIcon size={16} />;
+    case "ox":
+      return <CircleOffIcon size={16} />;
+    default:
+      return null;
+  }
 }
