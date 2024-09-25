@@ -81,6 +81,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen flex flex-col max-w-lg mx-auto relative">
+      <title>ぷらっとテスト</title>
       <div className="p-4 grow flex flex-col">
         {page == "start" && (
           <StartPage
