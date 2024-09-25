@@ -1,7 +1,6 @@
 "use client";
 
 import { createContext, useState } from "react";
-import { quizes } from "./quizes";
 import { getRandomQuiz, shuffle } from "@/utils/utils";
 import QuizFormSelect from "./QuizFormSelect";
 import QuizResult from "./QuizResult";
@@ -15,7 +14,6 @@ import { XIcon } from "lucide-react";
 import {
   Dialog,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -40,7 +38,12 @@ type Page = "start" | "quiz" | "result";
 
 export default function Home() {
   const [round, setRound] = useState(1);
-  const [quiz, setQuiz] = useState<Quiz>(getRandomQuiz());
+  const [quiz, setQuiz] = useState<Quiz>({
+    id: 0,
+    question: "",
+    type: "input",
+    answer: "",
+  });
   const [page, setPage] = useState<Page>("start");
   const [isShowResult, setIsShowResult] = useState(false);
   const [result, setResult] = useState<Result>();
@@ -60,7 +63,8 @@ export default function Home() {
   };
 
   const handleNext = () => {
-    setQuiz(getRandomQuiz());
+    console.log("Next");
+    setQuiz(getRandomQuiz(results.map((r) => r.quiz.id)));
     setIsShowResult(false);
     setValue(null);
   };
@@ -76,7 +80,14 @@ export default function Home() {
   return (
     <main className="min-h-screen flex flex-col max-w-lg mx-auto relative">
       <div className="p-4 grow flex flex-col">
-        {page == "start" && <StartPage onStart={() => setPage("quiz")} />}
+        {page == "start" && (
+          <StartPage
+            onStart={() => {
+              setQuiz(getRandomQuiz());
+              setPage("quiz");
+            }}
+          />
+        )}
         {page == "result" && (
           <FinalResult
             results={results}

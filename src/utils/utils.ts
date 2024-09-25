@@ -1,4 +1,4 @@
-import { quizes } from "@/app/test/quizes";
+import { quizzes } from "@/app/test/quizzes";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
@@ -14,9 +14,20 @@ export function shuffle<T>(array: T[]): T[] {
   return array;
 }
 
-export function getRandomQuiz(): Quiz {
-  const index = Math.floor(Math.random() * quizes.length);
-  return quizes[index];
+export function getRandomQuiz(exceptIndexes?: number[]): Quiz {
+  const filteredQuizzes = quizzes.filter((_, i) => !exceptIndexes?.includes(i));
+
+  if (filteredQuizzes.length === 0) {
+    const i = Math.floor(Math.random() * quizzes.length);
+    return {
+      ...quizzes[i],
+      id: i,
+    };
+  }
+
+  const index = Math.floor(Math.random() * filteredQuizzes.length);
+  const actualIndex = quizzes.findIndex((q) => q === filteredQuizzes[index]);
+  return { ...filteredQuizzes[index], id: actualIndex };
 }
 
 export const digit2alpha: { [key: number]: string } = {

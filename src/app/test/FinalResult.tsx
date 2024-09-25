@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/utils/utils";
+import confetti from "canvas-confetti";
 import { CheckCircleIcon, SlashIcon, XCircleIcon } from "lucide-react";
 
 type Props = {
@@ -12,15 +13,23 @@ const FinalResult = ({ results, onRetry }: Props) => {
   const correctCount = results.filter((r) => r.correct).length;
   const passed = correctCount >= 3;
 
+  if (passed) {
+    confetti({
+      particleCount: 100,
+      spread: 70,
+      origin: { y: 0.6 },
+    });
+  }
+
   return (
     <>
       <div className="pt-10 flex flex-col items-center">
         <div className="flex flex-col items-center gap-2">
-          <div className="text-xl font-bold">最終結果</div>
+          <div className="text-xl font-bold">ぷらっとテスト</div>
           <div
             className={cn(
               "text-4xl font-bold",
-              passed ? "text-green-500" : "text-red-500"
+              passed ? "text-green-500 animate-pop" : "text-red-500"
             )}
           >
             {passed ? "合格" : "不合格"}
@@ -37,7 +46,8 @@ const FinalResult = ({ results, onRetry }: Props) => {
           </div>
         </div>
       </div>
-      <div className="mt-10">
+      <div className="mt-10 text-xl font-bold">出題された問題</div>
+      <div className="mt-6">
         {results.map((result, i) => (
           <div key={i} className="mb-6 pb-6 border-b last:border-b-0">
             <div className="flex items-start">
@@ -61,11 +71,9 @@ const FinalResult = ({ results, onRetry }: Props) => {
           </div>
         ))}
       </div>
-      <div className="fixed bottom-4 right-4 left-4">
-        <Button className="w-full" onClick={onRetry}>
-          再挑戦
-        </Button>
-      </div>
+      <Button className="sticky bottom-4 w-full" onClick={onRetry}>
+        もう一度挑戦する
+      </Button>
     </>
   );
 };

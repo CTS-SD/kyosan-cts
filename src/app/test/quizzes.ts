@@ -1,4 +1,4 @@
-export const quizes: Quiz[] = [
+export const quizzes: QuizDefinition[] = [
   {
     type: "select",
     question:
