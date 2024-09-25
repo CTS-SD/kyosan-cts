@@ -54,7 +54,7 @@ const app = new Hono()
         answer: body.answer,
         fakes: body.fakes,
       })
-      .where(eq(quizzes.id, Number(id)))
+      .where(eq(quizzes.id, id))
       .returning();
 
     return c.json(updatedQuizzes[0]);

@@ -1,25 +1,26 @@
 {
-  "id": "130488d8-b1e3-44dd-b867-8ebfdf292a49",
+  "id": "68c1bf4a-4a7d-4d07-9b3e-252ad458a5cb",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.quiz": {
-      "name": "quiz",
+    "public.quizzes": {
+      "name": "quizzes",
       "schema": "",
       "columns": {
         "id": {
           "name": "id",
-          "type": "serial",
+          "type": "uuid",
           "primaryKey": true,
-          "notNull": true
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
         "type": {
           "name": "type",
           "type": "quiz_type",
           "typeSchema": "public",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "question": {
           "name": "question",
@@ -36,34 +37,6 @@
         "fakes": {
           "name": "fakes",
           "type": "text[]",
-          "primaryKey": false,
-          "notNull": false
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {}
-    },
-    "public.user": {
-      "name": "user",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "full_name": {
-          "name": "full_name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "email": {
-          "name": "email",
-          "type": "varchar(256)",
           "primaryKey": false,
           "notNull": false
         }

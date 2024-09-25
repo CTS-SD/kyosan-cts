@@ -1,1 +1,0 @@
-ALTER TABLE "quiz" ALTER COLUMN "type" SET NOT NULL;

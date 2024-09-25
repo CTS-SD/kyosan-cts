@@ -1,15 +1,9 @@
-import { pgEnum, pgTable, serial, text, varchar } from "drizzle-orm/pg-core";
-
-export const users = pgTable("users", {
-  id: serial("id").primaryKey(),
-  fullName: text("full_name"),
-  email: varchar("email", { length: 256 }),
-});
+import { pgEnum, pgTable, text, uuid } from "drizzle-orm/pg-core";
 
 export const quizTypeEnum = pgEnum("quiz_type", ["select", "input", "ox"]);
 
 export const quizzes = pgTable("quizzes", {
-  id: serial("id").primaryKey(),
+  id: uuid("id").defaultRandom().primaryKey(),
   type: quizTypeEnum("type").notNull(),
   question: text("question").notNull(),
   answer: text("answer").notNull(),
