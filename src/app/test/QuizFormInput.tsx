@@ -49,7 +49,7 @@ const QuizFormInput = ({ quiz }: Props) => {
           <Button
             type="submit"
             className="absolute bottom-4 right-4 left-4"
-            disabled={isShowResult}
+            disabled={isShowResult || !value}
           >
             決定
           </Button>
