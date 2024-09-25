@@ -52,18 +52,17 @@ const config: Config = {
         },
       },
       animation: {
-        "grow-in": "grow-in ease-out 0.4s",
+        "grow-in": "grow-in cubic-bezier(0, 0.93, 0, 0.99) 0.8s",
         shake: "shake ease-in-out 0.4s",
         pop: "pop ease-in-out 0.3s",
       },
       keyframes: {
         "grow-in": {
           "0%": {
-            transform: "translateY(32px)",
+            transform: "translateY(320px)",
             opacity: "0",
           },
           "100%": {
-            transform: "scale(1)",
             opacity: "1",
           },
         },

@@ -41,12 +41,16 @@ const QuizResult = ({ result, onNext, isFinal, onFinal }: Props) => {
   })();
 
   return (
-    <div className="shadow-lg border mt-auto bg-neutral-100/90 backdrop-blur-lg rounded-3xl p-4  animate-grow-in sticky bottom-4">
+    <div
+      className={cn(
+        "shadow-lg mt-auto border-2 backdrop-blur-md bg-white rounded-3xl p-4  animate-grow-in sticky bottom-4"
+      )}
+    >
       <div className="flex flex-col items-center">
         <div
           className={cn(
             "text-3xl flex flex-col gap-1 items-center font-bold pt-6 pb-10",
-            result.correct ? "text-green-600" : "text-red-600"
+            result.correct ? "text-green-500" : "text-red-500"
           )}
         >
           {result.correct ? (
@@ -64,7 +68,7 @@ const QuizResult = ({ result, onNext, isFinal, onFinal }: Props) => {
         <div className="mb-10 flex flex-col items-center">
           <div className="flex items-center">
             <div>正解：</div>
-            <span className="font-bold text-green-600">{answer}</span>
+            <span className="font-bold text-green-500">{answer}</span>
           </div>
           {!result.correct && (
             <div className="text-sm flex items-center p-2 text-muted-foreground">
@@ -74,7 +78,7 @@ const QuizResult = ({ result, onNext, isFinal, onFinal }: Props) => {
           )}
         </div>
         {isFinal ? (
-          <Button className="w-full" onClick={() => onFinal()}>
+          <Button className="w-full animate-pulse" onClick={() => onFinal()}>
             結果を見る
           </Button>
         ) : (
