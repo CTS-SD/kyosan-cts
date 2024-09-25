@@ -2,13 +2,11 @@ import { Button } from "@/components/ui/button";
 import { Metadata } from "next";
 import Link from "next/link";
 
-type Props = {};
-
 export const metadata: Metadata = {
   title: "京産キャンスタ",
 };
 
-const Page = ({}: Props) => {
+const Page = () => {
   return (
     <main className="">
       <div className="p-8">

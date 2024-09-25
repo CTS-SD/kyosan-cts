@@ -2,7 +2,7 @@
 
 import { cn, digit2alpha, shuffle } from "@/utils/utils";
 import { useContext, useMemo } from "react";
-import { QuizFormContext } from "./page";
+import { QuizFormContext } from "./QuizFormContext";
 import { Button } from "@/components/ui/button";
 
 type Props = {

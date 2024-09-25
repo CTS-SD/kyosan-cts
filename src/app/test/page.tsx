@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useState } from "react";
+import { useState } from "react";
 import { getRandomQuiz } from "@/utils/utils";
 import QuizFormSelect from "./QuizFormSelect";
 import QuizResult from "./QuizResult";
@@ -21,18 +21,7 @@ import {
 } from "@/components/ui/dialog";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-
-export const QuizFormContext = createContext<{
-  value: string | null | boolean;
-  setValue: (value: string | null | boolean) => void;
-  isShowResult: boolean;
-  showResult: (result: boolean, ans: string | boolean) => void;
-}>({
-  value: null,
-  setValue: () => {},
-  isShowResult: false,
-  showResult: () => {},
-});
+import { QuizFormContext } from "./QuizFormContext";
 
 const roundMax = 5;
 

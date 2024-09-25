@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { cn, getAnswerElement } from "@/utils/utils";
 import confetti from "canvas-confetti";
-import { CheckCircleIcon, SlashIcon, XCircleIcon } from "lucide-react";
+import { CheckCircleIcon, XCircleIcon } from "lucide-react";
 
 type Props = {
   results: Result[];

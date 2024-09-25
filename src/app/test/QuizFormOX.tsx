@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { QuizFormContext } from "./page";
+import { QuizFormContext } from "./QuizFormContext";
 import { CircleIcon, XIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/utils/utils";

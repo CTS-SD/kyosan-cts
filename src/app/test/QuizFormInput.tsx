@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { QuizFormContext } from "./page";
+import { QuizFormContext } from "./QuizFormContext";
 import { cn } from "@/utils/utils";
 import { Button } from "@/components/ui/button";
 
