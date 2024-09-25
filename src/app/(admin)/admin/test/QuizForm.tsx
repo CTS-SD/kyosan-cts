@@ -38,7 +38,7 @@ const QuizForm = ({ quiz, isEdit, setQuizzes }: Props) => {
     onSubmit: async ({ value }) => {
       if (isEdit) {
         // update quiz
-        const res = await client.api.quiz[":id"].$put({
+        const res = await client.api.admin.quiz[":id"].$put({
           param: {
             id: quiz?.id.toString() ?? "",
           },
@@ -59,7 +59,7 @@ const QuizForm = ({ quiz, isEdit, setQuizzes }: Props) => {
         );
       } else {
         // create quiz
-        const res = await client.api.quiz.$post({
+        const res = await client.api.admin.quiz.$post({
           json: {
             ...value,
           },

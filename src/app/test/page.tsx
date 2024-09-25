@@ -73,7 +73,7 @@ export default function Home() {
   };
 
   const fetchQuizzes = async () => {
-    const res = await client.api.quiz.test.$get();
+    const res = await client.api.quiz.$get();
     if (!res.ok) {
       console.error("error");
       return;
