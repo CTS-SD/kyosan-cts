@@ -17,7 +17,9 @@ type InputQuiz = {
   answer: string | string[];
 };
 
-type QuizDefinition = SelectQuiz | OXQuiz | InputQuiz;
+type QuizDefinition = (SelectQuiz | OXQuiz | InputQuiz) & {
+  debug?: boolean;
+};
 
 type Quiz = (SelectQuiz | OXQuiz | InputQuiz) & {
   id: number;

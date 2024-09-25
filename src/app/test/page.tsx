@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useState } from "react";
-import { getRandomQuiz, shuffle } from "@/utils/utils";
+import { getRandomQuiz } from "@/utils/utils";
 import QuizFormSelect from "./QuizFormSelect";
 import QuizResult from "./QuizResult";
 import QuizFormInput from "./QuizFormInput";
@@ -19,6 +19,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import Markdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 export const QuizFormContext = createContext<{
   value: string | null | boolean;
@@ -125,7 +127,7 @@ export default function Home() {
               <Progress value={((round - 1) / roundMax) * 100} />
             </div>
             <div className="text-lg leading-snug font-semibold rounded-lg py-10 px-2">
-              {quiz.question}
+              <Markdown remarkPlugins={[remarkGfm]}>{quiz.question}</Markdown>
             </div>
             <QuizFormContext.Provider
               value={{ showResult, value, setValue, isShowResult }}

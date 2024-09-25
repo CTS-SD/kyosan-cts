@@ -15,6 +15,14 @@ export function shuffle<T>(array: T[]): T[] {
 }
 
 export function getRandomQuiz(exceptIndexes?: number[]): Quiz {
+  const debugQuizzes = quizzes.filter((q) => q.debug);
+
+  if (debugQuizzes.length > 0) {
+    const index = Math.floor(Math.random() * debugQuizzes.length);
+    const actualIndex = quizzes.findIndex((q) => q === debugQuizzes[index]);
+    return { ...debugQuizzes[index], id: actualIndex };
+  }
+
   const filteredQuizzes = quizzes.filter((_, i) => !exceptIndexes?.includes(i));
 
   if (filteredQuizzes.length === 0) {
