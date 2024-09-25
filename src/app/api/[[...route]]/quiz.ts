@@ -61,7 +61,6 @@ const app = new Hono()
   })
   .get("/test", async (c) => {
     // return random 10 quizzes
-
     const randomQuizzes = (await db.execute(
       sql`SELECT * FROM quizzes ORDER BY RANDOM() LIMIT 10;`
     )) as Quiz[];
