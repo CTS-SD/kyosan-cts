@@ -1,6 +1,6 @@
 "use client";
 
-import { cn } from "@/utils/utils";
+import { cn, getAnswerElement } from "@/utils/utils";
 import { CircleIcon, XIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
@@ -13,32 +13,6 @@ type Props = {
 
 const QuizResult = ({ result, onNext, isFinal, onFinal }: Props) => {
   if (!result) return null;
-
-  const answer = (() => {
-    if (typeof result.quiz.answer === "string") {
-      return result.quiz.answer;
-    }
-    if (typeof result.quiz.answer === "boolean") {
-      return result.quiz.answer ? (
-        <CircleIcon size={24} />
-      ) : (
-        <XIcon size={24} />
-      );
-    }
-
-    return result.quiz.answer[0];
-  })();
-
-  const userAnswer = (() => {
-    if (typeof result.userAnswer === "string") {
-      return result.userAnswer;
-    }
-    if (typeof result.userAnswer === "boolean") {
-      return result.userAnswer ? <CircleIcon size={16} /> : <XIcon size={16} />;
-    }
-
-    return result.userAnswer[0];
-  })();
 
   return (
     <div
@@ -68,12 +42,14 @@ const QuizResult = ({ result, onNext, isFinal, onFinal }: Props) => {
         <div className="mb-10 flex flex-col items-center">
           <div className="flex items-center">
             <div>正解：</div>
-            <span className="font-bold text-green-500">{answer}</span>
+            <span className="font-bold text-green-500">
+              {getAnswerElement(result.quiz.answer)}
+            </span>
           </div>
           {!result.correct && (
             <div className="text-sm flex items-center p-2 text-muted-foreground">
               <div>あなたの回答：</div>
-              <span className="">{userAnswer}</span>
+              <span className="">{getAnswerElement(result.userAnswer)}</span>
             </div>
           )}
         </div>

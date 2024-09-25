@@ -1,5 +1,6 @@
 import { quizzes } from "@/app/test/quizzes";
 import { clsx, type ClassValue } from "clsx";
+import { CircleIcon, XIcon } from "lucide-react";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -66,3 +67,15 @@ export const digit2alpha: { [key: number]: string } = {
   24: "Y",
   25: "Z",
 } as const;
+
+export function getAnswerElement(answer: string | string[] | boolean) {
+  if (typeof answer === "string") {
+    return answer;
+  }
+  if (typeof answer === "boolean") {
+    return answer ? <CircleIcon size={16} /> : <XIcon size={16} />;
+  }
+
+  // string[]
+  return answer[0];
+}

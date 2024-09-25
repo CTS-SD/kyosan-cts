@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { cn } from "@/utils/utils";
+import { cn, getAnswerElement } from "@/utils/utils";
 import confetti from "canvas-confetti";
 import { CheckCircleIcon, SlashIcon, XCircleIcon } from "lucide-react";
 
@@ -58,12 +58,12 @@ const FinalResult = ({ results, onRetry }: Props) => {
               )}
               <div>
                 <p className="font-medium mb-2">{result.quiz.question}</p>
-                <p className="text-sm text-muted-foreground mb-1">
-                  あなたの回答: {result.userAnswer}
+                <p className="text-sm text-muted-foreground mb-1 flex items-center gap-1">
+                  あなたの回答: {getAnswerElement(result.userAnswer)}
                 </p>
                 {!result.correct && (
-                  <p className="text-sm text-green-600">
-                    正解: {result.quiz.answer}
+                  <p className="text-sm text-green-600 flex items-center gap-1">
+                    正解: {getAnswerElement(result.quiz.answer)}
                   </p>
                 )}
               </div>
