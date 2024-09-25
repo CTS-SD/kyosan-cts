@@ -54,7 +54,6 @@ export default function Home() {
   };
 
   const handleNext = () => {
-    console.log("Next");
     setQuiz(getRandomQuiz(results.map((r) => r.quiz.id)));
     setIsShowResult(false);
     setValue(null);
