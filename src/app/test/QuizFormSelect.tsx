@@ -32,21 +32,25 @@ const QuizFormSelect = ({ quiz }: Props) => {
               className={cn(
                 "p-4 bg-neutral-100 border-2 font-bold rounded-full transition-transform relative",
                 value == selection &&
-                  "animate-pop bg-blue-100 text-blue-500 border-blue-300",
+                  "animate-pop bg-blue-100 text-blue-500 border-blue-300 [&_.badge]:bg-blue-200",
                 isShowResult && value != selection && "opacity-50",
                 isShowResult &&
                   quiz.answer == selection &&
-                  "bg-green-100 border-green-300 text-green-500 animate-pop",
+                  "bg-green-100 border-green-300 text-green-500 animate-pop [&_.badge]:bg-green-200",
                 isShowResult &&
                   quiz.answer != selection &&
                   value == selection &&
-                  "bg-red-100 border-red-300 text-red-500 animate-shake"
+                  "bg-red-100 border-red-300 text-red-500 animate-shake [&_.badge]:bg-red-200"
               )}
               onClick={() => setValue(selection)}
               disabled={isShowResult}
             >
               <div className="absolute top-0 h-full left-2 grid place-content-center">
-                <div className="bg-black/10 size-10 rounded-full text-black grid place-content-center">
+                <div
+                  className={cn(
+                    "bg-black/10 size-10 rounded-full text-black grid place-content-center badge"
+                  )}
+                >
                   {digit2alpha[i] ?? ""}
                 </div>
               </div>
