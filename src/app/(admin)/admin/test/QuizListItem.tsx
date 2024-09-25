@@ -14,8 +14,10 @@ const QuizListItem = ({ quiz, onClick }: Props) => {
       className="p-4 border rounded-lg  bg-neutral-50 cursor-pointer"
     >
       <div className="flex gap-3">
-        <div className="pt-1">{getQuizIcon(quiz.type)}</div>
-        <div className="font-semibold">{quiz.question}</div>
+        <div className="rounded-md bg-black shrink-0 text-white size-8 grid place-content-center">
+          {getQuizIcon(quiz.type)}
+        </div>
+        <div className="font-semibold pt-1 truncate">{quiz.question}</div>
       </div>
       <div className="text-sm mt-4">{quiz.answer}</div>
     </div>

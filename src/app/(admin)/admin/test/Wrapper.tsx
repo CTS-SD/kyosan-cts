@@ -28,7 +28,7 @@ const Wrapper = ({ quizList }: Props) => {
         <h1 className="font-bold text-xl">問題一覧</h1>
         <div>
           <Drawer>
-            <DrawerTrigger className="w-full">
+            <DrawerTrigger className="w-full" asChild>
               <Button className="w-full mt-4" size="sm" variant="outline">
                 + 新規作成
               </Button>
