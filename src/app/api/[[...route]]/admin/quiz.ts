@@ -58,6 +58,13 @@ const app = new Hono()
       .returning();
 
     return c.json(updatedQuizzes[0]);
+  })
+  .delete("/:id", async (c) => {
+    const id = c.req.param("id");
+
+    await db.delete(quizzes).where(eq(quizzes.id, id));
+
+    return c.json({ message: "success" }, 200);
   });
 
 export default app;

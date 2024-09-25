@@ -18,7 +18,7 @@ import {
 } from "@/db/schema";
 import { getQuizTypeText } from "@/utils/utils";
 import { useForm } from "@tanstack/react-form";
-import { XIcon } from "lucide-react";
+import { TrashIcon, XIcon } from "lucide-react";
 import { Dispatch, SetStateAction } from "react";
 
 type Props = {
@@ -77,7 +77,23 @@ const QuizForm = ({ quiz, isEdit, setQuizzes }: Props) => {
     },
   });
 
+  const deleteQuiz = async () => {
+    if (!isEdit) return;
+
+    if (!window.confirm("問題を削除しますか？")) return;
+
+    await client.api.admin.quiz[":id"].$delete({
+      param: {
+        id: quiz?.id.toString() ?? "",
+      },
+    });
+
+    setQuizzes((prev) => prev.filter((q) => q.id !== quiz?.id));
+  };
+
   const values = { type: form.useStore((s) => s.values.type) };
+  const isDirty = form.useStore((s) => s.isDirty);
+
   return (
     <form
       className="flex flex-col gap-6"
@@ -220,9 +236,22 @@ const QuizForm = ({ quiz, isEdit, setQuizzes }: Props) => {
           }}
         />
       )}
-      <Button type="submit" className="mt-4">
-        {isEdit ? "保存" : "作成"}
-      </Button>
+      <div className="flex items-center gap-2">
+        {isEdit && (
+          <Button
+            type="button"
+            size="icon"
+            variant="ghost"
+            className="shrink-0 rounded-md"
+            onClick={deleteQuiz}
+          >
+            <TrashIcon size={20} />
+          </Button>
+        )}
+        <Button type="submit" className="w-full" disabled={!isDirty}>
+          {isEdit ? "保存" : "作成"}
+        </Button>
+      </div>
     </form>
   );
 };
