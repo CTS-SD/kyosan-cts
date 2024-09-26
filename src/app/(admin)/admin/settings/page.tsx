@@ -1,10 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { auth, signOut } from "@/lib/auth";
 import PageHeading from "../PageHeading";
+import SettingsItem from "@/components/SettingsItem";
 
-type Props = {};
-
-const Page = async ({}: Props) => {
+const Page = async () => {
   const session = await auth();
 
   return (
@@ -33,14 +32,6 @@ const Page = async ({}: Props) => {
       </div>
     </>
   );
-};
-
-type SettingsItemProps = {
-  children: React.ReactNode;
-};
-
-export const SettingsItem = ({ children }: SettingsItemProps) => {
-  return <div className="flex border rounded-xl p-4 gap-4">{children}</div>;
 };
 
 export default Page;

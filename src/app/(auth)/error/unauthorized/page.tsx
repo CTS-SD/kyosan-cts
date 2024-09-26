@@ -1,4 +1,4 @@
-import { SettingsItem } from "@/app/(admin)/admin/settings/page";
+import SettingsItem from "@/components/SettingsItem";
 import { Button } from "@/components/ui/button";
 import { auth, signOut } from "@/lib/auth";
 import { TriangleAlertIcon } from "lucide-react";
@@ -17,7 +17,9 @@ const Page = async ({}: Props) => {
     <div className="p-4">
       <div className="flex mb-4 flex-col items-center gap-4 p-6 bg-red-50 text-red-500 border-red-300 border-2 rounded-2xl">
         <TriangleAlertIcon size={64} />
-        <p className="font-bold">現在ログイン中のアカウントには管理者ページへのアクセス権限がありません。</p>
+        <p className="font-bold">
+          現在ログイン中のアカウントには管理者ページへのアクセス権限がありません。
+        </p>
       </div>
       <SettingsItem>
         <img
