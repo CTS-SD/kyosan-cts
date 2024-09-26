@@ -10,7 +10,7 @@ const Page = async () => {
   return (
     <>
       <PageHeading>設定</PageHeading>
-      <div className="flex flex-col gap-2 p-4">
+      <div className="flex flex-col gap-2 p-6">
         <SettingsItem>
           <Image
             className="rounded-full size-10"
