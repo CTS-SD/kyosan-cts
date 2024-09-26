@@ -2,7 +2,9 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
 type Props = {
-  children: React.ReactNode;
+  heading: React.ReactNode;
+  description?: React.ReactNode;
+  href?: string;
   actions?: [
     {
       icon: React.ReactNode;
@@ -12,12 +14,12 @@ type Props = {
   ];
 };
 
-const PageHeading = ({ children, actions }: Props) => {
+const PageHeading = ({ heading, description, href, actions }: Props) => {
   return (
     <div className="border-b">
-      <div className="py-10 px-6 font-bold text-2xl max-w-5xl mx-auto bg-white flex items-center">
-        <h1>{children}</h1>
-        <div className="flex items-center ml-auto">
+      <div className="py-10 px-6 relative font-bold text-2xl max-w-5xl mx-auto bg-white flex items-center">
+        <h1>{href ? <Link href={href}>{heading}</Link> : heading}</h1>
+        <div className="flex items-center absolute right-6 ml-auto">
           {actions?.map((action, i) => {
             const className =
               "p-2 rounded-lg size-12 aspect-square bg-white border text-black grid place-content-center hover:bg-neutral-100";

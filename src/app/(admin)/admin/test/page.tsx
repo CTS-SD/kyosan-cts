@@ -82,7 +82,7 @@ const Page = () => {
             <div className="w-full text-center pt-20">Loading...</div>
           ) : (
             <>
-              <ul className="grid gap-2 mt-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+              <ul className="grid gap-2 mt-6 sm:grid-cols-2 md:grid-cols-3">
                 {filteredQuizzes.map((quiz) => (
                   <QuizListItem
                     key={quiz.id}

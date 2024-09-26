@@ -9,7 +9,7 @@ const Page = async () => {
 
   return (
     <>
-      <PageHeading>設定</PageHeading>
+      <PageHeading heading="設定" href="/admin/settings" />
       <div className="flex max-w-5xl mx-auto flex-col gap-2 p-6">
         <SettingsItem>
           <Image
