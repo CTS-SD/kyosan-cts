@@ -1,11 +1,46 @@
 {
-  "id": "79b2f422-6d87-4262-ad4e-e2758e4da6e8",
+  "id": "0a559400-bbd7-4988-8a7a-33dc60c2188a",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.quizzes": {
-      "name": "quizzes",
+    "public.game_mode": {
+      "name": "game_mode",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "quiz_num": {
+          "name": "quiz_num",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "passing_score": {
+          "name": "passing_score",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "public.quiz": {
+      "name": "quiz",
       "schema": "",
       "columns": {
         "id": {
@@ -55,6 +90,15 @@
         "select",
         "input",
         "ox"
+      ]
+    },
+    "public.role": {
+      "name": "role",
+      "schema": "public",
+      "values": [
+        "developer",
+        "admin",
+        "user"
       ]
     }
   },

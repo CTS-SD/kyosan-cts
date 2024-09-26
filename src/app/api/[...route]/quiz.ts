@@ -1,15 +1,19 @@
 import { db } from "@/db/db";
-import { Quiz } from "@/db/schema";
+import { gameModes, Quiz } from "@/db/schema";
 import { Hono } from "hono";
 import { sql } from "drizzle-orm";
 
 const app = new Hono().get("/", async (c) => {
-  // return random 10 quizzes
+  const gameMode = (await db.select().from(gameModes).limit(1))[0];
+
   const randomQuizzes = (await db.execute(
-    sql`SELECT * FROM quizzes ORDER BY RANDOM() LIMIT 10;`
+    sql`SELECT * FROM quiz ORDER BY RANDOM() LIMIT ${gameMode.quizNum};`
   )) as Quiz[];
 
-  return c.json(randomQuizzes);
+  return c.json({
+    quizzes: randomQuizzes,
+    passingScore: gameMode.passingScore,
+  });
 });
 
 export default app;

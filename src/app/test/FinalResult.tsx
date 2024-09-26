@@ -7,12 +7,13 @@ import { Result } from "./page";
 type Props = {
   results: Result[];
   onRetry: () => void;
+  passingScore: number;
 };
 
-const FinalResult = ({ results, onRetry }: Props) => {
+const FinalResult = ({ results, onRetry, passingScore }: Props) => {
   const quizCount = results.length;
   const correctCount = results.filter((r) => r.correct).length;
-  const passed = correctCount >= 3;
+  const passed = correctCount >= passingScore;
 
   if (passed) {
     confetti({

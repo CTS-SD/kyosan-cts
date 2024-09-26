@@ -5,43 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1727304166546,
-      "tag": "0000_cooing_chamber",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1727368288083,
-      "tag": "0001_curly_electro",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1727370655563,
-      "tag": "0002_panoramic_namorita",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1727370707145,
-      "tag": "0003_closed_vin_gonzales",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1727371238704,
-      "tag": "0004_lucky_silhouette",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1727372488392,
-      "tag": "0005_many_champions",
+      "when": 1727376540796,
+      "tag": "0000_fuzzy_chronomancer",
       "breakpoints": true
     }
   ]

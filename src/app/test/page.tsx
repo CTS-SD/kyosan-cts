@@ -24,8 +24,6 @@ import { QuizFormContext } from "./QuizFormContext";
 import { Quiz } from "@/db/schema";
 import { client } from "@/db/hono";
 
-const roundMax = 5;
-
 type Page = "start" | "quiz" | "result";
 
 export type Result = {
@@ -36,6 +34,8 @@ export type Result = {
 
 export default function Home() {
   const [round, setRound] = useState(0);
+  const [roundMax, setRoundMax] = useState(0);
+  const [passingScore, setPassingScore] = useState(0);
   const [quiz, setQuiz] = useState<Quiz>();
   const [quizList, setQuizList] = useState<Quiz[]>([]);
   const [page, setPage] = useState<Page>("start");
@@ -79,8 +79,10 @@ export default function Home() {
       return;
     }
     const data = await res.json();
-    setQuizList(data);
-    setQuiz(data[0]);
+    setQuizList(data.quizzes);
+    setQuiz(data.quizzes[0]);
+    setRoundMax(data.quizzes.length);
+    setPassingScore(data.passingScore);
   };
 
   return (
@@ -101,6 +103,7 @@ export default function Home() {
             onRetry={() => {
               setPage("start");
             }}
+            passingScore={passingScore}
           />
         )}
         {page == "quiz" && quiz && (
