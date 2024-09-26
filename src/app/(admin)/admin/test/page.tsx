@@ -15,7 +15,8 @@ import { Button } from "@/components/ui/button";
 import { client } from "@/db/hono";
 import PageHeading from "../PageHeading";
 import { Input } from "@/components/ui/input";
-import { PlusIcon, SearchIcon } from "lucide-react";
+import { PlusIcon, SearchIcon, SettingsIcon } from "lucide-react";
+import TestPageHeading from "./TestPageHeading";
 
 const Page = () => {
   const [activeQuiz, setActiveQuiz] = useState<Quiz>();
@@ -47,7 +48,7 @@ const Page = () => {
 
   return (
     <>
-      <PageHeading>ぷらっとテスト</PageHeading>
+      <TestPageHeading />
       <div className="max-w-lg mx-auto bg-neutral-50 min-h-[calc(100dvh_-_221px)]">
         <div className="p-4">
           {isLoading ? (
