@@ -105,7 +105,7 @@ const Page = () => {
           <div className="flex">
             <Button
               type="submit"
-              className="ml-auto mt-4"
+              className="ml-auto mt-2"
               disabled={!isDirty || isLoading}
               size="sm"
             >

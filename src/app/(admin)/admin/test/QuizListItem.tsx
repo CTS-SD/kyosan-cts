@@ -1,5 +1,5 @@
 import { Quiz } from "@/db/schema";
-import { getQuizIcon } from "@/utils/utils";
+import { getAnswerElement, getQuizIcon } from "@/utils/utils";
 
 type Props = {
   quiz: Quiz;
@@ -19,7 +19,10 @@ const QuizListItem = ({ quiz, onClick }: Props) => {
         </div>
         <div className="font-semibold pt-1 truncate">{quiz.question}</div>
       </div>
-      <div className="text-sm mt-4">{quiz.answer}</div>
+      <div className="text-sm mt-4 flex items-center">
+        <div className="text-neutral-500 shrink-0">解答：</div>
+        <div className="truncate">{getAnswerElement(quiz.answer)}</div>
+      </div>
     </div>
   );
 };
