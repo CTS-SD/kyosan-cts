@@ -1,11 +1,13 @@
-import { auth } from "@/lib/auth";
+"use client";
+
 import { isApprovedEmail } from "@/utils/utils";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 
 type Props = {};
 
-const Header = async ({}: Props) => {
-  const session = await auth();
+const Header = ({}: Props) => {
+  const { data: session } = useSession();
 
   return (
     <header className="py-2 px-4 border-b flex items-center h-[60px]">

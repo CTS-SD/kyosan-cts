@@ -23,6 +23,7 @@ import remarkGfm from "remark-gfm";
 import { QuizFormContext } from "./QuizFormContext";
 import { Quiz } from "@/db/schema";
 import { client } from "@/db/hono";
+import Header from "../Header";
 
 type Page = "start" | "quiz" | "result";
 
@@ -86,75 +87,78 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-[100dvh] flex flex-col max-w-lg mx-auto relative">
-      <title>ぷらっとテスト</title>
-      <div className="p-4 grow flex flex-col">
-        {page == "start" && (
-          <StartPage
-            onStart={async () => {
-              await resetQuizStates();
-              setPage("quiz");
-            }}
-          />
-        )}
-        {page == "result" && (
-          <FinalResult
-            results={results}
-            onRetry={() => {
-              setPage("start");
-            }}
-            passingScore={passingScore}
-          />
-        )}
-        {page == "quiz" && quiz && (
-          <>
-            <div className="flex items-center gap-2">
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button size="icon" variant="ghost" className="shrink-0">
-                    <XIcon />
-                  </Button>
-                </DialogTrigger>
-                <DialogContent>
-                  <DialogHeader>
-                    <DialogTitle>テストを中止</DialogTitle>
-                  </DialogHeader>
-                  <DialogFooter>
-                    <Button
-                      onClick={() => {
-                        setPage("start");
-                      }}
-                    >
-                      中止する
+    <>
+      {["start", "result"].includes(page) && <Header />}
+      <main className="min-h-[100dvh] flex flex-col max-w-lg mx-auto relative">
+        <title>ぷらっとテスト</title>
+        <div className="p-4 grow flex flex-col">
+          {page == "start" && (
+            <StartPage
+              onStart={async () => {
+                await resetQuizStates();
+                setPage("quiz");
+              }}
+            />
+          )}
+          {page == "result" && (
+            <FinalResult
+              results={results}
+              onRetry={() => {
+                setPage("start");
+              }}
+              passingScore={passingScore}
+            />
+          )}
+          {page == "quiz" && quiz && (
+            <>
+              <div className="flex items-center gap-2">
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button size="icon" variant="ghost" className="shrink-0">
+                      <XIcon />
                     </Button>
-                  </DialogFooter>
-                </DialogContent>
-              </Dialog>
-              <Progress value={(round / roundMax) * 100} />
-            </div>
-            <div className="text-lg leading-snug font-semibold rounded-lg py-10 px-2">
-              <Markdown remarkPlugins={[remarkGfm]}>{quiz.question}</Markdown>
-            </div>
-            <QuizFormContext.Provider
-              value={{ showResult, value, setValue, isShowResult }}
-            >
-              <div className="">
-                {quiz.type === "select" && <QuizFormSelect quiz={quiz} />}
-                {quiz.type === "input" && <QuizFormInput quiz={quiz} />}
-                {quiz.type === "ox" && <QuizFormOX quiz={quiz} />}
+                  </DialogTrigger>
+                  <DialogContent>
+                    <DialogHeader>
+                      <DialogTitle>テストを中止</DialogTitle>
+                    </DialogHeader>
+                    <DialogFooter>
+                      <Button
+                        onClick={() => {
+                          setPage("start");
+                        }}
+                      >
+                        中止する
+                      </Button>
+                    </DialogFooter>
+                  </DialogContent>
+                </Dialog>
+                <Progress value={(round / roundMax) * 100} />
               </div>
-            </QuizFormContext.Provider>
-            {isShowResult && (
-              <QuizResult
-                isFinal={round === roundMax}
-                result={result}
-                onNext={handleNext}
-                onFinal={() => setPage("result")}
-              />
-            )}
-          </>
-        )}
-      </div>
-    </main>
+              <div className="text-lg leading-snug font-semibold rounded-lg py-10 px-2">
+                <Markdown remarkPlugins={[remarkGfm]}>{quiz.question}</Markdown>
+              </div>
+              <QuizFormContext.Provider
+                value={{ showResult, value, setValue, isShowResult }}
+              >
+                <div className="">
+                  {quiz.type === "select" && <QuizFormSelect quiz={quiz} />}
+                  {quiz.type === "input" && <QuizFormInput quiz={quiz} />}
+                  {quiz.type === "ox" && <QuizFormOX quiz={quiz} />}
+                </div>
+              </QuizFormContext.Provider>
+              {isShowResult && (
+                <QuizResult
+                  isFinal={round === roundMax}
+                  result={result}
+                  onNext={handleNext}
+                  onFinal={() => setPage("result")}
+                />
+              )}
+            </>
+          )}
+        </div>
+      </main>
+    </>
   );
 }
