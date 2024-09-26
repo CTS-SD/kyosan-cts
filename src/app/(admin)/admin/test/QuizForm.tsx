@@ -1,3 +1,7 @@
+import {
+  MultiSwitch,
+  MultiSwitchItem,
+} from "@/components/original-ui/multi-switch";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -122,7 +126,7 @@ const QuizForm = ({ quiz, isEdit, setQuizzes, onSaved, onDeleted }: Props) => {
           return (
             <div>
               <Label>形式</Label>
-              <Select
+              {/* <Select
                 onValueChange={(val) => handleChange(val as QuizTypeEnum)}
                 defaultValue={state.value}
                 value={state.value}
@@ -139,7 +143,15 @@ const QuizForm = ({ quiz, isEdit, setQuizzes, onSaved, onDeleted }: Props) => {
                     );
                   })}
                 </SelectContent>
-              </Select>
+              </Select> */}
+              <MultiSwitch
+                value={state.value}
+                onValueChange={(value) => handleChange(value as QuizTypeEnum)}
+              >
+                <MultiSwitchItem value="select">選択</MultiSwitchItem>
+                <MultiSwitchItem value="input">テキスト</MultiSwitchItem>
+                <MultiSwitchItem value="ox">○✗クイズ</MultiSwitchItem>
+              </MultiSwitch>
             </div>
           );
         }}
@@ -166,7 +178,7 @@ const QuizForm = ({ quiz, isEdit, setQuizzes, onSaved, onDeleted }: Props) => {
             return (
               <div>
                 <Label>答え</Label>
-                <Select
+                {/* <Select
                   onValueChange={(val) => handleChange(val as QuizType)}
                   defaultValue={state.value}
                   value={state.value}
@@ -178,7 +190,11 @@ const QuizForm = ({ quiz, isEdit, setQuizzes, onSaved, onDeleted }: Props) => {
                     <SelectItem value="__true__">○</SelectItem>
                     <SelectItem value="__false__">✗</SelectItem>
                   </SelectContent>
-                </Select>
+                </Select> */}
+                <MultiSwitch value={state.value} onValueChange={handleChange}>
+                  <MultiSwitchItem value="__true__">○</MultiSwitchItem>
+                  <MultiSwitchItem value="__false__">✗</MultiSwitchItem>
+                </MultiSwitch>
               </div>
             );
           }}
