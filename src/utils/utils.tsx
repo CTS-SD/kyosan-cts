@@ -89,5 +89,8 @@ export function getQuizIcon(type: QuizType) {
 
 export function isApprovedEmail(email?: string | null) {
   if (!email) return false;
-  return process.env.APPROVED_EMAILS!.split(",").includes(email);
+  return process.env
+    .APPROVED_EMAILS!.split(",")
+    .map((email) => email.trim())
+    .includes(email);
 }
