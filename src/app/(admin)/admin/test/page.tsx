@@ -49,58 +49,60 @@ const Page = () => {
   return (
     <>
       <TestPageHeading />
-      <div className="max-w-lg mx-auto bg-neutral-50 min-h-[calc(100dvh_-_221px)] p-6">
-        <div className="flex gap-3">
-          <Input
-            className="w-full"
-            value={filter}
-            onChange={(e) => setFilter(e.target.value)}
-            placeholder="問題を検索"
-          />
-          <Dialog
-            onOpenChange={(open) => setIsCreateDialogOpen(open)}
-            open={isCreateDialogOpen}
-          >
-            <DialogTrigger className="" asChild>
-              <Button className="rounded-md shrink-0" size="icon">
-                <PlusIcon size={20} />
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="p-4">
-              <DialogHeader>
-                <DialogTitle>問題を作成</DialogTitle>
-              </DialogHeader>
-              <QuizForm
-                setQuizzes={setQuizzes}
-                onDeleted={() => setIsCreateDialogOpen(false)}
-              />
-            </DialogContent>
-          </Dialog>
-        </div>
-        {isLoading ? (
-          <div className="w-full text-center pt-20">Loading...</div>
-        ) : (
-          <>
-            <ul className="flex flex-col gap-2 mt-6">
-              {filteredQuizzes.map((quiz) => (
-                <QuizListItem
-                  key={quiz.id}
-                  quiz={quiz}
-                  onClick={() => {
-                    setActiveQuiz(quiz);
-                    setIsEditDialogOpen(true);
-                  }}
+      <div className="bg-neutral-50">
+        <div className="max-w-5xl mx-auto min-h-[calc(100dvh_-_221px)] p-6">
+          <div className="flex gap-3">
+            <Input
+              className="w-full"
+              value={filter}
+              onChange={(e) => setFilter(e.target.value)}
+              placeholder="問題を検索"
+            />
+            <Dialog
+              onOpenChange={(open) => setIsCreateDialogOpen(open)}
+              open={isCreateDialogOpen}
+            >
+              <DialogTrigger className="" asChild>
+                <Button className="rounded-md shrink-0" size="icon">
+                  <PlusIcon size={20} />
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="p-4">
+                <DialogHeader>
+                  <DialogTitle>問題を作成</DialogTitle>
+                </DialogHeader>
+                <QuizForm
+                  setQuizzes={setQuizzes}
+                  onDeleted={() => setIsCreateDialogOpen(false)}
                 />
-              ))}
-            </ul>
-          </>
-        )}
+              </DialogContent>
+            </Dialog>
+          </div>
+          {isLoading ? (
+            <div className="w-full text-center pt-20">Loading...</div>
+          ) : (
+            <>
+              <ul className="grid gap-2 mt-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+                {filteredQuizzes.map((quiz) => (
+                  <QuizListItem
+                    key={quiz.id}
+                    quiz={quiz}
+                    onClick={() => {
+                      setActiveQuiz(quiz);
+                      setIsEditDialogOpen(true);
+                    }}
+                  />
+                ))}
+              </ul>
+            </>
+          )}
+        </div>
       </div>
       <Dialog
         onOpenChange={(open) => setIsEditDialogOpen(open)}
         open={isEditDialogOpen}
       >
-        <DialogContent className="max-w-lg mx-auto p-4">
+        <DialogContent className="">
           <DialogHeader>
             <DialogTitle>問題を編集</DialogTitle>
           </DialogHeader>

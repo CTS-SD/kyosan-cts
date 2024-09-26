@@ -17,8 +17,8 @@ const Header = ({}: Props) => {
   });
 
   return (
-    <>
-      <div className="h-[60px] flex items-center px-3">
+    <div>
+      <div className="h-[60px] flex items-center px-3 max-w-5xl mx-auto">
         <Link
           href="/"
           className="size-8 rounded-sm grid place-content-center mr-3 bg-neutral-50 border border-neutral-200"
@@ -32,17 +32,19 @@ const Header = ({}: Props) => {
           <Badge>管理者</Badge>
         </Link>
       </div>
-      <div className="flex gap-4 text-sm items-center px-4 h-12 font-semibold sticky top-0 border-b bg-white/80 backdrop-blur-sm">
-        <NavItem
-          href="/admin/test"
-          name="ぷらっとテスト"
-          setBorderPos={setBorderPos}
-        />
-        <NavItem
-          href="/admin/settings"
-          name="設定"
-          setBorderPos={setBorderPos}
-        />
+      <div className="border-b relative">
+        <div className="flex gap-4 max-w-5xl mx-auto text-sm items-center px-4 h-12 font-semibold sticky top-0  bg-white/80 backdrop-blur-sm">
+          <NavItem
+            href="/admin/test"
+            name="ぷらっとテスト"
+            setBorderPos={setBorderPos}
+          />
+          <NavItem
+            href="/admin/settings"
+            name="設定"
+            setBorderPos={setBorderPos}
+          />
+        </div>
         <div
           className="absolute h-1 bg-black bottom-0 transition-all rounded-full"
           style={{
@@ -52,7 +54,7 @@ const Header = ({}: Props) => {
           }}
         ></div>
       </div>
-    </>
+    </div>
   );
 };
 
@@ -81,7 +83,7 @@ const NavItem = ({ href, name, setBorderPos }: NavItemProps) => {
     <Link
       href={href}
       className={cn(
-        "relative h-full flex items-center transition-all active:scale-95",
+        "h-full flex items-center transition-all active:scale-95",
         !path.startsWith(href) && "text-neutral-500"
       )}
       ref={itemRef}

@@ -60,58 +60,60 @@ const Page = () => {
   return (
     <>
       <TestPageHeading />
-      <form
-        className="p-6 space-y-4"
-        onSubmit={(e) => {
-          e.preventDefault();
-          form.handleSubmit();
-        }}
-      >
-        <form.Field
-          name="quizNum"
-          children={({ state, handleChange }) => {
-            return (
-              <div>
-                <Label>出題数</Label>
-                <Input
-                  type="number"
-                  className="rounded-lg border border-gray-300 p-2"
-                  value={state.value}
-                  onChange={(e) => handleChange(e.target.value)}
-                  disabled={isLoading}
-                />
-              </div>
-            );
+      <div className="">
+        <form
+          className="p-6 space-y-4 max-w-5xl mx-auto"
+          onSubmit={(e) => {
+            e.preventDefault();
+            form.handleSubmit();
           }}
-        />
-        <form.Field
-          name="passingScore"
-          children={({ state, handleChange }) => {
-            return (
-              <div>
-                <Label>合格点</Label>
-                <Input
-                  type="number"
-                  className="rounded-lg border border-gray-300 p-2"
-                  value={state.value}
-                  onChange={(e) => handleChange(e.target.value)}
-                  disabled={isLoading}
-                />
-              </div>
-            );
-          }}
-        />
-        <div className="flex">
-          <Button
-            type="submit"
-            className="ml-auto mt-4"
-            disabled={!isDirty || isLoading}
-            size="sm"
-          >
-            保存
-          </Button>
-        </div>
-      </form>
+        >
+          <form.Field
+            name="quizNum"
+            children={({ state, handleChange }) => {
+              return (
+                <div>
+                  <Label>出題数</Label>
+                  <Input
+                    type="number"
+                    className="rounded-lg border border-gray-300 p-2"
+                    value={state.value}
+                    onChange={(e) => handleChange(e.target.value)}
+                    disabled={isLoading}
+                  />
+                </div>
+              );
+            }}
+          />
+          <form.Field
+            name="passingScore"
+            children={({ state, handleChange }) => {
+              return (
+                <div>
+                  <Label>合格点</Label>
+                  <Input
+                    type="number"
+                    className="rounded-lg border border-gray-300 p-2"
+                    value={state.value}
+                    onChange={(e) => handleChange(e.target.value)}
+                    disabled={isLoading}
+                  />
+                </div>
+              );
+            }}
+          />
+          <div className="flex">
+            <Button
+              type="submit"
+              className="ml-auto mt-4"
+              disabled={!isDirty || isLoading}
+              size="sm"
+            >
+              保存
+            </Button>
+          </div>
+        </form>
+      </div>
     </>
   );
 };
