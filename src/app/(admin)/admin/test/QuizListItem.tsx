@@ -11,7 +11,7 @@ const QuizListItem = ({ quiz, onClick }: Props) => {
   return (
     <div
       onClick={onClick}
-      className="p-4 border rounded-lg  bg-neutral-50 cursor-pointer"
+      className="p-4 border rounded-lg  bg-white cursor-pointer"
     >
       <div className="flex gap-3">
         <div className="rounded-md bg-black shrink-0 text-white size-8 grid place-content-center">

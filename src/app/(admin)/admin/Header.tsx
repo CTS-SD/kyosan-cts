@@ -18,7 +18,7 @@ const Header = ({}: Props) => {
 
   return (
     <>
-      <div className="h-[60px] border-b flex items-center px-3">
+      <div className="h-[60px] flex items-center px-3">
         <Link
           href="/"
           className="size-8 rounded-sm grid place-content-center mr-3 bg-neutral-50 border border-neutral-200"
@@ -46,8 +46,8 @@ const Header = ({}: Props) => {
         <div
           className="absolute h-1 bg-black bottom-0 transition-all rounded-full"
           style={{
-            width: borderPos.width ?? "",
-            left: borderPos.left ?? "",
+            width: borderPos.width ? borderPos.width : "",
+            left: borderPos.left ? borderPos.left : "",
             opacity: borderPos.opacity,
           }}
         ></div>
@@ -81,7 +81,8 @@ const NavItem = ({ href, name, setBorderPos }: NavItemProps) => {
     <Link
       href={href}
       className={cn(
-        "relative h-full flex items-center transition active:scale-95"
+        "relative h-full flex items-center transition-all active:scale-95",
+        !path.startsWith(href) && "text-neutral-500"
       )}
       ref={itemRef}
     >
