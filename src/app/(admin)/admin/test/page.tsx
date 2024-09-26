@@ -20,7 +20,8 @@ import TestPageHeading from "./TestPageHeading";
 const Page = () => {
   const [activeQuiz, setActiveQuiz] = useState<Quiz>();
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
-  const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [filter, setFilter] = useState("");
 
@@ -56,7 +57,10 @@ const Page = () => {
             onChange={(e) => setFilter(e.target.value)}
             placeholder="問題を検索"
           />
-          <Dialog>
+          <Dialog
+            onOpenChange={(open) => setIsCreateDialogOpen(open)}
+            open={isCreateDialogOpen}
+          >
             <DialogTrigger className="" asChild>
               <Button className="rounded-md shrink-0" size="icon">
                 <PlusIcon size={20} />
@@ -66,7 +70,10 @@ const Page = () => {
               <DialogHeader>
                 <DialogTitle>問題を作成</DialogTitle>
               </DialogHeader>
-              <QuizForm setQuizzes={setQuizzes} />
+              <QuizForm
+                setQuizzes={setQuizzes}
+                onDeleted={() => setIsCreateDialogOpen(false)}
+              />
             </DialogContent>
           </Dialog>
         </div>
@@ -81,7 +88,7 @@ const Page = () => {
                   quiz={quiz}
                   onClick={() => {
                     setActiveQuiz(quiz);
-                    setIsDialogOpen(true);
+                    setIsEditDialogOpen(true);
                   }}
                 />
               ))}
@@ -90,14 +97,19 @@ const Page = () => {
         )}
       </div>
       <Dialog
-        onOpenChange={(open) => setIsDialogOpen(open)}
-        open={isDialogOpen}
+        onOpenChange={(open) => setIsEditDialogOpen(open)}
+        open={isEditDialogOpen}
       >
         <DialogContent className="max-w-lg mx-auto p-4">
           <DialogHeader>
             <DialogTitle>問題を編集</DialogTitle>
           </DialogHeader>
-          <QuizForm quiz={activeQuiz} isEdit setQuizzes={setQuizzes} />
+          <QuizForm
+            quiz={activeQuiz}
+            isEdit
+            setQuizzes={setQuizzes}
+            onDeleted={() => setIsEditDialogOpen(false)}
+          />
         </DialogContent>
       </Dialog>
     </>

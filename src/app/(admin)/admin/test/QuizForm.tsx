@@ -20,14 +20,17 @@ import { getQuizTypeText } from "@/utils/utils";
 import { useForm } from "@tanstack/react-form";
 import { TrashIcon, XIcon } from "lucide-react";
 import { Dispatch, SetStateAction } from "react";
+import { toast } from "sonner";
 
 type Props = {
   quiz?: Quiz;
   isEdit?: boolean;
   setQuizzes: Dispatch<SetStateAction<Quiz[]>>;
+  onSaved?: () => void;
+  onDeleted?: () => void;
 };
 
-const QuizForm = ({ quiz, isEdit, setQuizzes }: Props) => {
+const QuizForm = ({ quiz, isEdit, setQuizzes, onSaved, onDeleted }: Props) => {
   const form = useForm({
     defaultValues: {
       question: quiz?.question ?? "",
@@ -49,14 +52,16 @@ const QuizForm = ({ quiz, isEdit, setQuizzes }: Props) => {
 
         if (!res.ok) {
           console.error("error");
+          toast.error("問題の保存に失敗しました");
           return;
         }
 
         const updatedQuiz = await res.json();
-
         setQuizzes((prev) =>
           prev.map((q) => (q.id === updatedQuiz.id ? updatedQuiz : q))
         );
+
+        toast.success("問題を保存しました");
       } else {
         // create quiz
         const res = await client.api.admin.quiz.$post({
@@ -67,13 +72,20 @@ const QuizForm = ({ quiz, isEdit, setQuizzes }: Props) => {
 
         if (!res.ok) {
           console.error("error");
+          toast.error("問題の作成に失敗しました");
           return;
         }
 
         const newQuiz = await res.json();
-
         setQuizzes((prev) => [...prev, newQuiz]);
+
+        form.reset();
+        form.setFieldValue("type", value.type);
+
+        toast.success("問題を作成しました");
       }
+
+      onSaved?.();
     },
   });
 
@@ -89,6 +101,8 @@ const QuizForm = ({ quiz, isEdit, setQuizzes }: Props) => {
     });
 
     setQuizzes((prev) => prev.filter((q) => q.id !== quiz?.id));
+    onDeleted?.();
+    toast.success("問題を削除しました");
   };
 
   const values = { type: form.useStore((s) => s.values.type) };

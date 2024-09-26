@@ -7,10 +7,9 @@ import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { client } from "@/db/hono";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
-type Props = {};
-
-const Page = ({}: Props) => {
+const Page = () => {
   const [isLoading, setIsLoading] = useState(true);
   const form = useForm({
     defaultValues: {
@@ -28,6 +27,12 @@ const Page = ({}: Props) => {
           passingScore: Number(value.passingScore),
         },
       });
+
+      if (!res.ok) {
+        toast.error("保存に失敗しました");
+        return;
+      }
+      toast.success("保存しました");
     },
   });
 
