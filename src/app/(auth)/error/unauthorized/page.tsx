@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { auth, signOut } from "@/lib/auth";
 import { TriangleAlertIcon } from "lucide-react";
 import { redirect } from "next/navigation";
+import Image from "next/image";
 
 type Props = {};
 
@@ -22,17 +23,21 @@ const Page = async ({}: Props) => {
         </p>
       </div>
       <SettingsItem>
-        <img
+        <Image
           className="rounded-full size-10"
           src={session?.user?.image ?? ""}
           alt=""
+          width={80}
+          height={80}
         />
         <div className="font-semibold mt-2">{session?.user?.name}</div>
         <form
           className="ml-auto"
           action={async () => {
             "use server";
-            await signOut();
+            await signOut({
+              redirectTo: "/",
+            });
           }}
         >
           <Button size="sm" variant="outline">
