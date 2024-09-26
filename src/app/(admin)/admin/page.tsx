@@ -1,7 +1,9 @@
+import { redirect } from "next/navigation";
+
 type Props = {};
 
 const Page = ({}: Props) => {
-  return <div className="">Page</div>;
+  redirect("/admin/test");
 };
 
 export default Page;
