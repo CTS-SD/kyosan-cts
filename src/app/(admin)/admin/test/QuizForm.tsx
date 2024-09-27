@@ -5,22 +5,10 @@ import {
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
 import { client } from "@/db/hono";
-import {
-  type Quiz,
-  type QuizType,
-  QuizTypeEnum,
-  quizTypeEnum,
-} from "@/db/schema";
-import { getQuizTypeText } from "@/utils/utils";
+import { type Quiz, QuizTypeEnum } from "@/db/schema";
+import { cn } from "@/utils/utils";
 import { useForm } from "@tanstack/react-form";
 import { TrashIcon, XIcon } from "lucide-react";
 import { Dispatch, SetStateAction } from "react";
@@ -32,9 +20,17 @@ type Props = {
   setQuizzes: Dispatch<SetStateAction<Quiz[]>>;
   onSaved?: () => void;
   onDeleted?: () => void;
-};
+} & React.HTMLAttributes<HTMLFormElement>;
 
-const QuizForm = ({ quiz, isEdit, setQuizzes, onSaved, onDeleted }: Props) => {
+const QuizForm = ({
+  quiz,
+  isEdit,
+  setQuizzes,
+  onSaved,
+  onDeleted,
+  className,
+  ...props
+}: Props) => {
   const form = useForm({
     defaultValues: {
       question: quiz?.question ?? "",
@@ -114,7 +110,8 @@ const QuizForm = ({ quiz, isEdit, setQuizzes, onSaved, onDeleted }: Props) => {
 
   return (
     <form
-      className="flex flex-col gap-6"
+      {...props}
+      className={cn("flex flex-col gap-6", className)}
       onSubmit={(e) => {
         e.preventDefault();
         form.handleSubmit();
@@ -126,24 +123,6 @@ const QuizForm = ({ quiz, isEdit, setQuizzes, onSaved, onDeleted }: Props) => {
           return (
             <div>
               <Label>形式</Label>
-              {/* <Select
-                onValueChange={(val) => handleChange(val as QuizTypeEnum)}
-                defaultValue={state.value}
-                value={state.value}
-              >
-                <SelectTrigger>
-                  <SelectValue placeholder="形式を選択" />
-                </SelectTrigger>
-                <SelectContent>
-                  {quizTypeEnum.enumValues.map((t, i) => {
-                    return (
-                      <SelectItem key={i} value={t}>
-                        {getQuizTypeText(t)}
-                      </SelectItem>
-                    );
-                  })}
-                </SelectContent>
-              </Select> */}
               <MultiSwitch
                 value={state.value}
                 onValueChange={(value) => handleChange(value as QuizTypeEnum)}
@@ -178,19 +157,6 @@ const QuizForm = ({ quiz, isEdit, setQuizzes, onSaved, onDeleted }: Props) => {
             return (
               <div>
                 <Label>答え</Label>
-                {/* <Select
-                  onValueChange={(val) => handleChange(val as QuizType)}
-                  defaultValue={state.value}
-                  value={state.value}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="答えを選択" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="__true__">○</SelectItem>
-                    <SelectItem value="__false__">✗</SelectItem>
-                  </SelectContent>
-                </Select> */}
                 <MultiSwitch value={state.value} onValueChange={handleChange}>
                   <MultiSwitchItem value="__true__">○</MultiSwitchItem>
                   <MultiSwitchItem value="__false__">✗</MultiSwitchItem>

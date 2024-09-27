@@ -102,7 +102,7 @@ const Page = () => {
         onOpenChange={(open) => setIsEditDialogOpen(open)}
         open={isEditDialogOpen}
       >
-        <DialogContent className="">
+        <DialogContent>
           <DialogHeader>
             <DialogTitle>問題を編集</DialogTitle>
           </DialogHeader>
