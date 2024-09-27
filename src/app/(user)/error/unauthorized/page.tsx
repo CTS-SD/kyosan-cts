@@ -15,11 +15,11 @@ const Page = async ({}: Props) => {
   }
 
   return (
-    <div className="p-4">
+    <div className="p-4 max-w-lg mx-auto">
       <div className="flex mb-4 flex-col items-center gap-4 p-6 bg-red-50 text-red-500 border-red-300 border-2 rounded-2xl">
         <TriangleAlertIcon size={64} />
         <p className="font-bold">
-          現在ログイン中のアカウントには管理者ページへのアクセス権限がありません。
+          ログイン中のアカウントには管理者ページへのアクセス権限がありません。
         </p>
       </div>
       <SettingsItem>

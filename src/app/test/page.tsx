@@ -1,15 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import QuizFormSelect from "./QuizFormSelect";
-import QuizResult from "./QuizResult";
-import QuizFormInput from "./QuizFormInput";
-import FinalResult from "./FinalResult";
-import StartPage from "./StartPage";
-import { Progress } from "@/components/ui/progress";
-import QuizFormOX from "./QuizFormOX";
 import { Button } from "@/components/ui/button";
-import { XIcon } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -18,12 +9,21 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Progress } from "@/components/ui/progress";
+import { client } from "@/db/hono";
+import { Quiz } from "@/db/schema";
+import { XIcon } from "lucide-react";
+import { useState } from "react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import Header from "../(user)/Header";
+import FinalResult from "./FinalResult";
 import { QuizFormContext } from "./QuizFormContext";
-import { Quiz } from "@/db/schema";
-import { client } from "@/db/hono";
-import Header from "../Header";
+import QuizFormInput from "./QuizFormInput";
+import QuizFormOX from "./QuizFormOX";
+import QuizFormSelect from "./QuizFormSelect";
+import QuizResult from "./QuizResult";
+import StartPage from "./StartPage";
 
 type Page = "start" | "quiz" | "result";
 
