@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/dialog";
 import {
   Drawer,
+  DrawerClose,
   DrawerContent,
   DrawerDescription,
   DrawerHeader,
@@ -19,7 +20,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { client } from "@/db/hono";
 import { type Quiz } from "@/db/schema";
-import { PencilIcon, PlusIcon, TrashIcon } from "lucide-react";
+import { PencilIcon, PlusIcon, TrashIcon, XIcon } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import QuizForm from "./QuizForm";
 import QuizListItem from "./QuizListItem";
@@ -111,15 +112,25 @@ const Page = () => {
               repositionInputs={false}
               onOpenChange={(open) => setIsCreateDialogOpen(open)}
               open={isCreateDialogOpen}
+              handleOnly
             >
               <DrawerTrigger className="" asChild>
                 <Button className="rounded-md shrink-0" size="icon">
                   <PlusIcon size={20} />
                 </Button>
               </DrawerTrigger>
-              <DrawerContent className="overflow-auto right-0 w-[min(95%,1024px)] rounded-tr-none rounded-l-xl rounded-r-none left-auto top-0 bottom-0 fixed flex overflow-y-auto overflow-x-clip">
-                <DrawerHeader>
+              <DrawerContent className="overflow-auto right-0 w-[min(90%,1024px)] rounded-tr-none rounded-l-xl rounded-r-none left-auto top-0 bottom-0 fixed flex overflow-y-auto overflow-x-clip">
+                <DrawerHeader className="sticky top-0 bg-white/50 backdrop-blur-sm flex items-center py-3 pr-3 justify-between">
                   <DrawerTitle>問題を作成</DrawerTitle>
+                  <DrawerClose asChild>
+                    <Button
+                      className="sticky top-0"
+                      size="icon"
+                      variant="ghost"
+                    >
+                      <XIcon />
+                    </Button>
+                  </DrawerClose>
                 </DrawerHeader>
                 <div className="grow pr-6 pb-6 pl-6">
                   <QuizForm
@@ -204,10 +215,16 @@ const Page = () => {
         direction="right"
         onOpenChange={(open) => setIsEditDialogOpen(open)}
         open={isEditDialogOpen}
+        handleOnly
       >
-        <DrawerContent className="right-0 w-[min(1024px,95%)] rounded-tr-none rounded-l-xl rounded-r-none left-auto top-0 bottom-0 flex overflow-y-auto overflow-x-clip">
-          <DrawerHeader>
+        <DrawerContent className="right-0 w-[min(1024px,90%)] rounded-tr-none rounded-l-xl rounded-r-none left-auto top-0 bottom-0 flex overflow-y-auto overflow-x-clip">
+          <DrawerHeader className="sticky top-0 bg-white/50 backdrop-blur-sm flex items-center py-3 pr-3 justify-between">
             <DrawerTitle>問題を編集</DrawerTitle>
+            <DrawerClose asChild>
+              <Button className="sticky top-0" size="icon" variant="ghost">
+                <XIcon />
+              </Button>
+            </DrawerClose>
           </DrawerHeader>
           <div className="grow pr-6 pb-6 pl-6">
             <QuizForm
