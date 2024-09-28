@@ -17,6 +17,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import QuizForm from "./QuizForm";
 import QuizListItem from "./QuizListItem";
 import TestPageHeading from "./TestPageHeading";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const fetchLimit = 30;
 
@@ -105,38 +106,44 @@ const Page = () => {
               </DrawerContent>
             </Drawer>
           </div>
-          {isLoading ? (
-            <div className="w-full text-center pt-20">読込み中...</div>
-          ) : (
-            <div className="mt-6">
-              <ul className="grid gap-2 md:grid-cols-2 lg:grid-cols-3">
-                {filteredQuizzes.map((quiz) => (
-                  <QuizListItem
-                    key={quiz.id}
-                    quiz={quiz}
-                    onClick={() => {
-                      setActiveQuiz(quiz);
-                      setIsEditDialogOpen(true);
-                    }}
-                  />
-                ))}
-              </ul>
-              {hasMore && (
-                <div className="mt-4">
-                  <Button
-                    className="w-full"
-                    onClick={() => {
-                      fetchQuizzes(fetchOffset);
-                    }}
-                    size="sm"
-                    variant="outline"
-                  >
-                    さらに表示
-                  </Button>
-                </div>
+          <div className="mt-6">
+            <ul className="grid gap-2 md:grid-cols-2 lg:grid-cols-3">
+              {isLoading ? (
+                <>
+                  {Array.from({ length: 18 }, (_, i) => (
+                    <Skeleton key={i} className="w-full h-[102px] rounded-lg" />
+                  ))}
+                </>
+              ) : (
+                <>
+                  {filteredQuizzes.map((quiz) => (
+                    <QuizListItem
+                      key={quiz.id}
+                      quiz={quiz}
+                      onClick={() => {
+                        setActiveQuiz(quiz);
+                        setIsEditDialogOpen(true);
+                      }}
+                    />
+                  ))}
+                </>
               )}
-            </div>
-          )}
+            </ul>
+            {hasMore && !isLoading && (
+              <div className="mt-4">
+                <Button
+                  className="w-full"
+                  onClick={() => {
+                    fetchQuizzes(fetchOffset);
+                  }}
+                  size="sm"
+                  variant="outline"
+                >
+                  さらに表示
+                </Button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
       <Drawer

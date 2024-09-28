@@ -56,6 +56,7 @@ const config: Config = {
         shake: "shake ease-in-out 0.4s",
         pop: "pop ease-in-out 0.3s",
         "spinner-bar": "spinner-bar 1.5s infinite",
+        "ltr-loop": "ltr 1.8s ease infinite",
       },
       keyframes: {
         "grow-in": {
@@ -99,6 +100,10 @@ const config: Config = {
           "100%": {
             opacity: "0.2",
           },
+        },
+        ltr: {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(100%)" },
         },
       },
       borderRadius: {
