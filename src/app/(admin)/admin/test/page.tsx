@@ -13,25 +13,23 @@ import { Input } from "@/components/ui/input";
 import { client } from "@/db/hono";
 import { type Quiz } from "@/db/schema";
 import { PlusIcon } from "lucide-react";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import QuizForm from "./QuizForm";
 import QuizListItem from "./QuizListItem";
 import TestPageHeading from "./TestPageHeading";
 
+const fetchLimit = 30;
+
 const Page = () => {
-  const [activeQuiz, setActiveQuiz] = useState<Quiz>();
-  const [quizzes, setQuizzes] = useState<Quiz[]>([]);
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [activeQuiz, setActiveQuiz] = useState<Quiz>();
   const [isLoading, setIsLoading] = useState(true);
   const [filter, setFilter] = useState("");
-
-  // const filteredQuizzes = quizzes.filter((q) => {
-  //   if (filter === "") {
-  //     return true;
-  //   }
-  //   return q.question.includes(filter);
-  // });
+  const [fetchOffset, setFetchOffset] = useState(0);
+  const [hasMore, setHasMore] = useState(true);
+  const [quizzes, setQuizzes] = useState<Quiz[]>([]);
+  const hasFetched = useRef(false);
 
   const filteredQuizzes = useMemo(() => {
     return quizzes.filter((q) => {
@@ -42,19 +40,35 @@ const Page = () => {
     });
   }, [quizzes, filter]);
 
-  useEffect(() => {
-    const fetchQuizzes = async () => {
-      const res = await client.api.admin.quiz.$get();
-      if (!res.ok) {
-        return;
-      }
-      const data = await res.json();
-      setQuizzes(data);
-      setIsLoading(false);
-    };
+  const fetchQuizzes = useCallback(async (offset: number) => {
+    const res = await client.api.admin.quiz.$get({
+      query: {
+        limit: fetchLimit.toString(),
+        offset: offset.toString(),
+      },
+    });
+    if (!res.ok) {
+      return;
+    }
+    const data = await res.json();
 
-    fetchQuizzes();
+    setIsLoading(false);
+    setQuizzes((prev) => [...prev, ...data]);
+
+    if (data.length === 0 || data.length < fetchLimit) {
+      setHasMore(false);
+      return;
+    }
+
+    setFetchOffset((prev) => prev + fetchLimit);
   }, []);
+
+  useEffect(() => {
+    if (!hasFetched.current && hasMore) {
+      fetchQuizzes(fetchOffset);
+      hasFetched.current = true;
+    }
+  }, [fetchQuizzes]);
 
   return (
     <>
@@ -79,7 +93,7 @@ const Page = () => {
                   <PlusIcon size={20} />
                 </Button>
               </DrawerTrigger>
-              <DrawerContent className="overflow-auto right-0 w-[min(560px,95%)] lg:w-[1024px] rounded-l-xl rounded-r-none left-auto top-0 bottom-0 fixed flex">
+              <DrawerContent className="overflow-auto right-0 w-[min(95%,1024px)] rounded-tr-none rounded-l-xl rounded-r-none left-auto top-0 bottom-0 fixed flex">
                 <div className="grow p-6">
                   <QuizForm
                     onSaved={(quiz) => {
@@ -92,20 +106,36 @@ const Page = () => {
             </Drawer>
           </div>
           {isLoading ? (
-            <div className="w-full text-center pt-20">Loading...</div>
+            <div className="w-full text-center pt-20">読込み中...</div>
           ) : (
-            <ul className="grid gap-2 mt-6 md:grid-cols-2 lg:grid-cols-3">
-              {filteredQuizzes.map((quiz) => (
-                <QuizListItem
-                  key={quiz.id}
-                  quiz={quiz}
-                  onClick={() => {
-                    setActiveQuiz(quiz);
-                    setIsEditDialogOpen(true);
-                  }}
-                />
-              ))}
-            </ul>
+            <div className="mt-6">
+              <ul className="grid gap-2 md:grid-cols-2 lg:grid-cols-3">
+                {filteredQuizzes.map((quiz) => (
+                  <QuizListItem
+                    key={quiz.id}
+                    quiz={quiz}
+                    onClick={() => {
+                      setActiveQuiz(quiz);
+                      setIsEditDialogOpen(true);
+                    }}
+                  />
+                ))}
+              </ul>
+              {hasMore && (
+                <div className="mt-4">
+                  <Button
+                    className="w-full"
+                    onClick={() => {
+                      fetchQuizzes(fetchOffset);
+                    }}
+                    size="sm"
+                    variant="outline"
+                  >
+                    さらに表示
+                  </Button>
+                </div>
+              )}
+            </div>
           )}
         </div>
       </div>
@@ -115,7 +145,7 @@ const Page = () => {
         onOpenChange={(open) => setIsEditDialogOpen(open)}
         open={isEditDialogOpen}
       >
-        <DrawerContent className="right-0 w-[min(1024px,95%)] rounded-l-xl rounded-r-none left-auto top-0 bottom-0 flex overflow-y-auto">
+        <DrawerContent className="right-0 w-[min(1024px,95%)] rounded-tr-none rounded-l-xl rounded-r-none left-auto top-0 bottom-0 flex overflow-y-auto">
           <div className="grow p-6">
             <QuizForm
               quiz={activeQuiz}

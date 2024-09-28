@@ -6,6 +6,10 @@ import { zValidator } from "@hono/zod-validator";
 import { eq, desc, sql } from "drizzle-orm";
 
 const schemas = {
+  $get: z.object({
+    limit: z.string().transform(Number),
+    offset: z.string().transform(Number),
+  }),
   $post: z.object({
     type: z.nativeEnum(QuizTypeEnum),
     question: z.string(),
@@ -23,10 +27,13 @@ const schemas = {
 };
 
 const app = new Hono()
-  .get("/", async (c) => {
+  .get("/", zValidator("query", schemas.$get), async (c) => {
+    const { limit, offset } = c.req.valid("query");
     const quizList = await db
       .select()
       .from(quizzes)
+      .offset(offset)
+      .limit(limit)
       .orderBy(desc(quizzes.createdAt));
     return c.json(quizList);
   })
