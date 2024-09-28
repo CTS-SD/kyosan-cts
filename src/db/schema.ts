@@ -94,6 +94,8 @@ export const gameModes = pgTable("game_mode", {
   name: text("name").notNull(),
   quizNum: integer("quiz_num").notNull(),
   passingScore: integer("passing_score").notNull(),
+  createdAt: timestamp("created_at", { mode: "string" }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { mode: "string" }).notNull().defaultNow(),
 });
 
 export const quizTypeEnum = pgEnum("quiz_type", ["select", "input", "ox"]);
@@ -104,6 +106,8 @@ export const quizzes = pgTable("quiz", {
   question: text("question").notNull(),
   answer: text("answer").notNull(),
   fakes: text("fakes").array(),
+  createdAt: timestamp("created_at", { mode: "string" }).notNull().defaultNow(),
+  updatedAt: timestamp("updated_at", { mode: "string" }).notNull().defaultNow(),
 });
 
 export type Quiz = typeof quizzes.$inferSelect;

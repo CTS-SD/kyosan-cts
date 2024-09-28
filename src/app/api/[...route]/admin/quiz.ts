@@ -3,7 +3,7 @@ import { Quiz, QuizTypeEnum, quizzes } from "../../../../db/schema";
 import { Hono } from "hono";
 import { z } from "zod";
 import { zValidator } from "@hono/zod-validator";
-import { eq, sql } from "drizzle-orm";
+import { eq, desc, sql } from "drizzle-orm";
 
 const schemas = {
   $post: z.object({
@@ -24,40 +24,48 @@ const schemas = {
 
 const app = new Hono()
   .get("/", async (c) => {
-    const quizList = await db.select().from(quizzes);
+    const quizList = await db
+      .select()
+      .from(quizzes)
+      .orderBy(desc(quizzes.createdAt));
     return c.json(quizList);
   })
   .post("/", zValidator("json", schemas.$post), async (c) => {
     const body = c.req.valid("json");
 
-    const newQuizzes = await db
-      .insert(quizzes)
-      .values({
-        question: body.question,
-        type: body.type,
-        answer: body.answer,
-        fakes: body.fakes,
-      })
-      .returning();
+    const newQuiz = (
+      await db
+        .insert(quizzes)
+        .values({
+          question: body.question,
+          type: body.type,
+          answer: body.answer,
+          fakes: body.fakes,
+        })
+        .returning()
+    )[0];
 
-    return c.json(newQuizzes[0]);
+    return c.json(newQuiz);
   })
   .put("/:id", zValidator("json", schemas[":id"].$put), async (c) => {
     const body = c.req.valid("json");
     const id = c.req.param("id");
 
-    const updatedQuizzes = await db
-      .update(quizzes)
-      .set({
-        question: body.question,
-        type: body.type,
-        answer: body.answer,
-        fakes: body.fakes,
-      })
-      .where(eq(quizzes.id, id))
-      .returning();
+    const updatedQuiz = (
+      await db
+        .update(quizzes)
+        .set({
+          question: body.question,
+          type: body.type,
+          answer: body.answer,
+          fakes: body.fakes,
+          updatedAt: sql`NOW()`,
+        })
+        .where(eq(quizzes.id, id))
+        .returning()
+    )[0];
 
-    return c.json(updatedQuizzes[0]);
+    return c.json(updatedQuiz);
   })
   .delete("/:id", async (c) => {
     const id = c.req.param("id");

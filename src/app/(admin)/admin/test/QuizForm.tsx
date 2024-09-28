@@ -34,7 +34,7 @@ const QuizForm = ({
   const form = useForm({
     defaultValues: {
       question: quiz?.question ?? "",
-      type: (quiz?.type ?? "") as QuizTypeEnum,
+      type: (quiz?.type ?? "select") as QuizTypeEnum,
       answer: quiz?.answer ?? "",
       fakes: quiz?.fakes ?? undefined,
     },
@@ -77,7 +77,7 @@ const QuizForm = ({
         }
 
         const newQuiz = await res.json();
-        setQuizzes((prev) => [...prev, newQuiz]);
+        setQuizzes((prev) => [newQuiz, ...prev]);
 
         form.reset();
         form.setFieldValue("type", value.type);

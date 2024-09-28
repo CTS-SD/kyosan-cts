@@ -1,7 +1,7 @@
 import { db } from "@/db/db";
 import { gameModes } from "@/db/schema";
 import { zValidator } from "@hono/zod-validator";
-import { eq } from "drizzle-orm";
+import { eq, sql } from "drizzle-orm";
 import { Hono } from "hono";
 import { z } from "zod";
 
@@ -30,6 +30,7 @@ const app = new Hono()
         name: body.name,
         quizNum: body.quizNum,
         passingScore: body.passingScore,
+        updatedAt: sql`NOW()`,
       })
       .where(eq(gameModes.id, id))
       .returning();
