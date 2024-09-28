@@ -1,9 +1,6 @@
 "use client";
 
-import { type Quiz } from "@/db/schema";
-import QuizListItem from "./QuizListItem";
-import { useEffect, useState } from "react";
-import QuizForm from "./QuizForm";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -11,10 +8,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { client } from "@/db/hono";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
+import { client } from "@/db/hono";
+import { type Quiz } from "@/db/schema";
 import { PlusIcon } from "lucide-react";
+import { useEffect, useState } from "react";
+import QuizForm from "./QuizForm";
+import QuizListItem from "./QuizListItem";
 import TestPageHeading from "./TestPageHeading";
 
 const Page = () => {
@@ -58,25 +59,26 @@ const Page = () => {
               onChange={(e) => setFilter(e.target.value)}
               placeholder="問題を検索"
             />
-            <Dialog
+            <Drawer
+              direction="right"
+              repositionInputs={false}
               onOpenChange={(open) => setIsCreateDialogOpen(open)}
               open={isCreateDialogOpen}
             >
-              <DialogTrigger className="" asChild>
+              <DrawerTrigger className="" asChild>
                 <Button className="rounded-md shrink-0" size="icon">
                   <PlusIcon size={20} />
                 </Button>
-              </DialogTrigger>
-              <DialogContent className="p-4">
-                <DialogHeader>
-                  <DialogTitle>問題を作成</DialogTitle>
-                </DialogHeader>
-                <QuizForm
-                  setQuizzes={setQuizzes}
-                  onDeleted={() => setIsCreateDialogOpen(false)}
-                />
-              </DialogContent>
-            </Dialog>
+              </DrawerTrigger>
+              <DrawerContent className="overflow-auto right-0 w-[min(560px,95%)] rounded-l-xl rounded-r-none left-auto top-0 bottom-0 fixed flex">
+                <div className="grow p-6">
+                  <QuizForm
+                    setQuizzes={setQuizzes}
+                    onDeleted={() => setIsCreateDialogOpen(false)}
+                  />
+                </div>
+              </DrawerContent>
+            </Drawer>
           </div>
           {isLoading ? (
             <div className="w-full text-center pt-20">Loading...</div>
@@ -98,22 +100,23 @@ const Page = () => {
           )}
         </div>
       </div>
-      <Dialog
+      <Drawer
+        repositionInputs={false}
+        direction="right"
         onOpenChange={(open) => setIsEditDialogOpen(open)}
         open={isEditDialogOpen}
       >
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>問題を編集</DialogTitle>
-          </DialogHeader>
-          <QuizForm
-            quiz={activeQuiz}
-            isEdit
-            setQuizzes={setQuizzes}
-            onDeleted={() => setIsEditDialogOpen(false)}
-          />
-        </DialogContent>
-      </Dialog>
+        <DrawerContent className="overflow-auto right-0 w-[min(560px,95%)] rounded-l-xl rounded-r-none left-auto top-0 bottom-0 fixed flex">
+          <div className="grow p-6">
+            <QuizForm
+              quiz={activeQuiz}
+              isEdit
+              setQuizzes={setQuizzes}
+              onDeleted={() => setIsEditDialogOpen(false)}
+            />
+          </div>
+        </DrawerContent>
+      </Drawer>
     </>
   );
 };

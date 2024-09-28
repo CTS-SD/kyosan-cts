@@ -145,6 +145,8 @@ const QuizForm = ({
                 value={state.value}
                 onChange={(e) => handleChange(e.target.value)}
                 onBlur={handleBlur}
+                placeholder="問題文を入力"
+                className="min-h-28"
               />
             </div>
           );
@@ -176,6 +178,7 @@ const QuizForm = ({
                   value={state.value}
                   onChange={(e) => handleChange(e.target.value)}
                   onBlur={handleBlur}
+                  placeholder="答えを入力"
                 />
               </div>
             );
@@ -200,6 +203,7 @@ const QuizForm = ({
                           handleChange(newValue);
                         }}
                         onBlur={handleBlur}
+                        placeholder="選択肢を入力"
                       />
                       <Button
                         type="button"
