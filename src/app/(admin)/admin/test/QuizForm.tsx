@@ -9,15 +9,15 @@ import { Textarea } from "@/components/ui/textarea";
 import { client } from "@/db/hono";
 import { type Quiz, QuizTypeEnum } from "@/db/schema";
 import { cn } from "@/utils/utils";
-import { useForm, ValidationError } from "@tanstack/react-form";
+import { useForm } from "@tanstack/react-form";
 import { TrashIcon, XIcon } from "lucide-react";
-import { Dispatch, SetStateAction } from "react";
 import { toast } from "sonner";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { z } from "zod";
 import FieldError from "@/components/original-ui/field-error";
 import Preview from "./Preview";
 import { Badge } from "@/components/ui/badge";
+import { deleteQuiz } from "../admin-api";
 
 type Props = {
   quiz?: Quiz;
@@ -88,26 +88,6 @@ const QuizForm = ({
       }
     },
   });
-
-  const deleteQuiz = async () => {
-    if (!isEdit || !quiz?.id) return;
-
-    if (!window.confirm("問題を削除しますか？")) return;
-
-    const res = await client.api.admin.quiz[":id"].$delete({
-      param: {
-        id: quiz?.id.toString() ?? "",
-      },
-    });
-
-    if (!res.ok) {
-      toast.error("問題の削除に失敗しました");
-      return;
-    }
-
-    onDeleted?.(quiz.id);
-    toast.success("問題を削除しました");
-  };
 
   const values = {
     type: form.useStore((s) => s.values.type),
@@ -286,7 +266,7 @@ const QuizForm = ({
               size="icon"
               variant="ghost"
               className="shrink-0 rounded-md"
-              onClick={deleteQuiz}
+              onClick={() => deleteQuiz(quiz?.id, onDeleted)}
             >
               <TrashIcon size={20} />
             </Button>

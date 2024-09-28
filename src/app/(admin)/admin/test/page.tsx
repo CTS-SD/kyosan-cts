@@ -19,12 +19,28 @@ import {
 import { Input } from "@/components/ui/input";
 import { client } from "@/db/hono";
 import { type Quiz } from "@/db/schema";
-import { PlusIcon } from "lucide-react";
+import { PencilIcon, PlusIcon, TrashIcon } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import QuizForm from "./QuizForm";
 import QuizListItem from "./QuizListItem";
 import TestPageHeading from "./TestPageHeading";
 import { Skeleton } from "@/components/ui/skeleton";
+import {
+  ContextMenu,
+  ContextMenuCheckboxItem,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuLabel,
+  ContextMenuRadioGroup,
+  ContextMenuRadioItem,
+  ContextMenuSeparator,
+  ContextMenuShortcut,
+  ContextMenuSub,
+  ContextMenuSubContent,
+  ContextMenuSubTrigger,
+  ContextMenuTrigger,
+} from "@/components/ui/context-menu";
+import { deleteQuiz } from "../admin-api";
 
 const fetchLimit = 30;
 
@@ -127,14 +143,42 @@ const Page = () => {
               ) : (
                 <>
                   {filteredQuizzes.map((quiz) => (
-                    <QuizListItem
-                      key={quiz.id}
-                      quiz={quiz}
-                      onClick={() => {
-                        setActiveQuiz(quiz);
-                        setIsEditDialogOpen(true);
-                      }}
-                    />
+                    <ContextMenu>
+                      <ContextMenuTrigger>
+                        <QuizListItem
+                          key={quiz.id}
+                          quiz={quiz}
+                          onClick={() => {
+                            setActiveQuiz(quiz);
+                            setIsEditDialogOpen(true);
+                          }}
+                        />
+                      </ContextMenuTrigger>
+                      <ContextMenuContent>
+                        <ContextMenuItem
+                          onClick={() => {
+                            setActiveQuiz(quiz);
+                            setIsEditDialogOpen(true);
+                          }}
+                          icon={<PencilIcon size={14} />}
+                        >
+                          編集
+                        </ContextMenuItem>
+                        <ContextMenuSeparator />
+                        <ContextMenuItem
+                          icon={<TrashIcon size={14} />}
+                          onClick={async () =>
+                            deleteQuiz(quiz.id, () => {
+                              setQuizzes(
+                                quizzes.filter((q) => q.id !== quiz.id)
+                              );
+                            })
+                          }
+                        >
+                          削除
+                        </ContextMenuItem>
+                      </ContextMenuContent>
+                    </ContextMenu>
                   ))}
                 </>
               )}
