@@ -117,7 +117,7 @@ const Page = () => {
                   <PlusIcon size={20} />
                 </Button>
               </DrawerTrigger>
-              <DrawerContent className="overflow-auto right-0 w-[min(95%,1024px)] rounded-tr-none rounded-l-xl rounded-r-none left-auto top-0 bottom-0 fixed flex">
+              <DrawerContent className="overflow-auto right-0 w-[min(95%,1024px)] rounded-tr-none rounded-l-xl rounded-r-none left-auto top-0 bottom-0 fixed flex overflow-y-auto overflow-x-clip">
                 <DrawerHeader>
                   <DrawerTitle>問題を作成</DrawerTitle>
                 </DrawerHeader>
@@ -206,7 +206,7 @@ const Page = () => {
         onOpenChange={(open) => setIsEditDialogOpen(open)}
         open={isEditDialogOpen}
       >
-        <DrawerContent className="right-0 w-[min(1024px,95%)] rounded-tr-none rounded-l-xl rounded-r-none left-auto top-0 bottom-0 flex overflow-y-auto">
+        <DrawerContent className="right-0 w-[min(1024px,95%)] rounded-tr-none rounded-l-xl rounded-r-none left-auto top-0 bottom-0 flex overflow-y-auto overflow-x-clip">
           <DrawerHeader>
             <DrawerTitle>問題を編集</DrawerTitle>
           </DrawerHeader>
