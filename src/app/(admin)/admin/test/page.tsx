@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { client } from "@/db/hono";
 import { type Quiz } from "@/db/schema";
 import { PlusIcon } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import QuizForm from "./QuizForm";
 import QuizListItem from "./QuizListItem";
 import TestPageHeading from "./TestPageHeading";
@@ -26,12 +26,21 @@ const Page = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [filter, setFilter] = useState("");
 
-  const filteredQuizzes = quizzes.filter((q) => {
-    if (filter === "") {
-      return true;
-    }
-    return q.question.includes(filter);
-  });
+  // const filteredQuizzes = quizzes.filter((q) => {
+  //   if (filter === "") {
+  //     return true;
+  //   }
+  //   return q.question.includes(filter);
+  // });
+
+  const filteredQuizzes = useMemo(() => {
+    return quizzes.filter((q) => {
+      if (filter === "") {
+        return true;
+      }
+      return q.question.includes(filter);
+    });
+  }, [quizzes, filter]);
 
   useEffect(() => {
     const fetchQuizzes = async () => {
@@ -70,11 +79,13 @@ const Page = () => {
                   <PlusIcon size={20} />
                 </Button>
               </DrawerTrigger>
-              <DrawerContent className="overflow-auto right-0 w-[min(560px,95%)] rounded-l-xl rounded-r-none left-auto top-0 bottom-0 fixed flex">
+              <DrawerContent className="overflow-auto right-0 w-[min(560px,95%)] lg:w-[1024px] rounded-l-xl rounded-r-none left-auto top-0 bottom-0 fixed flex">
                 <div className="grow p-6">
                   <QuizForm
-                    setQuizzes={setQuizzes}
-                    onDeleted={() => setIsCreateDialogOpen(false)}
+                    onSaved={(quiz) => {
+                      setQuizzes([quiz, ...quizzes]);
+                      setIsCreateDialogOpen(false);
+                    }}
                   />
                 </div>
               </DrawerContent>
@@ -83,20 +94,18 @@ const Page = () => {
           {isLoading ? (
             <div className="w-full text-center pt-20">Loading...</div>
           ) : (
-            <>
-              <ul className="grid gap-2 mt-6 sm:grid-cols-2 md:grid-cols-3">
-                {filteredQuizzes.map((quiz) => (
-                  <QuizListItem
-                    key={quiz.id}
-                    quiz={quiz}
-                    onClick={() => {
-                      setActiveQuiz(quiz);
-                      setIsEditDialogOpen(true);
-                    }}
-                  />
-                ))}
-              </ul>
-            </>
+            <ul className="grid gap-2 mt-6 md:grid-cols-2 lg:grid-cols-3">
+              {filteredQuizzes.map((quiz) => (
+                <QuizListItem
+                  key={quiz.id}
+                  quiz={quiz}
+                  onClick={() => {
+                    setActiveQuiz(quiz);
+                    setIsEditDialogOpen(true);
+                  }}
+                />
+              ))}
+            </ul>
           )}
         </div>
       </div>
@@ -106,13 +115,15 @@ const Page = () => {
         onOpenChange={(open) => setIsEditDialogOpen(open)}
         open={isEditDialogOpen}
       >
-        <DrawerContent className="overflow-auto right-0 w-[min(560px,95%)] rounded-l-xl rounded-r-none left-auto top-0 bottom-0 fixed flex">
+        <DrawerContent className="right-0 w-[min(1024px,95%)] rounded-l-xl rounded-r-none left-auto top-0 bottom-0 flex overflow-y-auto">
           <div className="grow p-6">
             <QuizForm
               quiz={activeQuiz}
               isEdit
-              setQuizzes={setQuizzes}
               onDeleted={() => setIsEditDialogOpen(false)}
+              onSaved={(quiz) => {
+                setQuizzes(quizzes.map((q) => (q.id === quiz.id ? quiz : q)));
+              }}
             />
           </div>
         </DrawerContent>

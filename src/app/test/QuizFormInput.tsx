@@ -9,7 +9,7 @@ type Props = {
 };
 
 const QuizFormInput = ({ quiz }: Props) => {
-  const { value, setValue, isShowResult, showResult } =
+  const { value, setValue, isShowResult, showResult, isPreview } =
     useContext(QuizFormContext);
 
   const cleanValue = typeof value == "string" ? value.trim() : "";
@@ -40,7 +40,7 @@ const QuizFormInput = ({ quiz }: Props) => {
           disabled={isShowResult}
           placeholder="回答を入力"
         />
-        {!isShowResult && (
+        {!isShowResult && !isPreview && (
           <Button
             type="submit"
             className="absolute bottom-4 right-4 left-4"

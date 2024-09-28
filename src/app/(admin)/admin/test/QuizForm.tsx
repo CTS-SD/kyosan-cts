@@ -16,19 +16,19 @@ import { toast } from "sonner";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { z } from "zod";
 import FieldError from "@/components/original-ui/field-error";
+import Preview from "./Preview";
+import { Badge } from "@/components/ui/badge";
 
 type Props = {
   quiz?: Quiz;
   isEdit?: boolean;
-  setQuizzes: Dispatch<SetStateAction<Quiz[]>>;
-  onSaved?: () => void;
-  onDeleted?: () => void;
+  onSaved?: (quiz: Quiz) => void;
+  onDeleted?: (quizId: string) => void;
 } & React.HTMLAttributes<HTMLFormElement>;
 
 const QuizForm = ({
   quiz,
   isEdit,
-  setQuizzes,
   onSaved,
   onDeleted,
   className,
@@ -61,9 +61,7 @@ const QuizForm = ({
         }
 
         const updatedQuiz = await res.json();
-        setQuizzes((prev) =>
-          prev.map((q) => (q.id === updatedQuiz.id ? updatedQuiz : q))
-        );
+        onSaved?.(updatedQuiz);
 
         toast.success("問題を保存しました");
       } else {
@@ -81,219 +79,242 @@ const QuizForm = ({
         }
 
         const newQuiz = await res.json();
-        setQuizzes((prev) => [newQuiz, ...prev]);
+        onSaved?.(newQuiz);
 
         form.reset();
         form.setFieldValue("type", value.type);
 
         toast.success("問題を作成しました");
       }
-
-      onSaved?.();
     },
   });
 
   const deleteQuiz = async () => {
-    if (!isEdit) return;
+    if (!isEdit || !quiz?.id) return;
 
     if (!window.confirm("問題を削除しますか？")) return;
 
-    await client.api.admin.quiz[":id"].$delete({
+    const res = await client.api.admin.quiz[":id"].$delete({
       param: {
         id: quiz?.id.toString() ?? "",
       },
     });
 
-    setQuizzes((prev) => prev.filter((q) => q.id !== quiz?.id));
-    onDeleted?.();
+    if (!res.ok) {
+      toast.error("問題の削除に失敗しました");
+      return;
+    }
+
+    onDeleted?.(quiz.id);
     toast.success("問題を削除しました");
   };
 
-  const values = { type: form.useStore((s) => s.values.type) };
+  const values = {
+    type: form.useStore((s) => s.values.type),
+    question: form.useStore((s) => s.values.question),
+    answer: form.useStore((s) => s.values.answer),
+    fakes: form.useStore((s) => s.values.fakes),
+  };
   const isDirty = form.useStore((s) => s.isDirty);
   const isSubmitting = form.useStore((s) => s.isSubmitting);
 
   return (
-    <form
-      {...props}
-      className={cn("flex flex-col gap-6", className)}
-      onSubmit={(e) => {
-        e.preventDefault();
-
-        if (values.type !== "select") {
-          form.setFieldMeta("fakes", (meta) => ({
-            ...meta,
-            errorMap: {},
-            errors: [],
-          }));
-        }
-
-        form.handleSubmit();
-      }}
-    >
-      <form.Field
-        name="type"
-        children={({ state, handleChange, handleBlur }) => {
-          return (
-            <div>
-              <Label>形式</Label>
-              <MultiSwitch
-                value={state.value}
-                onValueChange={(value) => {
-                  handleChange(value as QuizTypeEnum);
-                }}
-              >
-                <MultiSwitchItem value="select">選択</MultiSwitchItem>
-                <MultiSwitchItem value="input">テキスト</MultiSwitchItem>
-                <MultiSwitchItem value="ox">○✗クイズ</MultiSwitchItem>
-              </MultiSwitch>
-            </div>
-          );
+    <div className="flex-col flex md:flex-row gap-6">
+      <form
+        {...props}
+        className={cn("flex flex-1 flex-col gap-6", className)}
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (values.type !== "select") {
+            form.setFieldMeta("fakes", (meta) => ({
+              ...meta,
+              errorMap: {},
+              errors: [],
+            }));
+          }
+          form.handleSubmit();
         }}
-      />
-      <form.Field
-        name="question"
-        validators={{
-          onSubmit: z.string().min(1, "問題文を入力してください"),
-        }}
-        children={({ state, handleChange, handleBlur }) => {
-          return (
-            <div>
-              <Label>問題文</Label>
-              <Textarea
-                value={state.value}
-                onChange={(e) => handleChange(e.target.value)}
-                onBlur={handleBlur}
-                placeholder="問題文を入力"
-                className="min-h-28"
-              />
-              <FieldError errors={state.meta.errors} />
-            </div>
-          );
-        }}
-      />
-      {values.type === "ox" ? (
+      >
         <form.Field
-          name="answer"
-          validators={{
-            onSubmit: z.string().regex(/^__(true|false)__$/, {
-              message: "答えを選択してください",
-            }),
-          }}
-          children={({ state, handleChange }) => {
+          name="type"
+          children={({ state, handleChange, handleBlur }) => {
             return (
               <div>
-                <Label>答え</Label>
-                <MultiSwitch value={state.value} onValueChange={handleChange}>
-                  <MultiSwitchItem value="__true__">○</MultiSwitchItem>
-                  <MultiSwitchItem value="__false__">✗</MultiSwitchItem>
+                <Label>形式</Label>
+                <MultiSwitch
+                  value={state.value}
+                  onValueChange={(value) => {
+                    handleChange(value as QuizTypeEnum);
+                  }}
+                >
+                  <MultiSwitchItem value="select">選択</MultiSwitchItem>
+                  <MultiSwitchItem value="input">テキスト</MultiSwitchItem>
+                  <MultiSwitchItem value="ox">○✗クイズ</MultiSwitchItem>
                 </MultiSwitch>
-                <FieldError errors={state.meta.errors} />
               </div>
             );
           }}
         />
-      ) : (
         <form.Field
-          name="answer"
+          name="question"
           validators={{
-            onSubmit: z.string().min(1, "答えを入力してください"),
+            onSubmit: z.string().min(1, "問題文を入力してください"),
           }}
           children={({ state, handleChange, handleBlur }) => {
             return (
               <div>
-                <Label>答え</Label>
-                <Input
+                <Label>問題文</Label>
+                <Textarea
                   value={state.value}
                   onChange={(e) => handleChange(e.target.value)}
                   onBlur={handleBlur}
-                  placeholder="答えを入力"
+                  placeholder="問題文を入力"
+                  className="min-h-28"
                 />
                 <FieldError errors={state.meta.errors} />
               </div>
             );
           }}
         />
-      )}
-      {values.type === "select" && (
-        <form.Field
-          name="fakes"
-          validators={{
-            onSubmit: z
-              .array(z.string().min(1, "選択肢を入力してください"))
-              .min(1, "選択肢を1つ以上追加してください"),
-          }}
-          children={({ state, handleChange, handleBlur }) => {
-            return (
-              <div>
-                <Label>不正解の選択肢</Label>
-                <div className="flex flex-col gap-2">
-                  {state.value?.map((fake, i) => (
-                    <div key={i} className="flex gap-2">
-                      <Input
-                        value={fake}
-                        onChange={(e) => {
-                          const newValue = [...(state.value ?? [])];
-                          newValue[i] = e.target.value;
-                          handleChange(newValue);
-                        }}
-                        onBlur={handleBlur}
-                        placeholder="選択肢を入力"
-                      />
-                      <Button
-                        type="button"
-                        size="icon"
-                        variant="outline"
-                        className="rounded-md shrink-0"
-                        onClick={() => {
-                          const newValue = [...(state.value ?? [])];
-                          newValue.splice(i, 1);
-                          handleChange(newValue);
-                        }}
-                      >
-                        <XIcon size={16} />
-                      </Button>
-                    </div>
-                  ))}
-                  <Button
-                    type="button"
-                    variant="outline"
-                    size="sm"
-                    onClick={() => {
-                      handleChange([...(state.value ?? []), ""]);
-                    }}
-                  >
-                    + 選択肢を追加
-                  </Button>
+        {values.type === "ox" ? (
+          <form.Field
+            name="answer"
+            validators={{
+              onSubmit: z.string().regex(/^__(true|false)__$/, {
+                message: "答えを選択してください",
+              }),
+            }}
+            children={({ state, handleChange }) => {
+              return (
+                <div>
+                  <Label>答え</Label>
+                  <MultiSwitch value={state.value} onValueChange={handleChange}>
+                    <MultiSwitchItem value="__true__">○</MultiSwitchItem>
+                    <MultiSwitchItem value="__false__">✗</MultiSwitchItem>
+                  </MultiSwitch>
+                  <FieldError errors={state.meta.errors} />
                 </div>
-                <FieldError errors={state.meta.errors} />
-              </div>
-            );
+              );
+            }}
+          />
+        ) : (
+          <form.Field
+            name="answer"
+            validators={{
+              onSubmit: z.string().min(1, "答えを入力してください"),
+            }}
+            children={({ state, handleChange, handleBlur }) => {
+              return (
+                <div>
+                  <Label>答え</Label>
+                  <Input
+                    value={state.value}
+                    onChange={(e) => handleChange(e.target.value)}
+                    onBlur={handleBlur}
+                    placeholder="答えを入力"
+                  />
+                  <FieldError errors={state.meta.errors} />
+                </div>
+              );
+            }}
+          />
+        )}
+        {values.type === "select" && (
+          <form.Field
+            name="fakes"
+            validators={{
+              onSubmit: z
+                .array(z.string().min(1, "選択肢を入力してください"))
+                .min(1, "選択肢を1つ以上追加してください"),
+            }}
+            children={({ state, handleChange, handleBlur }) => {
+              return (
+                <div>
+                  <Label>不正解の選択肢</Label>
+                  <div className="flex flex-col gap-2">
+                    {state.value?.map((fake, i) => (
+                      <div key={i} className="flex gap-2">
+                        <Input
+                          value={fake}
+                          onChange={(e) => {
+                            const newValue = [...(state.value ?? [])];
+                            newValue[i] = e.target.value;
+                            handleChange(newValue);
+                          }}
+                          onBlur={handleBlur}
+                          placeholder="選択肢を入力"
+                        />
+                        <Button
+                          type="button"
+                          size="icon"
+                          variant="outline"
+                          className="rounded-md shrink-0"
+                          onClick={() => {
+                            const newValue = [...(state.value ?? [])];
+                            newValue.splice(i, 1);
+                            handleChange(newValue);
+                          }}
+                        >
+                          <XIcon size={16} />
+                        </Button>
+                      </div>
+                    ))}
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      onClick={() => {
+                        handleChange([...(state.value ?? []), ""]);
+                      }}
+                    >
+                      + 選択肢を追加
+                    </Button>
+                  </div>
+                  <FieldError errors={state.meta.errors} />
+                </div>
+              );
+            }}
+          />
+        )}
+        <div className="flex items-center gap-2">
+          {isEdit && (
+            <Button
+              type="button"
+              size="icon"
+              variant="ghost"
+              className="shrink-0 rounded-md"
+              onClick={deleteQuiz}
+            >
+              <TrashIcon size={20} />
+            </Button>
+          )}
+          <Button
+            type="submit"
+            className="w-full"
+            disabled={!isDirty}
+            loading={isSubmitting}
+          >
+            {isEdit ? "保存" : "作成"}
+          </Button>
+        </div>
+      </form>
+      <div className="w-full mx-auto max-w-lg flex-1">
+        <Badge className="mb-4" variant="outline">
+          プレビュー
+        </Badge>
+        <Preview
+          quiz={{
+            id: "",
+            createdAt: "",
+            updatedAt: "",
+            type: values.type,
+            question: values.question,
+            answer: values.answer,
+            fakes: values.fakes ?? null,
           }}
         />
-      )}
-      <div className="flex items-center gap-2">
-        {isEdit && (
-          <Button
-            type="button"
-            size="icon"
-            variant="ghost"
-            className="shrink-0 rounded-md"
-            onClick={deleteQuiz}
-          >
-            <TrashIcon size={20} />
-          </Button>
-        )}
-        <Button
-          type="submit"
-          className="w-full"
-          disabled={!isDirty}
-          loading={isSubmitting}
-        >
-          {isEdit ? "保存" : "作成"}
-        </Button>
       </div>
-    </form>
+    </div>
   );
 };
 

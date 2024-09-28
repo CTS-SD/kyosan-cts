@@ -11,7 +11,7 @@ type Props = {
 };
 
 const QuizFormSelect = ({ quiz }: Props) => {
-  const { value, setValue, isShowResult, showResult } =
+  const { value, setValue, isShowResult, showResult, isPreview } =
     useContext(QuizFormContext);
 
   const selections = useMemo(() => {
@@ -60,7 +60,7 @@ const QuizFormSelect = ({ quiz }: Props) => {
           );
         })}
       </div>
-      {!isShowResult && (
+      {!isShowResult && !isPreview && (
         <Button
           onClick={() => handleSubmit()}
           className="absolute bottom-4 right-4 left-4"
