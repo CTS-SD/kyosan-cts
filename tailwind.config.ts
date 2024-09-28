@@ -55,6 +55,7 @@ const config: Config = {
         "grow-in": "grow-in cubic-bezier(0, 0.93, 0, 0.99) 0.8s",
         shake: "shake ease-in-out 0.4s",
         pop: "pop ease-in-out 0.3s",
+        "spinner-bar": "spinner-bar 1.5s infinite",
       },
       keyframes: {
         "grow-in": {
@@ -86,6 +87,17 @@ const config: Config = {
           },
           "100%": {
             transform: "scale(1)",
+          },
+        },
+        "spinner-bar": {
+          "0%": {
+            opacity: "0.2",
+          },
+          "10%": {
+            opacity: "1",
+          },
+          "100%": {
+            opacity: "0.2",
           },
         },
       },

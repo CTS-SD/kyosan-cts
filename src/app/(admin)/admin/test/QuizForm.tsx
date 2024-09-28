@@ -107,6 +107,7 @@ const QuizForm = ({
 
   const values = { type: form.useStore((s) => s.values.type) };
   const isDirty = form.useStore((s) => s.isDirty);
+  const isSubmitting = form.useStore((s) => s.isSubmitting);
 
   return (
     <form
@@ -248,7 +249,12 @@ const QuizForm = ({
             <TrashIcon size={20} />
           </Button>
         )}
-        <Button type="submit" className="w-full" disabled={!isDirty}>
+        <Button
+          type="submit"
+          className="w-full"
+          disabled={!isDirty}
+          loading={isSubmitting}
+        >
           {isEdit ? "保存" : "作成"}
         </Button>
       </div>
