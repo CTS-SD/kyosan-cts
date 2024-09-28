@@ -122,7 +122,10 @@ const QuizForm = ({
     <div className="flex-col flex md:flex-row gap-6">
       <form
         {...props}
-        className={cn("flex flex-1 flex-col gap-6", className)}
+        className={cn(
+          "flex flex-1 flex-col gap-6 border-b border-dashed pb-6 md:border-b-0 md:border-r md:pr-6 md:pb-0",
+          className
+        )}
         onSubmit={(e) => {
           e.preventDefault();
           if (values.type !== "select") {
@@ -169,7 +172,7 @@ const QuizForm = ({
                   onChange={(e) => handleChange(e.target.value)}
                   onBlur={handleBlur}
                   placeholder="問題文を入力"
-                  className="min-h-28"
+                  className="min-h-28 md:min-h-40"
                 />
                 <FieldError errors={state.meta.errors} />
               </div>

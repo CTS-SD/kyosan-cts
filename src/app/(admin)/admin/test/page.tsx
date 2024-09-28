@@ -8,7 +8,14 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Drawer, DrawerContent, DrawerTrigger } from "@/components/ui/drawer";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerDescription,
+  DrawerHeader,
+  DrawerTitle,
+  DrawerTrigger,
+} from "@/components/ui/drawer";
 import { Input } from "@/components/ui/input";
 import { client } from "@/db/hono";
 import { type Quiz } from "@/db/schema";
@@ -95,7 +102,10 @@ const Page = () => {
                 </Button>
               </DrawerTrigger>
               <DrawerContent className="overflow-auto right-0 w-[min(95%,1024px)] rounded-tr-none rounded-l-xl rounded-r-none left-auto top-0 bottom-0 fixed flex">
-                <div className="grow p-6">
+                <DrawerHeader>
+                  <DrawerTitle>問題を作成</DrawerTitle>
+                </DrawerHeader>
+                <div className="grow pr-6 pb-6 pl-6">
                   <QuizForm
                     onSaved={(quiz) => {
                       setQuizzes([quiz, ...quizzes]);
@@ -153,7 +163,10 @@ const Page = () => {
         open={isEditDialogOpen}
       >
         <DrawerContent className="right-0 w-[min(1024px,95%)] rounded-tr-none rounded-l-xl rounded-r-none left-auto top-0 bottom-0 flex overflow-y-auto">
-          <div className="grow p-6">
+          <DrawerHeader>
+            <DrawerTitle>問題を編集</DrawerTitle>
+          </DrawerHeader>
+          <div className="grow pr-6 pb-6 pl-6">
             <QuizForm
               quiz={activeQuiz}
               isEdit

@@ -2,10 +2,8 @@ import { QuizFormContext } from "@/app/test/QuizFormContext";
 import QuizFormInput from "@/app/test/QuizFormInput";
 import QuizFormOX from "@/app/test/QuizFormOX";
 import QuizFormSelect from "@/app/test/QuizFormSelect";
-import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { type Quiz } from "@/db/schema";
-import { useState } from "react";
 import Markdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -26,7 +24,7 @@ const Preview = ({ quiz }: Props) => {
       <QuizFormContext.Provider
         value={{
           showResult: () => {},
-          value: "",
+          value: null,
           setValue: () => {},
           isShowResult: false,
           isPreview: true,

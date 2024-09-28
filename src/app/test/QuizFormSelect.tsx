@@ -55,7 +55,7 @@ const QuizFormSelect = ({ quiz }: Props) => {
                   {digit2alpha[i] ?? ""}
                 </div>
               </div>
-              {selection}
+              {selection.length > 0 ? selection : "　"}
             </button>
           );
         })}
