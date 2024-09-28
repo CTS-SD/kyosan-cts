@@ -13,10 +13,10 @@ type Props = {};
 
 const Page = ({}: Props) => {
   return (
-    <div className="p-6 mt-6 flex flex-col items-center border rounded-2xl w-[min(400px,90%)] mx-auto">
+    <div className="p-6 mt-6 flex flex-col items-center rounded-2xl w-[min(400px,90%)] mx-auto">
       <div className="flex flex-col items-center py-4">
         <UserCogIcon size={64} />
-        <h1 className="font-bold text-lg flex items-center gap-1 mt-4">
+        <h1 className="font-bold text-base flex items-center gap-1 mt-4">
           管理者ログイン
         </h1>
       </div>
@@ -29,7 +29,7 @@ const Page = ({}: Props) => {
         }}
         className="w-full mt-4"
       >
-        <Button className="w-full" variant="outline">
+        <Button className="w-full" size="xl" variant="outline">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="24"

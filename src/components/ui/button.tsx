@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import { Spinner } from "../original-ui/spinner";
 
 const buttonVariants = cva(
-  "inline-flex items-center gap-2 rounded-full justify-center whitespace-nowrap text-base font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
@@ -19,11 +19,18 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        primary:
+          "text-white bg-gradient-to-br from-cyan-500 to-blue-600 group hover:ring ring-offset-2 transition-all duration-200 ring-blue-300",
+        "primary-outline": "border text-cyan-500 border-cyan-500 group",
+        accent:
+          "text-white bg-gradient-to-br from-lime-400 to-green-600 group hover:ring ring-offset-2 transition-all duration-200 ring-lime-300",
       },
       size: {
-        default: "h-14 px-8 py-2",
-        sm: "h-9 rounded-md text-sm px-3",
-        lg: "h-11 rounded-md px-8",
+        default: "h-10 px-4 py-2",
+        sm: "h-9 rounded-md px-3",
+        md: "h-10 rounded-lg px-4",
+        lg: "h-11 rounded-xl px-8",
+        xl: "h-14 rounded-full px-10 text-base font-bold",
         icon: "h-10 w-10",
       },
     },
@@ -42,31 +49,14 @@ export interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      className,
-      variant,
-      size,
-      children,
-      asChild = false,
-      loading = false,
-      ...props
-    },
-    ref
-  ) => {
+  ({ className, variant, size, asChild, loading = false, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
     return (
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
-        disabled={loading}
         {...props}
-      >
-        <>
-          {loading && <Spinner className="bg-current" />}
-          {children}
-        </>
-      </Comp>
+      />
     );
   }
 );

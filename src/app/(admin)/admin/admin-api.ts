@@ -19,7 +19,11 @@ export async function deleteQuiz(
     toast.error("問題の削除に失敗しました");
     return;
   }
-
-  onDeleted?.(quizId);
   toast.success("問題を削除しました");
+
+  const deletedQuiz = await res.json();
+
+  onDeleted?.(deletedQuiz.id);
+
+  return deletedQuiz.id;
 }

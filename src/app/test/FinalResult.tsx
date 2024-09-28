@@ -73,7 +73,12 @@ const FinalResult = ({ results, onRetry, passingScore }: Props) => {
           </div>
         ))}
       </div>
-      <Button className="sticky bottom-4 w-full" onClick={onRetry}>
+      <Button
+        variant="primary"
+        size="xl"
+        className="sticky bottom-4 w-full"
+        onClick={onRetry}
+      >
         もう一度挑戦する
       </Button>
     </>

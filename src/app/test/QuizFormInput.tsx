@@ -42,8 +42,10 @@ const QuizFormInput = ({ quiz }: Props) => {
         />
         {!isShowResult && !isPreview && (
           <Button
+            variant="primary"
+            size="xl"
             type="submit"
-            className="absolute bottom-4 right-4 left-4"
+            className="absolute bottom-4 right-4 left-4 w-auto"
             disabled={isShowResult || !value}
           >
             決定

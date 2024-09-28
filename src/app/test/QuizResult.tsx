@@ -18,7 +18,7 @@ const QuizResult = ({ result, onNext, isFinal, onFinal }: Props) => {
   return (
     <div
       className={cn(
-        "shadow-lg mt-auto border-2 backdrop-blur-md bg-white rounded-3xl p-4  animate-grow-in sticky bottom-4"
+        "shadow-lg mt-auto border backdrop-blur-md bg-white rounded-xl p-4 animate-grow-in sticky bottom-2 -mx-2"
       )}
     >
       <div className="flex flex-col items-center">
@@ -55,11 +55,21 @@ const QuizResult = ({ result, onNext, isFinal, onFinal }: Props) => {
           )}
         </div>
         {isFinal ? (
-          <Button className="w-full animate-pulse" onClick={() => onFinal()}>
+          <Button
+            variant="primary"
+            size="xl"
+            className="w-full animate-pulse"
+            onClick={() => onFinal()}
+          >
             結果を見る
           </Button>
         ) : (
-          <Button className="w-full" onClick={() => onNext()}>
+          <Button
+            variant="primary"
+            size="xl"
+            className="w-full"
+            onClick={() => onNext()}
+          >
             次の問題へ
           </Button>
         )}

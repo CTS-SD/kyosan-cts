@@ -77,9 +77,17 @@ const app = new Hono()
   .delete("/:id", async (c) => {
     const id = c.req.param("id");
 
-    await db.delete(quizzes).where(eq(quizzes.id, id));
+    const deletedQuizId = (
+      await db.delete(quizzes).where(eq(quizzes.id, id)).returning({
+        id: quizzes.id,
+      })
+    )[0];
 
-    return c.json({ message: "success" }, 200);
+    if (!deletedQuizId) {
+      return c.json({ error: "Quiz not found" }, 404);
+    }
+
+    return c.json(deletedQuizId);
   });
 
 export default app;

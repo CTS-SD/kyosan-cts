@@ -20,7 +20,9 @@ const StartPage = ({ onStart }: Props) => {
         <div>
           <Player autoplay loop src={BirdAnimation} className="w-40" />
         </div>
-        <Button onClick={onStart}>スタート！</Button>
+        <Button variant="primary" size="lg" onClick={onStart}>
+          スタート
+        </Button>
       </div>
     </>
   );
