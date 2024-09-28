@@ -113,13 +113,14 @@ const Page = () => {
               onOpenChange={(open) => setIsCreateDialogOpen(open)}
               open={isCreateDialogOpen}
               handleOnly
+              disablePreventScroll
             >
               <DrawerTrigger className="" asChild>
                 <Button className="rounded-md shrink-0" size="icon">
                   <PlusIcon size={20} />
                 </Button>
               </DrawerTrigger>
-              <DrawerContent className="overflow-auto right-0 w-[min(90%,1024px)] rounded-tr-none rounded-l-xl rounded-r-none left-auto top-0 bottom-0 fixed flex overflow-y-auto overflow-x-clip">
+              <DrawerContent className="overflow-auto right-0 w-[min(92%,1024px)] rounded-tr-none rounded-l-xl rounded-r-none left-auto top-0 bottom-0 fixed flex overflow-y-auto overflow-x-clip">
                 <DrawerHeader className="sticky top-0 bg-white/50 backdrop-blur-sm flex items-center py-3 pr-3 justify-between">
                   <DrawerTitle>問題を作成</DrawerTitle>
                   <DrawerClose asChild>
@@ -216,8 +217,9 @@ const Page = () => {
         onOpenChange={(open) => setIsEditDialogOpen(open)}
         open={isEditDialogOpen}
         handleOnly
+        disablePreventScroll
       >
-        <DrawerContent className="right-0 w-[min(1024px,90%)] rounded-tr-none rounded-l-xl rounded-r-none left-auto top-0 bottom-0 flex overflow-y-auto overflow-x-clip">
+        <DrawerContent className="right-0 w-[min(1024px,92%)] rounded-tr-none rounded-l-xl rounded-r-none left-auto top-0 bottom-0 flex overflow-y-auto overflow-x-clip">
           <DrawerHeader className="sticky top-0 bg-white/50 backdrop-blur-sm flex items-center py-3 pr-3 justify-between">
             <DrawerTitle>問題を編集</DrawerTitle>
             <DrawerClose asChild>
