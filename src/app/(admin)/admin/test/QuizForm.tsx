@@ -9,10 +9,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { client } from "@/db/hono";
 import { type Quiz, QuizTypeEnum } from "@/db/schema";
 import { cn } from "@/utils/utils";
-import { useForm } from "@tanstack/react-form";
+import { useForm, ValidationError } from "@tanstack/react-form";
 import { TrashIcon, XIcon } from "lucide-react";
 import { Dispatch, SetStateAction } from "react";
 import { toast } from "sonner";
+import { zodValidator } from "@tanstack/zod-form-adapter";
+import { z } from "zod";
+import FieldError from "@/components/original-ui/field-error";
 
 type Props = {
   quiz?: Quiz;
@@ -32,6 +35,7 @@ const QuizForm = ({
   ...props
 }: Props) => {
   const form = useForm({
+    validatorAdapter: zodValidator(),
     defaultValues: {
       question: quiz?.question ?? "",
       type: (quiz?.type ?? "select") as QuizTypeEnum,
@@ -115,6 +119,15 @@ const QuizForm = ({
       className={cn("flex flex-col gap-6", className)}
       onSubmit={(e) => {
         e.preventDefault();
+
+        if (values.type !== "select") {
+          form.setFieldMeta("fakes", (meta) => ({
+            ...meta,
+            errorMap: {},
+            errors: [],
+          }));
+        }
+
         form.handleSubmit();
       }}
     >
@@ -126,7 +139,9 @@ const QuizForm = ({
               <Label>形式</Label>
               <MultiSwitch
                 value={state.value}
-                onValueChange={(value) => handleChange(value as QuizTypeEnum)}
+                onValueChange={(value) => {
+                  handleChange(value as QuizTypeEnum);
+                }}
               >
                 <MultiSwitchItem value="select">選択</MultiSwitchItem>
                 <MultiSwitchItem value="input">テキスト</MultiSwitchItem>
@@ -138,6 +153,9 @@ const QuizForm = ({
       />
       <form.Field
         name="question"
+        validators={{
+          onSubmit: z.string().min(1, "問題文を入力してください"),
+        }}
         children={({ state, handleChange, handleBlur }) => {
           return (
             <div>
@@ -149,6 +167,7 @@ const QuizForm = ({
                 placeholder="問題文を入力"
                 className="min-h-28"
               />
+              <FieldError errors={state.meta.errors} />
             </div>
           );
         }}
@@ -156,6 +175,11 @@ const QuizForm = ({
       {values.type === "ox" ? (
         <form.Field
           name="answer"
+          validators={{
+            onSubmit: z.string().regex(/^__(true|false)__$/, {
+              message: "答えを選択してください",
+            }),
+          }}
           children={({ state, handleChange }) => {
             return (
               <div>
@@ -164,6 +188,7 @@ const QuizForm = ({
                   <MultiSwitchItem value="__true__">○</MultiSwitchItem>
                   <MultiSwitchItem value="__false__">✗</MultiSwitchItem>
                 </MultiSwitch>
+                <FieldError errors={state.meta.errors} />
               </div>
             );
           }}
@@ -171,6 +196,9 @@ const QuizForm = ({
       ) : (
         <form.Field
           name="answer"
+          validators={{
+            onSubmit: z.string().min(1, "答えを入力してください"),
+          }}
           children={({ state, handleChange, handleBlur }) => {
             return (
               <div>
@@ -181,6 +209,7 @@ const QuizForm = ({
                   onBlur={handleBlur}
                   placeholder="答えを入力"
                 />
+                <FieldError errors={state.meta.errors} />
               </div>
             );
           }}
@@ -189,6 +218,11 @@ const QuizForm = ({
       {values.type === "select" && (
         <form.Field
           name="fakes"
+          validators={{
+            onSubmit: z
+              .array(z.string().min(1, "選択肢を入力してください"))
+              .min(1, "選択肢を1つ以上追加してください"),
+          }}
           children={({ state, handleChange, handleBlur }) => {
             return (
               <div>
@@ -232,6 +266,7 @@ const QuizForm = ({
                     + 選択肢を追加
                   </Button>
                 </div>
+                <FieldError errors={state.meta.errors} />
               </div>
             );
           }}
