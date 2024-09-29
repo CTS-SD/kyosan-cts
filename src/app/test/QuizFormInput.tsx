@@ -20,39 +20,38 @@ const QuizFormInput = ({ quiz }: Props) => {
   };
 
   return (
-    <div className="">
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          handleAnswer();
-        }}
-      >
-        <input
-          value={typeof value == "string" ? value : ""}
-          onChange={(e) => setValue(e.currentTarget.value)}
-          className={cn(
-            "py-4 px-6 font-bold bg-neutral-100 rounded-full w-full border-2",
-            isShowResult &&
-              (isCorrect
-                ? "bg-green-100 border-green-300 text-green-500 animate-pop"
-                : "bg-red-100 border-red-300 text-red-500 animate-shake")
-          )}
-          disabled={isShowResult}
-          placeholder="回答を入力"
-        />
-        {!isShowResult && !isPreview && (
-          <Button
-            variant="primary"
-            size="xl"
-            type="submit"
-            className="absolute bottom-4 right-4 left-4 w-auto"
-            disabled={isShowResult || !value}
-          >
-            決定
-          </Button>
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleAnswer();
+      }}
+      className="contents"
+    >
+      <input
+        value={typeof value == "string" ? value : ""}
+        onChange={(e) => setValue(e.currentTarget.value)}
+        className={cn(
+          "py-4 px-6 font-bold bg-neutral-100 rounded-full w-full border-2",
+          isShowResult &&
+            (isCorrect
+              ? "bg-green-100 border-green-300 text-green-500 animate-pop"
+              : "bg-red-100 border-red-300 text-red-500 animate-shake")
         )}
-      </form>
-    </div>
+        disabled={isShowResult}
+        placeholder="回答を入力"
+      />
+      {!isShowResult && (
+        <Button
+          variant="primary"
+          size="xl"
+          type="submit"
+          className="sticky w-full mt-auto"
+          disabled={isShowResult || !value}
+        >
+          決定
+        </Button>
+      )}
+    </form>
   );
 };
 

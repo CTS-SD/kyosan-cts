@@ -141,7 +141,7 @@ export default function Home() {
               <QuizFormContext.Provider
                 value={{ showResult, value, setValue, isShowResult }}
               >
-                <div className="">
+                <div className="grow flex flex-col">
                   {quiz.type === "select" && <QuizFormSelect quiz={quiz} />}
                   {quiz.type === "input" && <QuizFormInput quiz={quiz} />}
                   {quiz.type === "ox" && <QuizFormOX quiz={quiz} />}

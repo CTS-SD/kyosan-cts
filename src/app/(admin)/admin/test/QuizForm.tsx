@@ -311,9 +311,6 @@ const QuizForm = ({
         </div>
       </form>
       <div className="w-full mx-auto max-w-lg flex-1">
-        <Badge className="mb-4" variant="outline">
-          プレビュー
-        </Badge>
         <Preview
           quiz={{
             id: "",

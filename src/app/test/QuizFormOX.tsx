@@ -47,12 +47,12 @@ const QuizFormOX = ({ quiz }: Props) => {
           <CircleIcon className="size-16" />
         </button>
       </div>
-      {!isShowResult && !isPreview && (
+      {!isShowResult && (
         <Button
           variant="primary"
           size="xl"
           onClick={() => handleSubmit()}
-          className="absolute bottom-4 right-4 left-4 w-auto"
+          className="sticky w-full mt-auto"
           disabled={value === null}
         >
           決定
