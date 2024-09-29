@@ -10,7 +10,16 @@ import { client } from "@/db/hono";
 import { type Quiz, QuizTypeEnum } from "@/db/schema";
 import { cn } from "@/utils/utils";
 import { useForm } from "@tanstack/react-form";
-import { TrashIcon, XIcon } from "lucide-react";
+import {
+  CircleIcon,
+  LightbulbIcon,
+  PanelsTopLeftIcon,
+  TextIcon,
+  ThumbsDownIcon,
+  ThumbsUpIcon,
+  TrashIcon,
+  XIcon,
+} from "lucide-react";
 import { toast } from "sonner";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { z } from "zod";
@@ -123,7 +132,7 @@ const QuizForm = ({
           children={({ state, handleChange, handleBlur }) => {
             return (
               <div>
-                <Label>形式</Label>
+                <Label icon={<PanelsTopLeftIcon size="16" />}>形式</Label>
                 <MultiSwitch
                   value={state.value}
                   onValueChange={(value) => {
@@ -146,7 +155,7 @@ const QuizForm = ({
           children={({ state, handleChange, handleBlur }) => {
             return (
               <div>
-                <Label>問題文</Label>
+                <Label icon={<TextIcon size="16" />}>問題文</Label>
                 <Textarea
                   value={state.value}
                   onChange={(e) => handleChange(e.target.value)}
@@ -170,7 +179,7 @@ const QuizForm = ({
             children={({ state, handleChange }) => {
               return (
                 <div>
-                  <Label>答え</Label>
+                  <Label icon={<ThumbsUpIcon size="16" />}>答え</Label>
                   <MultiSwitch value={state.value} onValueChange={handleChange}>
                     <MultiSwitchItem value="__true__">○</MultiSwitchItem>
                     <MultiSwitchItem value="__false__">✗</MultiSwitchItem>
@@ -189,7 +198,7 @@ const QuizForm = ({
             children={({ state, handleChange, handleBlur }) => {
               return (
                 <div>
-                  <Label>答え</Label>
+                  <Label icon={<ThumbsUpIcon size="16" />}>答え</Label>
                   <Input
                     value={state.value}
                     onChange={(e) => handleChange(e.target.value)}
@@ -213,7 +222,9 @@ const QuizForm = ({
             children={({ state, handleChange, handleBlur }) => {
               return (
                 <div>
-                  <Label>不正解の選択肢</Label>
+                  <Label icon={<ThumbsDownIcon size="16" />}>
+                    不正解の選択肢
+                  </Label>
                   <div className="flex flex-col gap-2">
                     {state.value?.map((fake, i) => (
                       <div key={i} className="flex gap-2">
@@ -265,7 +276,7 @@ const QuizForm = ({
           children={({ state, handleChange, handleBlur }) => {
             return (
               <div>
-                <Label>解説</Label>
+                <Label icon={<LightbulbIcon size="16" />}>解説</Label>
                 <Textarea
                   value={state.value}
                   onChange={(e) => handleChange(e.target.value)}
