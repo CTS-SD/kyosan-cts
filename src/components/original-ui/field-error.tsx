@@ -8,7 +8,7 @@ type Props = {
 const FieldError = ({ errors }: Props) => {
   if (!errors || errors?.length === 0) return null;
   return (
-    <div className="text-red-500 mt-1 flex items-center gap-1">
+    <div className="mt-1 flex items-center gap-1 text-red-500">
       <AlertCircleIcon size={14} />
       <div className="text-sm">{String(errors).split(",")[0]}</div>
     </div>

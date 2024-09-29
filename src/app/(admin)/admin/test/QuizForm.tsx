@@ -53,7 +53,7 @@ const QuizForm = ({
       fakes: quiz?.fakes ?? undefined,
       isPublic: quiz?.isPublic ?? true,
     },
-    onSubmit: async ({ value }) => {
+    onSubmit: async ({ value, formApi }) => {
       if (isEdit) {
         // update quiz
         const res = await client.api.admin.quiz[":id"].$put({
@@ -90,8 +90,8 @@ const QuizForm = ({
         const newQuiz = await res.json();
         onSaved?.(newQuiz);
 
-        form.reset();
-        form.setFieldValue("type", value.type);
+        formApi.reset();
+        formApi.setFieldValue("type", value.type);
 
         toast.success("問題を作成しました");
       }
@@ -109,12 +109,12 @@ const QuizForm = ({
   const isSubmitting = form.useStore((s) => s.isSubmitting);
 
   return (
-    <div className="flex-col flex md:flex-row gap-6">
+    <div className="flex flex-col gap-6 md:flex-row">
       <form
         {...props}
         className={cn(
-          "flex flex-1 flex-col gap-6 border-b border-dashed pb-6 md:border-b-0 md:border-r md:pr-6 md:pb-0",
-          className
+          "flex flex-1 flex-col gap-6 border-b border-dashed pb-6 md:border-b-0 md:border-r md:pb-0 md:pr-6",
+          className,
         )}
         onSubmit={(e) => {
           e.preventDefault();
@@ -243,7 +243,7 @@ const QuizForm = ({
                           type="button"
                           size="icon"
                           variant="outline"
-                          className="rounded-md shrink-0"
+                          className="shrink-0 rounded-md"
                           onClick={() => {
                             const newValue = [...(state.value ?? [])];
                             newValue.splice(i, 1);
@@ -298,7 +298,7 @@ const QuizForm = ({
             return (
               <div>
                 <Label icon={<LockOpenIcon size="16" />}>公開設定</Label>
-                <label className="border cursor-pointer p-4 rounded-lg gap-2 flex items-center justify-between">
+                <label className="flex cursor-pointer items-center justify-between gap-2 rounded-lg border p-4">
                   <div className="space-y-0.5">
                     <div className="font-semibold">この問題を公開する</div>
                     <div className="text-sm text-neutral-500">
@@ -337,7 +337,7 @@ const QuizForm = ({
           </Button>
         </div>
       </form>
-      <div className="w-full mx-auto max-w-lg flex-1">
+      <div className="mx-auto w-full max-w-lg flex-1">
         <Preview
           quiz={{
             ...quiz!,

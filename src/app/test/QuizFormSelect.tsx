@@ -31,25 +31,25 @@ const QuizFormSelect = ({ quiz }: Props) => {
             <button
               key={i}
               className={cn(
-                "p-4 bg-neutral-100 border-2 font-bold rounded-full transition-transform relative",
+                "relative rounded-full border-2 bg-neutral-100 p-4 font-bold transition-transform",
                 value == selection &&
-                  "animate-pop bg-blue-100 text-blue-500 border-blue-300 [&_.badge]:bg-blue-200",
+                  "animate-pop border-blue-300 bg-blue-100 text-blue-500 [&_.badge]:bg-blue-200",
                 isShowResult && value != selection && "opacity-50",
                 isShowResult &&
                   quiz.answer == selection &&
-                  "bg-green-100 border-green-300 text-green-500 animate-pop [&_.badge]:bg-green-200",
+                  "animate-pop border-green-300 bg-green-100 text-green-500 [&_.badge]:bg-green-200",
                 isShowResult &&
                   quiz.answer != selection &&
                   value == selection &&
-                  "bg-red-100 border-red-300 text-red-500 animate-shake [&_.badge]:bg-red-200"
+                  "animate-shake border-red-300 bg-red-100 text-red-500 [&_.badge]:bg-red-200",
               )}
               onClick={() => setValue(selection)}
               disabled={isShowResult}
             >
-              <div className="absolute top-0 h-full left-2 grid place-content-center">
+              <div className="absolute left-2 top-0 grid h-full place-content-center">
                 <div
                   className={cn(
-                    "bg-black/10 size-10 rounded-full text-black grid place-content-center badge"
+                    "badge grid size-10 place-content-center rounded-full bg-black/10 text-black",
                   )}
                 >
                   {digit2alpha[i] ?? ""}
@@ -65,7 +65,7 @@ const QuizFormSelect = ({ quiz }: Props) => {
           variant="primary"
           size="xl"
           onClick={() => handleSubmit()}
-          className="sticky w-full mt-auto"
+          className="sticky mt-auto w-full"
           disabled={value === null}
         >
           決定

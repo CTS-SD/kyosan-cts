@@ -100,7 +100,7 @@ const Page = () => {
     <>
       <TestPageHeading />
       <div className="bg-neutral-50">
-        <div className="max-w-5xl mx-auto min-h-[calc(100dvh_-_221px)] p-6">
+        <div className="mx-auto min-h-[calc(100dvh_-_221px)] max-w-5xl p-6">
           <div className="flex gap-3">
             <Input
               className="w-full"
@@ -113,15 +113,15 @@ const Page = () => {
               open={isCreateDialogOpen}
             >
               <DialogTrigger className="" asChild>
-                <Button className="rounded-md shrink-0" size="icon">
+                <Button className="shrink-0 rounded-md" size="icon">
                   <PlusIcon size={20} />
                 </Button>
               </DialogTrigger>
               <DialogContent
                 onOpenAutoFocus={(e) => e.preventDefault()}
-                className="p-0 max-h-[95dvh] mt-[5dvh] rounded-t-2xl max-w-[1024px] mx-auto md:max-h-[90dvh] md:mt-0"
+                className="mx-auto mt-[5dvh] max-h-[95dvh] max-w-[1024px] rounded-t-2xl p-0 md:mt-0 md:max-h-[90dvh]"
               >
-                <DialogHeader className="sticky flex-row px-6 top-0 bg-white/50 backdrop-blur-sm flex items-center py-3 pr-3 justify-between">
+                <DialogHeader className="sticky top-0 flex flex-row items-center justify-between bg-white/50 px-6 py-3 pr-3 backdrop-blur-sm">
                   <DialogTitle>問題を編集</DialogTitle>
                   <DialogClose asChild>
                     <Button className="!mt-0" size="icon" variant="ghost">
@@ -129,7 +129,7 @@ const Page = () => {
                     </Button>
                   </DialogClose>
                 </DialogHeader>
-                <div className="grow pr-6 pb-6 pl-6">
+                <div className="grow pb-6 pl-6 pr-6">
                   <QuizForm
                     onSaved={(quiz) => {
                       setQuizzes([quiz, ...quizzes]);
@@ -145,7 +145,7 @@ const Page = () => {
               {isLoading ? (
                 <>
                   {Array.from({ length: 18 }, (_, i) => (
-                    <Skeleton key={i} className="w-full h-[102px] rounded-lg" />
+                    <Skeleton key={i} className="h-[102px] w-full rounded-lg" />
                   ))}
                 </>
               ) : (
@@ -177,7 +177,7 @@ const Page = () => {
                           onClick={async () =>
                             deleteQuiz(quiz.id, () => {
                               setQuizzes(
-                                quizzes.filter((q) => q.id !== quiz.id)
+                                quizzes.filter((q) => q.id !== quiz.id),
                               );
                             })
                           }
@@ -213,9 +213,9 @@ const Page = () => {
       >
         <DialogContent
           onOpenAutoFocus={(e) => e.preventDefault()}
-          className="p-0 max-h-[95dvh] mt-[2.5dvh] rounded-t-2xl max-w-[1024px] mx-auto md:max-h-[90dvh] md:mt-0"
+          className="mx-auto mt-[2.5dvh] max-h-[95dvh] max-w-[1024px] rounded-t-2xl p-0 md:mt-0 md:max-h-[90dvh]"
         >
-          <DialogHeader className="sticky flex-row px-6 top-0 bg-white/50 backdrop-blur-sm flex items-center py-3 pr-3 justify-between">
+          <DialogHeader className="sticky top-0 flex flex-row items-center justify-between bg-white/50 px-6 py-3 pr-3 backdrop-blur-sm">
             <DialogTitle>問題を編集</DialogTitle>
             <DialogClose asChild>
               <Button className="!mt-0" size="icon" variant="ghost">
@@ -223,7 +223,7 @@ const Page = () => {
               </Button>
             </DialogClose>
           </DialogHeader>
-          <div className="grow pr-6 pb-6 pl-6">
+          <div className="grow pb-6 pl-6 pr-6">
             <QuizForm
               quiz={activeQuiz}
               isEdit

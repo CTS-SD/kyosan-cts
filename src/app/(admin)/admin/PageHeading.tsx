@@ -10,16 +10,16 @@ type Props = {
       icon: React.ReactNode;
       href?: string;
       onClick?: () => void;
-    }
+    },
   ];
 };
 
 const PageHeading = ({ heading, description, href, actions }: Props) => {
   return (
     <div className="border-b">
-      <div className="py-10 px-6 relative font-bold text-2xl max-w-5xl mx-auto bg-white flex items-center">
+      <div className="relative mx-auto flex max-w-5xl items-center bg-white px-6 py-10 text-2xl font-bold">
         <h1>{href ? <Link href={href}>{heading}</Link> : heading}</h1>
-        <div className="flex items-center absolute right-6 ml-auto">
+        <div className="absolute right-6 ml-auto flex items-center">
           {actions?.map((action, i) => {
             const className =
               "p-2 rounded-lg size-12 aspect-square bg-white border text-black grid place-content-center hover:bg-neutral-100";

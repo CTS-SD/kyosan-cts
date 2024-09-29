@@ -15,22 +15,20 @@ const Page = async ({}: Props) => {
   }
 
   return (
-    <div className="p-4 max-w-lg mx-auto">
-      <div className="flex mb-4 flex-col items-center gap-4 p-6 bg-red-50 text-red-500 border-red-300 border-2 rounded-2xl">
+    <div className="mx-auto max-w-lg p-4">
+      <div className="mb-4 flex flex-col items-center gap-4 rounded-2xl border-2 border-red-300 bg-red-50 p-6 text-red-500">
         <TriangleAlertIcon size={64} />
-        <p className="font-bold">
-          管理者ページへのアクセス権限がありません。
-        </p>
+        <p className="font-bold">管理者ページへのアクセス権限がありません。</p>
       </div>
       <SettingsItem>
         <Image
-          className="rounded-full size-10"
+          className="size-10 rounded-full"
           src={session?.user?.image ?? ""}
           alt=""
           width={80}
           height={80}
         />
-        <div className="font-semibold mt-2">{session?.user?.name}</div>
+        <div className="mt-2 font-semibold">{session?.user?.name}</div>
         <form
           className="ml-auto"
           action={async () => {

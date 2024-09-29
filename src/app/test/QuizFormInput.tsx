@@ -31,11 +31,11 @@ const QuizFormInput = ({ quiz }: Props) => {
         value={typeof value == "string" ? value : ""}
         onChange={(e) => setValue(e.currentTarget.value)}
         className={cn(
-          "py-4 px-6 font-bold bg-neutral-100 rounded-full w-full border-2",
+          "w-full rounded-full border-2 bg-neutral-100 px-6 py-4 font-bold",
           isShowResult &&
             (isCorrect
-              ? "bg-green-100 border-green-300 text-green-500 animate-pop"
-              : "bg-red-100 border-red-300 text-red-500 animate-shake")
+              ? "animate-pop border-green-300 bg-green-100 text-green-500"
+              : "animate-shake border-red-300 bg-red-100 text-red-500"),
         )}
         disabled={isShowResult}
         placeholder="回答を入力"
@@ -45,7 +45,7 @@ const QuizFormInput = ({ quiz }: Props) => {
           variant="primary"
           size="xl"
           type="submit"
-          className="sticky w-full mt-auto"
+          className="sticky mt-auto w-full"
           disabled={isShowResult || !value}
         >
           決定

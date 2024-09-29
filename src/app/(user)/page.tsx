@@ -10,8 +10,8 @@ export const metadata: Metadata = {
 const Page = () => {
   return (
     <main className="">
-      <div className="pt-10 pb-4 md:pb-8">
-        <h1 className="text-5xl sm:text-7xl lg:text-8xl flex flex-col font-black px-6 max-w-5xl mx-auto bg-clip-text text-transparent bg-gradient-to-br from-cyan-500 to-blue-600">
+      <div className="pb-4 pt-10 md:pb-8">
+        <h1 className="mx-auto flex max-w-5xl flex-col bg-gradient-to-br from-cyan-500 to-blue-600 bg-clip-text px-6 text-5xl font-black text-transparent sm:text-7xl lg:text-8xl">
           <span>CAMPUS</span>
           <span>TOUR STAFF</span>
           <span className="text-xl sm:text-2xl lg:text-4xl">
@@ -19,14 +19,14 @@ const Page = () => {
           </span>
         </h1>
       </div>
-      <div className="p-6 max-w-5xl mx-auto">
+      <div className="mx-auto max-w-5xl p-6">
         <div className="flex w-full">
           <Button variant="primary-outline" className="w-fit" size="xl" asChild>
             <Link className="" href="/test">
               ぷらっとテスト
               <ArrowRightIcon
                 size={20}
-                className="group-hover:translate-x-0.5 ml-0.5 transition opacity-50 group-hover:opacity-100"
+                className="ml-0.5 opacity-50 transition group-hover:translate-x-0.5 group-hover:opacity-100"
               />
             </Link>
           </Button>

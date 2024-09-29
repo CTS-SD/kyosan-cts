@@ -19,7 +19,7 @@ const MultiSwitch = ({
 }: MultiSwitchProps) => {
   return (
     <div
-      className={cn("flex p-1 border rounded-md gap-0.5", className)}
+      className={cn("flex gap-0.5 rounded-md border p-1", className)}
       {...props}
     >
       {React.Children.map(props.children, (child) => {
@@ -50,9 +50,9 @@ const MultiSwitchItem = ({
   return (
     <div
       className={cn(
-        "flex justify-center flex-1 rounded-sm font-semibold p-1.5 text-sm cursor-pointer",
+        "flex flex-1 cursor-pointer justify-center rounded-sm p-1.5 text-sm font-semibold",
         isActive ? "bg-neutral-200/80" : "text-neutral-500",
-        className
+        className,
       )}
       {...props}
     />

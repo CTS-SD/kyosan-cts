@@ -10,16 +10,16 @@ const Page = async () => {
   return (
     <>
       <PageHeading heading="設定" href="/admin/settings" />
-      <div className="flex max-w-5xl mx-auto flex-col gap-2 p-6">
+      <div className="mx-auto flex max-w-5xl flex-col gap-2 p-6">
         <SettingsItem>
           <Image
-            className="rounded-full size-10"
+            className="size-10 rounded-full"
             src={session?.user?.image ?? ""}
             alt=""
             width={80}
             height={80}
           />
-          <div className="font-semibold mt-2">{session?.user?.name}</div>
+          <div className="mt-2 font-semibold">{session?.user?.name}</div>
           <form
             className="ml-auto"
             action={async () => {

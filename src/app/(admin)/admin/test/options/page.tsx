@@ -62,7 +62,7 @@ const Page = () => {
       <TestPageHeading />
       <div className="">
         <form
-          className="p-6 space-y-4 max-w-5xl mx-auto"
+          className="mx-auto max-w-5xl space-y-4 p-6"
           onSubmit={(e) => {
             e.preventDefault();
             form.handleSubmit();

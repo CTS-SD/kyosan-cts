@@ -55,7 +55,7 @@ const app = new Hono()
           answer: body.answer,
           explanation: body.explanation,
           fakes: body.fakes,
-          isPublic: body.isPublic
+          isPublic: body.isPublic,
         })
         .returning()
     )[0];

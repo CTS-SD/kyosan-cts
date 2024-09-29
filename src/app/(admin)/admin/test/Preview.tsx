@@ -39,14 +39,14 @@ const Preview = ({ quiz }: Props) => {
 
   if (!quiz) return null;
   return (
-    <div className="relative min-h-[calc(90dvh_-_64px)] md:min-h-[calc(85dvh_-_64px)] md:sticky md:top-[80px] flex flex-col">
+    <div className="relative flex min-h-[calc(90dvh_-_64px)] flex-col md:sticky md:top-[80px] md:min-h-[calc(85dvh_-_64px)]">
       <Badge className="mb-4 w-fit" variant="outline">
         プレビュー
       </Badge>
       <div className="flex items-center gap-2">
         <Progress value={30} />
       </div>
-      <div className="text-lg leading-snug font-semibold rounded-lg py-10 px-2 question-md">
+      <div className="question-md rounded-lg px-2 py-10 text-lg font-semibold leading-snug">
         <Markdown remarkPlugins={[remarkGfm]}>{quiz.question}</Markdown>
       </div>
       <QuizFormContext.Provider
@@ -58,7 +58,7 @@ const Preview = ({ quiz }: Props) => {
           isPreview: true,
         }}
       >
-        <div className="grow flex flex-col">
+        <div className="flex grow flex-col">
           {quiz.type === "select" && <QuizFormSelect quiz={quiz} />}
           {quiz.type === "input" && <QuizFormInput quiz={quiz} />}
           {quiz.type === "ox" && <QuizFormOX quiz={quiz} />}

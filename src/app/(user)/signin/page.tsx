@@ -13,10 +13,10 @@ type Props = {};
 
 const Page = ({}: Props) => {
   return (
-    <div className="p-6 mt-6 flex flex-col items-center rounded-2xl w-[min(400px,90%)] mx-auto">
+    <div className="mx-auto mt-6 flex w-[min(400px,90%)] flex-col items-center rounded-2xl p-6">
       <div className="flex flex-col items-center py-4">
         <UserCogIcon size={64} />
-        <h1 className="font-bold text-base flex items-center gap-1 mt-4">
+        <h1 className="mt-4 flex items-center gap-1 text-base font-bold">
           管理者ログイン
         </h1>
       </div>
@@ -27,7 +27,7 @@ const Page = ({}: Props) => {
             redirectTo: "/admin",
           });
         }}
-        className="w-full mt-4"
+        className="mt-4 w-full"
       >
         <Button className="w-full" size="xl" variant="outline">
           <svg

@@ -89,9 +89,9 @@ export default function Home() {
   return (
     <>
       {["start", "result"].includes(page) && <Header />}
-      <main className="min-h-[100dvh] flex flex-col max-w-lg mx-auto relative">
+      <main className="relative mx-auto flex min-h-[100dvh] max-w-lg flex-col">
         <title>ぷらっとテスト</title>
-        <div className="p-4 grow flex flex-col">
+        <div className="flex grow flex-col p-4">
           {page == "start" && (
             <StartPage
               onStart={async () => {
@@ -135,13 +135,13 @@ export default function Home() {
                 </Dialog>
                 <Progress value={(round / roundMax) * 100} />
               </div>
-              <div className="text-lg leading-snug font-semibold rounded-lg py-10 px-2 question-md">
+              <div className="question-md rounded-lg px-2 py-10 text-lg font-semibold leading-snug">
                 <Markdown remarkPlugins={[remarkGfm]}>{quiz.question}</Markdown>
               </div>
               <QuizFormContext.Provider
                 value={{ showResult, value, setValue, isShowResult }}
               >
-                <div className="grow flex flex-col">
+                <div className="flex grow flex-col">
                   {quiz.type === "select" && <QuizFormSelect quiz={quiz} />}
                   {quiz.type === "input" && <QuizFormInput quiz={quiz} />}
                   {quiz.type === "ox" && <QuizFormOX quiz={quiz} />}

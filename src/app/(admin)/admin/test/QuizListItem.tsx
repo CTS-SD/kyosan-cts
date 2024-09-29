@@ -20,19 +20,19 @@ const QuizListItem = ({ quiz, onClick }: Props) => {
     <div
       onClick={onClick}
       className={cn(
-        "p-4 border rounded-lg min-w-0 bg-white cursor-pointer",
-        !quiz.isPublic && "border-dashed"
+        "min-w-0 cursor-pointer rounded-lg border bg-white p-4",
+        !quiz.isPublic && "border-dashed",
       )}
     >
-      <div className="flex gap-3 w-full">
-        <div className="rounded-md bg-black shrink-0 text-white size-8 grid place-content-center">
+      <div className="flex w-full gap-3">
+        <div className="grid size-8 shrink-0 place-content-center rounded-md bg-black text-white">
           {getQuizIcon(quiz.type)}
         </div>
-        <div className="font-semibold pt-1 truncate">{quiz.question}</div>
+        <div className="truncate pt-1 font-semibold">{quiz.question}</div>
       </div>
-      <div className="flex items-center mt-4">
-        <div className="text-sm flex items-center">
-          <div className="text-neutral-500 shrink-0">解答：</div>
+      <div className="mt-4 flex items-center">
+        <div className="flex items-center text-sm">
+          <div className="shrink-0 text-neutral-500">解答：</div>
           <div className="truncate">{getAnswerElement(quiz.answer)}</div>
         </div>
         {!quiz.isPublic && (

@@ -3,7 +3,7 @@ import { toast } from "sonner";
 
 export async function deleteQuiz(
   quizId?: string,
-  onDeleted?: (quizId: string) => void
+  onDeleted?: (quizId: string) => void,
 ) {
   if (!quizId) return;
 

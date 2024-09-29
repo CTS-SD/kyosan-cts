@@ -26,8 +26,8 @@ const Spinner = ({ size = 20, className = "black" }: Props) => {
         >
           <div
             className={cn(
-              "rounded-full -translate-y-1/2 animate-spinner-bar",
-              className
+              "-translate-y-1/2 animate-spinner-bar rounded-full",
+              className,
             )}
             style={{
               width: size / 4,

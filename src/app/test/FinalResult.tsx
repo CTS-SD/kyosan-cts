@@ -25,19 +25,19 @@ const FinalResult = ({ results, onRetry, passingScore }: Props) => {
 
   return (
     <>
-      <div className="pt-10 flex flex-col items-center">
+      <div className="flex flex-col items-center pt-10">
         <div className="flex flex-col items-center gap-2">
           <div className="text-xl font-bold">ぷらっとテスト</div>
           <div
             className={cn(
               "text-4xl font-bold",
-              passed ? "text-green-500 animate-pop" : "text-red-500"
+              passed ? "animate-pop text-green-500" : "text-red-500",
             )}
           >
             {passed ? "合格" : "不合格"}
           </div>
         </div>
-        <div className="flex items-center mt-4 gap-4 font-bold">
+        <div className="mt-4 flex items-center gap-4 font-bold">
           <div className="flex items-center gap-2">
             <CheckCircleIcon size={16} />
             <div>{correctCount}</div>
@@ -51,20 +51,20 @@ const FinalResult = ({ results, onRetry, passingScore }: Props) => {
       <div className="mt-10 text-xl font-bold">出題された問題</div>
       <div className="mt-6">
         {results.map((result, i) => (
-          <div key={i} className="mb-6 pb-6 border-b last:border-b-0">
+          <div key={i} className="mb-6 border-b pb-6 last:border-b-0">
             <div className="flex items-start">
               {result.correct ? (
-                <CheckCircleIcon className="text-green-500 mr-2 mt-1 flex-shrink-0" />
+                <CheckCircleIcon className="mr-2 mt-1 flex-shrink-0 text-green-500" />
               ) : (
-                <XCircleIcon className="text-red-500 mr-2 mt-1 flex-shrink-0" />
+                <XCircleIcon className="mr-2 mt-1 flex-shrink-0 text-red-500" />
               )}
               <div>
-                <p className="font-medium mb-2">{result.quiz.question}</p>
-                <p className="text-sm text-muted-foreground mb-1 flex items-center gap-1">
+                <p className="mb-2 font-medium">{result.quiz.question}</p>
+                <p className="mb-1 flex items-center gap-1 text-sm text-muted-foreground">
                   あなたの回答: {getAnswerElement(result.userAnswer)}
                 </p>
                 {!result.correct && (
-                  <p className="text-sm text-green-600 flex items-center gap-1">
+                  <p className="flex items-center gap-1 text-sm text-green-600">
                     正解: {getAnswerElement(result.quiz.answer)}
                   </p>
                 )}

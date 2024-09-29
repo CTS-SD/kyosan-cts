@@ -20,14 +20,14 @@ const QuizResult = ({ result, onNext, isFinal, onFinal }: Props) => {
   return (
     <div
       className={cn(
-        "shadow-lg mt-auto border backdrop-blur-md bg-white rounded-xl p-4 animate-grow-in sticky bottom-2 -mx-2"
+        "sticky bottom-2 -mx-2 mt-auto animate-grow-in rounded-xl border bg-white p-4 shadow-lg backdrop-blur-md",
       )}
     >
       <div className="flex flex-col items-center">
         <div
           className={cn(
-            "text-3xl flex flex-col gap-1 items-center font-bold pt-6 pb-10",
-            result.correct ? "text-green-500" : "text-red-500"
+            "flex flex-col items-center gap-1 pb-10 pt-6 text-3xl font-bold",
+            result.correct ? "text-green-500" : "text-red-500",
           )}
         >
           {result.correct ? (
@@ -50,16 +50,16 @@ const QuizResult = ({ result, onNext, isFinal, onFinal }: Props) => {
             </span>
           </div>
           {!result.correct && (
-            <div className="text-sm flex items-center p-2 text-muted-foreground">
+            <div className="flex items-center p-2 text-sm text-muted-foreground">
               <div>あなたの回答：</div>
               <span className="">{getAnswerElement(result.userAnswer)}</span>
             </div>
           )}
         </div>
         {result.quiz.explanation && (
-          <div className="bg-blue-50 flex gap-1.5 text-blue-600 p-6 rounded-xl mb-4 w-full">
-            <LightbulbIcon size={20} className="shrink-0 mt-0.5" />
-            <div className="question-md !bg-inherit !text-inherit font-semibold">
+          <div className="mb-4 flex w-full gap-1.5 rounded-xl bg-blue-50 p-6 text-blue-600">
+            <LightbulbIcon size={20} className="mt-0.5 shrink-0" />
+            <div className="question-md !bg-inherit font-semibold !text-inherit">
               <Markdown remarkPlugins={[remarkGfm]}>
                 {result.quiz.explanation}
               </Markdown>

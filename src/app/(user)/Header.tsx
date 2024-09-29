@@ -13,17 +13,17 @@ const Header = ({}: Props) => {
 
   return (
     <header className="">
-      <div className="h-[90px] px-6 max-w-5xl mx-auto flex items-center border-b border-dashed">
+      <div className="mx-auto flex h-[90px] max-w-5xl items-center border-b border-dashed px-6">
         <Link href="/" className="font-bold tracking-tighter">
           京産キャンスタ
         </Link>
         {isApprovedEmail(session?.user?.email) && (
           <Button variant="ghost" asChild>
-            <Link href="/admin" className="ml-auto block !text-blue-500 group">
+            <Link href="/admin" className="group ml-auto block !text-blue-500">
               管理者ページ
               <ArrowRightIcon
                 size={16}
-                className="group-hover:translate-x-0.5 ml-0.5 transition opacity-50 group-hover:opacity-100"
+                className="ml-0.5 opacity-50 transition group-hover:translate-x-0.5 group-hover:opacity-100"
               />
             </Link>
           </Button>

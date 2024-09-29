@@ -29,7 +29,7 @@ const QuizFormOX = ({ quiz }: Props) => {
           className={cn(
             btnStyle,
             value === "__false__" &&
-              "border-red-300 bg-red-100 text-red-500 animate-pop"
+              "animate-pop border-red-300 bg-red-100 text-red-500",
           )}
           disabled={isShowResult}
         >
@@ -40,7 +40,7 @@ const QuizFormOX = ({ quiz }: Props) => {
           className={cn(
             btnStyle,
             value === "__true__" &&
-              "border-green-300 bg-green-100 text-green-500 animate-pop"
+              "animate-pop border-green-300 bg-green-100 text-green-500",
           )}
           disabled={isShowResult}
         >
@@ -52,7 +52,7 @@ const QuizFormOX = ({ quiz }: Props) => {
           variant="primary"
           size="xl"
           onClick={() => handleSubmit()}
-          className="sticky w-full mt-auto"
+          className="sticky mt-auto w-full"
           disabled={value === null}
         >
           決定
