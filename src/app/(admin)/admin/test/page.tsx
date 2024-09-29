@@ -156,7 +156,7 @@ const Page = () => {
                 <>
                   {filteredQuizzes.map((quiz) => (
                     <ContextMenu key={quiz.id}>
-                      <ContextMenuTrigger asChild>
+                      <ContextMenuTrigger>
                         <QuizListItem
                           quiz={quiz}
                           onClick={() => {
