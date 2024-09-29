@@ -31,7 +31,7 @@ const QuizListItem = ({ quiz, onClick }: Props) => {
         <div className="truncate pt-1 font-semibold">{quiz.question}</div>
       </div>
       <div className="mt-4 flex items-center">
-        <div className="flex items-center text-sm">
+        <div className="flex items-center min-w-0 text-sm">
           <div className="shrink-0 text-neutral-500">解答：</div>
           <div className="truncate">{getAnswerElement(quiz.answer)}</div>
         </div>
