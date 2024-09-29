@@ -1,7 +1,7 @@
 "use client";
 
 import { cn, getAnswerElement } from "@/utils/utils";
-import { CircleIcon, XIcon } from "lucide-react";
+import { CircleIcon, LightbulbIcon, XIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Result } from "./page";
 
@@ -54,6 +54,12 @@ const QuizResult = ({ result, onNext, isFinal, onFinal }: Props) => {
             </div>
           )}
         </div>
+        {result.quiz.explanation && (
+          <div className="bg-blue-50 flex gap-1.5 text-blue-600 p-6 rounded-xl mb-4 w-full">
+            <LightbulbIcon size={20} className="shrink-0 mt-0.5" />
+            <p className="font-semibold">{result.quiz.explanation}</p>
+          </div>
+        )}
         {isFinal ? (
           <Button
             variant="primary"

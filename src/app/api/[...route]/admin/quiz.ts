@@ -14,7 +14,7 @@ const schemas = {
     type: z.nativeEnum(QuizTypeEnum),
     question: z.string(),
     answer: z.string(),
-    description: z.string().optional(),
+    explanation: z.string().optional(),
     fakes: z.array(z.string()).optional(),
   }),
   ":id": {
@@ -22,7 +22,7 @@ const schemas = {
       type: z.nativeEnum(QuizTypeEnum).optional(),
       question: z.string().optional(),
       answer: z.string().optional(),
-      description: z.string().optional(),
+      explanation: z.string().optional(),
       fakes: z.array(z.string()).optional(),
     }),
   },
@@ -51,7 +51,7 @@ const app = new Hono()
           question: body.question,
           type: body.type,
           answer: body.answer,
-          description: body.description,
+          explanation: body.explanation,
           fakes: body.fakes,
         })
         .returning()
@@ -71,7 +71,7 @@ const app = new Hono()
           question: body.question,
           type: body.type,
           answer: body.answer,
-          description: body.description,
+          explanation: body.explanation,
           fakes: body.fakes,
           updatedAt: sql`NOW()`,
         })

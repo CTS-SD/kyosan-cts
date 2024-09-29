@@ -49,7 +49,7 @@ const QuizForm = ({
       question: quiz?.question ?? "",
       type: (quiz?.type ?? "select") as QuizTypeEnum,
       answer: quiz?.answer ?? "",
-      description: quiz?.description ?? undefined,
+      explanation: quiz?.explanation ?? undefined,
       fakes: quiz?.fakes ?? undefined,
     },
     onSubmit: async ({ value }) => {
@@ -101,7 +101,7 @@ const QuizForm = ({
     type: form.useStore((s) => s.values.type),
     question: form.useStore((s) => s.values.question),
     answer: form.useStore((s) => s.values.answer),
-    description: form.useStore((s) => s.values.description),
+    explanation: form.useStore((s) => s.values.explanation),
     fakes: form.useStore((s) => s.values.fakes),
   };
   const isDirty = form.useStore((s) => s.isDirty);
@@ -271,7 +271,7 @@ const QuizForm = ({
           />
         )}
         <form.Field
-          name="description"
+          name="explanation"
           validators={{}}
           children={({ state, handleChange, handleBlur }) => {
             return (
@@ -319,7 +319,7 @@ const QuizForm = ({
             type: values.type,
             question: values.question,
             answer: values.answer,
-            description: values.description ?? null,
+            explanation: values.explanation ?? null,
             fakes: values.fakes ?? null,
           }}
         />
