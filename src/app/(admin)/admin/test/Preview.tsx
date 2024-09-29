@@ -67,7 +67,10 @@ const Preview = ({ quiz }: Props) => {
       {isShowResult && (
         <QuizResult
           isFinal={false}
-          result={result}
+          result={{
+            ...result!,
+            quiz: quiz,
+          }}
           onNext={handleNext}
           onFinal={() => {}}
         />
