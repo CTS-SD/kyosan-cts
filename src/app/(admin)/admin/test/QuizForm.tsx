@@ -318,11 +318,11 @@ const QuizForm = ({
             <Button
               type="button"
               size="icon"
-              variant="ghost"
+              variant="outline"
               className="shrink-0 rounded-md"
               onClick={() => deleteQuiz(quiz?.id, onDeleted)}
             >
-              <TrashIcon size={20} />
+              <TrashIcon size={16} />
             </Button>
           )}
           <Button
