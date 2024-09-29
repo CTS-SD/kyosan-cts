@@ -39,7 +39,7 @@ const Preview = ({ quiz }: Props) => {
 
   if (!quiz) return null;
   return (
-    <div className="relative h-[calc(90dvh_-_64px)] md:h-[calc(85dvh_-_64px)] md:sticky md:top-[80px] flex flex-col">
+    <div className="relative min-h-[calc(90dvh_-_64px)] md:min-h-[calc(85dvh_-_64px)] md:sticky md:top-[80px] flex flex-col">
       <Badge className="mb-4 w-fit" variant="outline">
         プレビュー
       </Badge>
