@@ -40,6 +40,7 @@ const QuizForm = ({
       question: quiz?.question ?? "",
       type: (quiz?.type ?? "select") as QuizTypeEnum,
       answer: quiz?.answer ?? "",
+      description: quiz?.description ?? undefined,
       fakes: quiz?.fakes ?? undefined,
     },
     onSubmit: async ({ value }) => {
@@ -55,7 +56,6 @@ const QuizForm = ({
         });
 
         if (!res.ok) {
-          console.error("error");
           toast.error("問題の保存に失敗しました");
           return;
         }
@@ -73,7 +73,6 @@ const QuizForm = ({
         });
 
         if (!res.ok) {
-          console.error("error");
           toast.error("問題の作成に失敗しました");
           return;
         }
@@ -93,6 +92,7 @@ const QuizForm = ({
     type: form.useStore((s) => s.values.type),
     question: form.useStore((s) => s.values.question),
     answer: form.useStore((s) => s.values.answer),
+    description: form.useStore((s) => s.values.description),
     fakes: form.useStore((s) => s.values.fakes),
   };
   const isDirty = form.useStore((s) => s.isDirty);
@@ -259,6 +259,24 @@ const QuizForm = ({
             }}
           />
         )}
+        <form.Field
+          name="description"
+          validators={{}}
+          children={({ state, handleChange, handleBlur }) => {
+            return (
+              <div>
+                <Label>解説</Label>
+                <Textarea
+                  value={state.value}
+                  onChange={(e) => handleChange(e.target.value)}
+                  onBlur={handleBlur}
+                  placeholder="解説を入力（任意）"
+                />
+                <FieldError errors={state.meta.errors} />
+              </div>
+            );
+          }}
+        />
         <div className="flex items-center gap-2">
           {isEdit && (
             <Button
@@ -293,6 +311,7 @@ const QuizForm = ({
             type: values.type,
             question: values.question,
             answer: values.answer,
+            description: values.description ?? null,
             fakes: values.fakes ?? null,
           }}
         />
