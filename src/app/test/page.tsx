@@ -135,13 +135,13 @@ export default function Home() {
                 </Dialog>
                 <Progress value={(round / roundMax) * 100} />
               </div>
-              <div className="text-lg leading-snug font-semibold rounded-lg py-10 px-2">
+              <div className="text-lg leading-snug font-semibold rounded-lg py-10 px-2 question-md">
                 <Markdown remarkPlugins={[remarkGfm]}>{quiz.question}</Markdown>
               </div>
               <QuizFormContext.Provider
                 value={{ showResult, value, setValue, isShowResult }}
               >
-                <div className="">
+                <div className="grow flex flex-col">
                   {quiz.type === "select" && <QuizFormSelect quiz={quiz} />}
                   {quiz.type === "input" && <QuizFormInput quiz={quiz} />}
                   {quiz.type === "ox" && <QuizFormOX quiz={quiz} />}

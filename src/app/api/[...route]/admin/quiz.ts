@@ -1,5 +1,5 @@
 import { db } from "../../../../db/db";
-import { Quiz, QuizTypeEnum, quizzes } from "../../../../db/schema";
+import { QuizTypeEnum, quizzes } from "../../../../db/schema";
 import { Hono } from "hono";
 import { z } from "zod";
 import { zValidator } from "@hono/zod-validator";
@@ -14,6 +14,7 @@ const schemas = {
     type: z.nativeEnum(QuizTypeEnum),
     question: z.string(),
     answer: z.string(),
+    explanation: z.string().optional(),
     fakes: z.array(z.string()).optional(),
   }),
   ":id": {
@@ -21,12 +22,14 @@ const schemas = {
       type: z.nativeEnum(QuizTypeEnum).optional(),
       question: z.string().optional(),
       answer: z.string().optional(),
+      explanation: z.string().optional(),
       fakes: z.array(z.string()).optional(),
     }),
   },
 };
 
 const app = new Hono()
+  // get quizzes
   .get("/", zValidator("query", schemas.$get), async (c) => {
     const { limit, offset } = c.req.valid("query");
     const quizList = await db
@@ -37,6 +40,7 @@ const app = new Hono()
       .orderBy(desc(quizzes.createdAt));
     return c.json(quizList);
   })
+  // create a quiz
   .post("/", zValidator("json", schemas.$post), async (c) => {
     const body = c.req.valid("json");
 
@@ -47,6 +51,7 @@ const app = new Hono()
           question: body.question,
           type: body.type,
           answer: body.answer,
+          explanation: body.explanation,
           fakes: body.fakes,
         })
         .returning()
@@ -54,6 +59,7 @@ const app = new Hono()
 
     return c.json(newQuiz);
   })
+  // update a quiz
   .put("/:id", zValidator("json", schemas[":id"].$put), async (c) => {
     const body = c.req.valid("json");
     const id = c.req.param("id");
@@ -65,6 +71,7 @@ const app = new Hono()
           question: body.question,
           type: body.type,
           answer: body.answer,
+          explanation: body.explanation,
           fakes: body.fakes,
           updatedAt: sql`NOW()`,
         })
@@ -74,6 +81,7 @@ const app = new Hono()
 
     return c.json(updatedQuiz);
   })
+  // delete a quiz
   .delete("/:id", async (c) => {
     const id = c.req.param("id");
 

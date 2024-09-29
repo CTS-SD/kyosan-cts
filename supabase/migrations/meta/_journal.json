@@ -15,6 +15,20 @@
       "when": 1727489623731,
       "tag": "0001_lowly_master_chief",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1727628334681,
+      "tag": "0002_colossal_falcon",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1727632432086,
+      "tag": "0003_blue_hobgoblin",
+      "breakpoints": true
     }
   ]
 }

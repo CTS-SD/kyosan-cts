@@ -10,7 +10,16 @@ import { client } from "@/db/hono";
 import { type Quiz, QuizTypeEnum } from "@/db/schema";
 import { cn } from "@/utils/utils";
 import { useForm } from "@tanstack/react-form";
-import { TrashIcon, XIcon } from "lucide-react";
+import {
+  CircleIcon,
+  LightbulbIcon,
+  PanelsTopLeftIcon,
+  TextIcon,
+  ThumbsDownIcon,
+  ThumbsUpIcon,
+  TrashIcon,
+  XIcon,
+} from "lucide-react";
 import { toast } from "sonner";
 import { zodValidator } from "@tanstack/zod-form-adapter";
 import { z } from "zod";
@@ -40,6 +49,7 @@ const QuizForm = ({
       question: quiz?.question ?? "",
       type: (quiz?.type ?? "select") as QuizTypeEnum,
       answer: quiz?.answer ?? "",
+      explanation: quiz?.explanation ?? undefined,
       fakes: quiz?.fakes ?? undefined,
     },
     onSubmit: async ({ value }) => {
@@ -55,7 +65,6 @@ const QuizForm = ({
         });
 
         if (!res.ok) {
-          console.error("error");
           toast.error("問題の保存に失敗しました");
           return;
         }
@@ -73,7 +82,6 @@ const QuizForm = ({
         });
 
         if (!res.ok) {
-          console.error("error");
           toast.error("問題の作成に失敗しました");
           return;
         }
@@ -93,6 +101,7 @@ const QuizForm = ({
     type: form.useStore((s) => s.values.type),
     question: form.useStore((s) => s.values.question),
     answer: form.useStore((s) => s.values.answer),
+    explanation: form.useStore((s) => s.values.explanation),
     fakes: form.useStore((s) => s.values.fakes),
   };
   const isDirty = form.useStore((s) => s.isDirty);
@@ -123,7 +132,7 @@ const QuizForm = ({
           children={({ state, handleChange, handleBlur }) => {
             return (
               <div>
-                <Label>形式</Label>
+                <Label icon={<PanelsTopLeftIcon size="16" />}>形式</Label>
                 <MultiSwitch
                   value={state.value}
                   onValueChange={(value) => {
@@ -146,7 +155,7 @@ const QuizForm = ({
           children={({ state, handleChange, handleBlur }) => {
             return (
               <div>
-                <Label>問題文</Label>
+                <Label icon={<TextIcon size="16" />}>問題文</Label>
                 <Textarea
                   value={state.value}
                   onChange={(e) => handleChange(e.target.value)}
@@ -170,7 +179,7 @@ const QuizForm = ({
             children={({ state, handleChange }) => {
               return (
                 <div>
-                  <Label>答え</Label>
+                  <Label icon={<ThumbsUpIcon size="16" />}>答え</Label>
                   <MultiSwitch value={state.value} onValueChange={handleChange}>
                     <MultiSwitchItem value="__true__">○</MultiSwitchItem>
                     <MultiSwitchItem value="__false__">✗</MultiSwitchItem>
@@ -189,7 +198,7 @@ const QuizForm = ({
             children={({ state, handleChange, handleBlur }) => {
               return (
                 <div>
-                  <Label>答え</Label>
+                  <Label icon={<ThumbsUpIcon size="16" />}>答え</Label>
                   <Input
                     value={state.value}
                     onChange={(e) => handleChange(e.target.value)}
@@ -213,7 +222,9 @@ const QuizForm = ({
             children={({ state, handleChange, handleBlur }) => {
               return (
                 <div>
-                  <Label>不正解の選択肢</Label>
+                  <Label icon={<ThumbsDownIcon size="16" />}>
+                    不正解の選択肢
+                  </Label>
                   <div className="flex flex-col gap-2">
                     {state.value?.map((fake, i) => (
                       <div key={i} className="flex gap-2">
@@ -259,6 +270,24 @@ const QuizForm = ({
             }}
           />
         )}
+        <form.Field
+          name="explanation"
+          validators={{}}
+          children={({ state, handleChange, handleBlur }) => {
+            return (
+              <div>
+                <Label icon={<LightbulbIcon size="16" />}>解説</Label>
+                <Textarea
+                  value={state.value}
+                  onChange={(e) => handleChange(e.target.value)}
+                  onBlur={handleBlur}
+                  placeholder="解説を入力（任意）"
+                />
+                <FieldError errors={state.meta.errors} />
+              </div>
+            );
+          }}
+        />
         <div className="flex items-center gap-2">
           {isEdit && (
             <Button
@@ -282,9 +311,6 @@ const QuizForm = ({
         </div>
       </form>
       <div className="w-full mx-auto max-w-lg flex-1">
-        <Badge className="mb-4" variant="outline">
-          プレビュー
-        </Badge>
         <Preview
           quiz={{
             id: "",
@@ -293,6 +319,7 @@ const QuizForm = ({
             type: values.type,
             question: values.question,
             answer: values.answer,
+            explanation: values.explanation ?? null,
             fakes: values.fakes ?? null,
           }}
         />
