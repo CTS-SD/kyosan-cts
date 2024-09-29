@@ -11,7 +11,6 @@ import { type Quiz, QuizTypeEnum } from "@/db/schema";
 import { cn } from "@/utils/utils";
 import { useForm } from "@tanstack/react-form";
 import {
-  CircleIcon,
   LightbulbIcon,
   PanelsTopLeftIcon,
   TextIcon,
@@ -25,7 +24,6 @@ import { zodValidator } from "@tanstack/zod-form-adapter";
 import { z } from "zod";
 import FieldError from "@/components/original-ui/field-error";
 import Preview from "./Preview";
-import { Badge } from "@/components/ui/badge";
 import { deleteQuiz } from "../admin-api";
 
 type Props = {

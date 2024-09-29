@@ -232,7 +232,10 @@ const Page = () => {
             <QuizForm
               quiz={activeQuiz}
               isEdit
-              onDeleted={() => setIsEditDialogOpen(false)}
+              onDeleted={(deletedQuizId) => {
+                setIsEditDialogOpen(false);
+                setQuizzes(quizzes.filter((q) => q.id !== deletedQuizId));
+              }}
               onSaved={(quiz) => {
                 setQuizzes(quizzes.map((q) => (q.id === quiz.id ? quiz : q)));
               }}
