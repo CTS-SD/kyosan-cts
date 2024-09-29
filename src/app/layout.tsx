@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import "./markdown.css";
 import { Toaster } from "sonner";
 import Providers from "./Providers";
 
