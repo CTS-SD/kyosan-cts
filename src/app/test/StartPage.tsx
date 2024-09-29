@@ -1,6 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { ChevronLeftIcon } from "lucide-react";
-import Link from "next/link";
 import BirdAnimation from "./bird.json";
 import { Player } from "@lottiefiles/react-lottie-player";
 

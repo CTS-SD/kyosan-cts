@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -107,32 +108,27 @@ const Page = () => {
               onChange={(e) => setFilter(e.target.value)}
               placeholder="問題を検索"
             />
-            <Drawer
-              direction="right"
-              repositionInputs={false}
+            <Dialog
               onOpenChange={(open) => setIsCreateDialogOpen(open)}
               open={isCreateDialogOpen}
-              handleOnly
-              disablePreventScroll
             >
-              <DrawerTrigger className="" asChild>
+              <DialogTrigger className="" asChild>
                 <Button className="rounded-md shrink-0" size="icon">
                   <PlusIcon size={20} />
                 </Button>
-              </DrawerTrigger>
-              <DrawerContent className="overflow-auto right-0 w-[min(92%,1024px)] rounded-tr-none rounded-l-xl rounded-r-none left-auto top-0 bottom-0 fixed flex overflow-y-auto overflow-x-clip">
-                <DrawerHeader className="sticky top-0 bg-white/50 backdrop-blur-sm flex items-center py-3 pr-3 justify-between">
-                  <DrawerTitle>問題を作成</DrawerTitle>
-                  <DrawerClose asChild>
-                    <Button
-                      className="sticky top-0"
-                      size="icon"
-                      variant="ghost"
-                    >
+              </DialogTrigger>
+              <DialogContent
+                onOpenAutoFocus={(e) => e.preventDefault()}
+                className="p-0 max-h-[95dvh] mt-[5dvh] rounded-t-2xl max-w-[1024px] mx-auto md:max-h-[90dvh] md:mt-0"
+              >
+                <DialogHeader className="sticky flex-row px-6 top-0 bg-white/50 backdrop-blur-sm flex items-center py-3 pr-3 justify-between">
+                  <DialogTitle>問題を編集</DialogTitle>
+                  <DialogClose asChild>
+                    <Button className="!mt-0" size="icon" variant="ghost">
                       <XIcon />
                     </Button>
-                  </DrawerClose>
-                </DrawerHeader>
+                  </DialogClose>
+                </DialogHeader>
                 <div className="grow pr-6 pb-6 pl-6">
                   <QuizForm
                     onSaved={(quiz) => {
@@ -141,8 +137,8 @@ const Page = () => {
                     }}
                   />
                 </div>
-              </DrawerContent>
-            </Drawer>
+              </DialogContent>
+            </Dialog>
           </div>
           <div className="mt-6">
             <ul className="grid gap-2 md:grid-cols-2 lg:grid-cols-3">
@@ -211,23 +207,22 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <Drawer
-        repositionInputs={false}
-        direction="right"
+      <Dialog
         onOpenChange={(open) => setIsEditDialogOpen(open)}
         open={isEditDialogOpen}
-        handleOnly
-        disablePreventScroll
       >
-        <DrawerContent className="right-0 w-[min(1024px,92%)] rounded-tr-none rounded-l-xl rounded-r-none left-auto top-0 bottom-0 flex overflow-y-auto overflow-x-clip">
-          <DrawerHeader className="sticky top-0 bg-white/50 backdrop-blur-sm flex items-center py-3 pr-3 justify-between">
-            <DrawerTitle>問題を編集</DrawerTitle>
-            <DrawerClose asChild>
-              <Button className="sticky top-0" size="icon" variant="ghost">
+        <DialogContent
+          onOpenAutoFocus={(e) => e.preventDefault()}
+          className="p-0 max-h-[95dvh] mt-[2.5dvh] rounded-t-2xl max-w-[1024px] mx-auto md:max-h-[90dvh] md:mt-0"
+        >
+          <DialogHeader className="sticky flex-row px-6 top-0 bg-white/50 backdrop-blur-sm flex items-center py-3 pr-3 justify-between">
+            <DialogTitle>問題を編集</DialogTitle>
+            <DialogClose asChild>
+              <Button className="!mt-0" size="icon" variant="ghost">
                 <XIcon />
               </Button>
-            </DrawerClose>
-          </DrawerHeader>
+            </DialogClose>
+          </DialogHeader>
           <div className="grow pr-6 pb-6 pl-6">
             <QuizForm
               quiz={activeQuiz}
@@ -241,8 +236,8 @@ const Page = () => {
               }}
             />
           </div>
-        </DrawerContent>
-      </Drawer>
+        </DialogContent>
+      </Dialog>
     </>
   );
 };
