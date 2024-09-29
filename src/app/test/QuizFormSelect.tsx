@@ -31,7 +31,7 @@ const QuizFormSelect = ({ quiz }: Props) => {
             <button
               key={i}
               className={cn(
-                "relative rounded-full border-2 bg-neutral-100 p-4 font-bold transition-transform",
+                "relative flex justify-center rounded-full border-2 bg-neutral-100 px-6 py-5 font-bold transition-transform",
                 value == selection &&
                   "animate-pop border-blue-300 bg-blue-100 text-blue-500 [&_.badge]:bg-blue-200",
                 isShowResult && value != selection && "opacity-50",
@@ -46,16 +46,9 @@ const QuizFormSelect = ({ quiz }: Props) => {
               onClick={() => setValue(selection)}
               disabled={isShowResult}
             >
-              <div className="absolute left-2 top-0 grid h-full place-content-center">
-                <div
-                  className={cn(
-                    "badge grid size-10 place-content-center rounded-full bg-black/10 text-black",
-                  )}
-                >
-                  {digit2alpha[i] ?? ""}
-                </div>
+              <div className="text-left leading-tight">
+                {selection.length > 0 ? selection : "　"}
               </div>
-              {selection.length > 0 ? selection : "　"}
             </button>
           );
         })}

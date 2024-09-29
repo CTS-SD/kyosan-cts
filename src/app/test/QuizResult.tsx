@@ -44,15 +44,17 @@ const QuizResult = ({ result, onNext, isFinal, onFinal }: Props) => {
         </div>
         <div className="mb-10 flex flex-col items-center">
           <div className="flex items-center">
-            <div>正解：</div>
-            <span className="font-bold text-green-500">
+            <div className="shrink-0">正解：</div>
+            <span className="font-bold leading-tight text-green-500">
               {getAnswerElement(result.quiz.answer)}
             </span>
           </div>
           {!result.correct && (
             <div className="flex items-center p-2 text-sm text-muted-foreground">
-              <div>あなたの回答：</div>
-              <span className="">{getAnswerElement(result.userAnswer)}</span>
+              <div className="shrink-0">あなたの回答：</div>
+              <span className="leading-tight">
+                {getAnswerElement(result.userAnswer)}
+              </span>
             </div>
           )}
         </div>
