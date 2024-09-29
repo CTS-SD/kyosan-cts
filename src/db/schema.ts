@@ -107,6 +107,7 @@ export const quizzes = pgTable("quiz", {
   answer: text("answer").notNull(),
   explanation: text("explanation"),
   fakes: text("fakes").array(),
+  isPublic: boolean("is_public").notNull().default(true),
   createdAt: timestamp("created_at", { mode: "string" }).notNull().defaultNow(),
   updatedAt: timestamp("updated_at", { mode: "string" }).notNull().defaultNow(),
 });

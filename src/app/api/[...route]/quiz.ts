@@ -7,7 +7,7 @@ const app = new Hono().get("/", async (c) => {
   const gameMode = (await db.select().from(gameModes).limit(1))[0];
 
   const randomQuizzes = (await db.execute(
-    sql`SELECT * FROM quiz ORDER BY RANDOM() LIMIT ${gameMode.quizNum};`
+    sql`SELECT * FROM quiz WHERE is_public = true ORDER BY RANDOM() LIMIT ${gameMode.quizNum};`
   )) as Quiz[];
 
   return c.json({

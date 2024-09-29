@@ -12,6 +12,7 @@ import { cn } from "@/utils/utils";
 import { useForm } from "@tanstack/react-form";
 import {
   LightbulbIcon,
+  LockOpenIcon,
   PanelsTopLeftIcon,
   TextIcon,
   ThumbsDownIcon,
@@ -25,6 +26,7 @@ import { z } from "zod";
 import FieldError from "@/components/original-ui/field-error";
 import Preview from "./Preview";
 import { deleteQuiz } from "../admin-api";
+import { Switch } from "@/components/ui/switch";
 
 type Props = {
   quiz?: Quiz;
@@ -49,6 +51,7 @@ const QuizForm = ({
       answer: quiz?.answer ?? "",
       explanation: quiz?.explanation ?? undefined,
       fakes: quiz?.fakes ?? undefined,
+      isPublic: quiz?.isPublic ?? true,
     },
     onSubmit: async ({ value }) => {
       if (isEdit) {
@@ -286,6 +289,30 @@ const QuizForm = ({
             );
           }}
         />
+        <form.Field
+          name="isPublic"
+          validators={{}}
+          children={({ state, handleChange, handleBlur }) => {
+            return (
+              <div>
+                <Label icon={<LockOpenIcon size="16" />}>公開設定</Label>
+                <label className="border cursor-pointer p-4 rounded-lg gap-2 flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <div className="font-semibold">この問題を公開する</div>
+                    <div className="text-sm text-neutral-500">
+                      非公開にした問題はユーザーに出題されません
+                    </div>
+                  </div>
+                  <Switch
+                    checked={state.value}
+                    onCheckedChange={(checked) => handleChange(checked)}
+                    onBlur={handleBlur}
+                  />
+                </label>
+              </div>
+            );
+          }}
+        />
         <div className="flex items-center gap-2">
           {isEdit && (
             <Button
@@ -311,9 +338,7 @@ const QuizForm = ({
       <div className="w-full mx-auto max-w-lg flex-1">
         <Preview
           quiz={{
-            id: "",
-            createdAt: "",
-            updatedAt: "",
+            ...quiz!,
             type: values.type,
             question: values.question,
             answer: values.answer,

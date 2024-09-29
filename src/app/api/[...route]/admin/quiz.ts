@@ -16,6 +16,7 @@ const schemas = {
     answer: z.string(),
     explanation: z.string().optional(),
     fakes: z.array(z.string()).optional(),
+    isPublic: z.boolean().optional(),
   }),
   ":id": {
     $put: z.object({
@@ -24,6 +25,7 @@ const schemas = {
       answer: z.string().optional(),
       explanation: z.string().optional(),
       fakes: z.array(z.string()).optional(),
+      isPublic: z.boolean().optional(),
     }),
   },
 };
@@ -53,6 +55,7 @@ const app = new Hono()
           answer: body.answer,
           explanation: body.explanation,
           fakes: body.fakes,
+          isPublic: body.isPublic
         })
         .returning()
     )[0];
@@ -73,6 +76,7 @@ const app = new Hono()
           answer: body.answer,
           explanation: body.explanation,
           fakes: body.fakes,
+          isPublic: body.isPublic,
           updatedAt: sql`NOW()`,
         })
         .where(eq(quizzes.id, id))
