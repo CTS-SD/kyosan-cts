@@ -291,7 +291,9 @@ const QuizForm = ({
         />
         <form.Field
           name="isPublic"
-          validators={{}}
+          validators={{
+            onSubmit: z.boolean(),
+          }}
           children={({ state, handleChange, handleBlur }) => {
             return (
               <div>
