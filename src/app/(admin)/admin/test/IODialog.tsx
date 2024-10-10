@@ -57,7 +57,7 @@ const IODialog = ({}: Props) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline" size="icon">
+        <Button variant="outline" className="shrink-0" size="icon">
           <ShareIcon size={16} />
         </Button>
       </DialogTrigger>
