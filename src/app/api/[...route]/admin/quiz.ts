@@ -94,7 +94,7 @@ const app = new Hono()
   })
   // delete a quiz
   .delete("/:id", async (c) => {
-    const id = c.req.param("id");
+    const id = c.req.param("id")
 
     const deletedQuizId = (
       await db.delete(quizzes).where(eq(quizzes.id, id)).returning({
