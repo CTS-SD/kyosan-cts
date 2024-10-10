@@ -4,6 +4,8 @@ import { Hono } from "hono";
 import { z } from "zod";
 import { zValidator } from "@hono/zod-validator";
 import { eq, desc, sql } from "drizzle-orm";
+import dayjs from "dayjs";
+import { NextResponse } from "next/server";
 
 const schemas = {
   $get: z.object({
@@ -100,6 +102,14 @@ const app = new Hono()
     }
 
     return c.json(deletedQuizId);
+  })
+  .get("/export", async () => {
+    const content = await db.select().from(quizzes);
+    const headers = new Headers({
+      "Content-Disposition": `attachment; filename=puratto-test-${dayjs().format("YYYYMMDDHHmmss")}.json`,
+    });
+
+    return new NextResponse(JSON.stringify(content), { headers });
   });
 
 export default app;

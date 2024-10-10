@@ -43,6 +43,7 @@ import {
   ContextMenuTrigger,
 } from "@/components/ui/context-menu";
 import { deleteQuiz } from "../admin-api";
+import IODialog from "./IODialog";
 
 const fetchLimit = 30;
 
@@ -108,6 +109,7 @@ const Page = () => {
               onChange={(e) => setFilter(e.target.value)}
               placeholder="問題を検索"
             />
+            <IODialog />
             <Dialog
               onOpenChange={(open) => setIsCreateDialogOpen(open)}
               open={isCreateDialogOpen}
@@ -122,7 +124,7 @@ const Page = () => {
                 className="mx-auto mt-[5dvh] max-h-[95dvh] max-w-[1024px] rounded-t-2xl p-0 md:mt-0 md:max-h-[90dvh]"
               >
                 <DialogHeader className="sticky top-0 flex flex-row items-center justify-between bg-white/50 px-6 py-3 pr-3 backdrop-blur-sm">
-                  <DialogTitle>問題を編集</DialogTitle>
+                  <DialogTitle>問題を作成</DialogTitle>
                   <DialogClose asChild>
                     <Button className="!mt-0" size="icon" variant="ghost">
                       <XIcon />
