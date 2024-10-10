@@ -1,5 +1,5 @@
 import { db } from "../../../../db/db";
-import { QuizTypeEnum, quizzes } from "../../../../db/schema";
+import { Quiz, QuizTypeEnum, quizzes } from "../../../../db/schema";
 import { Hono } from "hono";
 import { z } from "zod";
 import { zValidator } from "@hono/zod-validator";
@@ -28,6 +28,11 @@ const schemas = {
       explanation: z.string().optional(),
       fakes: z.array(z.string()).optional(),
       isPublic: z.boolean().optional(),
+    }),
+  },
+  import: {
+    $post: z.object({
+      file: z.any().transform((file) => file as File),
     }),
   },
 };
@@ -110,6 +115,52 @@ const app = new Hono()
     });
 
     return new NextResponse(JSON.stringify(content), { headers });
+  })
+  .post("/import", zValidator("form", schemas.import.$post), async (c) => {
+    const { file } = c.req.valid("form");
+
+    const newQuizzes = JSON.parse(await file.text()) as Quiz[];
+    const existingQuizzes = await db.select().from(quizzes);
+    const existingQuizIds = existingQuizzes.map((q) => q.id);
+
+    const newQuizValues = newQuizzes.filter(
+      (q) => !existingQuizIds.includes(q.id),
+    );
+    const updateQuizValues = newQuizzes.filter((q) =>
+      existingQuizIds.includes(q.id),
+    );
+
+    const createdQuizzes =
+      newQuizValues.length === 0
+        ? []
+        : await db.insert(quizzes).values(newQuizValues).returning();
+
+    const updatedQuizzes = await Promise.all(
+      updateQuizValues.map(async (q) => {
+        const updatedQuiz = (
+          await db
+            .update(quizzes)
+            .set({
+              question: q.question,
+              type: q.type,
+              answer: q.answer,
+              explanation: q.explanation,
+              fakes: q.fakes,
+              isPublic: q.isPublic,
+              updatedAt: sql`NOW()`,
+            })
+            .where(eq(quizzes.id, q.id))
+            .returning()
+        )[0];
+
+        return updatedQuiz;
+      }),
+    );
+
+    return c.json({
+      createdNum: createdQuizzes.length,
+      updatedNum: updatedQuizzes.length,
+    });
   });
 
 export default app;
