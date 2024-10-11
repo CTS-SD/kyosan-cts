@@ -1,5 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogTrigger, DialogContent } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogTrigger,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { client } from "@/db/hono";
 import {
   CheckCircleIcon,
@@ -62,6 +68,9 @@ const IODialog = ({}: Props) => {
         </Button>
       </DialogTrigger>
       <DialogContent>
+        <DialogHeader>
+          <DialogTitle>ダウンロード / アップロード</DialogTitle>
+        </DialogHeader>
         <div className="rounded-xl border">
           <div className="p-6">
             <div className="font-semibold">問題をダウンロード</div>
