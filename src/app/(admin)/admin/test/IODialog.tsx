@@ -7,6 +7,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { client } from "@/db/hono";
+import dayjs from "dayjs";
 import {
   CheckCircleIcon,
   CircleCheckIcon,
@@ -23,8 +24,19 @@ type Props = {};
 const IODialog = ({}: Props) => {
   const [importFile, setImportFile] = useState<File>();
 
-  const handleDownload = () => {
-    window.open("/api/admin/quiz/export");
+  const handleDownload = async () => {
+    const res = await client.api.admin.quiz.export.$get();
+    if (!res.ok) {
+      toast.error("ダウンロードに失敗しました");
+      return;
+    }
+    const blob = await res.blob();
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `ぷらっとテスト-${dayjs().format("YYYY-MM-DD-HHmmss")}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
   };
 
   const handleUpload = async (e: React.FormEvent<HTMLFormElement>) => {
