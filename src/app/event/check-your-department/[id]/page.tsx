@@ -19,41 +19,44 @@ const Page = ({ params }: Props) => {
     redirect("/event/check-your-department");
   }
 
-  const showConfetti = (x?: number, y?: number) => {
+  const showConfetti = () => {
+    const colors = ["#ffffff", "#1779C1", "#1779C1"];
     confetti({
-      particleCount: 300,
+      particleCount: 200,
       spread: 100,
+      startVelocity: 60,
+      colors,
       origin: {
-        x: x ?? 0.5,
-        y: y ?? 0.6,
+        x: 0.5,
+        y: 1,
       },
     });
-  };
-
-  const showRandomConfetti = () => {
-    const x = Math.random();
-    const y = Math.random();
-    showConfetti(x, y);
-  };
-
-  const handleClicked = () => {
-    for (let i = 0; i < 3; i++) {
-      showRandomConfetti();
-    }
-  };
-
-  const handleShare = () => {
-    navigator.share({
-      title: "Your department is " + department,
-      text: "Your department is " + department,
-      url: window.location.href,
+    confetti({
+      particleCount: 100,
+      spread: 80,
+      angle: 60,
+      colors,
+      origin: {
+        x: 0,
+        y: 0.6,
+      },
+    });
+    confetti({
+      particleCount: 100,
+      spread: 80,
+      angle: 120,
+      colors,
+      origin: {
+        x: 1,
+        y: 0.6,
+      },
     });
   };
 
   useEffect(() => {
     const timeoutInstance = setTimeout(() => {
       showConfetti();
-    }, 5700);
+    }, 5500);
 
     return () => {
       clearTimeout(timeoutInstance);
@@ -110,6 +113,7 @@ const Page = ({ params }: Props) => {
           style={{
             animationDelay: "5.5s",
           }}
+          onClick={showConfetti}
         >
           {getDepartmentIcon(department)}
         </div>
