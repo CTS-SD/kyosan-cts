@@ -24,16 +24,20 @@ const Layout = ({ children }: Props) => {
           backgroundSize: "160px",
         }}
       ></div>
-      <div className="p-4 font-semibold text-white">
-        <Link
-          href="/event/check-your-department"
-          className="flex items-center space-x-3"
-        >
-          <span>京産キャンスタ</span>
+      <header className="">
+        <div className="mx-auto flex h-[90px] max-w-5xl items-center gap-4 border-white/60 px-6">
+          <Link href="/" className="font-bold tracking-tighter">
+            京産キャンスタ
+          </Link>
           <span className="block h-6 w-[2px] rounded-full bg-white/40"></span>
-          <span>配属発表2024</span>
-        </Link>
-      </div>
+          <Link
+            href="/event/check-your-department"
+            className="font-bold tracking-tighter"
+          >
+            配属発表2024
+          </Link>
+        </div>
+      </header>
       {children}
     </div>
   );
