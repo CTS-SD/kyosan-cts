@@ -1,0 +1,14 @@
+/* #bg::before {
+  content: "";
+  position: absolute;
+  left: -50%;
+  top: -50%;
+  height: 200%;
+  width: 200%;
+  transform: rotate(12deg);
+  opacity: 0.2;
+  background-image: url("../../../assets/kyansuta2024.png");
+  background-repeat: repeat;
+  background-size: 160px;
+  background-color: black;
+} */

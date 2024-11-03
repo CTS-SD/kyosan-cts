@@ -9,6 +9,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        "aoharu-marker": "var(--font-aoharu-marker)",
+      },
       colors: {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
@@ -57,8 +60,27 @@ const config: Config = {
         pop: "pop ease-in-out 0.3s",
         "spinner-bar": "spinner-bar 1.5s infinite",
         "ltr-loop": "ltr 1.8s ease infinite",
+        "caret-blink": "caret-blink 1.25s ease-out infinite",
+        "fade-slide-in": "fade-slide-in 0.5s ease-out forwards",
+        "fade-slide-out": "fade-slide-out 0.5s ease-out forwards",
+        "appear-spring":
+          "appear-spring 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards",
       },
       keyframes: {
+        "appear-spring": {
+          "0%": {
+            transform: "scale(0.9)",
+            opacity: "0",
+          },
+          "100%": {
+            transform: "scale(1)",
+            opacity: "1",
+          },
+        },
+        "caret-blink": {
+          "0%,70%,100%": { opacity: "1" },
+          "20%,50%": { opacity: "0" },
+        },
         "grow-in": {
           "0%": {
             transform: "translateY(320px)",
@@ -105,6 +127,26 @@ const config: Config = {
           "0%": { transform: "translateX(-100%)" },
           "100%": { transform: "translateX(100%)" },
         },
+        "fade-slide-in": {
+          "0%": {
+            opacity: "0",
+            transform: "translateY(20px)",
+          },
+          "100%": {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
+        },
+        "fade-slide-out": {
+          "0%": {
+            opacity: "1",
+            transform: "translateY(0)",
+          },
+          "100%": {
+            opacity: "0",
+            transform: "translateY(-20px)",
+          },
+        },
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -113,6 +155,7 @@ const config: Config = {
       },
     },
   },
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   plugins: [require("tailwindcss-animate")],
 };
 export default config;
