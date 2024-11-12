@@ -26,6 +26,8 @@ const Page = ({ params }: Props) => {
       spread: 100,
       startVelocity: 60,
       colors,
+      gravity: 0.6,
+      ticks: 500,
       origin: {
         x: 0.5,
         y: 1,
@@ -35,6 +37,8 @@ const Page = ({ params }: Props) => {
       particleCount: 100,
       spread: 80,
       angle: 60,
+      gravity: 0.7,
+      ticks: 500,
       colors,
       origin: {
         x: 0,
@@ -46,6 +50,8 @@ const Page = ({ params }: Props) => {
       spread: 80,
       angle: 120,
       colors,
+      gravity: 0.7,
+      ticks: 500,
       origin: {
         x: 1,
         y: 0.6,

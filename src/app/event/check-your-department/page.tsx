@@ -53,7 +53,7 @@ const Page = () => {
           <wbr />
           配属先を確認しましょう！
         </div>
-        <div className="relative mx-auto h-[140px] w-[95%] rounded-t-3xl">
+        <div className="relative mx-auto h-[140px] w-[95%] rounded-t-3xl animate-fade-slide-in">
           <Image
             src={peopleImage.src!}
             alt="京産キャンスタ"
@@ -61,7 +61,6 @@ const Page = () => {
             fill
           />
         </div>
-
         <div className="">
           <div className="flex items-center space-x-2 font-semibold">
             <div>g2</div>
@@ -71,7 +70,7 @@ const Page = () => {
               value={studentId}
               onChange={(v) => setStudentId(v)}
             >
-              <InputOTPGroup className="font-semibold [&>*]:text-base">
+              <InputOTPGroup className="font-semibold [&>*]:text-base bg-white">
                 <InputOTPSlot index={0} />
                 <InputOTPSlot index={1} />
                 <InputOTPSlot index={2} />
