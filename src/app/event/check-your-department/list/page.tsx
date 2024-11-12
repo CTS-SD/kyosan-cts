@@ -8,7 +8,7 @@ const Page = ({}: Props) => {
     <div>
       <h1 className="text-center text-4xl font-bold">配属発表</h1>
       <div>
-        <div className="mt-10 flex flex-col items-center gap-6">
+        <div className="mt-10 flex flex-col items-center gap-4 pb-10">
           {Object.values(Department).map((department, i) => (
             <DepartmentMembers
               className="animate-appear-spring opacity-0"

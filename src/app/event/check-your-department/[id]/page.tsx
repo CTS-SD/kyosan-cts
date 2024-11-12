@@ -33,7 +33,7 @@ const Page = ({ params }: Props) => {
 
   return (
     <>
-      <div className="pt-20 font-bold text-white">
+      <div className="pt-10 font-bold text-white">
         <div className="mx-auto w-fit">
           <div className="animate-fade-slide-in text-4xl opacity-0 delay-500">
             {member.name}
@@ -111,7 +111,7 @@ const Page = ({ params }: Props) => {
           footer={
             <Link
               href="/event/check-your-department/list"
-              className="mx-auto mt-8 flex w-fit items-center font-semibold text-blue-500"
+              className="mx-auto mt-8 flex w-fit animate-pulse items-center font-semibold text-blue-500"
             >
               他の部署のメンバーを見る
               <ChevronRightIcon size={20} />

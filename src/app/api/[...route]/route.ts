@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { handle } from "hono/vercel";
 import quiz from "./quiz";
+import token from "./token";
 import adminQuiz from "./admin/quiz";
 import adminGameMode from "./admin/game_mode";
 
@@ -10,6 +11,7 @@ const app = new Hono().basePath("/api");
 
 const routes = app
   .route("/quiz", quiz)
+  .route("/token", token)
   .route("/admin/quiz", adminQuiz)
   .route("/admin/game_mode", adminGameMode);
 
