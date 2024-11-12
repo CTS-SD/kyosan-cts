@@ -1,9 +1,11 @@
 "use client";
 
+import { ChevronRightIcon } from "lucide-react";
+import Link from "next/link";
 import { redirect } from "next/navigation";
-import { getDepartmentIcon, getMemberById } from "../members";
-import { PiggyBankIcon } from "lucide-react";
 import { useEffect } from "react";
+import DepartmentMembers from "../DepartmentMembers";
+import { getDepartmentIcon, getMemberById } from "../members";
 import { showConfetti } from "./confetti";
 
 type Props = {
@@ -34,7 +36,7 @@ const Page = ({ params }: Props) => {
       <div className="pt-20 font-bold text-white">
         <div className="mx-auto w-fit">
           <div className="animate-fade-slide-in text-4xl opacity-0 delay-500">
-            {params.id}
+            {member.name}
             <span className="text-base">さんの</span>
           </div>
           <div className="flex text-5xl">
@@ -84,7 +86,7 @@ const Page = ({ params }: Props) => {
           {getDepartmentIcon(member.department)}
         </div>
         <div
-          className="mt-2 animate-appear-spring text-4xl font-bold text-white opacity-0"
+          className="mt-4 animate-appear-spring text-4xl font-bold text-white opacity-0"
           style={{
             animationDelay: "5.5s",
           }}
@@ -92,6 +94,30 @@ const Page = ({ params }: Props) => {
           {member.department}
           <span className="text-xl">です！</span>
         </div>
+        <DepartmentMembers
+          className="mb-10 mt-16 animate-appear-spring opacity-0"
+          style={{
+            animationDelay: "6.5s",
+          }}
+          department={member.department}
+          header={
+            <div>
+              <div>同じ部署のメンバー</div>
+              <div className="text-base text-neutral-500">
+                {member.department}
+              </div>
+            </div>
+          }
+          footer={
+            <Link
+              href="/event/check-your-department/list"
+              className="mx-auto mt-8 flex w-fit items-center font-semibold text-blue-500"
+            >
+              他の部署のメンバーを見る
+              <ChevronRightIcon size={20} />
+            </Link>
+          }
+        />
       </div>
     </>
   );

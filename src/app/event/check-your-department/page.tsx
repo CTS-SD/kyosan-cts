@@ -62,7 +62,13 @@ const Page = () => {
             fill
           />
         </div>
-        <div className="">
+        <form
+          className=""
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleSubmit();
+          }}
+        >
           <div className="flex items-center space-x-2 font-semibold">
             <div>g2</div>
             <InputOTP
@@ -82,14 +88,14 @@ const Page = () => {
             </InputOTP>
           </div>
           <Button
+            type="submit"
             disabled={studentId.length !== 6}
             className="mt-4 w-full shrink-0"
-            onClick={() => handleSubmit()}
             variant="primary"
           >
             決定
           </Button>
-        </div>
+        </form>
       </div>
     </div>
   );
