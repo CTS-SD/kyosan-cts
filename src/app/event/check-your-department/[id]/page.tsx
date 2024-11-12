@@ -1,10 +1,10 @@
 "use client";
 
 import { redirect } from "next/navigation";
-import { getDepartmentIcon, members } from "../members";
+import { getDepartmentIcon, getMemberById } from "../members";
 import { PiggyBankIcon } from "lucide-react";
 import { useEffect } from "react";
-import confetti from "canvas-confetti";
+import { showConfetti } from "./confetti";
 
 type Props = {
   params: {
@@ -13,51 +13,11 @@ type Props = {
 };
 
 const Page = ({ params }: Props) => {
-  const department = members[params.id as keyof typeof members];
+  const member = getMemberById(params.id);
 
-  if (!department) {
+  if (!member) {
     redirect("/event/check-your-department");
   }
-
-  const showConfetti = () => {
-    const colors = ["#ffffff", "#1779C1", "#1779C1"];
-    confetti({
-      particleCount: 200,
-      spread: 100,
-      startVelocity: 60,
-      colors,
-      gravity: 0.6,
-      ticks: 500,
-      origin: {
-        x: 0.5,
-        y: 1,
-      },
-    });
-    confetti({
-      particleCount: 100,
-      spread: 80,
-      angle: 60,
-      gravity: 0.7,
-      ticks: 500,
-      colors,
-      origin: {
-        x: 0,
-        y: 0.6,
-      },
-    });
-    confetti({
-      particleCount: 100,
-      spread: 80,
-      angle: 120,
-      colors,
-      gravity: 0.7,
-      ticks: 500,
-      origin: {
-        x: 1,
-        y: 0.6,
-      },
-    });
-  };
 
   useEffect(() => {
     const timeoutInstance = setTimeout(() => {
@@ -115,21 +75,21 @@ const Page = ({ params }: Props) => {
       </div>
       <div className="mt-10 flex flex-col items-center">
         <div
-          className="animate-appear-spring w-fit rounded-full bg-black/40 p-6 text-white opacity-0"
+          className="w-fit animate-appear-spring rounded-full bg-black/40 p-6 text-white opacity-0"
           style={{
             animationDelay: "5.5s",
           }}
           onClick={showConfetti}
         >
-          {getDepartmentIcon(department)}
+          {getDepartmentIcon(member.department)}
         </div>
         <div
-          className="animate-appear-spring mt-2 text-4xl font-bold text-white opacity-0"
+          className="mt-2 animate-appear-spring text-4xl font-bold text-white opacity-0"
           style={{
             animationDelay: "5.5s",
           }}
         >
-          {department}
+          {member.department}
           <span className="text-xl">です！</span>
         </div>
       </div>

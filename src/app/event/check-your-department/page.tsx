@@ -1,18 +1,18 @@
 "use client";
 
+import peopleImage from "@/assets/people.svg";
 import { Button } from "@/components/ui/button";
 import {
   InputOTP,
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
-import { REGEXP_ONLY_DIGITS } from "input-otp";
-import { useState } from "react";
-import { members } from "./members";
-import { useRouter } from "next/navigation";
 import { cn } from "@/utils/utils";
-import peopleImage from "@/assets/people.svg";
+import { REGEXP_ONLY_DIGITS } from "input-otp";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { getMemberById } from "./members";
 
 const Page = () => {
   const [studentId, setStudentId] = useState("");
@@ -20,21 +20,22 @@ const Page = () => {
   const [hideCard, setHideCard] = useState(false);
 
   const handleSubmit = () => {
-    if (!Object.keys(members).includes(`g2${studentId}`)) {
+    const member = getMemberById(`g2${studentId}`);
+    if (!member) {
       window.alert("該当する学生が見つかりませんでした。");
       setStudentId("");
       return;
     }
     setHideCard(true);
     setTimeout(() => {
-      router.push(`/event/check-your-department/g2${studentId}`);
+      router.push(`/event/check-your-department/${member.id}`);
     }, 500);
   };
 
   return (
     <div
       className={cn(
-        "animate-fade-slide-in mx-auto w-[min(95%,500px)] sm:mt-10 md:mt-20",
+        "mx-auto w-[min(95%,500px)] animate-fade-slide-in sm:mt-10 md:mt-20",
         hideCard && "animate-fade-slide-out",
       )}
     >
@@ -53,7 +54,7 @@ const Page = () => {
           <wbr />
           配属先を確認しましょう！
         </div>
-        <div className="relative mx-auto h-[140px] w-[95%] rounded-t-3xl animate-fade-slide-in">
+        <div className="relative mx-auto h-[140px] w-[95%] animate-fade-slide-in rounded-t-3xl">
           <Image
             src={peopleImage.src!}
             alt="京産キャンスタ"
@@ -70,7 +71,7 @@ const Page = () => {
               value={studentId}
               onChange={(v) => setStudentId(v)}
             >
-              <InputOTPGroup className="font-semibold [&>*]:text-base bg-white">
+              <InputOTPGroup className="bg-white font-semibold [&>*]:text-base">
                 <InputOTPSlot index={0} />
                 <InputOTPSlot index={1} />
                 <InputOTPSlot index={2} />
