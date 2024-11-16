@@ -1,14 +1,18 @@
+import Link from "next/link";
 import DepartmentMembers from "../DepartmentMembers";
 import { Department, getDepartmentIcon } from "../members";
+import { ImageIcon } from "lucide-react";
 
 type Props = {};
 
 const Page = ({}: Props) => {
   return (
     <div>
-      <h1 className="text-center text-4xl font-bold">配属発表</h1>
+      <div className="text-center">
+        <h1 className="text-4xl font-bold">配属発表</h1>
+      </div>
       <div>
-        <div className="mt-10 flex flex-col items-center gap-4 pb-10">
+        <div className="mt-10 flex flex-col items-center gap-4">
           {Object.values(Department).map((department, i) => (
             <DepartmentMembers
               key={i}
@@ -26,6 +30,16 @@ const Page = ({}: Props) => {
             />
           ))}
         </div>
+      </div>
+      <div className="py-10">
+        <Link
+          href={process.env.NEXT_PUBLIC_NEW_MEMBERS_2024_IMAGE_URL ?? ""}
+          target="_blank"
+          className="mx-auto flex w-fit items-center gap-1.5 rounded-full bg-black/40 px-4 py-2 text-sm text-white/90"
+        >
+          <ImageIcon size={16} />
+          画像として表示
+        </Link>
       </div>
     </div>
   );

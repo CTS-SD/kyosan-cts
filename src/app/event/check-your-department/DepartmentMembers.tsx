@@ -1,12 +1,6 @@
 import { cn } from "@/utils/utils";
 import { Department, getMembersByDepartment } from "./members";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import {
   Popover,
   PopoverContent,
   PopoverTrigger,
@@ -30,7 +24,7 @@ const DepartmentMembers = ({
   return (
     <div
       className={cn(
-        "w-[min(440px,95vw)] rounded-2xl bg-white p-6 text-black",
+        "w-[min(440px,95vw)] rounded-2xl bg-white py-6 px-4 text-black sm:px-6",
         className,
       )}
       {...props}
