@@ -1,5 +1,9 @@
 import { cn } from "@/utils/utils";
-import { Department, getMembersByDepartment } from "./members";
+import {
+  Department,
+  getDepartmentStyle,
+  getMembersByDepartment,
+} from "./members";
 import {
   Popover,
   PopoverContent,
@@ -24,7 +28,7 @@ const DepartmentMembers = ({
   return (
     <div
       className={cn(
-        "w-[min(440px,95vw)] rounded-2xl bg-white py-6 px-4 text-black sm:px-6",
+        "w-[min(440px,95vw)] rounded-2xl bg-white px-4 py-6 text-black sm:px-6",
         className,
       )}
       {...props}
@@ -35,11 +39,18 @@ const DepartmentMembers = ({
           return (
             <Popover key={m.id}>
               <PopoverTrigger>
-                <div className="rounded-full bg-gradient-to-br from-blue-600 to-cyan-600 px-4 py-2 text-lg font-semibold text-white shadow-lg">
+                <div
+                  className={cn(
+                    "rounded-full px-4 py-2 text-lg font-semibold text-white shadow-lg",
+                    getDepartmentStyle(department),
+                  )}
+                >
                   {m.name}
                 </div>
               </PopoverTrigger>
-              <PopoverContent className="w-fit rounded-2xl font-semibold py-2 px-4">{m.major}学部</PopoverContent>
+              <PopoverContent className="w-fit rounded-2xl px-4 py-2 font-semibold">
+                {m.major}学部
+              </PopoverContent>
             </Popover>
           );
         })}
