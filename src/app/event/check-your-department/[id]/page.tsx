@@ -91,7 +91,7 @@ const Page = ({ params }: Props) => {
             animationDelay: "5.5s",
           }}
         >
-          {member.department}
+          {member.department}部署
           <span className="text-xl">です！</span>
         </div>
         <DepartmentMembers
@@ -104,7 +104,7 @@ const Page = ({ params }: Props) => {
             <div>
               <div>同じ部署のメンバー</div>
               <div className="text-base text-neutral-500">
-                {member.department}
+                {member.department}部署
               </div>
             </div>
           }

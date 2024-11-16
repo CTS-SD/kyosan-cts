@@ -1,5 +1,16 @@
 import { cn } from "@/utils/utils";
 import { Department, getMembersByDepartment } from "./members";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 
 type Props = {
   department: Department;
@@ -28,12 +39,14 @@ const DepartmentMembers = ({
       <div className="mt-6 flex flex-wrap justify-center gap-2">
         {members.map((m) => {
           return (
-            <div
-              key={m.id}
-              className="rounded-full bg-gradient-to-br from-blue-600 to-cyan-600 px-4 py-2 text-lg font-semibold text-white shadow-lg"
-            >
-              {m.name}
-            </div>
+            <Popover key={m.id}>
+              <PopoverTrigger>
+                <div className="rounded-full bg-gradient-to-br from-blue-600 to-cyan-600 px-4 py-2 text-lg font-semibold text-white shadow-lg">
+                  {m.name}
+                </div>
+              </PopoverTrigger>
+              <PopoverContent className="w-fit rounded-2xl font-semibold py-2 px-4">{m.major}学部</PopoverContent>
+            </Popover>
           );
         })}
       </div>
