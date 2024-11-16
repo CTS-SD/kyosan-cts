@@ -7,7 +7,7 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { client } from "@/db/hono";
-import { REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
+import { REGEXP_ONLY_DIGITS, REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -57,7 +57,7 @@ const Page = ({}: Props) => {
         <div>
           <InputOTP
             maxLength={6}
-            pattern={REGEXP_ONLY_DIGITS_AND_CHARS}
+            pattern={REGEXP_ONLY_DIGITS}
             value={pin}
             onChange={(v) => setPin(v)}
           >
