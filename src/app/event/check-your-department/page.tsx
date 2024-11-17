@@ -52,7 +52,7 @@ const Page = () => {
         <div className="mt-2 whitespace-pre px-10 text-center text-sm leading-none text-neutral-500">
           学籍番号を入力して
           <wbr />
-          配属先を確認しましょう！
+          配属部署を確認しましょう！
         </div>
         <div className="relative mx-auto h-[140px] w-[95%] animate-fade-slide-in rounded-t-3xl">
           <Image

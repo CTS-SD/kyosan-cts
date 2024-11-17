@@ -37,21 +37,15 @@ const DepartmentMembers = ({
       <div className="mt-6 flex flex-wrap justify-center gap-2">
         {members.map((m) => {
           return (
-            <Popover key={m.id}>
-              <PopoverTrigger>
-                <div
-                  className={cn(
-                    "rounded-full px-4 py-2 text-lg font-semibold text-white shadow-lg",
-                    getDepartmentStyle(department),
-                  )}
-                >
-                  {m.name}
-                </div>
-              </PopoverTrigger>
-              <PopoverContent className="w-fit rounded-2xl px-4 py-2 font-semibold">
-                {m.major}学部
-              </PopoverContent>
-            </Popover>
+            <div
+              className={cn(
+                "rounded-full px-6 pb-1.5 pt-2 text-center text-base font-semibold text-white shadow-lg",
+                getDepartmentStyle(department),
+              )}
+            >
+              <div className="leading-none">{m.name}</div>
+              <div className="text-xs opacity-70">{m.major}学部</div>
+            </div>
           );
         })}
       </div>

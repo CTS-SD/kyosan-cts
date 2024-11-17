@@ -1,7 +1,13 @@
 import Link from "next/link";
 import DepartmentMembers from "../DepartmentMembers";
-import { Department, getDepartmentIcon } from "../members";
-import { ImageIcon } from "lucide-react";
+import {
+  Department,
+  getDepartmentIcon,
+  getDepartmentStyle,
+  getMembersByDepartment,
+} from "../members";
+import { Divide, ImageIcon } from "lucide-react";
+import { cn } from "@/utils/utils";
 
 type Props = {};
 
@@ -23,8 +29,20 @@ const Page = ({}: Props) => {
               department={department}
               header={
                 <div className="flex items-center justify-center gap-3">
-                  <div>{getDepartmentIcon(department, 28)}</div>
-                  <div>{department}部署</div>
+                  <div className={cn("text-neutral-500")}>
+                    {getDepartmentIcon(department, 28)}
+                  </div>
+                  <div
+                    className={cn(
+                      "bg-clip-text text-transparent",
+                      getDepartmentStyle(department),
+                    )}
+                  >
+                    {department}部署
+                  </div>
+                  <div className="text-base text-neutral-400">
+                    {getMembersByDepartment(department).length}名
+                  </div>
                 </div>
               }
             />
