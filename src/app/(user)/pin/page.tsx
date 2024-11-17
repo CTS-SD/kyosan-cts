@@ -29,10 +29,7 @@ const Page = () => {
       setError("パスコードが正しくありません。");
       return;
     }
-    const { token } = await res.json();
-    document.cookie = `user_token=${token}; path=/`;
     const next = new URLSearchParams(window.location.search).get("next");
-    console.log(next);
     window.location.href = next || "/";
   };
 

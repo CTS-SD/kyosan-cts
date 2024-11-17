@@ -1,23 +1,29 @@
 import { auth } from "@/lib/auth";
 import { isApprovedEmail } from "./utils/utils";
-import { isValidToken } from "./lib/token";
+import { jwtVerify } from "jose";
+import { CookieKey } from "./lib/const";
 
-export default auth((req) => {
+const pinProtectedPaths = ["/event/check-your-department"];
+
+const PIN_SECRET = process.env.PIN_SECRET!;
+const PIN_SECRET_ENCODED = new TextEncoder().encode(PIN_SECRET);
+
+export default auth(async (req) => {
   const url = req.nextUrl;
   const path = url.pathname;
   const origin = url.origin;
 
-  if (path.startsWith("/event/check-your-department")) {
-    const token = req.cookies.get("user_token");
-    if (
-      !token ||
-      !isValidToken(token.value, process.env.PIN_SECRET!, (decrypted) =>
-        decrypted.startsWith(process.env.PIN!),
-      )
-    ) {
-      return Response.redirect(new URL(`/pin?next=${url}`, origin));
+  if (pinProtectedPaths.some((p) => path.startsWith(p))) {
+    const token = req.cookies.get(CookieKey.USER_JWT)?.value;
+    if (token) {
+      try {
+        await jwtVerify(token, PIN_SECRET_ENCODED);
+        return;
+      } catch (e) {
+        console.warn(e);
+      }
     }
-    return;
+    return Response.redirect(new URL(`/pin?next=${url}`, origin));
   }
 
   if (!req.auth) {
