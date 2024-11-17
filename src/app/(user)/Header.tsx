@@ -6,9 +6,7 @@ import { useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { ArrowRightIcon } from "lucide-react";
 
-type Props = {};
-
-const Header = ({}: Props) => {
+const Header = () => {
   const { data: session } = useSession();
 
   return (

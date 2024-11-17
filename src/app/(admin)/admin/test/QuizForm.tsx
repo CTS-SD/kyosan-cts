@@ -130,7 +130,7 @@ const QuizForm = ({
       >
         <form.Field
           name="type"
-          children={({ state, handleChange, handleBlur }) => {
+          children={({ state, handleChange }) => {
             return (
               <div>
                 <Label icon={<PanelsTopLeftIcon size="16" />}>形式</Label>

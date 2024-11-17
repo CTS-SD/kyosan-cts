@@ -2,14 +2,12 @@
 
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { ChevronLeft, MoveLeftIcon } from "lucide-react";
+import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
-type Props = {};
-
-const Header = ({}: Props) => {
+const Header = () => {
   const [borderPos, setBorderPos] = useState({
     left: null as number | null,
     width: null as number | null,

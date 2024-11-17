@@ -1,17 +1,10 @@
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { signIn } from "@/lib/auth";
 import {
-  LockKeyhole,
-  LockKeyholeIcon,
-  ShieldCheckIcon,
-  SlashIcon,
   UserCogIcon,
 } from "lucide-react";
 
-type Props = {};
-
-const Page = ({}: Props) => {
+const Page = () => {
   return (
     <div className="mx-auto mt-6 flex w-[min(400px,90%)] flex-col items-center rounded-2xl p-6">
       <div className="flex flex-col items-center py-4">

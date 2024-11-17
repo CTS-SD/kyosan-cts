@@ -13,7 +13,7 @@ const btnStyle =
   "aspect-square rounded-2xl grow shrink-0 active:scale-95 transition-transform grid place-content-center border-2 text-neutral-300 bg-neutral-100";
 
 const QuizFormOX = ({ quiz }: Props) => {
-  const { value, setValue, isShowResult, showResult, isPreview } =
+  const { value, setValue, isShowResult, showResult } =
     useContext(QuizFormContext);
 
   const handleSubmit = () => {

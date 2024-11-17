@@ -3,7 +3,6 @@ import Link from "next/link";
 
 type Props = {
   heading: React.ReactNode;
-  description?: React.ReactNode;
   href?: string;
   actions?: [
     {
@@ -14,7 +13,7 @@ type Props = {
   ];
 };
 
-const PageHeading = ({ heading, description, href, actions }: Props) => {
+const PageHeading = ({ heading, href, actions }: Props) => {
   return (
     <div className="border-b">
       <div className="relative mx-auto flex max-w-5xl items-center bg-white px-6 py-10 text-2xl font-bold">

@@ -1,6 +1,6 @@
 "use client";
 
-import { cn, digit2alpha, shuffle } from "@/utils/utils";
+import { cn, shuffle } from "@/utils/utils";
 import { useContext, useMemo } from "react";
 import { QuizFormContext } from "./QuizFormContext";
 import { Button } from "@/components/ui/button";
@@ -11,7 +11,7 @@ type Props = {
 };
 
 const QuizFormSelect = ({ quiz }: Props) => {
-  const { value, setValue, isShowResult, showResult, isPreview } =
+  const { value, setValue, isShowResult, showResult } =
     useContext(QuizFormContext);
 
   const selections = useMemo(() => {

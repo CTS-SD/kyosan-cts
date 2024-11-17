@@ -3,12 +3,10 @@ import {
   timestamp,
   pgTable,
   text,
-  primaryKey,
   integer,
   pgEnum,
   uuid,
 } from "drizzle-orm/pg-core";
-import type { AdapterAccountType } from "next-auth/adapters";
 
 export const roleEnum = pgEnum("role", ["developer", "admin", "user"]);
 

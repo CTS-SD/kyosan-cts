@@ -1,9 +1,7 @@
 import { SettingsIcon } from "lucide-react";
 import PageHeading from "../PageHeading";
 
-type Props = {};
-
-const TestPageHeading = ({}: Props) => {
+const TestPageHeading = () => {
   return (
     <PageHeading
       heading="ぷらっとテスト"

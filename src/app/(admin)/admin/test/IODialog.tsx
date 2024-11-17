@@ -9,7 +9,6 @@ import {
 import { client } from "@/db/hono";
 import dayjs from "dayjs";
 import {
-  CheckCircleIcon,
   CircleCheckIcon,
   DownloadIcon,
   FileIcon,
@@ -19,9 +18,7 @@ import {
 import { useState } from "react";
 import { toast } from "sonner";
 
-type Props = {};
-
-const IODialog = ({}: Props) => {
+const IODialog = () => {
   const [importFile, setImportFile] = useState<File>();
 
   const handleDownload = async () => {

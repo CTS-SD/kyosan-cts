@@ -4,11 +4,6 @@ import {
   getDepartmentStyle,
   getMembersByDepartment,
 } from "./members";
-import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
 
 type Props = {
   department: Department;
@@ -38,6 +33,7 @@ const DepartmentMembers = ({
         {members.map((m) => {
           return (
             <div
+              key={m.id}
               className={cn(
                 "rounded-full px-6 pb-1.5 pt-2 text-center text-base font-semibold text-white shadow-lg",
                 getDepartmentStyle(department),

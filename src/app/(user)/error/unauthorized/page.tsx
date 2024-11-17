@@ -5,9 +5,7 @@ import { TriangleAlertIcon } from "lucide-react";
 import { redirect } from "next/navigation";
 import Image from "next/image";
 
-type Props = {};
-
-const Page = async ({}: Props) => {
+const Page = async () => {
   const session = await auth();
 
   if (!session?.user) {

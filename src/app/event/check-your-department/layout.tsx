@@ -1,6 +1,5 @@
 "use client";
 
-import Header from "@/app/(user)/Header";
 import kyosan2024 from "../../../assets/kyansuta2024.png";
 import Link from "next/link";
 import "./style.css";

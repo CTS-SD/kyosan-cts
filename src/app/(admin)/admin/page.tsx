@@ -1,8 +1,6 @@
 import { redirect } from "next/navigation";
 
-type Props = {};
-
-const Page = ({}: Props) => {
+const Page = () => {
   redirect("/admin/test");
 };
 

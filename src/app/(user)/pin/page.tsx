@@ -7,13 +7,10 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { client } from "@/db/hono";
-import { REGEXP_ONLY_DIGITS, REGEXP_ONLY_DIGITS_AND_CHARS } from "input-otp";
-import { useRouter } from "next/navigation";
+import { REGEXP_ONLY_DIGITS } from "input-otp";
 import { useState } from "react";
 
-type Props = {};
-
-const Page = ({}: Props) => {
+const Page = () => {
   const [pin, setPin] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);

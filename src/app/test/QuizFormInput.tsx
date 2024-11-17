@@ -9,7 +9,7 @@ type Props = {
 };
 
 const QuizFormInput = ({ quiz }: Props) => {
-  const { value, setValue, isShowResult, showResult, isPreview } =
+  const { value, setValue, isShowResult, showResult } =
     useContext(QuizFormContext);
 
   const cleanValue = typeof value == "string" ? value.trim() : "";

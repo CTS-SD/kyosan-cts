@@ -1,3 +1,5 @@
+import { cn } from "@/utils/utils";
+import { ImageIcon } from "lucide-react";
 import Link from "next/link";
 import DepartmentMembers from "../DepartmentMembers";
 import {
@@ -6,12 +8,8 @@ import {
   getDepartmentStyle,
   getMembersByDepartment,
 } from "../members";
-import { Divide, ImageIcon } from "lucide-react";
-import { cn } from "@/utils/utils";
 
-type Props = {};
-
-const Page = ({}: Props) => {
+const Page = () => {
   return (
     <div>
       <div className="text-center">

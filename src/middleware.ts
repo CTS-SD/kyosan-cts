@@ -4,10 +4,10 @@ import { isValidToken } from "./lib/token";
 
 export default auth((req) => {
   const url = req.nextUrl;
-  const pathname = url.pathname;
+  const path = url.pathname;
   const origin = url.origin;
 
-  if (url.pathname.startsWith("/event/check-your-department")) {
+  if (path.startsWith("/event/check-your-department")) {
     const token = req.cookies.get("user_token");
     if (
       !token ||

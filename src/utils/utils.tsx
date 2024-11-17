@@ -1,4 +1,3 @@
-import { client } from "@/db/hono";
 import { QuizType } from "@/db/schema";
 import { clsx, type ClassValue } from "clsx";
 import {
