@@ -1,9 +1,9 @@
 import {
-  FlowerIcon,
   HeartHandshakeIcon,
   LightbulbIcon,
   MessageSquareHeartIcon,
   PartyPopperIcon,
+  SparklesIcon,
 } from "lucide-react";
 import { cloneElement } from "react";
 import { z } from "zod";
@@ -42,7 +42,7 @@ export const members = membersSchema.parse(
 );
 
 const departmentIcons = {
-  [Department.general]: <FlowerIcon size={64} />,
+  [Department.general]: <SparklesIcon size={64} />,
   [Department.recreation]: <PartyPopperIcon size={64} />,
   [Department.sd]: <HeartHandshakeIcon size={64} />,
   [Department.development]: <LightbulbIcon size={64} />,
