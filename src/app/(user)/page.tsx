@@ -30,15 +30,6 @@ const Page = () => {
               />
             </Link>
           </Button>
-          <Button variant="primary" className="w-fit" size="xl" asChild>
-            <Link className="" href="/event/check-your-department">
-              配属発表2024
-              <ArrowRightIcon
-                size={20}
-                className="ml-0.5 opacity-50 transition group-hover:translate-x-0.5 group-hover:opacity-100"
-              />
-            </Link>
-          </Button>
         </div>
       </div>
     </main>

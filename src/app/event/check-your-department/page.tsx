@@ -15,6 +15,7 @@ import { useState } from "react";
 import { getMemberById } from "./members";
 
 const Page = () => {
+
   const [studentId, setStudentId] = useState("");
   const router = useRouter();
   const [hideCard, setHideCard] = useState(false);
