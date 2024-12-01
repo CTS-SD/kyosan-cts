@@ -1,3 +1,5 @@
+"use client";
+
 import {
   MultiSwitch,
   MultiSwitchItem,
@@ -11,7 +13,9 @@ import { type Quiz, QuizTypeEnum } from "@/db/schema";
 import { cn } from "@/utils/utils";
 import { useForm } from "@tanstack/react-form";
 import {
+  EyeOffIcon,
   LightbulbIcon,
+  LockIcon,
   LockOpenIcon,
   PanelsTopLeftIcon,
   TextIcon,
@@ -27,6 +31,7 @@ import FieldError from "@/components/original-ui/field-error";
 import Preview from "./Preview";
 import { deleteQuiz } from "../admin-api";
 import { Switch } from "@/components/ui/switch";
+import { useRouter } from "next/navigation";
 
 type Props = {
   quiz?: Quiz;
@@ -43,6 +48,7 @@ const QuizForm = ({
   className,
   ...props
 }: Props) => {
+  const router = useRouter();
   const form = useForm({
     validatorAdapter: zodValidator(),
     defaultValues: {
@@ -53,7 +59,7 @@ const QuizForm = ({
       fakes: quiz?.fakes ?? undefined,
       isPublic: quiz?.isPublic ?? true,
     },
-    onSubmit: async ({ value, formApi }) => {
+    onSubmit: async ({ value }) => {
       if (isEdit) {
         // update quiz
         const res = await client.api.admin.quiz[":id"].$put({
@@ -90,10 +96,8 @@ const QuizForm = ({
         const newQuiz = await res.json();
         onSaved?.(newQuiz);
 
-        formApi.reset();
-        formApi.setFieldValue("type", value.type);
-
         toast.success("問題を作成しました");
+        router.replace(`/admin/test/q/${newQuiz.id}`);
       }
     },
   });
@@ -104,6 +108,7 @@ const QuizForm = ({
     answer: form.useStore((s) => s.values.answer),
     explanation: form.useStore((s) => s.values.explanation),
     fakes: form.useStore((s) => s.values.fakes),
+    isPublic: form.useStore((s) => s.values.isPublic),
   };
   const isDirty = form.useStore((s) => s.isDirty);
   const isSubmitting = form.useStore((s) => s.isSubmitting);
@@ -142,7 +147,7 @@ const QuizForm = ({
                 >
                   <MultiSwitchItem value="select">選択</MultiSwitchItem>
                   <MultiSwitchItem value="input">テキスト</MultiSwitchItem>
-                  <MultiSwitchItem value="ox">○✗クイズ</MultiSwitchItem>
+                  <MultiSwitchItem value="ox">○✕クイズ</MultiSwitchItem>
                 </MultiSwitch>
               </div>
             );
@@ -183,7 +188,7 @@ const QuizForm = ({
                   <Label icon={<ThumbsUpIcon size="16" />}>答え</Label>
                   <MultiSwitch value={state.value} onValueChange={handleChange}>
                     <MultiSwitchItem value="__true__">○</MultiSwitchItem>
-                    <MultiSwitchItem value="__false__">✗</MultiSwitchItem>
+                    <MultiSwitchItem value="__false__">✕</MultiSwitchItem>
                   </MultiSwitch>
                   <FieldError errors={state.meta.errors} />
                 </div>
@@ -297,11 +302,33 @@ const QuizForm = ({
           children={({ state, handleChange, handleBlur }) => {
             return (
               <div>
-                <Label icon={<LockOpenIcon size="16" />}>公開設定</Label>
-                <label className="flex cursor-pointer items-center justify-between gap-2 rounded-lg border p-4">
+                <Label
+                  icon={
+                    values.isPublic ? (
+                      <LockOpenIcon size="16" />
+                    ) : (
+                      <LockIcon size="16" />
+                    )
+                  }
+                >
+                  公開設定
+                </Label>
+                <label className="relative flex cursor-pointer items-center justify-between gap-2 rounded-lg border p-4">
                   <div className="space-y-0.5">
-                    <div className="font-semibold">この問題を公開する</div>
-                    <div className="text-sm text-neutral-500">
+                    <div
+                      className={cn(
+                        "font-semibold transition-all",
+                        values.isPublic ? "" : "blur-md",
+                      )}
+                    >
+                      この問題を公開する
+                    </div>
+                    <div
+                      className={cn(
+                        "text-sm text-neutral-500 transition-all",
+                        values.isPublic ? "" : "blur-md",
+                      )}
+                    >
                       非公開にした問題はユーザーに出題されません
                     </div>
                   </div>
@@ -310,6 +337,12 @@ const QuizForm = ({
                     onCheckedChange={(checked) => handleChange(checked)}
                     onBlur={handleBlur}
                   />
+                  {!values.isPublic && (
+                    <div className="absolute left-1/2 flex -translate-x-1/2 items-center gap-2 text-neutral-500">
+                      <EyeOffIcon size={16} />
+                      非公開
+                    </div>
+                  )}
                 </label>
               </div>
             );
@@ -322,7 +355,12 @@ const QuizForm = ({
               size="icon"
               variant="outline"
               className="shrink-0 rounded-md"
-              onClick={() => deleteQuiz(quiz?.id, onDeleted)}
+              onClick={() =>
+                deleteQuiz(quiz?.id, (q) => {
+                  onDeleted?.(q);
+                  router.replace("/admin/test");
+                })
+              }
             >
               <TrashIcon size={16} />
             </Button>

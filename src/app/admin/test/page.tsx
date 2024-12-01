@@ -27,13 +27,12 @@ import {
 } from "@/components/ui/context-menu";
 import { deleteQuiz } from "../admin-api";
 import IODialog from "./IODialog";
+import Link from "next/link";
 
 const fetchLimit = 30;
 
 const Page = () => {
   const [isCreateDialogOpen, setIsCreateDialogOpen] = useState(false);
-  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
-  const [activeQuiz, setActiveQuiz] = useState<Quiz>();
   const [isLoading, setIsLoading] = useState(true);
   const [filter, setFilter] = useState("");
   const [fetchOffset, setFetchOffset] = useState(0);
@@ -93,37 +92,11 @@ const Page = () => {
               placeholder="問題を検索"
             />
             <IODialog />
-            <Dialog
-              onOpenChange={(open) => setIsCreateDialogOpen(open)}
-              open={isCreateDialogOpen}
-            >
-              <DialogTrigger className="" asChild>
-                <Button className="shrink-0 rounded-md" size="icon">
-                  <PlusIcon size={20} />
-                </Button>
-              </DialogTrigger>
-              <DialogContent
-                onOpenAutoFocus={(e) => e.preventDefault()}
-                className="mx-auto mt-[5dvh] max-h-[95dvh] max-w-[1024px] rounded-t-2xl p-0 md:mt-0 md:max-h-[90dvh]"
-              >
-                <DialogHeader className="sticky top-0 flex flex-row items-center justify-between bg-white/50 px-6 py-3 pr-3 backdrop-blur-sm">
-                  <DialogTitle>問題を作成</DialogTitle>
-                  <DialogClose asChild>
-                    <Button className="!mt-0" size="icon" variant="ghost">
-                      <XIcon />
-                    </Button>
-                  </DialogClose>
-                </DialogHeader>
-                <div className="grow pb-6 pl-6 pr-6">
-                  <QuizForm
-                    onSaved={(quiz) => {
-                      setQuizzes([quiz, ...quizzes]);
-                      setIsCreateDialogOpen(false);
-                    }}
-                  />
-                </div>
-              </DialogContent>
-            </Dialog>
+            <Button className="shrink-0 rounded-md" size="icon" asChild>
+              <Link href="/admin/test/q/new">
+                <PlusIcon size={20} />
+              </Link>
+            </Button>
           </div>
           <div className="mt-6">
             <ul className="grid gap-2 md:grid-cols-2 lg:grid-cols-3">
@@ -138,25 +111,9 @@ const Page = () => {
                   {filteredQuizzes.map((quiz) => (
                     <ContextMenu key={quiz.id}>
                       <ContextMenuTrigger className="min-w-0">
-                        <QuizListItem
-                          quiz={quiz}
-                          onClick={() => {
-                            setActiveQuiz(quiz);
-                            setIsEditDialogOpen(true);
-                          }}
-                        />
+                        <QuizListItem quiz={quiz} />
                       </ContextMenuTrigger>
                       <ContextMenuContent>
-                        <ContextMenuItem
-                          onClick={() => {
-                            setActiveQuiz(quiz);
-                            setIsEditDialogOpen(true);
-                          }}
-                          icon={<PencilIcon size={14} />}
-                        >
-                          編集
-                        </ContextMenuItem>
-                        <ContextMenuSeparator />
                         <ContextMenuItem
                           icon={<TrashIcon size={14} />}
                           onClick={async () =>
@@ -192,37 +149,6 @@ const Page = () => {
           </div>
         </div>
       </div>
-      <Dialog
-        onOpenChange={(open) => setIsEditDialogOpen(open)}
-        open={isEditDialogOpen}
-      >
-        <DialogContent
-          onOpenAutoFocus={(e) => e.preventDefault()}
-          className="mx-auto mt-[2.5dvh] max-h-[95dvh] max-w-[1024px] rounded-t-2xl p-0 md:mt-0 md:max-h-[90dvh]"
-        >
-          <DialogHeader className="sticky top-0 flex flex-row items-center justify-between bg-white/50 px-6 py-3 pr-3 backdrop-blur-sm">
-            <DialogTitle>問題を編集</DialogTitle>
-            <DialogClose asChild>
-              <Button className="!mt-0" size="icon" variant="ghost">
-                <XIcon />
-              </Button>
-            </DialogClose>
-          </DialogHeader>
-          <div className="grow pb-6 pl-6 pr-6">
-            <QuizForm
-              quiz={activeQuiz}
-              isEdit
-              onDeleted={(deletedQuizId) => {
-                setIsEditDialogOpen(false);
-                setQuizzes(quizzes.filter((q) => q.id !== deletedQuizId));
-              }}
-              onSaved={(quiz) => {
-                setQuizzes(quizzes.map((q) => (q.id === quiz.id ? quiz : q)));
-              }}
-            />
-          </div>
-        </DialogContent>
-      </Dialog>
     </>
   );
 };

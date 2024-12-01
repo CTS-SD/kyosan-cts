@@ -8,19 +8,18 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import Link from "next/link";
 
 type Props = {
   quiz: Quiz;
-  isEdit?: boolean;
-  onClick: () => void;
 };
 
-const QuizListItem = ({ quiz, onClick }: Props) => {
+const QuizListItem = ({ quiz }: Props) => {
   return (
-    <div
-      onClick={onClick}
+    <Link
+      href={`/admin/test/q/${quiz.id}`}
       className={cn(
-        "min-w-0 cursor-pointer rounded-lg border bg-white p-4",
+        "block min-w-0 cursor-pointer rounded-lg border bg-white p-4",
         !quiz.isPublic && "border-dashed",
       )}
     >
@@ -31,7 +30,7 @@ const QuizListItem = ({ quiz, onClick }: Props) => {
         <div className="truncate pt-1 font-semibold">{quiz.question}</div>
       </div>
       <div className="mt-4 flex items-center">
-        <div className="flex items-center min-w-0 text-sm">
+        <div className="flex min-w-0 items-center text-sm">
           <div className="shrink-0 text-neutral-500">解答：</div>
           <div className="truncate">{getAnswerElement(quiz.answer)}</div>
         </div>
@@ -48,7 +47,7 @@ const QuizListItem = ({ quiz, onClick }: Props) => {
           </div>
         )}
       </div>
-    </div>
+    </Link>
   );
 };
 
