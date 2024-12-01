@@ -3,8 +3,7 @@
 import { isApprovedEmail } from "@/utils/utils";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { Button } from "@/components/ui/button";
-import { ArrowRightIcon } from "lucide-react";
+import { UserRoundCogIcon } from "lucide-react";
 
 const Header = () => {
   const { data: session } = useSession();
@@ -16,15 +15,9 @@ const Header = () => {
           京産キャンスタ
         </Link>
         {isApprovedEmail(session?.user?.email) && (
-          <Button variant="ghost" asChild>
-            <Link href="/admin" className="group ml-auto block !text-blue-500">
-              管理者ページ
-              <ArrowRightIcon
-                size={16}
-                className="ml-0.5 opacity-50 transition group-hover:translate-x-0.5 group-hover:opacity-100"
-              />
-            </Link>
-          </Button>
+          <Link href="/admin" className="ml-auto">
+            <UserRoundCogIcon size={20} />
+          </Link>
         )}
       </div>
     </header>

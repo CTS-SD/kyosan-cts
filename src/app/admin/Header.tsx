@@ -2,7 +2,7 @@
 
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { ChevronLeft } from "lucide-react";
+import { ChevronLeft, ChevronRightIcon, HomeIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -16,18 +16,15 @@ const Header = () => {
 
   return (
     <div>
-      <div className="mx-auto flex h-[60px] max-w-5xl items-center px-3">
-        <Link
-          href="/"
-          className="mr-3 grid size-8 place-content-center rounded-sm border border-neutral-200 bg-neutral-50"
-        >
-          <ChevronLeft />
-        </Link>
+      <div className="mx-auto flex h-[60px] max-w-5xl items-center px-4">
         <Link href="/admin" className="flex items-center gap-2">
           <div className="flex items-center gap-0.5 font-bold">
             京産キャンスタ
           </div>
           <Badge>管理者</Badge>
+        </Link>
+        <Link href="/" className="ml-auto flex items-center gap-2 text-sm">
+          <HomeIcon size={20} />
         </Link>
       </div>
       <div className="relative border-b">
