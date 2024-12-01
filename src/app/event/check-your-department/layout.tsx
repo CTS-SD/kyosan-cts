@@ -1,14 +1,14 @@
-"use client";
-
 import kyosan2024 from "../../../assets/kyansuta2024.png";
 import Link from "next/link";
 import "./style.css";
+import { notFound } from "next/navigation";
 
 type Props = {
   children: React.ReactNode;
 };
 
 const Layout = ({ children }: Props) => {
+  notFound();
   return (
     <div
       id="bg"

@@ -3,7 +3,7 @@ import { isApprovedEmail } from "./utils/utils";
 import { jwtVerify } from "jose";
 import { CookieKey } from "./lib/const";
 
-const pinProtectedPaths = ["/event/check-your-department"];
+const pinProtectedPaths: string[] = [];
 
 const PIN_SECRET = process.env.PIN_SECRET!;
 const PIN_SECRET_ENCODED = new TextEncoder().encode(PIN_SECRET);
@@ -36,9 +36,5 @@ export default auth(async (req) => {
 });
 
 export const config = {
-  matcher: [
-    "/admin/:path*",
-    "/api/admin/:path*",
-    "/event/check-your-department/:path*",
-  ],
+  matcher: ["/admin/:path*", "/api/admin/:path*"],
 };
