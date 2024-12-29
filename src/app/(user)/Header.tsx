@@ -3,7 +3,7 @@
 import { isApprovedEmail } from "@/utils/utils";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
-import { UserRoundCogIcon } from "lucide-react";
+import { SettingsIcon } from "lucide-react";
 
 const Header = () => {
   const { data: session } = useSession();
@@ -16,7 +16,7 @@ const Header = () => {
         </Link>
         {isApprovedEmail(session?.user?.email) && (
           <Link href="/admin" className="ml-auto">
-            <UserRoundCogIcon size={20} />
+            <SettingsIcon size={20} />
           </Link>
         )}
       </div>
