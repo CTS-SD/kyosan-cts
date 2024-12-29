@@ -26,7 +26,7 @@ const Page = async ({ params: { id } }: Props) => {
 
   return (
     <div className="pb-6">
-      <div className="mx-auto max-w-5xl px-6">
+      <div className="mx-auto max-w-6xl px-6">
         <div className="flex items-center py-6">
           <Link
             href="/admin/test"

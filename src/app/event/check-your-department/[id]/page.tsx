@@ -39,7 +39,7 @@ const Page = ({ params }: Props) => {
             {member.name}
             <span className="text-base">さんの</span>
           </div>
-          <div className="flex text-5xl">
+          <div className="flex text-6xl">
             <div
               style={{
                 animationDelay: "1.5s",

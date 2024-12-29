@@ -1,13 +1,13 @@
 "use client";
 
-import { useForm } from "@tanstack/react-form";
-import TestPageHeading from "../TestPageHeading";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
 import { client } from "@/db/hono";
+import { useForm } from "@tanstack/react-form";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import TestPageHeading from "../TestPageHeading";
 
 const Page = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -62,7 +62,7 @@ const Page = () => {
       <TestPageHeading />
       <div className="">
         <form
-          className="mx-auto max-w-5xl space-y-4 p-6"
+          className="mx-auto max-w-6xl space-y-4 p-6"
           onSubmit={(e) => {
             e.preventDefault();
             form.handleSubmit();

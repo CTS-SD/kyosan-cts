@@ -1,7 +1,7 @@
-import kyosan2024 from "../../../assets/kyansuta2024.png";
 import Link from "next/link";
-import "./style.css";
 import { notFound } from "next/navigation";
+import kyosan2024 from "../../../assets/kyansuta2024.png";
+import "./style.css";
 
 type Props = {
   children: React.ReactNode;
@@ -24,7 +24,7 @@ const Layout = ({ children }: Props) => {
         }}
       ></div>
       <header className="">
-        <div className="mx-auto flex h-[90px] max-w-5xl items-center gap-4 border-white/60 px-6">
+        <div className="mx-auto flex h-[90px] max-w-6xl items-center gap-4 border-white/60 px-6">
           <Link href="/" className="font-bold tracking-tighter">
             京産キャンスタ
           </Link>

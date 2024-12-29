@@ -2,7 +2,7 @@
 
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { ChevronLeft, ChevronRightIcon, HomeIcon } from "lucide-react";
+import { HomeIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
@@ -17,7 +17,7 @@ const Header = () => {
 
   return (
     <div>
-      <div className="mx-auto flex h-[60px] max-w-5xl items-center px-4">
+      <div className="mx-auto flex h-[60px] max-w-6xl items-center px-4">
         <Link href="/admin" className="flex items-center gap-2">
           <div className="flex items-center gap-0.5 font-bold">
             京産キャンスタ
@@ -31,7 +31,7 @@ const Header = () => {
       <div className="border-b">
         <div
           ref={navContainerRef}
-          className="relative top-0 mx-auto flex h-12 max-w-5xl items-center gap-4 bg-white/80 px-4 text-sm font-semibold backdrop-blur-sm"
+          className="relative top-0 mx-auto flex h-12 max-w-6xl items-center gap-4 bg-white/80 px-4 text-sm font-semibold backdrop-blur-sm"
         >
           <NavItem
             href="/admin/test"

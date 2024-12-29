@@ -122,7 +122,7 @@ const QuizForm = ({
       <form
         {...props}
         className={cn(
-          "flex flex-1 flex-col gap-6 border-b border-dashed pb-6 md:border-b-0 md:border-r md:pb-0 md:pr-6",
+          "flex flex-col gap-6 border-b border-dashed pb-6 md:w-1/2 md:border-b-0 md:border-r md:pb-0 md:pr-6",
           className,
         )}
         onSubmit={(e) => {
@@ -389,7 +389,7 @@ const QuizForm = ({
           </Button>
         </div>
       </form>
-      <div className="mx-auto w-full max-w-lg flex-1">
+      <div className="mx-auto max-w-lg shrink-0 md:w-1/2">
         <Preview
           quiz={{
             ...quiz!,
