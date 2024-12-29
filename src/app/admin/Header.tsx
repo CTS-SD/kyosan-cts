@@ -13,6 +13,7 @@ const Header = () => {
     width: null as number | null,
     opacity: 0,
   });
+  const navContainerRef = useRef<HTMLDivElement>(null);
 
   return (
     <div>
@@ -27,8 +28,11 @@ const Header = () => {
           <HomeIcon size={20} />
         </Link>
       </div>
-      <div className="relative border-b">
-        <div className="sticky top-0 mx-auto flex h-12 max-w-5xl items-center gap-4 bg-white/80 px-4 text-sm font-semibold backdrop-blur-sm">
+      <div className="border-b">
+        <div
+          ref={navContainerRef}
+          className="relative top-0 mx-auto flex h-12 max-w-5xl items-center gap-4 bg-white/80 px-4 text-sm font-semibold backdrop-blur-sm"
+        >
           <NavItem
             href="/admin/test"
             name="ぷらっとテスト"
@@ -39,15 +43,18 @@ const Header = () => {
             name="設定"
             setBorderPos={setBorderPos}
           />
+          <div
+            className="absolute bottom-0 h-1 rounded-t-full bg-black transition-all"
+            style={{
+              width: borderPos.width ? borderPos.width : "",
+              left: borderPos.left
+                ? borderPos.left -
+                  (navContainerRef?.current?.getBoundingClientRect().left ?? 0)
+                : "",
+              opacity: borderPos.opacity,
+            }}
+          ></div>
         </div>
-        <div
-          className="absolute bottom-0 h-1 rounded-full bg-black transition-all"
-          style={{
-            width: borderPos.width ? borderPos.width : "",
-            left: borderPos.left ? borderPos.left : "",
-            opacity: borderPos.opacity,
-          }}
-        ></div>
       </div>
     </div>
   );
