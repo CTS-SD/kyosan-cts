@@ -1,17 +1,24 @@
 "use client";
 
-import {
-  MultiSwitch,
-  MultiSwitchItem,
-} from "@/components/original-ui/multi-switch";
+import FieldError from "@/components/original-ui/field-error";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
 import { client } from "@/db/hono";
 import { type Quiz, QuizTypeEnum } from "@/db/schema";
 import { cn } from "@/utils/utils";
 import { useForm } from "@tanstack/react-form";
+import { zodValidator } from "@tanstack/zod-form-adapter";
 import {
   EyeOffIcon,
   LightbulbIcon,
@@ -24,21 +31,11 @@ import {
   TrashIcon,
   XIcon,
 } from "lucide-react";
-import { toast } from "sonner";
-import { zodValidator } from "@tanstack/zod-form-adapter";
-import { z } from "zod";
-import FieldError from "@/components/original-ui/field-error";
-import Preview from "./Preview";
-import { deleteQuiz } from "../admin-api";
-import { Switch } from "@/components/ui/switch";
 import { useRouter } from "next/navigation";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { toast } from "sonner";
+import { z } from "zod";
+import { deleteQuiz } from "../admin-api";
+import Preview from "./Preview";
 
 type Props = {
   quiz?: Quiz;
@@ -196,10 +193,16 @@ const QuizForm = ({
               return (
                 <div>
                   <Label icon={<ThumbsUpIcon size="16" />}>答え</Label>
-                  <MultiSwitch value={state.value} onValueChange={handleChange}>
-                    <MultiSwitchItem value="__true__">○</MultiSwitchItem>
-                    <MultiSwitchItem value="__false__">✕</MultiSwitchItem>
-                  </MultiSwitch>
+                  <Tabs value={state.value} onValueChange={handleChange}>
+                    <TabsList className="w-full">
+                      <TabsTrigger className="grow" value="__true__">
+                        ○
+                      </TabsTrigger>
+                      <TabsTrigger className="grow" value="__false__">
+                        ✕
+                      </TabsTrigger>
+                    </TabsList>
+                  </Tabs>
                   <FieldError errors={state.meta.errors} />
                 </div>
               );
