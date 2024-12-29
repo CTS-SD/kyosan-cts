@@ -92,9 +92,10 @@ const Page = () => {
               placeholder="問題を検索"
             />
             <IODialog />
-            <Button className="shrink-0 rounded-md" size="icon" asChild>
+            <Button className="shrink-0 rounded-md gap-2 pl-3" asChild>
               <Link href="/admin/test/q/new">
                 <PlusIcon size={20} />
+                新規作成
               </Link>
             </Button>
           </div>

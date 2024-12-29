@@ -36,10 +36,7 @@ const Page = async ({ params: { id } }: Props) => {
             問題一覧
           </Link>
         </div>
-        <QuizForm
-          quiz={quiz}
-          isEdit
-        />
+        <QuizForm quiz={quiz} isEdit />
       </div>
     </div>
   );
