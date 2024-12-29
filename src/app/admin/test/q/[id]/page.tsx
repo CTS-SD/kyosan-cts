@@ -1,7 +1,7 @@
 import { db } from "@/db/db";
 import { quizzes } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import { notFound, useRouter } from "next/navigation";
+import { notFound } from "next/navigation";
 import { validate as isUuid } from "uuid";
 import QuizForm from "../../QuizForm";
 import Link from "next/link";

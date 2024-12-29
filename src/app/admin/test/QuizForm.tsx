@@ -167,7 +167,7 @@ const QuizForm = ({
                   onChange={(e) => handleChange(e.target.value)}
                   onBlur={handleBlur}
                   placeholder="問題文を入力"
-                  className="min-h-28 md:min-h-40"
+                  className="min-h-28 field-sizing-content md:min-h-40"
                 />
                 <FieldError errors={state.meta.errors} />
               </div>
@@ -288,6 +288,7 @@ const QuizForm = ({
                   onChange={(e) => handleChange(e.target.value)}
                   onBlur={handleBlur}
                   placeholder="解説を入力（任意）"
+                  className="field-sizing-content"
                 />
                 <FieldError errors={state.meta.errors} />
               </div>
