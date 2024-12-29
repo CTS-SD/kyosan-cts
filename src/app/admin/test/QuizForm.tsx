@@ -32,6 +32,13 @@ import Preview from "./Preview";
 import { deleteQuiz } from "../admin-api";
 import { Switch } from "@/components/ui/switch";
 import { useRouter } from "next/navigation";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 type Props = {
   quiz?: Quiz;
@@ -139,16 +146,19 @@ const QuizForm = ({
             return (
               <div>
                 <Label icon={<PanelsTopLeftIcon size="16" />}>形式</Label>
-                <MultiSwitch
+                <Select
                   value={state.value}
-                  onValueChange={(value) => {
-                    handleChange(value as QuizTypeEnum);
-                  }}
+                  onValueChange={(value) => handleChange(value as QuizTypeEnum)}
                 >
-                  <MultiSwitchItem value="select">選択</MultiSwitchItem>
-                  <MultiSwitchItem value="input">テキスト</MultiSwitchItem>
-                  <MultiSwitchItem value="ox">○✕クイズ</MultiSwitchItem>
-                </MultiSwitch>
+                  <SelectTrigger>
+                    <SelectValue placeholder="出題形式を選択してください" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="select">選択問題</SelectItem>
+                    <SelectItem value="input">テキスト入力</SelectItem>
+                    <SelectItem value="ox">○✕クイズ</SelectItem>
+                  </SelectContent>
+                </Select>
               </div>
             );
           }}
@@ -167,7 +177,7 @@ const QuizForm = ({
                   onChange={(e) => handleChange(e.target.value)}
                   onBlur={handleBlur}
                   placeholder="問題文を入力"
-                  className="min-h-28 field-sizing-content md:min-h-40"
+                  className="field-sizing-content min-h-28 md:min-h-40"
                 />
                 <FieldError errors={state.meta.errors} />
               </div>
