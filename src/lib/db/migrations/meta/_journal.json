@@ -1,0 +1,27 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1754657504006,
+      "tag": "0000_slow_wallow",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1754669507099,
+      "tag": "0001_rich_timeslip",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1754674776071,
+      "tag": "0002_next_ted_forrester",
+      "breakpoints": true
+    }
+  ]
+}
