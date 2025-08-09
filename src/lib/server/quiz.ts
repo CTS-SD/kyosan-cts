@@ -59,95 +59,51 @@ export async function updateQuiz(quizId: number, values: QuizFormValues) {
     .where(eq(QuizTable.id, quizId));
 
   if (values.type === "select") {
-    const existing = await db.query.SelectQuizTable.findFirst({
-      where: (table, { eq }) => eq(table.quizId, quizId),
+    const payload = {
+      quizId,
+      correctChoicesText: values.correctChoicesText,
+      incorrectChoicesText: values.incorrectChoicesText,
+    };
+    await db.insert(SelectQuizTable).values(payload).onConflictDoUpdate({
+      target: SelectQuizTable.quizId,
+      set: payload,
     });
-    if (existing) {
-      await db
-        .update(SelectQuizTable)
-        .set({
-          correctChoicesText: values.correctChoicesText,
-          incorrectChoicesText: values.incorrectChoicesText,
-        })
-        .where(eq(SelectQuizTable.quizId, quizId));
-    } else {
-      await db.insert(SelectQuizTable).values({
-        quizId,
-        correctChoicesText: values.correctChoicesText,
-        incorrectChoicesText: values.incorrectChoicesText,
-      });
-    }
   } else if (values.type === "true_false") {
-    const existing = await db.query.TFQuizTable.findFirst({
-      where: (table, { eq }) => eq(table.quizId, quizId),
+    const payload = {
+      quizId,
+      answer: values.answer,
+    };
+    await db.insert(TFQuizTable).values(payload).onConflictDoUpdate({
+      target: TFQuizTable.quizId,
+      set: payload,
     });
-    if (existing) {
-      await db
-        .update(TFQuizTable)
-        .set({
-          answer: values.answer,
-        })
-        .where(eq(TFQuizTable.quizId, quizId));
-    } else {
-      await db.insert(TFQuizTable).values({
-        quizId,
-        answer: values.answer,
-      });
-    }
   } else if (values.type === "text") {
-    const existing = await db.query.TextQuizTable.findFirst({
-      where: (table, { eq }) => eq(table.quizId, quizId),
+    const payload = {
+      quizId,
+      answer: values.answer,
+    };
+    await db.insert(TextQuizTable).values(payload).onConflictDoUpdate({
+      target: TextQuizTable.quizId,
+      set: payload,
     });
-    if (existing) {
-      await db
-        .update(TextQuizTable)
-        .set({
-          answer: values.answer,
-        })
-        .where(eq(TextQuizTable.quizId, quizId));
-    } else {
-      await db.insert(TextQuizTable).values({
-        quizId,
-        answer: values.answer,
-      });
-    }
   }
 }
 
 export async function getQuizById(id: number) {
-  const quiz = await db.query.QuizTable.findFirst({
-    where: (table, { eq }) => eq(table.id, id),
-  });
+  const [quiz] = await db
+    .select()
+    .from(QuizTable)
+    .where(eq(QuizTable.id, id))
+    .leftJoin(SelectQuizTable, eq(SelectQuizTable.quizId, QuizTable.id))
+    .leftJoin(TextQuizTable, eq(TextQuizTable.quizId, QuizTable.id))
+    .leftJoin(TFQuizTable, eq(TFQuizTable.quizId, QuizTable.id))
+    .execute();
 
   if (!quiz) return null;
+  if (!quiz.select_quiz && !quiz.text_quiz && !quiz.true_false_quiz)
+    return null;
 
-  if (quiz.type === "select") {
-    return {
-      ...quiz,
-      ...(await db.query.SelectQuizTable.findFirst({
-        where: (table, { eq }) => eq(table.quizId, quiz.id),
-      })),
-      type: "select" as const,
-    };
-  }
-  if (quiz.type === "text") {
-    return {
-      ...quiz,
-      ...(await db.query.TextQuizTable.findFirst({
-        where: (table, { eq }) => eq(table.quizId, quiz.id),
-      })),
-      type: "text" as const,
-    };
-  }
-  if (quiz.type === "true_false") {
-    return {
-      ...quiz,
-      ...(await db.query.TFQuizTable.findFirst({
-        where: (table, { eq }) => eq(table.quizId, quiz.id),
-      })),
-      type: "true_false" as const,
-    };
-  }
+  return quiz;
 }
 
 export type FullQuiz = NonNullable<Awaited<ReturnType<typeof getQuizById>>>;

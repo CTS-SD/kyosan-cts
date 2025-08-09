@@ -13,44 +13,18 @@ type Props = {
   quiz: FullQuiz;
 };
 
-function makeDefaultValues(quiz: FullQuiz): QuizFormValues | undefined {
-  const commonValues = {
-    question: quiz.question,
-    explanation: quiz.explanation ?? undefined,
-    isPublished: quiz.isPublished,
-  };
-
-  if (quiz.type === "select") {
-    return {
-      type: quiz.type,
-      ...commonValues,
-      correctChoicesText: quiz.correctChoicesText ?? "",
-      incorrectChoicesText: quiz.incorrectChoicesText ?? "",
-    };
-  }
-  if (quiz.type === "text") {
-    return {
-      type: quiz.type,
-      ...commonValues,
-      answer: quiz.answer ?? "",
-    };
-  }
-  if (quiz.type === "true_false") {
-    return {
-      type: quiz.type,
-      ...commonValues,
-      answer: quiz.answer ?? false,
-    };
-  }
-}
-
 const ClientPage = ({ quiz }: Props) => {
   const form = useQuizForm({
-    defaultValues: makeDefaultValues(quiz),
+    defaultValues: {
+      ...quiz.quiz,
+      ...quiz.select_quiz,
+      ...quiz.text_quiz,
+      ...quiz.true_false_quiz,
+    } as QuizFormValues,
   });
 
   const handleSubmit = async (values: QuizFormValues) => {
-    await updateQuiz(quiz.id, values);
+    await updateQuiz(quiz.quiz.id, values);
   };
 
   return (
