@@ -24,13 +24,7 @@ type Props = {
   onQuit?: () => void;
 };
 
-const QuizView = ({
-  quiz,
-  progress,
-  addResult,
-  onNext,
-  onQuit,
-}: Props) => {
+const QuizView = ({ quiz, progress, addResult, onNext, onQuit }: Props) => {
   if (!quiz) notFound();
 
   const [result, setResult] = useState<QuizResult | null>(null);

@@ -33,7 +33,7 @@ const Page = ({}: Props) => {
         <QuizForm form={form} onSubmit={handleSubmit} className="mt-6" />
       </div>
       <div className="flex-1">
-        <QuizPreview />
+        {/* <QuizPreview quiz={quiz} /> */}
       </div>
     </div>
   );

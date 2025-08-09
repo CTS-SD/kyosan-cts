@@ -5,7 +5,7 @@ import QuizPreview from "@/components/admin/quiz-preview";
 import { Button } from "@/components/ui/button";
 import { useQuizForm } from "@/hooks/use-quiz-form";
 import { FullQuiz, updateQuiz } from "@/lib/quiz-actions";
-import { QuizFormValues } from "@/lib/quiz-editor";
+import { makeQuizFromFormValues, QuizFormValues } from "@/lib/quiz-editor";
 import { ArrowLeftIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -57,6 +57,9 @@ const ClientPage = ({ quiz }: Props) => {
     await updateQuiz(quiz.id, values);
   };
 
+  const formValues = form.watch();
+  const pseudoQuiz = makeQuizFromFormValues(formValues);
+
   return (
     <div className="max-w-5xl mx-auto p-6 flex gap-4">
       <div className="flex-1">
@@ -69,7 +72,7 @@ const ClientPage = ({ quiz }: Props) => {
         <QuizForm form={form} onSubmit={handleSubmit} className="mt-6" />
       </div>
       <div className="flex-1">
-        <QuizPreview />
+        <QuizPreview quiz={pseudoQuiz} />
       </div>
     </div>
   );

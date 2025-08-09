@@ -1,10 +1,25 @@
-type Props = {};
+"use client";
 
-const QuizPreview = ({}: Props) => {
+import QuizPlayView from "@/components/quiz-play-view";
+import { FullQuiz } from "@/lib/quiz-actions";
+import { QuizResult } from "@/lib/quiz-form";
+
+type Props = {
+  quiz: FullQuiz;
+};
+
+const QuizPreview = ({ quiz }: Props) => {
+  const addResult = (result: QuizResult) => {};
+
+  const handleNext = () => {};
+
   return (
-    <div>
-      QuizPreview
-    </div>
+    <QuizPlayView
+      quiz={quiz}
+      progress={20}
+      addResult={addResult}
+      onNext={handleNext}
+    />
   );
 };
 

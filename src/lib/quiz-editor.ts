@@ -1,4 +1,5 @@
 import z from "zod";
+import { FullQuiz } from "./quiz-actions";
 
 export const quizTypes = [
   {
@@ -47,3 +48,38 @@ export const quizFormSchema = z.discriminatedUnion("type", [
 ]);
 
 export type QuizFormValues = z.infer<typeof quizFormSchema>;
+
+export function makeQuizFromFormValues(values: QuizFormValues): FullQuiz {
+  if (values.type === "select") {
+    return {
+      id: -1,
+      createdAt: new Date(),
+      type: values.type,
+      question: values.question,
+      explanation: values.explanation ?? null,
+      isPublished: values.isPublished,
+      correctChoicesText: values.correctChoicesText,
+      incorrectChoicesText: values.incorrectChoicesText,
+    };
+  } else if (values.type === "text") {
+    return {
+      id: -1,
+      createdAt: new Date(),
+      type: values.type,
+      question: values.question,
+      explanation: values.explanation ?? null,
+      isPublished: values.isPublished,
+      answer: values.answer,
+    };
+  } else if (values.type === "true_false") {
+    return {
+      id: -1,
+      createdAt: new Date(),
+      type: values.type,
+      question: values.question,
+      explanation: values.explanation ?? null,
+      isPublished: values.isPublished,
+      answer: values.answer,
+    };
+  }
+}
