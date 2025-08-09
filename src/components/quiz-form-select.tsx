@@ -20,7 +20,9 @@ const SelectQuizForm = ({ quiz, value, showAnswer, setValue }: Props) => {
       [
         ...(quiz.correctChoicesText?.split("\n") ?? []),
         ...(quiz.incorrectChoicesText?.split("\n") ?? []),
-      ].map((choice) => choice.trim())
+      ]
+        .map((choice) => choice.trim())
+        .filter(Boolean)
     );
   }, [quiz]);
 
