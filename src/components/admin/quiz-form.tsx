@@ -46,7 +46,7 @@ const QuizForm = ({ form, onSubmit, className }: Props) => {
                 <Select onValueChange={field.onChange} value={field.value}>
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select an option" />
+                      <SelectValue placeholder="形式を選択" />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
