@@ -67,7 +67,7 @@ const ClientPage = ({ quiz }: Props) => {
           <Button asChild variant="secondary">
             <Link href="/admin/puratto">
               <ArrowLeftIcon />
-              キャンセル
+              戻る
             </Link>
           </Button>
           <QuizForm form={form} onSubmit={handleSubmit} className="mt-6" />
