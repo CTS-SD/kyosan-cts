@@ -147,7 +147,10 @@ export const QuizEditor = ({
                 </FormItem>
               )}
             />
-            <div className="flex justify-end">
+            <div className="flex justify-end gap-2">
+              <Button variant="secondary" asChild>
+                <Link href="/admin/puratto">キャンセル</Link>
+              </Button>
               <Button type="submit">{labels.submit}</Button>
             </div>
           </fieldset>

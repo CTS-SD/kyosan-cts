@@ -1,13 +1,9 @@
 "use client";
 
-import { QuizEditor } from "@/components/admin/quiz-editor";
-import { QuizPreview } from "@/components/admin/quiz-preview";
-import { Button } from "@/components/ui/button";
+import { QuizView } from "@/components/admin/quiz-view";
 import { useQuizForm } from "@/hooks/use-quiz-form";
 import { FullQuiz, updateQuiz } from "@/lib/quiz-actions";
 import { makeQuizFromFormValues, QuizFormValues } from "@/lib/quiz-editor";
-import { ArrowLeftIcon } from "lucide-react";
-import Link from "next/link";
 import { toast } from "sonner";
 
 type Props = {
@@ -63,21 +59,17 @@ export const ClientView = ({ quiz }: Props) => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto flex h-[calc(100dvh-48px)]">
-      <div className="flex-1 overflow-auto">
-        <div className="p-6">
-          <Button asChild variant="secondary">
-            <Link href="/admin/puratto">
-              <ArrowLeftIcon />
-              戻る
-            </Link>
-          </Button>
-          <QuizEditor form={form} onSubmit={handleSubmit} className="mt-6" />
+    <QuizView
+      heading={
+        <div className="flex gap-1">
+          問題{" "}
+          <span className="font-semibold text-foreground/40">#{quiz.id}</span>
         </div>
-      </div>
-      <div className="flex-1">
-        <QuizPreview quiz={pseudoQuiz} />
-      </div>
-    </div>
+      }
+      form={form}
+      previewQuiz={pseudoQuiz}
+      onSubmit={handleSubmit}
+      labels={{ submit: "保存" }}
+    />
   );
 };
