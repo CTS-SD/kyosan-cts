@@ -5,7 +5,7 @@ import QuizPreview from "@/components/admin/quiz-preview";
 import { Button } from "@/components/ui/button";
 import { useQuizForm } from "@/hooks/use-quiz-form";
 import { createQuiz } from "@/lib/quiz-actions";
-import { QuizFormValues } from "@/lib/quiz-editor";
+import { makeQuizFromFormValues, QuizFormValues } from "@/lib/quiz-editor";
 import { ArrowLeftIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -15,6 +15,9 @@ type Props = {};
 const Page = ({}: Props) => {
   const router = useRouter();
   const form = useQuizForm();
+
+  const formValues = form.watch();
+  const pseudoQuiz = makeQuizFromFormValues(formValues);
 
   const handleSubmit = async (values: QuizFormValues) => {
     const newQuizId = await createQuiz(values);
@@ -33,7 +36,7 @@ const Page = ({}: Props) => {
         <QuizForm form={form} onSubmit={handleSubmit} className="mt-6" />
       </div>
       <div className="flex-1">
-        {/* <QuizPreview quiz={quiz} /> */}
+        <QuizPreview quiz={pseudoQuiz} />
       </div>
     </div>
   );

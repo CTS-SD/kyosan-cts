@@ -41,6 +41,7 @@ const ClientView = ({ quizzes }: Props) => {
       addResult={addResult}
       onNext={handleNext}
       onQuit={handleQuit}
+      className="h-[100dvh]"
     />
   );
 };

@@ -13,7 +13,7 @@ type Props = {};
 const AdminHeader = ({}: Props) => {
   return (
     <div className="border-b border-dashed">
-      <div className="h-12 flex items-center px-6 max-w-5xl mx-auto">
+      <div className="h-[47px] flex items-center px-6 max-w-5xl mx-auto">
         <Link href="/admin" className="font-semibold">
           CTS
         </Link>

@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { FullQuiz } from "@/lib/quiz-actions";
 import { QuizResult } from "@/lib/quiz-form";
+import { cn } from "@/lib/utils";
 import { XIcon } from "lucide-react";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
@@ -16,7 +17,7 @@ const QuizFormText = dynamic(() => import("@/components/quiz-form-text"), {
   ssr: false,
 });
 
-type Props = {
+type Props = React.ComponentProps<"div"> & {
   quiz: FullQuiz;
   progress: number;
   addResult: (result: QuizResult) => void;
@@ -24,7 +25,15 @@ type Props = {
   onQuit?: () => void;
 };
 
-const QuizView = ({ quiz, progress, addResult, onNext, onQuit }: Props) => {
+const QuizView = ({
+  quiz,
+  progress,
+  addResult,
+  onNext,
+  onQuit,
+  className,
+  ...props
+}: Props) => {
   if (!quiz) notFound();
 
   const [result, setResult] = useState<QuizResult | null>(null);
@@ -63,7 +72,10 @@ const QuizView = ({ quiz, progress, addResult, onNext, onQuit }: Props) => {
   };
 
   return (
-    <div className="max-w-xl mx-auto flex flex-col h-[100dvh]">
+    <div
+      className={cn("max-w-xl mx-auto flex flex-col grow h-full", className)}
+      {...props}
+    >
       <header className="h-12 flex items-center ps-2 pe-6 gap-2">
         <Button size="icon" onClick={onQuit} variant="ghost">
           <XIcon />
