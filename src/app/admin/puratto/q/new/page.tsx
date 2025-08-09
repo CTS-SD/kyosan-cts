@@ -9,6 +9,7 @@ import { makeQuizFromFormValues, QuizFormValues } from "@/lib/quiz-editor";
 import { ArrowLeftIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const Page = () => {
   const router = useRouter();
@@ -19,6 +20,7 @@ const Page = () => {
 
   const handleSubmit = async (values: QuizFormValues) => {
     const newQuizId = await createQuiz(values);
+    toast.success("問題を作成しました")
     router.push(`/admin/puratto/q/${newQuizId}`);
   };
 

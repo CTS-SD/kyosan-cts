@@ -8,6 +8,7 @@ import { FullQuiz, updateQuiz } from "@/lib/quiz-actions";
 import { makeQuizFromFormValues, QuizFormValues } from "@/lib/quiz-editor";
 import { ArrowLeftIcon } from "lucide-react";
 import Link from "next/link";
+import { toast } from "sonner";
 
 type Props = {
   quiz: FullQuiz;
@@ -58,6 +59,7 @@ export const ClientView = ({ quiz }: Props) => {
 
   const handleSubmit = async (values: QuizFormValues) => {
     await updateQuiz(quiz.id, values);
+    toast.success("問題を保存しました");
   };
 
   return (
