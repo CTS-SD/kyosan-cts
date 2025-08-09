@@ -8,7 +8,7 @@ type Props = {
   results: QuizResult[];
 };
 
-const ResultsView = ({ quizzes, results }: Props) => {
+export const QuizResultsView = ({ quizzes, results }: Props) => {
   return (
     <div>
       <Button asChild size="lg">
@@ -17,5 +17,3 @@ const ResultsView = ({ quizzes, results }: Props) => {
     </div>
   );
 };
-
-export default ResultsView;

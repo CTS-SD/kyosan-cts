@@ -1,7 +1,7 @@
 "use client";
 
-import QuizPlayView from "@/components/quiz-play-view";
-import QuizResultsView from "@/components/quiz-results-view";
+import { QuizPlayView } from "@/components/quiz-play-view";
+import { QuizResultsView } from "@/components/quiz-results-view";
 import { Button } from "@/components/ui/button";
 import { FullQuiz } from "@/lib/quiz-actions";
 import { QuizResult } from "@/lib/quiz-form";
@@ -13,7 +13,7 @@ type Props = {
   quizzes: FullQuiz[];
 };
 
-const ClientView = ({ quizzes }: Props) => {
+export const ClientView = ({ quizzes }: Props) => {
   const router = useRouter();
   const [quizIndex, setQuizIndex] = useState(0);
   const [results, setResults] = useState<QuizResult[]>([]);
@@ -51,5 +51,3 @@ const ClientView = ({ quizzes }: Props) => {
     />
   );
 };
-
-export default ClientView;

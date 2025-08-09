@@ -12,10 +12,14 @@ type Props = {
   setValue: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-const SelectQuizForm = ({ quiz, value, showAnswer, setValue }: Props) => {
-  if (quiz?.type !== "select") return null;
-
+export const QuizFormSelect = ({
+  quiz,
+  value,
+  showAnswer,
+  setValue,
+}: Props) => {
   const choices = useMemo(() => {
+    if (quiz?.type !== "select") return [];
     return shuffle(
       [
         ...(quiz.correctChoicesText?.split("\n") ?? []),
@@ -33,6 +37,8 @@ const SelectQuizForm = ({ quiz, value, showAnswer, setValue }: Props) => {
         : [...prev, choice]
     );
   };
+
+  if (quiz?.type !== "select") return null;
 
   return (
     <div className="px-4">
@@ -57,4 +63,4 @@ const SelectQuizForm = ({ quiz, value, showAnswer, setValue }: Props) => {
   );
 };
 
-export default SelectQuizForm;
+export default QuizFormSelect;

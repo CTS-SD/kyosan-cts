@@ -22,9 +22,9 @@ import { UseFormReturn } from "react-hook-form";
 import { Button } from "../ui/button";
 import { Switch } from "../ui/switch";
 import { Textarea } from "../ui/textarea";
-import SelectQuizForm from "./select-quiz-form";
-import TextQuizForm from "./text-quiz-form";
-import TrueFalseQuizForm from "./true-false-quiz-form";
+import { QuizEditorSelect } from "./quiz-editor-select";
+import { QuizEditorText } from "./quiz-editor-text";
+import { QuizEditorTrueFalse } from "./quiz-editor-true-false";
 
 type Props = {
   form: UseFormReturn<QuizFormValues>;
@@ -32,7 +32,7 @@ type Props = {
   className?: string;
 };
 
-const QuizForm = ({ form, onSubmit, className }: Props) => {
+export const QuizEditor = ({ form, onSubmit, className }: Props) => {
   return (
     <div className={className}>
       <Form {...form}>
@@ -84,9 +84,9 @@ const QuizForm = ({ form, onSubmit, className }: Props) => {
               </FormItem>
             )}
           />
-          <SelectQuizForm form={form} />
-          <TextQuizForm form={form} />
-          <TrueFalseQuizForm form={form} />
+          <QuizEditorSelect form={form} />
+          <QuizEditorText form={form} />
+          <QuizEditorTrueFalse form={form} />
           <FormField
             control={form.control}
             name="explanation"
@@ -132,5 +132,3 @@ const QuizForm = ({ form, onSubmit, className }: Props) => {
     </div>
   );
 };
-
-export default QuizForm;

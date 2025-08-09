@@ -1,6 +1,6 @@
 import { getQuizById } from "@/lib/quiz-actions";
 import { notFound } from "next/navigation";
-import ClientPage from "./client-page";
+import { ClientView } from "./client-view";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -16,7 +16,7 @@ const Page = async ({ params }: Props) => {
 
   if (!quiz) notFound();
 
-  return <ClientPage quiz={quiz} />;
+  return <ClientView quiz={quiz} />;
 };
 
 export default Page;

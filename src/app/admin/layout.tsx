@@ -1,4 +1,4 @@
-import AdminHeader from "@/components/admin/admin-header";
+import { AdminHeader } from "@/components/admin/admin-header";
 
 type Props = {
   children: React.ReactNode;

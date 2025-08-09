@@ -8,9 +8,7 @@ import {
   NavigationMenuList,
 } from "../ui/navigation-menu";
 
-type Props = {};
-
-const AdminHeader = ({}: Props) => {
+export const AdminHeader = () => {
   return (
     <div className="border-b border-dashed">
       <div className="h-[47px] flex items-center px-6 max-w-5xl mx-auto">
@@ -41,5 +39,3 @@ const AdminHeader = ({}: Props) => {
     </div>
   );
 };
-
-export default AdminHeader;

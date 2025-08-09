@@ -2,9 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeftIcon } from "lucide-react";
 import Link from "next/link";
 
-type Props = {};
-
-const Page = ({}: Props) => {
+const Page = () => {
   return (
     <div className="max-w-5xl mx-auto p-6">
       <div className="flex flex-col items-center my-20">
@@ -17,9 +15,7 @@ const Page = ({}: Props) => {
             </Link>
           </Button>
           <Button asChild>
-            <Link href="/puratto/play">
-            スタート
-            </Link>
+            <Link href="/puratto/play">スタート</Link>
           </Button>
         </div>
       </div>

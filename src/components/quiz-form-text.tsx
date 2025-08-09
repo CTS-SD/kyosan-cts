@@ -10,7 +10,7 @@ type Props = {
   setValue: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-const QuizFormText = ({ quiz, value, showAnswer, setValue }: Props) => {
+export const QuizFormText = ({ quiz, value, showAnswer, setValue }: Props) => {
   if (quiz?.type !== "text") return null;
 
   return (

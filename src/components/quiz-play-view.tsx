@@ -20,11 +20,11 @@ type Props = React.ComponentProps<"div"> & {
   quiz: FullQuiz;
   progress: number;
   headerContent?: React.ReactNode;
-  addResult: (result: QuizResult) => void;
+  addResult?: (result: QuizResult) => void;
   onNext?: () => void;
 };
 
-const QuizView = ({
+export const QuizPlayView = ({
   quiz,
   progress,
   addResult,
@@ -61,7 +61,7 @@ const QuizView = ({
     };
 
     setResult(resultItem);
-    addResult(resultItem);
+    addResult?.(resultItem);
   };
 
   const handleNext = () => {
@@ -95,7 +95,7 @@ const QuizView = ({
             )}
             {quiz.type === "text" && (
               <QuizFormText
-                value={userAnswer[0]}
+                value={userAnswer[0] ?? ""}
                 setValue={setUserAnswer}
                 quiz={quiz}
                 showAnswer={showAnswer}
@@ -126,5 +126,3 @@ const QuizView = ({
     </div>
   );
 };
-
-export default QuizView;

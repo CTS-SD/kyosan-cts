@@ -14,7 +14,7 @@ type Props = {
   form: UseFormReturn<z.infer<typeof quizFormSchema>>;
 };
 
-const TrueFalseQuizForm = ({ form }: Props) => {
+export const QuizEditorTrueFalse = ({ form }: Props) => {
   const formType = form.watch("type");
   if (formType !== "true_false") return null;
   return (
@@ -58,5 +58,3 @@ const TrueFalseQuizForm = ({ form }: Props) => {
     </>
   );
 };
-
-export default TrueFalseQuizForm;

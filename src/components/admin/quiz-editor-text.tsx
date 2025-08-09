@@ -15,7 +15,7 @@ type Props = {
   form: UseFormReturn<z.infer<typeof quizFormSchema>>;
 };
 
-const TextQuizForm = ({ form }: Props) => {
+export const QuizEditorText = ({ form }: Props) => {
   const formType = form.watch("type");
   if (formType !== "text") return null;
   return (
@@ -47,5 +47,3 @@ const TextQuizForm = ({ form }: Props) => {
     </>
   );
 };
-
-export default TextQuizForm;

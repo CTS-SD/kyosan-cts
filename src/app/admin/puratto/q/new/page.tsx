@@ -1,7 +1,7 @@
 "use client";
 
-import QuizForm from "@/components/admin/quiz-form";
-import QuizPreview from "@/components/admin/quiz-preview";
+import { QuizEditor } from "@/components/admin/quiz-editor";
+import { QuizPreview } from "@/components/admin/quiz-preview";
 import { Button } from "@/components/ui/button";
 import { useQuizForm } from "@/hooks/use-quiz-form";
 import { createQuiz } from "@/lib/quiz-actions";
@@ -10,9 +10,7 @@ import { ArrowLeftIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-type Props = {};
-
-const Page = ({}: Props) => {
+const Page = () => {
   const router = useRouter();
   const form = useQuizForm();
 
@@ -34,7 +32,7 @@ const Page = ({}: Props) => {
               キャンセル
             </Link>
           </Button>
-          <QuizForm form={form} onSubmit={handleSubmit} className="mt-6" />
+          <QuizEditor form={form} onSubmit={handleSubmit} className="mt-6" />
         </div>
       </div>
       <div className="flex-1">
