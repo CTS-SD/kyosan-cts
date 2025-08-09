@@ -124,7 +124,7 @@ export const QuizEditor = ({ form, onSubmit, className }: Props) => {
               </FormItem>
             )}
           />
-          <div>
+          <div className="flex justify-end">
             <Button type="submit">保存</Button>
           </div>
         </form>

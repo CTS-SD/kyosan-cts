@@ -55,7 +55,7 @@ export const QuizPlayView = ({
         userAnswer.length === correctAnswers?.length &&
         userAnswer.every((ans) => correctAnswers?.includes(ans));
     } else if (quiz.type === "text") {
-      isCorrect = !!quiz.answer?.split("\n").includes(userAnswer[0].trim());
+      isCorrect = !!quiz.answer?.split("\n").includes(userAnswer[0]?.trim());
     }
 
     const resultItem = {
@@ -87,7 +87,9 @@ export const QuizPlayView = ({
       </header>
       <form onSubmit={handleSubmit} className="grow flex flex-col">
         <div className="grow">
-          <div className="px-6 pt-4 pb-8">{quiz.question}</div>
+          <div className="px-6 pt-4 pb-8 whitespace-pre-wrap">
+            {quiz.question}
+          </div>
           <div>
             {quiz.type === "select" && (
               <QuizFormSelect
@@ -107,9 +109,9 @@ export const QuizPlayView = ({
             )}
           </div>
         </div>
-        <div className="p-4 flex flex-col gap-2">
+        <div className="p-4 flex flex-col gap-3">
           {result && (
-            <div className="px-2">
+            <div className="px-2 flex flex-col gap-1.5">
               <div
                 className={cn(
                   "font-bold text-lg",
@@ -118,6 +120,7 @@ export const QuizPlayView = ({
               >
                 {result.isCorrect ? "正解" : "不正解"}
               </div>
+              {quiz.explanation && <p>{quiz.explanation}</p>}
             </div>
           )}
           <Button

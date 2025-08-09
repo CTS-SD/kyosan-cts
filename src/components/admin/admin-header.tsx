@@ -12,7 +12,7 @@ export const AdminHeader = () => {
   return (
     <div className="border-b border-dashed">
       <div className="h-[47px] flex items-center px-6 max-w-5xl mx-auto">
-        <Link href="/admin" className="font-semibold">
+        <Link href="/admin/puratto" className="font-semibold">
           CTS
         </Link>
         <div className="ml-4">
