@@ -25,15 +25,17 @@ const Page = ({}: Props) => {
   };
 
   return (
-    <div className="max-w-5xl mx-auto p-6 flex gap-4">
-      <div className="flex-1">
-        <Button asChild variant="secondary">
-          <Link href="/admin/puratto">
-            <ArrowLeftIcon />
-            キャンセル
-          </Link>
-        </Button>
-        <QuizForm form={form} onSubmit={handleSubmit} className="mt-6" />
+    <div className="max-w-5xl mx-auto flex h-[calc(100dvh-48px)]">
+      <div className="flex-1 overflow-auto">
+        <div className="p-6">
+          <Button asChild variant="secondary">
+            <Link href="/admin/puratto">
+              <ArrowLeftIcon />
+              キャンセル
+            </Link>
+          </Button>
+          <QuizForm form={form} onSubmit={handleSubmit} className="mt-6" />
+        </div>
       </div>
       <div className="flex-1">
         <QuizPreview quiz={pseudoQuiz} />
