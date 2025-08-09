@@ -2,8 +2,10 @@
 
 import QuizPlayView from "@/components/quiz-play-view";
 import QuizResultsView from "@/components/quiz-results-view";
+import { Button } from "@/components/ui/button";
 import { FullQuiz } from "@/lib/quiz-actions";
 import { QuizResult } from "@/lib/quiz-form";
+import { XIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -38,9 +40,13 @@ const ClientView = ({ quizzes }: Props) => {
     <QuizPlayView
       quiz={quiz}
       progress={(results.length / quizzes.length) * 100}
+      headerContent={
+        <Button size="icon" onClick={handleQuit} variant="ghost">
+          <XIcon />
+        </Button>
+      }
       addResult={addResult}
       onNext={handleNext}
-      onQuit={handleQuit}
       className="h-[100dvh]"
     />
   );

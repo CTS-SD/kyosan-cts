@@ -5,7 +5,6 @@ import { Progress } from "@/components/ui/progress";
 import { FullQuiz } from "@/lib/quiz-actions";
 import { QuizResult } from "@/lib/quiz-form";
 import { cn } from "@/lib/utils";
-import { XIcon } from "lucide-react";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import { useState } from "react";
@@ -20,9 +19,9 @@ const QuizFormText = dynamic(() => import("@/components/quiz-form-text"), {
 type Props = React.ComponentProps<"div"> & {
   quiz: FullQuiz;
   progress: number;
+  headerContent?: React.ReactNode;
   addResult: (result: QuizResult) => void;
   onNext?: () => void;
-  onQuit?: () => void;
 };
 
 const QuizView = ({
@@ -30,7 +29,7 @@ const QuizView = ({
   progress,
   addResult,
   onNext,
-  onQuit,
+  headerContent,
   className,
   ...props
 }: Props) => {
@@ -77,9 +76,7 @@ const QuizView = ({
       {...props}
     >
       <header className="h-12 flex items-center ps-2 pe-6 gap-2">
-        <Button size="icon" onClick={onQuit} variant="ghost">
-          <XIcon />
-        </Button>
+        {headerContent}
         <div className="grow">
           <Progress value={progress} className="w-full" />
         </div>

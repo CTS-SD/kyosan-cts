@@ -3,6 +3,7 @@
 import QuizPlayView from "@/components/quiz-play-view";
 import { FullQuiz } from "@/lib/quiz-actions";
 import { QuizResult } from "@/lib/quiz-form";
+import { Badge } from "../ui/badge";
 
 type Props = {
   quiz: FullQuiz;
@@ -19,6 +20,7 @@ const QuizPreview = ({ quiz }: Props) => {
       progress={20}
       addResult={addResult}
       onNext={handleNext}
+      headerContent={<Badge variant="outline">プレビュー</Badge>}
     />
   );
 };
