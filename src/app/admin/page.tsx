@@ -1,7 +1,7 @@
-type Props = {};
+import { redirect } from "next/navigation";
 
-const Page = ({}: Props) => {
-  return <div className="max-w-5xl mx-auto p-6 pt-0">管理者ページ</div>;
+const Page = () => {
+  redirect("/admin/puratto");
 };
 
 export default Page;
