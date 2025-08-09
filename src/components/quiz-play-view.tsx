@@ -50,11 +50,12 @@ export const QuizPlayView = ({
 
     let isCorrect = false;
     if (quiz.type === "select") {
-      isCorrect = userAnswer.every((ans) =>
-        quiz.correctChoicesText?.split("\n").includes(ans)
-      );
+      const correctAnswers = quiz.correctChoicesText?.split("\n");
+      isCorrect =
+        userAnswer.length === correctAnswers?.length &&
+        userAnswer.every((ans) => correctAnswers?.includes(ans));
     } else if (quiz.type === "text") {
-      isCorrect = !!quiz.answer?.split("\n").includes(userAnswer[0]);
+      isCorrect = !!quiz.answer?.split("\n").includes(userAnswer[0].trim());
     }
 
     const resultItem = {
@@ -106,7 +107,7 @@ export const QuizPlayView = ({
             )}
           </div>
         </div>
-        <div className="p-4">
+        <div className="p-4 flex flex-col gap-2">
           {result && (
             <div className="px-2">
               <div
