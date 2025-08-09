@@ -1,4 +1,4 @@
-import { quizFormSchema } from "@/lib/quiz-form";
+import { quizFormSchema } from "@/lib/quiz-editor";
 import { UseFormReturn } from "react-hook-form";
 import z from "zod";
 import {
@@ -37,7 +37,9 @@ const TextQuizForm = ({ form }: Props) => {
                 ref={field.ref}
               />
             </FormControl>
-            <FormDescription>改行区切りで複数パターンの解答を入力でき、いずれか一つに一致すると正解となります。空白は無視されます。</FormDescription>
+            <FormDescription>
+              改行区切りで複数パターンの解答を入力でき、いずれか一つに一致すると正解となります。空白は無視されます。
+            </FormDescription>
             <FormMessage />
           </FormItem>
         )}

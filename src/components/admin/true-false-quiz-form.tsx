@@ -1,5 +1,5 @@
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { quizFormSchema } from "@/lib/quiz-form";
+import { quizFormSchema } from "@/lib/quiz-editor";
 import { UseFormReturn } from "react-hook-form";
 import z from "zod";
 import {

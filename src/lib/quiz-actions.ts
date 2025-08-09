@@ -1,15 +1,14 @@
 "use server";
 
-import { eq } from "drizzle-orm";
-import { db } from "../db";
+import { eq, sql } from "drizzle-orm";
+import { db } from "./db";
 import {
-  Quiz,
   QuizTable,
   SelectQuizTable,
   TextQuizTable,
   TFQuizTable,
-} from "../db/schema";
-import { QuizFormValues } from "../quiz-form";
+} from "./db/schema";
+import { QuizFormValues } from "./quiz-editor";
 
 export async function createQuiz(values: QuizFormValues) {
   const quizData = {
@@ -90,20 +89,49 @@ export async function updateQuiz(quizId: number, values: QuizFormValues) {
 }
 
 export async function getQuizById(id: number) {
-  const [quiz] = await db
-    .select()
-    .from(QuizTable)
-    .where(eq(QuizTable.id, id))
-    .leftJoin(SelectQuizTable, eq(SelectQuizTable.quizId, QuizTable.id))
-    .leftJoin(TextQuizTable, eq(TextQuizTable.quizId, QuizTable.id))
-    .leftJoin(TFQuizTable, eq(TFQuizTable.quizId, QuizTable.id))
-    .execute();
+  const quiz = await db.query.QuizTable.findFirst({
+    where: (table, { eq }) => eq(table.id, id),
+  });
 
   if (!quiz) return null;
-  if (!quiz.select_quiz && !quiz.text_quiz && !quiz.true_false_quiz)
-    return null;
 
-  return quiz;
+  if (quiz.type === "select") {
+    return {
+      ...quiz,
+      ...(await db.query.SelectQuizTable.findFirst({
+        where: (table, { eq }) => eq(table.quizId, quiz.id),
+      })),
+      type: "select" as const,
+    };
+  }
+  if (quiz.type === "text") {
+    return {
+      ...quiz,
+      ...(await db.query.TextQuizTable.findFirst({
+        where: (table, { eq }) => eq(table.quizId, quiz.id),
+      })),
+      type: "text" as const,
+    };
+  }
+  if (quiz.type === "true_false") {
+    return {
+      ...quiz,
+      ...(await db.query.TFQuizTable.findFirst({
+        where: (table, { eq }) => eq(table.quizId, quiz.id),
+      })),
+      type: "true_false" as const,
+    };
+  }
 }
 
-export type FullQuiz = NonNullable<Awaited<ReturnType<typeof getQuizById>>>;
+export async function getRandomQuizzes(limit: number) {
+  const quizIds = await db
+    .select({ id: QuizTable.id })
+    .from(QuizTable)
+    .orderBy(sql`random()`)
+    .limit(limit);
+  const quizzes = await Promise.all(quizIds.map((q) => getQuizById(q.id)));
+  return quizzes;
+}
+
+export type FullQuiz = Awaited<ReturnType<typeof getQuizById>>;

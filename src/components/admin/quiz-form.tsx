@@ -16,7 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { QuizFormValues, quizTypes } from "@/lib/quiz-form";
+import { QuizFormValues, quizTypes } from "@/lib/quiz-editor";
 import Link from "next/link";
 import { UseFormReturn } from "react-hook-form";
 import { Button } from "../ui/button";

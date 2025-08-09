@@ -18,7 +18,7 @@ const Page = async () => {
           </Link>
         </Button>
       </div>
-      <div className="mt-4">
+      <div className="mt-4 flex flex-col gap-2">
         {quizzes.map((quiz) => {
           return (
             <Link

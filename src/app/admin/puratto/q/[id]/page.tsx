@@ -1,4 +1,4 @@
-import { getQuizById } from "@/lib/server/quiz";
+import { getQuizById } from "@/lib/quiz-actions";
 import { notFound } from "next/navigation";
 import ClientPage from "./client-page";
 

@@ -1,4 +1,4 @@
-import { RefreshCwIcon } from "lucide-react";
+import { LogOutIcon } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import {
@@ -31,8 +31,10 @@ const AdminHeader = ({}: Props) => {
           </NavigationMenu>
         </div>
         <div className="ml-auto">
-          <Button size="icon" variant="ghost">
-            <RefreshCwIcon />
+          <Button size="icon" variant="ghost" asChild>
+            <Link href="/">
+              <LogOutIcon />
+            </Link>
           </Button>
         </div>
       </div>
