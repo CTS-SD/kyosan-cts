@@ -43,7 +43,10 @@ export const QuizPlayView = ({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (showAnswer) return;
+    if (showAnswer) {
+      handleNext();
+      return;
+    }
 
     let isCorrect = false;
     if (quiz.type === "select") {
@@ -83,7 +86,7 @@ export const QuizPlayView = ({
       </header>
       <form onSubmit={handleSubmit} className="grow flex flex-col">
         <div className="grow">
-          <div className="p-4 pt-0">{quiz.question}</div>
+          <div className="px-6 pt-4 pb-8">{quiz.question}</div>
           <div>
             {quiz.type === "select" && (
               <QuizFormSelect
@@ -104,23 +107,32 @@ export const QuizPlayView = ({
           </div>
         </div>
         <div className="p-4">
-          {result ? (
-            <>
-              <div>{result.isCorrect ? "正解" : "不正解"}</div>
-              <Button
-                type="button"
-                onClick={handleNext}
-                className="w-full"
-                size="lg"
+          {result && (
+            <div className="px-2">
+              <div
+                className={cn(
+                  "font-bold text-lg",
+                  result.isCorrect ? "text-green-500" : "text-red-500"
+                )}
               >
-                OK
-              </Button>
-            </>
-          ) : (
-            <Button type="submit" className="w-full" size="lg">
-              送信
-            </Button>
+                {result.isCorrect ? "正解" : "不正解"}
+              </div>
+            </div>
           )}
+          <Button
+            type="submit"
+            className={cn(
+              "w-full",
+              result
+                ? result.isCorrect
+                  ? "bg-green-500!"
+                  : "bg-red-500!"
+                : null
+            )}
+            size="lg"
+          >
+            {result ? "OK" : "送信"}
+          </Button>
         </div>
       </form>
     </div>
