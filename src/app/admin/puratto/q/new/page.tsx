@@ -20,7 +20,7 @@ const Page = () => {
 
   const handleSubmit = async (values: QuizFormValues) => {
     const newQuizId = await createQuiz(values);
-    toast.success("問題を作成しました")
+    toast.success("問題を作成しました");
     router.push(`/admin/puratto/q/${newQuizId}`);
   };
 
@@ -34,7 +34,12 @@ const Page = () => {
               キャンセル
             </Link>
           </Button>
-          <QuizEditor form={form} onSubmit={handleSubmit} className="mt-6" />
+          <QuizEditor
+            form={form}
+            onSubmit={handleSubmit}
+            className="mt-6"
+            labels={{ submit: "作成" }}
+          />
         </div>
       </div>
       <div className="flex-1">

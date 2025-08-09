@@ -31,9 +31,17 @@ type Props = {
   form: UseFormReturn<QuizFormValues>;
   onSubmit: (values: QuizFormValues) => Promise<void>;
   className?: string;
+  labels?: {
+    submit?: string;
+  };
 };
 
-export const QuizEditor = ({ form, onSubmit, className }: Props) => {
+export const QuizEditor = ({
+  form,
+  onSubmit,
+  className,
+  labels = { submit: "保存" },
+}: Props) => {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (values: QuizFormValues) => {
@@ -140,7 +148,7 @@ export const QuizEditor = ({ form, onSubmit, className }: Props) => {
               )}
             />
             <div className="flex justify-end">
-              <Button type="submit">保存</Button>
+              <Button type="submit">{labels.submit}</Button>
             </div>
           </fieldset>
         </form>
