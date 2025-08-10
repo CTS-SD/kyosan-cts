@@ -1,4 +1,3 @@
-CREATE TYPE "public"."quiz_type" AS ENUM('select', 'text', 'true_false');--> statement-breakpoint
 CREATE TABLE "quiz" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"type" "quiz_type" NOT NULL,

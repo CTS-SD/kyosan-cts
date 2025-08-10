@@ -1,4 +1,4 @@
-import { UserButton } from "@/components/admin/user-button";
+import { AdminUserButton } from "@/components/admin/admin-user-button";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -6,15 +6,24 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
 import Link from "next/link";
+import { Badge } from "../ui/badge";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
-export const AdminHeader = () => {
+export const AdminHeader = async () => {
+  const session = await auth.api.getSession({headers:await headers()})
+  const user = session?.user;
+
   return (
     <div className="border-b border-dashed">
       <div className="h-[47px] flex items-center px-6 max-w-5xl mx-auto gap-4">
-        <div className="flex items-center gap-3 font-bold text-sm">
-          <Link href="/">CTS</Link>
-          <div className="w-px h-5 bg-border rotate- rounded-full rotate-30"></div>
-          <Link href="/admin/puratto">管理者</Link>
+        <div className="flex gap-2 items-center">
+          <Link href="/" className="text-sm font-semibold">
+            京産キャンスタ
+          </Link>
+          <Link href="/admin">
+            <Badge>管理者</Badge>
+          </Link>
         </div>
         <div>
           <NavigationMenu>
@@ -30,7 +39,7 @@ export const AdminHeader = () => {
           </NavigationMenu>
         </div>
         <div className="ml-auto">
-          <UserButton />
+          <AdminUserButton user={user} />
         </div>
       </div>
     </div>

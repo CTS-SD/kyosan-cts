@@ -6,11 +6,11 @@ export function middleware(req: NextRequest) {
 
   if (!cookie) {
     const next = encodeURIComponent(req.nextUrl.pathname + req.nextUrl.search);
-    return NextResponse.redirect(new URL(`/login?next=${next}`, req.url));
+    return NextResponse.redirect(new URL(`/sign-in?next=${next}`, req.url));
   }
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/admin/:path*"],
+  matcher: ["/admin/:path*", "/members/:path*"],
 };

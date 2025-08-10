@@ -1,11 +1,13 @@
+import { PublicHeader } from "@/components/public-header";
 import { Button } from "@/components/ui/button";
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
 
 export default function Home() {
   return (
-    <div>
-      <div className="flex flex-col gap-4 pt-20 px-6 max-w-3xl mx-auto">
+    <div className="max-w-5xl mx-auto px-6">
+      <PublicHeader />
+      <div className="flex flex-col py-16">
         <div className="text-7xl sm:text-8xl font-medium font-mono flex flex-col gap-10 items-center">
           <div className="">
             <span>K</span>
@@ -23,10 +25,15 @@ export default function Home() {
             <span>S</span>
           </div>
         </div>
-        <div className="mt-20 flex justify-center">
-          <Button variant="link" asChild>
+        <div className="mt-20 flex justify-center gap-2">
+          <Button variant="secondary" asChild>
             <Link href="/puratto">
-              『ぷらっとテスト』に挑戦
+              ぷらっとテスト
+            </Link>
+          </Button>
+          <Button asChild variant="special">
+            <Link href="/members/busho">
+              部署発表
               <ArrowRightIcon />
             </Link>
           </Button>

@@ -4,7 +4,9 @@ type Props = {
 
 const Layout = ({ children }: Props) => {
   return (
-    <div className="min-h-[100dvh] grid place-content-center">{children}</div>
+    <div>
+      {children}
+    </div>
   );
 };
 

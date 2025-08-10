@@ -1,6 +1,12 @@
-import { pgTable, text, timestamp, boolean } from "drizzle-orm/pg-core";
+import {
+  pgTable,
+  text,
+  timestamp,
+  boolean,
+  integer,
+} from "drizzle-orm/pg-core";
 
-export const UserTable = pgTable("user", {
+export const user = pgTable("user", {
   id: text("id").primaryKey(),
   name: text("name").notNull(),
   email: text("email").notNull().unique(),
@@ -14,9 +20,10 @@ export const UserTable = pgTable("user", {
   updatedAt: timestamp("updated_at")
     .$defaultFn(() => /* @__PURE__ */ new Date())
     .notNull(),
+  role: text("role").default("none"),
 });
 
-export const SessionTable = pgTable("session", {
+export const session = pgTable("session", {
   id: text("id").primaryKey(),
   expiresAt: timestamp("expires_at").notNull(),
   token: text("token").notNull().unique(),
@@ -26,16 +33,16 @@ export const SessionTable = pgTable("session", {
   userAgent: text("user_agent"),
   userId: text("user_id")
     .notNull()
-    .references(() => UserTable.id, { onDelete: "cascade" }),
+    .references(() => user.id, { onDelete: "cascade" }),
 });
 
-export const AccountTable = pgTable("account", {
+export const account = pgTable("account", {
   id: text("id").primaryKey(),
   accountId: text("account_id").notNull(),
   providerId: text("provider_id").notNull(),
   userId: text("user_id")
     .notNull()
-    .references(() => UserTable.id, { onDelete: "cascade" }),
+    .references(() => user.id, { onDelete: "cascade" }),
   accessToken: text("access_token"),
   refreshToken: text("refresh_token"),
   idToken: text("id_token"),
@@ -47,7 +54,7 @@ export const AccountTable = pgTable("account", {
   updatedAt: timestamp("updated_at").notNull(),
 });
 
-export const VerificationTable = pgTable("verification", {
+export const verification = pgTable("verification", {
   id: text("id").primaryKey(),
   identifier: text("identifier").notNull(),
   value: text("value").notNull(),
@@ -59,9 +66,3 @@ export const VerificationTable = pgTable("verification", {
     () => /* @__PURE__ */ new Date()
   ),
 });
-
-// Aliases expected by Better Auth Drizzle adapter
-export const user = UserTable;
-export const session = SessionTable;
-export const account = AccountTable;
-export const verification = VerificationTable;

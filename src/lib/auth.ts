@@ -10,6 +10,9 @@ export const auth = betterAuth({
     provider: "pg",
     schema: schema,
   }),
+  emailAndPassword: {
+    enabled: true,
+  },
   socialProviders: {
     google: {
       clientId: env.GOOGLE_CLIENT_ID,
@@ -17,7 +20,13 @@ export const auth = betterAuth({
       prompt: "select_account",
     },
   },
+  user: {
+    additionalFields: {
+      role: {
+        type: "string",
+        defaultValue: "none",
+        input: false,
+      },
+    },
+  },
 });
-
-export const redirectToAdminLogin = () => redirect("/login/admin");
-export const redirectToMembersLogin = () => redirect("/login/members");

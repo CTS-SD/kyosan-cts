@@ -9,15 +9,9 @@ import {
   timestamp,
 } from "drizzle-orm/pg-core";
 
-export const QuizTypeEnum = pgEnum("quiz_type", [
-  "select",
-  "text",
-  "true_false",
-]);
-
 export const QuizTable = pgTable("quiz", {
   id: serial("id").primaryKey(),
-  type: QuizTypeEnum("type").notNull(),
+  type: text("type", { enum: ["select", "text", "true_false"] }).notNull(),
   question: text("question").notNull(),
   explanation: text("explanation"),
   isPublished: boolean("is_published").default(true).notNull(),
