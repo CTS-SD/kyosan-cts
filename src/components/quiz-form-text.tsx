@@ -24,5 +24,3 @@ export const QuizFormText = ({ quiz, value, showAnswer, setValue }: Props) => {
     </div>
   );
 };
-
-export default QuizFormText;

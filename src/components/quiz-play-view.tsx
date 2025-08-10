@@ -8,12 +8,10 @@ import { cn } from "@/lib/utils";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import { useState } from "react";
+import { QuizFormText } from "./quiz-form-text";
 import { QuizFormTrueFalse } from "./quiz-form-true-false";
 
 const QuizFormSelect = dynamic(() => import("@/components/quiz-form-select"), {
-  ssr: false,
-});
-const QuizFormText = dynamic(() => import("@/components/quiz-form-text"), {
   ssr: false,
 });
 
