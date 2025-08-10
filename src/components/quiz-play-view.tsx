@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import dynamic from "next/dynamic";
 import { notFound } from "next/navigation";
 import { useState } from "react";
+import { QuizFormTrueFalse } from "./quiz-form-true-false";
 
 const QuizFormSelect = dynamic(() => import("@/components/quiz-form-select"), {
   ssr: false,
@@ -56,6 +57,8 @@ export const QuizPlayView = ({
         userAnswer.every((ans) => correctAnswers?.includes(ans));
     } else if (quiz.type === "text") {
       isCorrect = !!quiz.answer?.split("\n").includes(userAnswer[0]?.trim());
+    } else if (quiz.type === "true_false") {
+      isCorrect = Boolean(userAnswer[0] === "true") === quiz.answer;
     }
 
     const resultItem = {
@@ -101,6 +104,14 @@ export const QuizPlayView = ({
             )}
             {quiz.type === "text" && (
               <QuizFormText
+                value={userAnswer[0] ?? ""}
+                setValue={setUserAnswer}
+                quiz={quiz}
+                showAnswer={showAnswer}
+              />
+            )}
+            {quiz.type === "true_false" && (
+              <QuizFormTrueFalse
                 value={userAnswer[0] ?? ""}
                 setValue={setUserAnswer}
                 quiz={quiz}
