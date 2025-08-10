@@ -1,6 +1,4 @@
-import { LogOutIcon } from "lucide-react";
 import Link from "next/link";
-import { Button } from "../ui/button";
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -11,11 +9,13 @@ import {
 export const AdminHeader = () => {
   return (
     <div className="border-b border-dashed">
-      <div className="h-[47px] flex items-center px-6 max-w-5xl mx-auto">
-        <Link href="/admin/puratto" className="font-semibold">
-          CTS
-        </Link>
-        <div className="ml-4">
+      <div className="h-[47px] flex items-center px-6 max-w-5xl mx-auto gap-4">
+        <div className="flex items-center gap-3 font-bold text-sm">
+          <Link href="/">CTS</Link>
+          <div className="w-px h-5 bg-border rotate- rounded-full rotate-30"></div>
+          <Link href="/admin/puratto">管理者</Link>
+        </div>
+        <div>
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
@@ -27,13 +27,6 @@ export const AdminHeader = () => {
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
-        </div>
-        <div className="ml-auto">
-          <Button size="icon" variant="ghost" asChild>
-            <Link href="/">
-              <LogOutIcon />
-            </Link>
-          </Button>
         </div>
       </div>
     </div>
