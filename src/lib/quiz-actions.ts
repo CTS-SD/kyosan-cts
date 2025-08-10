@@ -7,7 +7,7 @@ import {
   SelectQuizTable,
   TextQuizTable,
   TFQuizTable,
-} from "./db/schema";
+} from "./db/schema/quiz";
 import { QuizFormValues } from "./quiz-editor";
 
 export async function createQuiz(values: QuizFormValues) {

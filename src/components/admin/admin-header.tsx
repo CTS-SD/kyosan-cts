@@ -1,10 +1,11 @@
-import Link from "next/link";
+import { UserButton } from "@/components/admin/user-button";
 import {
   NavigationMenu,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-} from "../ui/navigation-menu";
+} from "@/components/ui/navigation-menu";
+import Link from "next/link";
 
 export const AdminHeader = () => {
   return (
@@ -27,6 +28,9 @@ export const AdminHeader = () => {
               </NavigationMenuItem>
             </NavigationMenuList>
           </NavigationMenu>
+        </div>
+        <div className="ml-auto">
+          <UserButton />
         </div>
       </div>
     </div>
