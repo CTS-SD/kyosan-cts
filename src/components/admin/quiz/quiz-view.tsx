@@ -1,9 +1,9 @@
+import { Button } from "@/components/ui/button";
 import { FullQuiz } from "@/lib/quiz-actions";
 import { QuizFormValues } from "@/lib/quiz-editor";
 import { ArrowLeftIcon } from "lucide-react";
 import Link from "next/link";
 import { UseFormReturn } from "react-hook-form";
-import { Button } from "@/components/ui/button";
 import { QuizEditor } from "./quiz-editor";
 import { QuizPreview } from "./quiz-preview";
 
@@ -29,7 +29,7 @@ export const QuizView = ({
       <div className="flex-1 overflow-auto">
         <div className="p-6">
           <div className="flex items-center gap-4">
-            <Button asChild variant="secondary">
+            <Button asChild variant="secondary" size="icon">
               <Link href="/admin/puratto">
                 <ArrowLeftIcon />
               </Link>
