@@ -3,6 +3,7 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
+  DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -38,7 +39,10 @@ export const AddStudentButton = () => {
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>学生を編集</DialogTitle>
+          <DialogTitle>学生を追加</DialogTitle>
+          <DialogDescription>
+            配属発表ページに表示する学生を追加します
+          </DialogDescription>
         </DialogHeader>
         <StudentEditor
           onSubmit={handleAddStudent}
