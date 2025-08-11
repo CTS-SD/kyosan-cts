@@ -30,7 +30,7 @@ export const MemberUserButton = ({ user }: Props) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button className="rounded-full size-8" size="icon" variant="outline">
+        <Button className="size-8 rounded-full" size="icon" variant="outline">
           <Avatar>
             <AvatarFallback>{user.name.at(0)}</AvatarFallback>
           </Avatar>

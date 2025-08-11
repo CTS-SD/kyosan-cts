@@ -16,7 +16,7 @@ export const useQuizForm = (
       correctChoicesText: "",
       incorrectChoicesText: "",
     },
-  }
+  },
 ) => {
   const form = useForm<QuizFormValues>({
     resolver: zodResolver(quizFormSchema),

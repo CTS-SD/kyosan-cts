@@ -129,7 +129,7 @@ export const QuizEditor = ({
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>公開設定</FormLabel>
-                  <label className="flex items-center px-4 py-3 border rounded-md justify-between">
+                  <label className="flex items-center justify-between rounded-md border px-4 py-3">
                     <div>
                       <div>問題を公開する</div>
                       <FormDescription>

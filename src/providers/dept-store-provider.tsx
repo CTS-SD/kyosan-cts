@@ -7,7 +7,7 @@ import { useStore } from "zustand";
 type DeptStoreApi = ReturnType<typeof createDeptStore>;
 
 export const DeptStoreContext = createContext<DeptStoreApi | undefined>(
-  undefined
+  undefined,
 );
 
 type Props = {

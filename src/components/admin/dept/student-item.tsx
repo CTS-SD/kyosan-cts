@@ -21,7 +21,7 @@ type Props = {
 
 export const StudentItem = ({ student }: Props) => {
   const { updateStudent, getFacultyById, removeStudent } = useDeptStore(
-    (store) => store
+    (store) => store,
   );
 
   const handleUpdateStudent = async (values: StudentValues) => {
@@ -50,9 +50,9 @@ export const StudentItem = ({ student }: Props) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className="flex flex-col items-start py-2 w-full border-t">
+        <button className="flex w-full flex-col items-start border-t py-2">
           <div className="font-semibold">{student.name}</div>
-          <div className="flex gap-2 text-sm text-foreground/60">
+          <div className="text-foreground/60 flex gap-2 text-sm">
             <div>{student.studentNumber}</div>
             <div>{getFacultyById(student.facultyId)?.name}</div>
           </div>

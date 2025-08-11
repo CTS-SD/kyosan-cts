@@ -37,13 +37,13 @@ export const MembersSignIn = () => {
   };
 
   return (
-    <div className="px-4 py-8 border rounded-md bg-muted grid place-content-center">
+    <div className="bg-muted grid place-content-center rounded-md border px-4 py-8">
       <form className="flex gap-2" onSubmit={handleSubmit}>
-        <div className="flex has-[input:focus]:ring-[3px] ring-ring/50 rounded-md [&:has(input:focus)_*]:border-ring">
+        <div className="ring-ring/50 [&:has(input:focus)_*]:border-ring flex rounded-md has-[input:focus]:ring-[3px]">
           <Input
             type={showPassword ? "text" : "password"}
             placeholder="パスワード"
-            className="border-e-0 rounded-e-none ring-0! bg-background"
+            className="bg-background rounded-e-none border-e-0 ring-0!"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
@@ -52,7 +52,7 @@ export const MembersSignIn = () => {
             size="icon"
             onClick={toggleShowPassword}
             variant="outline"
-            className="border-s-0 rounded-s-none"
+            className="rounded-s-none border-s-0"
           >
             {showPassword ? <EyeIcon /> : <EyeClosedIcon />}
           </Button>

@@ -8,7 +8,7 @@ const Page = async () => {
   const quizzes = await db.query.QuizTable.findMany();
 
   return (
-    <div className="max-w-5xl mx-auto p-6">
+    <div className="mx-auto max-w-5xl p-6">
       <div className="flex gap-2">
         <Input placeholder="問題を検索" />
         <Button asChild>
@@ -24,7 +24,7 @@ const Page = async () => {
             <Link
               href={`/admin/puratto/q/${quiz.id}`}
               key={quiz.id}
-              className="p-4 border flex rounded-md"
+              className="flex rounded-md border p-4"
             >
               <div>{quiz.question}</div>
             </Link>

@@ -152,7 +152,7 @@ export const StudentEditor = ({
               </FormItem>
             )}
           />
-          <div className="flex gap-2 justify-end">{footerContent}</div>
+          <div className="flex justify-end gap-2">{footerContent}</div>
         </form>
       </Form>
     </div>

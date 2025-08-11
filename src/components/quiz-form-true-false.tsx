@@ -20,7 +20,7 @@ export const QuizFormTrueFalse = ({
   if (quiz?.type !== "true_false") return null;
 
   return (
-    <div className="px-4 flex gap-4">
+    <div className="flex gap-4 px-4">
       <OXButton
         isSelected={value === "true"}
         onClick={() => setValue(["true"])}
@@ -48,9 +48,9 @@ const OXButton = ({ isSelected, ...props }: OXButtonProps) => {
     <button
       type="button"
       className={cn(
-        "flex-1 aspect-square rounded-3xl transition-all grid place-content-center [&_svg]:size-20 border",
+        "grid aspect-square flex-1 place-content-center rounded-3xl border transition-all [&_svg]:size-20",
         isSelected &&
-          "bg-primary text-primary-foreground shadow-lg ring ring-offset-2 ring-primary"
+          "bg-primary text-primary-foreground ring-primary shadow-lg ring ring-offset-2",
       )}
       {...props}
     />

@@ -26,7 +26,7 @@ export const QuizFormSelect = ({
         ...(quiz.incorrectChoicesText?.split("\n") ?? []),
       ]
         .map((choice) => choice.trim())
-        .filter(Boolean)
+        .filter(Boolean),
     );
   }, [quiz]);
 
@@ -34,7 +34,7 @@ export const QuizFormSelect = ({
     setValue((prev) =>
       prev.includes(choice)
         ? prev.filter((c) => c !== choice)
-        : [...prev, choice]
+        : [...prev, choice],
     );
   };
 

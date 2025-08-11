@@ -30,7 +30,7 @@ export const createDeptStore = (initState: DeptState = defaultInitState) =>
     updateStudent: (student) =>
       set((state) => ({
         students: state.students.map((s) =>
-          s.id === student.id ? { ...s, ...student } : s
+          s.id === student.id ? { ...s, ...student } : s,
         ),
       })),
     removeStudent: (studentId) =>
@@ -38,7 +38,7 @@ export const createDeptStore = (initState: DeptState = defaultInitState) =>
         students: state.students.filter((student) => student.id !== studentId),
       })),
     getFacultyById: (id) => {
-      const state = get()
+      const state = get();
       return state.faculties.find((f) => f.id === id);
     },
   }));

@@ -16,8 +16,8 @@ export const AdminHeader = async () => {
 
   return (
     <div className="border-b border-dashed">
-      <div className="h-[47px] flex items-center px-6 max-w-5xl mx-auto gap-4">
-        <div className="flex gap-2 items-center">
+      <div className="mx-auto flex h-[47px] max-w-5xl items-center gap-4 px-6">
+        <div className="flex items-center gap-2">
           <Link href="/" className="text-sm font-semibold">
             京産キャンスタ
           </Link>

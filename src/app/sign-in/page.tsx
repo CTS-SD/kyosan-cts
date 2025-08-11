@@ -7,7 +7,7 @@ import Link from "next/link";
 
 const Page = () => {
   return (
-    <div className="mx-auto max-w-lg flex flex-col py-20 px-6">
+    <div className="mx-auto flex max-w-lg flex-col px-6 py-20">
       <div>
         <Tabs defaultValue="member">
           <TabsList>

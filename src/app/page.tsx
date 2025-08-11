@@ -5,10 +5,10 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="max-w-5xl mx-auto px-6">
+    <div className="mx-auto max-w-5xl px-6">
       <PublicHeader />
       <div className="flex flex-col py-16">
-        <div className="text-7xl sm:text-8xl font-medium font-mono flex flex-col gap-10 items-center">
+        <div className="flex flex-col items-center gap-10 font-mono text-7xl font-medium sm:text-8xl">
           <div className="">
             <span>K</span>
             <span>Y</span>
@@ -27,9 +27,7 @@ export default function Home() {
         </div>
         <div className="mt-20 flex justify-center gap-2">
           <Button variant="secondary" asChild>
-            <Link href="/puratto">
-              ぷらっとテスト
-            </Link>
+            <Link href="/puratto">ぷらっとテスト</Link>
           </Button>
           <Button asChild variant="special">
             <Link href="/members/dept">

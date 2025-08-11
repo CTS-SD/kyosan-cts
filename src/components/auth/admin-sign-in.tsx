@@ -6,7 +6,7 @@ import { signIn } from "@/lib/auth-client";
 
 export const AdminSignIn = () => {
   return (
-    <div className="px-4 py-8 border rounded-md bg-muted grid place-content-center">
+    <div className="bg-muted grid place-content-center rounded-md border px-4 py-8">
       <Button
         variant="outline"
         onClick={async () => {

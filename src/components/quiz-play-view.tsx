@@ -77,16 +77,16 @@ export const QuizPlayView = ({
 
   return (
     <div
-      className={cn("max-w-xl mx-auto flex flex-col grow h-full", className)}
+      className={cn("mx-auto flex h-full max-w-xl grow flex-col", className)}
       {...props}
     >
-      <header className="h-12 flex items-center ps-2 pe-6 gap-2">
+      <header className="flex h-12 items-center gap-2 ps-2 pe-6">
         {headerContent}
         <div className="grow">
           <Progress value={progress} className="w-full" />
         </div>
       </header>
-      <form onSubmit={handleSubmit} className="grow flex flex-col">
+      <form onSubmit={handleSubmit} className="flex grow flex-col">
         <div className="grow">
           <div className="px-6 pt-4 pb-8 whitespace-pre-wrap">
             {quiz.question}
@@ -118,13 +118,13 @@ export const QuizPlayView = ({
             )}
           </div>
         </div>
-        <div className="p-4 flex flex-col gap-3">
+        <div className="flex flex-col gap-3 p-4">
           {result && (
-            <div className="px-2 flex flex-col gap-1.5">
+            <div className="flex flex-col gap-1.5 px-2">
               <div
                 className={cn(
-                  "font-bold text-lg",
-                  result.isCorrect ? "text-green-500" : "text-red-500"
+                  "text-lg font-bold",
+                  result.isCorrect ? "text-green-500" : "text-red-500",
                 )}
               >
                 {result.isCorrect ? "正解" : "不正解"}
@@ -140,7 +140,7 @@ export const QuizPlayView = ({
                 ? result.isCorrect
                   ? "bg-green-500!"
                   : "bg-red-500!"
-                : null
+                : null,
             )}
             size="lg"
           >

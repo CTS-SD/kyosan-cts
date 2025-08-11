@@ -25,7 +25,7 @@ export const QuizView = ({
   onSubmit,
 }: Props) => {
   return (
-    <div className="max-w-5xl mx-auto flex h-[calc(100dvh-48px)]">
+    <div className="mx-auto flex h-[calc(100dvh-48px)] max-w-5xl">
       <div className="flex-1 overflow-auto">
         <div className="p-6">
           <div className="flex items-center gap-4">

@@ -15,7 +15,7 @@ export const StudentEditorSchema = z.object({
     .regex(/^\d{6}$/, "学籍番号は6桁の数字で入力してください。")
     .refine(
       (val) => [...val].reduce((sum, ch) => sum + Number(ch), 0) % 10 === 0,
-      { message: "有効な学籍番号を入力してください。" }
+      { message: "有効な学籍番号を入力してください。" },
     ),
   facultyId: z.number("学部を選択してください。").min(1),
   departmentId: z.number("配属部署を選択してください。").min(1),
