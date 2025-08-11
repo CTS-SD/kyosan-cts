@@ -15,7 +15,7 @@ import {
   TrueFalseQuizSchema,
 } from "./quiz-data";
 
-export async function createQuiz(values: QuizValues) {
+export async function insertQuiz(values: QuizValues) {
   const quizData = {
     type: values.type,
     question: values.question,
@@ -28,7 +28,7 @@ export async function createQuiz(values: QuizValues) {
     .values(quizData)
     .returning({
       id: QuizTable.id,
-    });
+    })
 
   if (values.type === "select") {
     await db.insert(SelectQuizTable).values({
