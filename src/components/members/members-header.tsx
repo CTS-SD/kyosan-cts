@@ -4,8 +4,8 @@ import { UserButton } from "../user-button";
 
 export const MembersHeader = () => {
   return (
-    <div className="border-b">
-      <div className="mx-auto flex h-[47px] max-w-5xl items-center px-6">
+    <div className="">
+      <div className="mx-auto flex h-[48px] max-w-5xl items-center px-6">
         <Link href="/" className="text-sm font-semibold">
           京産キャンスタ
         </Link>

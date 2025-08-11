@@ -1,14 +1,12 @@
-import { ThemeProvider } from "next-themes";
-
 type Props = {
   children: React.ReactNode;
 };
 
 const Layout = ({ children }: Props) => {
   return (
-    <ThemeProvider forcedTheme="light">
-      <div data-theme="light">{children}</div>
-    </ThemeProvider>
+    <div className="blue-page min-h-[calc(100dvh-48px)] bg-blue-500 dark:bg-blue-900">
+      {children}
+    </div>
   );
 };
 

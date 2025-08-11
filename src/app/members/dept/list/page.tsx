@@ -1,4 +1,4 @@
-import { DepartmentBox } from "@/components/members/dept/department-box";
+import { DepartmentMembers } from "@/components/members/dept/department-members";
 import { db } from "@/lib/db";
 import { DepartmentTable, FacultyTable, StudentTable } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
@@ -24,7 +24,7 @@ const Page = async () => {
     <div className="mx-auto max-w-xl p-6">
       <div className="flex flex-col gap-4">
         {departments.map((department) => (
-          <DepartmentBox
+          <DepartmentMembers
             key={department.id}
             department={department}
             students={students.filter(

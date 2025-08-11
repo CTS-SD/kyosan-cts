@@ -42,8 +42,8 @@ const Page = () => {
   }
 
   return (
-    <div className="mx-auto max-w-5xl p-6">
-      <div className="grid place-content-center pt-10">
+    <div className="mx-auto max-w-lg p-6">
+      <div className="bg-background flex justify-center rounded-3xl p-6 shadow-lg">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(handleSubmit)}

@@ -118,5 +118,8 @@
   }
   body {
     @apply bg-background text-foreground;
+    &:has(.blue-page) {
+      @apply bg-blue-500 dark:bg-blue-900;
+    }
   }
 }
