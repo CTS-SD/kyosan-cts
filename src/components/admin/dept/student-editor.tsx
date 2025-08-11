@@ -68,7 +68,7 @@ export const StudentEditor = ({
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)}>
           <fieldset className="space-y-4" disabled={isSubmitting}>
-            <div className="flex gap-4 flex-col sm:flex-row">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
               <FormField
                 control={form.control}
                 name="name"

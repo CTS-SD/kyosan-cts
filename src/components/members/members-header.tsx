@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { ToggleTheme } from "../theme-toggle";
 import { UserButton } from "../user-button";
 
 export const MembersHeader = () => {
@@ -8,7 +9,8 @@ export const MembersHeader = () => {
         <Link href="/" className="text-sm font-semibold">
           京産キャンスタ
         </Link>
-        <div className="ml-auto">
+        <div className="ml-auto flex items-center gap-2">
+          <ToggleTheme />
           <UserButton />
         </div>
       </div>
