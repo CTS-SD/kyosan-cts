@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -16,13 +17,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { QuizFormValues, quizTypes } from "@/lib/quiz-editor";
-import Link from "next/link";
-import { useState } from "react";
-import { UseFormReturn } from "react-hook-form";
-import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
+import { QuizFormValues, quizTypes } from "@/lib/quiz-editor";
+import Link from "next/link";
+import { UseFormReturn } from "react-hook-form";
 import { QuizEditorSelect } from "./quiz-editor-select";
 import { QuizEditorText } from "./quiz-editor-text";
 import { QuizEditorTrueFalse } from "./quiz-editor-true-false";
@@ -42,24 +41,17 @@ export const QuizEditor = ({
   className,
   labels = { submit: "保存" },
 }: Props) => {
-  const [loading, setLoading] = useState(false);
+  const { isSubmitting, isDirty } = form.formState;
 
   const handleSubmit = async (values: QuizFormValues) => {
-    setLoading(true);
-    try {
-      await onSubmit(values);
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
+    await onSubmit(values);
   };
 
   return (
     <div className={className}>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)}>
-          <fieldset className="space-y-6" disabled={loading}>
+          <fieldset className="space-y-6" disabled={isSubmitting}>
             <FormField
               control={form.control}
               name="type"
@@ -151,7 +143,9 @@ export const QuizEditor = ({
               <Button variant="secondary" asChild>
                 <Link href="/admin/puratto">キャンセル</Link>
               </Button>
-              <Button type="submit">{labels.submit}</Button>
+              <Button type="submit" disabled={!isDirty}>
+                {labels.submit}
+              </Button>
             </div>
           </fieldset>
         </form>

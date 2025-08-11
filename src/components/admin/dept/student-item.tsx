@@ -65,7 +65,7 @@ export const StudentItem = ({ student }: Props) => {
         <StudentEditor
           defaultValues={student}
           onSubmit={handleUpdateStudent}
-          footerContent={
+          footerContent={(formState) => (
             <>
               <Button
                 type="button"
@@ -80,9 +80,11 @@ export const StudentItem = ({ student }: Props) => {
                   キャンセル
                 </Button>
               </DialogClose>
-              <Button type="submit">更新</Button>
+              <Button type="submit" disabled={!formState.isDirty}>
+                更新
+              </Button>
             </>
-          }
+          )}
         />
       </DialogContent>
     </Dialog>

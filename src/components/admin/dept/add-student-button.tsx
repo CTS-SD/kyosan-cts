@@ -46,16 +46,18 @@ export const AddStudentButton = () => {
         </DialogHeader>
         <StudentEditor
           onSubmit={handleAddStudent}
-          footerContent={
+          footerContent={({ isDirty }) => (
             <>
               <DialogClose asChild>
                 <Button type="button" variant="secondary" className="ml-auto">
                   キャンセル
                 </Button>
               </DialogClose>
-              <Button type="submit">作成</Button>
+              <Button type="submit" disabled={!isDirty}>
+                作成
+              </Button>
             </>
-          }
+          )}
         />
       </DialogContent>
     </Dialog>
