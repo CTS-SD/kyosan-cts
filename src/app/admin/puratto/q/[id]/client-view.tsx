@@ -2,44 +2,46 @@
 
 import { QuizView } from "@/components/admin/quiz/quiz-view";
 import { useQuizForm } from "@/hooks/use-quiz-form";
-import { FullQuiz, updateQuiz } from "@/lib/quiz-actions";
-import { makeQuizFromFormValues, QuizFormValues } from "@/lib/quiz-editor";
+import { updateQuiz } from "@/lib/quiz-actions";
+import { QuizData } from "@/lib/quiz-data";
+import { makePseudoQuiz, QuizValues } from "@/lib/quiz-editor";
 import { toast } from "sonner";
 
 type Props = {
-  quiz: FullQuiz;
+  quiz: QuizData;
 };
 
-function makeDefaultValues(quiz: FullQuiz): QuizFormValues | undefined {
-  if (!quiz) return;
-
+function makeDefaultValues(quiz: QuizData): QuizValues {
   const commonValues = {
     question: quiz.question,
     explanation: quiz.explanation ?? undefined,
     isPublished: quiz.isPublished,
   };
+  const quizType = quiz.type;
 
-  if (quiz.type === "select") {
-    return {
-      type: quiz.type,
-      ...commonValues,
-      correctChoicesText: quiz.correctChoicesText ?? "",
-      incorrectChoicesText: quiz.incorrectChoicesText ?? "",
-    };
-  }
-  if (quiz.type === "text") {
-    return {
-      type: quiz.type,
-      ...commonValues,
-      answer: quiz.answer ?? "",
-    };
-  }
-  if (quiz.type === "true_false") {
-    return {
-      type: quiz.type,
-      ...commonValues,
-      answer: quiz.answer ?? false,
-    };
+  switch (quiz.type) {
+    case "select":
+      return {
+        type: quiz.type,
+        ...commonValues,
+        correctChoicesText: quiz.correctChoicesText,
+        incorrectChoicesText: quiz.incorrectChoicesText,
+      };
+    case "text":
+      return {
+        type: quiz.type,
+        ...commonValues,
+        answer: quiz.answer,
+      };
+    case "true_false":
+      return {
+        type: quiz.type,
+        ...commonValues,
+        answer: quiz.answer,
+      };
+    default: {
+      throw new Error(`Unknown quiz type: ${quizType}`);
+    }
   }
 }
 
@@ -51,9 +53,9 @@ export const ClientView = ({ quiz }: Props) => {
   if (!quiz) return;
 
   const formValues = form.watch();
-  const pseudoQuiz = makeQuizFromFormValues(formValues);
+  const pseudoQuiz = makePseudoQuiz(formValues);
 
-  const handleSubmit = async (values: QuizFormValues) => {
+  const handleSubmit = async (values: QuizValues) => {
     await updateQuiz(quiz.id, values);
     toast.success("問題を保存しました");
   };

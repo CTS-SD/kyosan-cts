@@ -85,12 +85,8 @@
           "name": "select_quiz_quiz_id_quiz_id_fk",
           "tableFrom": "select_quiz",
           "tableTo": "quiz",
-          "columnsFrom": [
-            "quiz_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["quiz_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -124,12 +120,8 @@
           "name": "true_false_quiz_quiz_id_quiz_id_fk",
           "tableFrom": "true_false_quiz",
           "tableTo": "quiz",
-          "columnsFrom": [
-            "quiz_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["quiz_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -163,12 +155,8 @@
           "name": "text_quiz_quiz_id_quiz_id_fk",
           "tableFrom": "text_quiz",
           "tableTo": "quiz",
-          "columnsFrom": [
-            "quiz_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["quiz_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -184,11 +172,7 @@
     "public.quiz_type": {
       "name": "quiz_type",
       "schema": "public",
-      "values": [
-        "select",
-        "text",
-        "true_false"
-      ]
+      "values": ["select", "text", "true_false"]
     }
   },
   "schemas": {},

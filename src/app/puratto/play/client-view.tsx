@@ -3,14 +3,14 @@
 import { QuizPlayView } from "@/components/quiz-play-view";
 import { QuizResultsView } from "@/components/quiz-results-view";
 import { Button } from "@/components/ui/button";
-import { FullQuiz } from "@/lib/quiz-actions";
+import { QuizData } from "@/lib/quiz-data";
 import { QuizResult } from "@/lib/quiz-form";
 import { XIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 type Props = {
-  quizzes: FullQuiz[];
+  quizzes: QuizData[];
 };
 
 export const ClientView = ({ quizzes }: Props) => {

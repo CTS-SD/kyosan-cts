@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
-import { QuizFormValues, quizTypes } from "@/lib/quiz-editor";
+import { QuizValues, quizTypes } from "@/lib/quiz-editor";
 import Link from "next/link";
 import { UseFormReturn } from "react-hook-form";
 import { QuizEditorSelect } from "./quiz-editor-select";
@@ -27,8 +27,8 @@ import { QuizEditorText } from "./quiz-editor-text";
 import { QuizEditorTrueFalse } from "./quiz-editor-true-false";
 
 type Props = {
-  form: UseFormReturn<QuizFormValues>;
-  onSubmit: (values: QuizFormValues) => Promise<void>;
+  form: UseFormReturn<QuizValues>;
+  onSubmit: (values: QuizValues) => Promise<void>;
   className?: string;
   labels?: {
     submit?: string;
@@ -42,8 +42,9 @@ export const QuizEditor = ({
   labels = { submit: "保存" },
 }: Props) => {
   const { isSubmitting, isDirty } = form.formState;
+  const formType = form.watch("type");
 
-  const handleSubmit = async (values: QuizFormValues) => {
+  const handleSubmit = async (values: QuizValues) => {
     await onSubmit(values);
   };
 
@@ -99,9 +100,9 @@ export const QuizEditor = ({
                 </FormItem>
               )}
             />
-            <QuizEditorSelect form={form} />
-            <QuizEditorText form={form} />
-            <QuizEditorTrueFalse form={form} />
+            {formType === "select" && <QuizEditorSelect form={form} />}
+            {formType === "text" && <QuizEditorText form={form} />}
+            {formType === "true_false" && <QuizEditorTrueFalse form={form} />}
             <FormField
               control={form.control}
               name="explanation"

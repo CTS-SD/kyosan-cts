@@ -1,6 +1,3 @@
-import { quizFormSchema } from "@/lib/quiz-editor";
-import { UseFormReturn } from "react-hook-form";
-import z from "zod";
 import {
   FormControl,
   FormDescription,
@@ -10,14 +7,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
+import { QuizEditorSchema } from "@/lib/quiz-editor";
+import { UseFormReturn } from "react-hook-form";
+import z from "zod";
 
 type Props = {
-  form: UseFormReturn<z.infer<typeof quizFormSchema>>;
+  form: UseFormReturn<z.infer<typeof QuizEditorSchema>>;
 };
 
 export const QuizEditorText = ({ form }: Props) => {
-  const formType = form.watch("type");
-  if (formType !== "text") return null;
   return (
     <>
       <FormField

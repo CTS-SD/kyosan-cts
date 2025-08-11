@@ -8,9 +8,14 @@ import {
   TextQuizTable,
   TFQuizTable,
 } from "./db/schema/quiz";
-import { QuizFormValues } from "./quiz-editor";
+import { QuizValues } from "./quiz-editor";
+import {
+  SelectQuizSchema,
+  TextQuizSchema,
+  TrueFalseQuizSchema,
+} from "./quiz-data";
 
-export async function createQuiz(values: QuizFormValues) {
+export async function createQuiz(values: QuizValues) {
   const quizData = {
     type: values.type,
     question: values.question,
@@ -46,7 +51,7 @@ export async function createQuiz(values: QuizFormValues) {
   return quizId;
 }
 
-export async function updateQuiz(quizId: number, values: QuizFormValues) {
+export async function updateQuiz(quizId: number, values: QuizValues) {
   await db
     .update(QuizTable)
     .set({
@@ -92,36 +97,36 @@ export async function getQuizById(id: number) {
   const quiz = await db.query.QuizTable.findFirst({
     where: (table, { eq }) => eq(table.id, id),
   });
-
-  if (!quiz) return null;
+  if (!quiz) {
+    throw new Error(`Quiz not found: ${id}`);
+  }
 
   if (quiz.type === "select") {
-    return {
+    return SelectQuizSchema.parse({
       ...quiz,
       ...(await db.query.SelectQuizTable.findFirst({
         where: (table, { eq }) => eq(table.quizId, quiz.id),
       })),
-      type: "select" as const,
-    };
+    });
   }
   if (quiz.type === "text") {
-    return {
+    return TextQuizSchema.parse({
       ...quiz,
       ...(await db.query.TextQuizTable.findFirst({
         where: (table, { eq }) => eq(table.quizId, quiz.id),
       })),
-      type: "text" as const,
-    };
+    });
   }
   if (quiz.type === "true_false") {
-    return {
+    return TrueFalseQuizSchema.parse({
       ...quiz,
       ...(await db.query.TFQuizTable.findFirst({
         where: (table, { eq }) => eq(table.quizId, quiz.id),
       })),
-      type: "true_false" as const,
-    };
+    });
   }
+
+  throw new Error(`Failed to get quiz: ${id}`);
 }
 
 export async function getRandomQuizzes(limit: number) {
@@ -133,5 +138,3 @@ export async function getRandomQuizzes(limit: number) {
   const quizzes = await Promise.all(quizIds.map((q) => getQuizById(q.id)));
   return quizzes;
 }
-
-export type FullQuiz = Awaited<ReturnType<typeof getQuizById>>;

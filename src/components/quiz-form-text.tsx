@@ -1,10 +1,10 @@
 "use client";
 
-import { FullQuiz } from "@/lib/quiz-actions";
+import { TextQuizData } from "@/lib/quiz-data";
 import { Input } from "./ui/input";
 
 type Props = {
-  quiz: FullQuiz;
+  quiz: TextQuizData;
   value: string;
   showAnswer: boolean;
   setValue: React.Dispatch<React.SetStateAction<string[]>>;

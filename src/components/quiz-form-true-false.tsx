@@ -1,11 +1,11 @@
 "use client";
 
-import { FullQuiz } from "@/lib/quiz-actions";
+import { TrueFalseQuizData } from "@/lib/quiz-data";
 import { cn } from "@/lib/utils";
 import { CircleIcon, XIcon } from "lucide-react";
 
 type Props = {
-  quiz: FullQuiz;
+  quiz: TrueFalseQuizData;
   value: string;
   showAnswer: boolean;
   setValue: React.Dispatch<React.SetStateAction<string[]>>;

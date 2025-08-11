@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { FullQuiz } from "@/lib/quiz-actions";
-import { QuizFormValues } from "@/lib/quiz-editor";
+import { QuizData } from "@/lib/quiz-data";
+import { QuizValues } from "@/lib/quiz-editor";
 import { ArrowLeftIcon } from "lucide-react";
 import Link from "next/link";
 import { UseFormReturn } from "react-hook-form";
@@ -9,12 +9,12 @@ import { QuizPreview } from "./quiz-preview";
 
 type Props = {
   heading?: React.ReactNode;
-  form: UseFormReturn<QuizFormValues>;
-  previewQuiz: FullQuiz;
+  form: UseFormReturn<QuizValues>;
+  previewQuiz: QuizData | null;
   labels: {
     submit: string;
   };
-  onSubmit: (values: QuizFormValues) => Promise<void>;
+  onSubmit: (values: QuizValues) => Promise<void>;
 };
 
 export const QuizView = ({

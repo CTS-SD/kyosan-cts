@@ -2,11 +2,10 @@
 
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { FullQuiz } from "@/lib/quiz-actions";
+import { QuizData } from "@/lib/quiz-data";
 import { QuizResult } from "@/lib/quiz-form";
 import { cn } from "@/lib/utils";
 import dynamic from "next/dynamic";
-import { notFound } from "next/navigation";
 import { useState } from "react";
 import { QuizFormText } from "./quiz-form-text";
 import { QuizFormTrueFalse } from "./quiz-form-true-false";
@@ -16,7 +15,7 @@ const QuizFormSelect = dynamic(() => import("@/components/quiz-form-select"), {
 });
 
 type Props = React.ComponentProps<"div"> & {
-  quiz: FullQuiz;
+  quiz: QuizData;
   progress: number;
   headerContent?: React.ReactNode;
   addResult?: (result: QuizResult) => void;
@@ -32,8 +31,6 @@ export const QuizPlayView = ({
   className,
   ...props
 }: Props) => {
-  if (!quiz) notFound();
-
   const [result, setResult] = useState<QuizResult | null>(null);
   const [userAnswer, setUserAnswer] = useState<string[]>([]);
 

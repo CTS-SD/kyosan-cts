@@ -1,12 +1,12 @@
 "use client";
 
-import { FullQuiz } from "@/lib/quiz-actions";
+import { SelectQuizData } from "@/lib/quiz-data";
 import { shuffle } from "es-toolkit";
 import { useMemo } from "react";
 import { Button } from "./ui/button";
 
 type Props = {
-  quiz: FullQuiz;
+  quiz: SelectQuizData;
   value: string[];
   showAnswer: boolean;
   setValue: React.Dispatch<React.SetStateAction<string[]>>;
@@ -37,8 +37,6 @@ export const QuizFormSelect = ({
         : [...prev, choice],
     );
   };
-
-  if (quiz?.type !== "select") return null;
 
   return (
     <div className="px-4">

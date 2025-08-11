@@ -1,9 +1,9 @@
-import { quizFormSchema, QuizFormValues } from "@/lib/quiz-editor";
+import { QuizEditorSchema, QuizValues } from "@/lib/quiz-editor";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 type Args = {
-  defaultValues?: QuizFormValues;
+  defaultValues: QuizValues;
 };
 
 export const useQuizForm = (
@@ -18,8 +18,8 @@ export const useQuizForm = (
     },
   },
 ) => {
-  const form = useForm<QuizFormValues>({
-    resolver: zodResolver(quizFormSchema),
+  const form = useForm<QuizValues>({
+    resolver: zodResolver(QuizEditorSchema),
     defaultValues,
   });
 

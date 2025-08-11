@@ -1,5 +1,5 @@
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { quizFormSchema } from "@/lib/quiz-editor";
+import { QuizEditorSchema } from "@/lib/quiz-editor";
 import { UseFormReturn } from "react-hook-form";
 import z from "zod";
 import {
@@ -11,12 +11,10 @@ import {
 } from "@/components/ui/form";
 
 type Props = {
-  form: UseFormReturn<z.infer<typeof quizFormSchema>>;
+  form: UseFormReturn<z.infer<typeof QuizEditorSchema>>;
 };
 
 export const QuizEditorTrueFalse = ({ form }: Props) => {
-  const formType = form.watch("type");
-  if (formType !== "true_false") return null;
   return (
     <>
       <FormField

@@ -3,7 +3,7 @@
 import { QuizView } from "@/components/admin/quiz/quiz-view";
 import { useQuizForm } from "@/hooks/use-quiz-form";
 import { createQuiz } from "@/lib/quiz-actions";
-import { makeQuizFromFormValues, QuizFormValues } from "@/lib/quiz-editor";
+import { makePseudoQuiz, QuizValues } from "@/lib/quiz-editor";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
@@ -12,9 +12,9 @@ const Page = () => {
   const form = useQuizForm();
 
   const formValues = form.watch();
-  const pseudoQuiz = makeQuizFromFormValues(formValues);
+  const pseudoQuiz = makePseudoQuiz(formValues);
 
-  const handleSubmit = async (values: QuizFormValues) => {
+  const handleSubmit = async (values: QuizValues) => {
     const newQuizId = await createQuiz(values);
     toast.success("問題を作成しました");
     router.push(`/admin/puratto/q/${newQuizId}`);

@@ -1,14 +1,15 @@
 "use client";
 
 import { QuizPlayView } from "@/components/quiz-play-view";
-import { FullQuiz } from "@/lib/quiz-actions";
 import { Badge } from "@/components/ui/badge";
+import { QuizData } from "@/lib/quiz-data";
 
 type Props = {
-  quiz: FullQuiz;
+  quiz: QuizData | null;
 };
 
 export const QuizPreview = ({ quiz }: Props) => {
+  if (!quiz) return null;
   return (
     <QuizPlayView
       quiz={quiz}

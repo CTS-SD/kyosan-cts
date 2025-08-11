@@ -1,5 +1,5 @@
 import z from "zod";
-import { FullQuiz } from "./quiz-actions";
+import { QuizData } from "./quiz-data";
 
 export const quizTypes = [
   {
@@ -16,7 +16,7 @@ export const quizTypes = [
   },
 ];
 
-export const commonQuizFormSchema = z.object({
+export const CommonQuizEditorSchema = z.object({
   question: z
     .string()
     .min(1, "問題文を入力してください。")
@@ -25,61 +25,60 @@ export const commonQuizFormSchema = z.object({
   isPublished: z.boolean(),
 });
 
-export const selectQuizFormSchema = commonQuizFormSchema.extend({
+export const SelectQuizEditorSchema = CommonQuizEditorSchema.extend({
   type: z.literal("select"),
   correctChoicesText: z.string().min(1, "正解の選択肢を入力してください。"),
   incorrectChoicesText: z.string().min(1, "不正解の選択肢を入力してください。"),
 });
 
-export const textQuizFormSchema = commonQuizFormSchema.extend({
+export const TextQuizEditorSchema = CommonQuizEditorSchema.extend({
   type: z.literal("text"),
   answer: z.string().min(1, "解答を入力してください。"),
 });
 
-export const trueFalseQuizFormSchema = commonQuizFormSchema.extend({
+export const TrueFalseQuizEditorSchema = CommonQuizEditorSchema.extend({
   type: z.literal("true_false"),
   answer: z.boolean("解答を選択してください。"),
 });
 
-export const quizFormSchema = z.discriminatedUnion("type", [
-  selectQuizFormSchema,
-  textQuizFormSchema,
-  trueFalseQuizFormSchema,
+export const QuizEditorSchema = z.discriminatedUnion("type", [
+  SelectQuizEditorSchema,
+  TextQuizEditorSchema,
+  TrueFalseQuizEditorSchema,
 ]);
 
-export type QuizFormValues = z.infer<typeof quizFormSchema>;
+export type QuizValues = z.infer<typeof QuizEditorSchema>;
 
-export function makeQuizFromFormValues(values: QuizFormValues): FullQuiz {
+export function makePseudoQuiz(values: QuizValues): QuizData | null {
+  const commonData = {
+    id: -1,
+    question: values.question,
+    explanation: values.explanation ?? null,
+    createdAt: new Date(),
+    isPublished: values.isPublished,
+  };
+
   if (values.type === "select") {
     return {
-      id: -1,
-      createdAt: new Date(),
+      ...commonData,
       type: values.type,
-      question: values.question,
-      explanation: values.explanation ?? null,
-      isPublished: values.isPublished,
       correctChoicesText: values.correctChoicesText,
       incorrectChoicesText: values.incorrectChoicesText,
     };
-  } else if (values.type === "text") {
+  }
+  if (values.type === "text") {
     return {
-      id: -1,
-      createdAt: new Date(),
+      ...commonData,
       type: values.type,
-      question: values.question,
-      explanation: values.explanation ?? null,
-      isPublished: values.isPublished,
-      answer: values.answer,
-    };
-  } else if (values.type === "true_false") {
-    return {
-      id: -1,
-      createdAt: new Date(),
-      type: values.type,
-      question: values.question,
-      explanation: values.explanation ?? null,
-      isPublished: values.isPublished,
       answer: values.answer,
     };
   }
+  if (values.type === "true_false") {
+    return {
+      ...commonData,
+      type: values.type,
+      answer: values.answer,
+    };
+  }
+  return null;
 }
