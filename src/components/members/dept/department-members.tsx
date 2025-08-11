@@ -15,7 +15,7 @@ export const DepartmentMembers = ({ department, students }: Props) => {
   const deptStyles = getDepartmentStyles(department.name);
 
   return (
-    <div className="bg-background dark:bg-sidebar text-foreground rounded-3xl p-6 shadow-lg">
+    <div className="bg-background dark:bg-background/40 text-foreground rounded-3xl p-6 shadow-lg">
       <div className="flex items-center justify-center gap-2.5 [&_svg]:size-6">
         <div className="opacity-50">{deptIcon}</div>
         <div
