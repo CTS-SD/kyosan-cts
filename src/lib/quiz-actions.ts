@@ -10,6 +10,7 @@ import {
 } from "./db/schema/quiz";
 import { QuizValues } from "./quiz-editor";
 import {
+  QuizData,
   SelectQuizSchema,
   TextQuizSchema,
   TrueFalseQuizSchema,
@@ -28,7 +29,7 @@ export async function insertQuiz(values: QuizValues) {
     .values(quizData)
     .returning({
       id: QuizTable.id,
-    })
+    });
 
   if (values.type === "select") {
     await db.insert(SelectQuizTable).values({
@@ -129,12 +130,55 @@ export async function getQuizById(id: number) {
   throw new Error(`Failed to get quiz: ${id}`);
 }
 
-export async function getRandomQuizzes(limit: number) {
-  const quizIds = await db
-    .select({ id: QuizTable.id })
+export async function getRandomQuizzes(limit: number): Promise<QuizData[]> {
+  const rows = await db
+    .select({
+      id: QuizTable.id,
+      type: QuizTable.type,
+      question: QuizTable.question,
+      explanation: QuizTable.explanation,
+      isPublished: QuizTable.isPublished,
+      createdAt: QuizTable.createdAt,
+      select_correctChoicesText: SelectQuizTable.correctChoicesText,
+      select_incorrectChoicesText: SelectQuizTable.incorrectChoicesText,
+      text_answer: TextQuizTable.answer,
+      tf_answer: TFQuizTable.answer,
+    })
     .from(QuizTable)
+    .leftJoin(SelectQuizTable, eq(QuizTable.id, SelectQuizTable.quizId))
+    .leftJoin(TextQuizTable, eq(QuizTable.id, TextQuizTable.quizId))
+    .leftJoin(TFQuizTable, eq(QuizTable.id, TFQuizTable.quizId))
     .orderBy(sql`random()`)
     .limit(limit);
-  const quizzes = await Promise.all(quizIds.map((q) => getQuizById(q.id)));
-  return quizzes;
+
+  return rows.map((row) => {
+    const commonData = {
+      id: row.id,
+      type: row.type,
+      question: row.question,
+      explanation: row.explanation,
+      isPublished: row.isPublished,
+      createdAt: row.createdAt,
+    };
+    if (row.type === "select") {
+      return SelectQuizSchema.parse({
+        ...commonData,
+        correctChoicesText: row.select_correctChoicesText,
+        incorrectChoicesText: row.select_incorrectChoicesText,
+      });
+    }
+    if (row.type === "text") {
+      return TextQuizSchema.parse({
+        ...commonData,
+        answer: row.text_answer,
+      });
+    }
+    if (row.type === "true_false") {
+      return TrueFalseQuizSchema.parse({
+        ...commonData,
+        answer: row.tf_answer,
+      });
+    }
+    throw new Error(`Unknown quiz type: ${row.type}`);
+  });
 }
