@@ -34,7 +34,7 @@ export const TextQuizTable = pgTable("text_quiz", {
   answer: text("answer").notNull(),
 });
 
-export const TFQuizTable = pgTable("true_false_quiz", {
+export const TrueFalseQuizTable = pgTable("true_false_quiz", {
   quizId: integer("quiz_id")
     .references(() => QuizTable.id, { onDelete: "cascade" })
     .primaryKey(),

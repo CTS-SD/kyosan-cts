@@ -6,7 +6,7 @@ import {
   QuizTable,
   SelectQuizTable,
   TextQuizTable,
-  TFQuizTable,
+  TrueFalseQuizTable,
 } from "./db/schema/quiz";
 import { QuizValues } from "./quiz-editor";
 import {
@@ -38,7 +38,7 @@ export async function insertQuiz(values: QuizValues) {
       incorrectChoicesText: values.incorrectChoicesText,
     });
   } else if (values.type === "true_false") {
-    await db.insert(TFQuizTable).values({
+    await db.insert(TrueFalseQuizTable).values({
       quizId,
       answer: values.answer,
     });
@@ -78,8 +78,8 @@ export async function updateQuiz(quizId: number, values: QuizValues) {
       quizId,
       answer: values.answer,
     };
-    await db.insert(TFQuizTable).values(payload).onConflictDoUpdate({
-      target: TFQuizTable.quizId,
+    await db.insert(TrueFalseQuizTable).values(payload).onConflictDoUpdate({
+      target: TrueFalseQuizTable.quizId,
       set: payload,
     });
   } else if (values.type === "text") {
@@ -121,7 +121,7 @@ export async function getQuizById(id: number) {
   if (quiz.type === "true_false") {
     return TrueFalseQuizSchema.parse({
       ...quiz,
-      ...(await db.query.TFQuizTable.findFirst({
+      ...(await db.query.TrueFalseQuizTable.findFirst({
         where: (table, { eq }) => eq(table.quizId, quiz.id),
       })),
     });
@@ -142,12 +142,12 @@ export async function getRandomQuizzes(limit: number): Promise<QuizData[]> {
       select_correctChoicesText: SelectQuizTable.correctChoicesText,
       select_incorrectChoicesText: SelectQuizTable.incorrectChoicesText,
       text_answer: TextQuizTable.answer,
-      tf_answer: TFQuizTable.answer,
+      true_false_answer: TrueFalseQuizTable.answer,
     })
     .from(QuizTable)
     .leftJoin(SelectQuizTable, eq(QuizTable.id, SelectQuizTable.quizId))
     .leftJoin(TextQuizTable, eq(QuizTable.id, TextQuizTable.quizId))
-    .leftJoin(TFQuizTable, eq(QuizTable.id, TFQuizTable.quizId))
+    .leftJoin(TrueFalseQuizTable, eq(QuizTable.id, TrueFalseQuizTable.quizId))
     .orderBy(sql`random()`)
     .limit(limit);
 
@@ -176,7 +176,7 @@ export async function getRandomQuizzes(limit: number): Promise<QuizData[]> {
     if (row.type === "true_false") {
       return TrueFalseQuizSchema.parse({
         ...commonData,
-        answer: row.tf_answer,
+        answer: row.true_false_answer,
       });
     }
     throw new Error(`Unknown quiz type: ${row.type}`);
