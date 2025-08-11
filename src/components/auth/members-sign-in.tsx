@@ -17,6 +17,7 @@ const getErrorMessage = (message?: string) => {
 export const MembersSignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   const toggleShowPassword = () => {
     setShowPassword((prev) => !prev);
@@ -24,11 +25,16 @@ export const MembersSignIn = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const { error } = await signIn.email({
-      email: "cts-member@example.com",
-      password,
-      callbackURL: "/members",
-    });
+    setSubmitting(true);
+    const { error } = await signIn
+      .email({
+        email: "cts-member@example.com",
+        password,
+        callbackURL: "/members",
+      })
+      .finally(() => {
+        setSubmitting(false);
+      });
     if (error) {
       toast.error(getErrorMessage(error.message));
       setPassword("");
@@ -46,6 +52,7 @@ export const MembersSignIn = () => {
             className="bg-background rounded-e-none border-e-0 ring-0!"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            disabled={submitting}
           />
           <Button
             type="button"
@@ -53,11 +60,12 @@ export const MembersSignIn = () => {
             onClick={toggleShowPassword}
             variant="outline"
             className="rounded-s-none border-s-0"
+            disabled={submitting}
           >
             {showPassword ? <EyeIcon /> : <EyeClosedIcon />}
           </Button>
         </div>
-        <Button type="submit" size="icon">
+        <Button type="submit" size="icon" disabled={submitting}>
           <SendHorizontalIcon />
         </Button>
       </form>
