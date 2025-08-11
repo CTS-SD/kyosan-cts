@@ -1,5 +1,4 @@
 import { auth } from "@/lib/auth";
-import { UserRoundIcon } from "lucide-react";
 import { headers } from "next/headers";
 import Link from "next/link";
 import { AdminUserButton } from "./admin/admin-user-button";
@@ -12,9 +11,7 @@ export const UserButton = async () => {
   if (!session) {
     return (
       <Button asChild variant="outline" size="sm" className="rounded-full">
-        <Link href="/sign-in">
-          ログイン
-        </Link>
+        <Link href="/sign-in">ログイン</Link>
       </Button>
     );
   }

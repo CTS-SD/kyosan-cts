@@ -14,9 +14,7 @@ import { UserPlus2Icon } from "lucide-react";
 import { toast } from "sonner";
 import { StudentEditor } from "./student-editor";
 
-type Props = {};
-
-export const AddStudentButton = ({}: Props) => {
+export const AddStudentButton = () => {
   const { addStudents } = useDeptStore((store) => store);
 
   const handleAddStudent = async (studentData: StudentValues) => {

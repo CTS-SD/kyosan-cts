@@ -1,9 +1,7 @@
 import Link from "next/link";
 import { UserButton } from "../user-button";
 
-type Props = {};
-
-export const MembersHeader = ({}: Props) => {
+export const MembersHeader = () => {
   return (
     <div className="border-b">
       <div className="h-[47px] max-w-5xl mx-auto px-6 flex items-center">

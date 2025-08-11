@@ -2,7 +2,6 @@ import { InferSelectModel } from "drizzle-orm";
 import {
   boolean,
   integer,
-  pgEnum,
   pgTable,
   serial,
   text,

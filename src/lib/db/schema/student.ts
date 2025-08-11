@@ -1,14 +1,5 @@
 import { InferSelectModel } from "drizzle-orm";
-import {
-  boolean,
-  integer,
-  pgEnum,
-  pgTable,
-  serial,
-  text,
-  timestamp,
-  varchar,
-} from "drizzle-orm/pg-core";
+import { integer, pgTable, serial, varchar } from "drizzle-orm/pg-core";
 
 export const StudentTable = pgTable("student", {
   id: serial("id").primaryKey(),

@@ -43,7 +43,7 @@ export const QuizFormSelect = ({
   return (
     <div className="px-4">
       <div className="flex flex-col gap-2">
-        {choices.map((choice, i) => {
+        {choices.map((choice) => {
           const isSelected = value.includes(choice);
           return (
             <Button

@@ -1,8 +1,11 @@
-type Props = {};
-
-export const GoogleIcon = ({}: Props) => {
+export const GoogleIcon = (props: React.ComponentProps<"svg">) => {
   return (
-    <svg version="1.1" viewBox="0 0 268.1522 273.8827" overflow="hidden">
+    <svg
+      version="1.1"
+      viewBox="0 0 268.1522 273.8827"
+      overflow="hidden"
+      {...props}
+    >
       <defs>
         <linearGradient id="a">
           <stop offset="0" stopColor="#0fbc5c" />
