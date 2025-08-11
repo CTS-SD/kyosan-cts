@@ -2,7 +2,7 @@
 
 import { QuizPlayView } from "@/components/quiz-play-view";
 import { FullQuiz } from "@/lib/quiz-actions";
-import { Badge } from "../ui/badge";
+import { Badge } from "@/components/ui/badge";
 
 type Props = {
   quiz: FullQuiz;

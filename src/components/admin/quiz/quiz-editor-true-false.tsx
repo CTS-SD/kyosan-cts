@@ -8,7 +8,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "../ui/form";
+} from "@/components/ui/form";
 
 type Props = {
   form: UseFormReturn<z.infer<typeof quizFormSchema>>;

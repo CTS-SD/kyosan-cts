@@ -5,13 +5,13 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import Link from "next/link";
-import { Badge } from "../ui/badge";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
+import Link from "next/link";
+import { Badge } from "../ui/badge";
 
 export const AdminHeader = async () => {
-  const session = await auth.api.getSession({headers:await headers()})
+  const session = await auth.api.getSession({ headers: await headers() });
   const user = session?.user;
 
   return (
@@ -30,9 +30,12 @@ export const AdminHeader = async () => {
             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuLink asChild>
-                  <Link href="/admin/puratto" className="font-semibold">
-                    ぷらっとテスト
-                  </Link>
+                  <Link href="/admin/puratto">ぷらっとテスト</Link>
+                </NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
+                <NavigationMenuLink asChild>
+                  <Link href="/admin/dept">配属発表</Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
             </NavigationMenuList>

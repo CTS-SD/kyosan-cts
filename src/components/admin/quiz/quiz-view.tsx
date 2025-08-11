@@ -3,7 +3,7 @@ import { QuizFormValues } from "@/lib/quiz-editor";
 import { ArrowLeftIcon } from "lucide-react";
 import Link from "next/link";
 import { UseFormReturn } from "react-hook-form";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import { QuizEditor } from "./quiz-editor";
 import { QuizPreview } from "./quiz-preview";
 

@@ -32,8 +32,8 @@ export default function Home() {
             </Link>
           </Button>
           <Button asChild variant="special">
-            <Link href="/members/busho">
-              部署発表
+            <Link href="/members/dept">
+              配属発表
               <ArrowRightIcon />
             </Link>
           </Button>

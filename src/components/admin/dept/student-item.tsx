@@ -1,0 +1,90 @@
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Student } from "@/lib/db/schema";
+import * as studentActions from "@/lib/student-actions";
+import { StudentValues } from "@/lib/student-editor";
+import { useDeptStore } from "@/providers/dept-store-provider";
+import { Trash2Icon } from "lucide-react";
+import { toast } from "sonner";
+import { StudentEditor } from "./student-editor";
+
+type Props = {
+  student: Student;
+};
+
+export const StudentItem = ({ student }: Props) => {
+  const { updateStudent, getFacultyById, removeStudent } = useDeptStore(
+    (store) => store
+  );
+
+  const handleUpdateStudent = async (values: StudentValues) => {
+    const updateResult = await studentActions.updateStudent(student.id, values);
+    if (!updateResult.success) {
+      toast.error(updateResult.message);
+      return;
+    }
+    updateStudent(updateResult.data);
+    toast.success(updateResult.message);
+    return;
+  };
+
+  const handleDeleteStudent = async () => {
+    if (!window.confirm("この学生を削除してよろしいですか？")) return;
+    const deleteResult = await studentActions.deleteStudent(student.id);
+    if (!deleteResult.success) {
+      toast.error(deleteResult.message);
+      return;
+    }
+    removeStudent(student.id);
+    toast.success(deleteResult.message);
+    return;
+  };
+
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <button className="flex flex-col items-start py-2 w-full border-t">
+          <div className="font-semibold">{student.name}</div>
+          <div className="flex gap-2 text-sm text-foreground/60">
+            <div>{student.studentNumber}</div>
+            <div>{getFacultyById(student.facultyId)?.name}</div>
+          </div>
+        </button>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>学生を編集</DialogTitle>
+        </DialogHeader>
+        <StudentEditor
+          defaultValues={student}
+          onSubmit={handleUpdateStudent}
+          footerContent={
+            <>
+              <Button
+                type="button"
+                size="icon"
+                variant="outline"
+                onClick={handleDeleteStudent}
+              >
+                <Trash2Icon />
+              </Button>
+              <DialogClose asChild>
+                <Button type="button" variant="secondary" className="ml-auto">
+                  キャンセル
+                </Button>
+              </DialogClose>
+              <Button type="submit">更新</Button>
+            </>
+          }
+        />
+      </DialogContent>
+    </Dialog>
+  );
+};

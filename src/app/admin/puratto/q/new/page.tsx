@@ -1,6 +1,6 @@
 "use client";
 
-import { QuizView } from "@/components/admin/quiz-view";
+import { QuizView } from "@/components/admin/quiz/quiz-view";
 import { useQuizForm } from "@/hooks/use-quiz-form";
 import { createQuiz } from "@/lib/quiz-actions";
 import { makeQuizFromFormValues, QuizFormValues } from "@/lib/quiz-editor";
