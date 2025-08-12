@@ -1,5 +1,6 @@
 "use client";
 
+import { RichTextEditor } from "@/components/rich-text-editor";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -84,18 +85,13 @@ export const QuizEditor = ({
                 <FormItem>
                   <FormLabel>問題文</FormLabel>
                   <FormControl>
-                    <Textarea placeholder="問題文を入力" {...field} />
+                    <div className="dark:bg-input/30 rounded-md border bg-transparent p-4 shadow-xs">
+                      <RichTextEditor
+                        content={field.value}
+                        onUpdate={field.onChange}
+                      />
+                    </div>
                   </FormControl>
-                  <FormDescription>
-                    <Link
-                      className="text-blue-500"
-                      target="_blank"
-                      href="https://qiita.com/kamorits/items/6f342da395ad57468ae3"
-                    >
-                      マークダウン記法
-                    </Link>
-                    を利用できます。
-                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
