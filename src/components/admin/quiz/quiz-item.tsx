@@ -19,8 +19,13 @@ export const QuizItem = ({ quiz }: Props) => {
         <RichTextEditor content={quiz.question} editable={false} />
       </div>
       <div className="mt-2 flex items-center gap-2">
-        <div className="text-foreground/60 font-medium">#{quiz.id}</div>
-        <QuizAnswerRenderer className="text-sm [&_svg]:size-3.5" quiz={quiz} />
+        <div className="text-foreground/60 shrink-0 font-medium">
+          #{quiz.id}
+        </div>
+        <QuizAnswerRenderer
+          className="truncate text-sm [&_svg]:size-3.5"
+          quiz={quiz}
+        />
         {!quiz.isPublished && (
           <div className="ml-auto">
             <Badge variant="secondary">
