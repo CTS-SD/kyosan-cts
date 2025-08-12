@@ -13,12 +13,12 @@ export const QuizItem = ({ quiz }: Props) => {
   return (
     <Link
       href={`/admin/puratto/q/${quiz.id}`}
-      className="bg-card rounded-lg border px-3.5 py-3"
+      className="bg-card rounded-lg border overflow-clip"
     >
-      <div className="h-[4lh] overflow-clip mask-b-from-60%">
+      <div className="h-[4.5lh] overflow-clip mask-b-from-60% px-3.5 py-3">
         <RichTextEditor content={quiz.question} editable={false} />
       </div>
-      <div className="mt-2 flex items-center gap-2">
+      <div className="bg-accent flex items-center gap-2 border-t px-3.5 py-2 mt-2">
         <div className="text-foreground/60 shrink-0 font-medium">
           #{quiz.id}
         </div>
@@ -28,8 +28,8 @@ export const QuizItem = ({ quiz }: Props) => {
         />
         {!quiz.isPublished && (
           <div className="ml-auto">
-            <Badge variant="secondary">
-              <LockIcon className="size-3.5" />
+            <Badge variant="outline">
+              <LockIcon />
               非公開
             </Badge>
           </div>
