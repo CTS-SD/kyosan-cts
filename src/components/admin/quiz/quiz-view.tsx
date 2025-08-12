@@ -25,7 +25,7 @@ export const QuizView = ({
   labels,
   onSubmit,
 }: Props) => {
-  const [showPreviewOverlay, setShowPreviewOverlay] = useState(true);
+  const [showPreviewOverlay, setShowPreviewOverlay] = useState(false);
 
   return (
     <div className="mx-auto flex h-[calc(100dvh-48px)] max-w-5xl">
