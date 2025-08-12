@@ -1,6 +1,6 @@
 "use server";
 
-import { eq, sql } from "drizzle-orm";
+import { asc, desc, eq, sql } from "drizzle-orm";
 import { db } from "./db";
 import {
   QuizTable,
@@ -130,7 +130,18 @@ export async function getQuizById(id: number) {
   throw new Error(`Failed to get quiz: ${id}`);
 }
 
-export async function getRandomQuizzes(limit: number): Promise<QuizData[]> {
+export async function getQuizzes({
+  limit,
+  orderBy,
+}: {
+  limit: number;
+  orderBy: "random" | "created_at_desc";
+}): Promise<QuizData[]> {
+  const orderByMap = {
+    random: sql`random()`,
+    created_at_desc: desc(QuizTable.createdAt),
+  };
+
   const rows = await db
     .select({
       id: QuizTable.id,
@@ -148,7 +159,7 @@ export async function getRandomQuizzes(limit: number): Promise<QuizData[]> {
     .leftJoin(SelectQuizTable, eq(QuizTable.id, SelectQuizTable.quizId))
     .leftJoin(TextQuizTable, eq(QuizTable.id, TextQuizTable.quizId))
     .leftJoin(TrueFalseQuizTable, eq(QuizTable.id, TrueFalseQuizTable.quizId))
-    .orderBy(sql`random()`)
+    .orderBy(orderByMap[orderBy])
     .limit(limit);
 
   return rows.map((row) => {
