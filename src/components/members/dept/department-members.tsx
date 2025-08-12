@@ -17,16 +17,18 @@ export const DepartmentMembers = ({ department, students }: Props) => {
   return (
     <div className="bg-background dark:bg-background/40 text-foreground rounded-3xl p-6 shadow-lg">
       <div className="flex items-center justify-center gap-2.5 [&_svg]:size-6">
-        <div className="opacity-50">{deptIcon}</div>
+        <div className="text-foreground/50 dark:text-foreground/80">
+          {deptIcon}
+        </div>
         <div
           className={cn(
-            "bg-clip-text text-2xl font-bold text-transparent",
+            "dark:text-foreground bg-clip-text text-2xl font-bold text-transparent",
             deptStyles,
           )}
         >
           {department.name}
         </div>
-        <div className="text-foreground/50 ml-1 font-bold">
+        <div className="text-foreground/50 dark:text-foreground/80 ml-1 font-bold">
           {students.length}名
         </div>
       </div>
