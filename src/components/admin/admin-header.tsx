@@ -1,15 +1,10 @@
 import { AdminUserButton } from "@/components/admin/admin-user-button";
-import {
-  NavigationMenu,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-} from "@/components/ui/navigation-menu";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import Link from "next/link";
 import { ToggleTheme } from "../theme-toggle";
 import { Badge } from "../ui/badge";
+import { NavLink, NavMenu } from "../ui/nav-menu";
 
 export const AdminHeader = async () => {
   const session = await auth.api.getSession({ headers: await headers() });
@@ -27,20 +22,10 @@ export const AdminHeader = async () => {
           </Link>
         </div>
         <div>
-          <NavigationMenu>
-            <NavigationMenuList>
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                  <Link href="/admin/puratto">ぷらっとテスト</Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-              <NavigationMenuItem>
-                <NavigationMenuLink asChild>
-                  <Link href="/admin/dept">配属発表</Link>
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-            </NavigationMenuList>
-          </NavigationMenu>
+          <NavMenu>
+            <NavLink href="/admin/puratto">ぷらっとテスト</NavLink>
+            <NavLink href="/admin/dept">配属発表</NavLink>
+          </NavMenu>
         </div>
         <div className="ml-auto flex items-center gap-2">
           <ToggleTheme />
