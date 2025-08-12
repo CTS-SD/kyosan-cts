@@ -69,7 +69,9 @@ export const QuizView = ({
               閉じる
             </Button>
           </div>
-          <QuizPreview quiz={previewQuiz} />
+          <div className="w-full grow">
+            <QuizPreview quiz={previewQuiz} />
+          </div>
         </div>
       )}
     </div>
