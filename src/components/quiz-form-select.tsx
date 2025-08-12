@@ -19,7 +19,6 @@ export const QuizFormSelect = ({
   setValue,
 }: Props) => {
   const choices = useMemo(() => {
-    if (quiz?.type !== "select") return [];
     return shuffle(
       [
         ...(quiz.correctChoicesText?.split("\n") ?? []),
@@ -28,7 +27,7 @@ export const QuizFormSelect = ({
         .map((choice) => choice.trim())
         .filter(Boolean),
     );
-  }, [quiz]);
+  }, [quiz.correctChoicesText, quiz.incorrectChoicesText]);
 
   const handleChoice = (choice: string) => {
     setValue((prev) =>
@@ -41,12 +40,12 @@ export const QuizFormSelect = ({
   return (
     <div className="px-4">
       <div className="flex flex-col gap-2">
-        {choices.map((choice) => {
+        {choices.map((choice, i) => {
           const isSelected = value.includes(choice);
           return (
             <Button
               type="button"
-              key={choice}
+              key={`${choice}-${i}`}
               size="lg"
               variant={isSelected ? "default" : "outline"}
               onClick={() => handleChoice(choice)}
