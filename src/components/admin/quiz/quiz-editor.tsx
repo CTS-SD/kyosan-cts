@@ -56,30 +56,6 @@ export const QuizEditor = ({
           <fieldset className="space-y-6" disabled={isSubmitting}>
             <FormField
               control={form.control}
-              name="type"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>形式</FormLabel>
-                  <Select onValueChange={field.onChange} value={field.value}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="形式を選択" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      {quizTypes.map((type) => (
-                        <SelectItem key={type.id} value={type.id}>
-                          {type.label}
-                        </SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
               name="question"
               render={({ field }) => (
                 <FormItem>
@@ -92,6 +68,30 @@ export const QuizEditor = ({
                       />
                     </div>
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="type"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>回答形式</FormLabel>
+                  <Select onValueChange={field.onChange} value={field.value}>
+                    <FormControl>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="形式を選択" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {quizTypes.map((type) => (
+                        <SelectItem key={type.id} value={type.id}>
+                          {type.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                   <FormMessage />
                 </FormItem>
               )}
