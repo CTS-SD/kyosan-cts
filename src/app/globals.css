@@ -178,5 +178,10 @@
     & hr {
       @apply border-border my-4;
     }
+
+    /* Remove trailing space caused by last element margins */
+    & :last-child {
+      @apply mb-0!;
+    }
   }
 }
