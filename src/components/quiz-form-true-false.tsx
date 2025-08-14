@@ -17,14 +17,14 @@ export const QuizFormTrueFalse = ({
   showAnswer,
   setValue,
 }: Props) => {
-  if (quiz?.type !== "true_false") return null;
-
   return (
     <div className="flex gap-4 px-4">
       <OXButton
         isSelected={value === "true"}
         onClick={() => setValue(["true"])}
         disabled={showAnswer}
+        isAnswer={quiz.answer}
+        showAnswer={showAnswer}
       >
         <CircleIcon />
       </OXButton>
@@ -32,6 +32,8 @@ export const QuizFormTrueFalse = ({
         isSelected={value === "false"}
         onClick={() => setValue(["false"])}
         disabled={showAnswer}
+        isAnswer={!quiz.answer}
+        showAnswer={showAnswer}
       >
         <XIcon />
       </OXButton>
@@ -40,17 +42,32 @@ export const QuizFormTrueFalse = ({
 };
 
 type OXButtonProps = React.ComponentProps<"button"> & {
-  isSelected?: boolean;
+  isSelected: boolean;
+  isAnswer: boolean;
+  showAnswer: boolean;
 };
 
-const OXButton = ({ isSelected, ...props }: OXButtonProps) => {
+const OXButton = ({
+  isSelected,
+  isAnswer,
+  showAnswer,
+  className,
+  ...props
+}: OXButtonProps) => {
   return (
     <button
       type="button"
       className={cn(
-        "grid aspect-square flex-1 place-content-center rounded-3xl border transition-all [&_svg]:size-20",
-        isSelected &&
-          "bg-primary text-primary-foreground ring-primary shadow-lg ring ring-offset-2",
+        "grid aspect-square flex-1 place-content-center rounded-3xl border [&_svg]:size-20",
+        isSelected && "bg-primary text-primary-foreground shadow-xl ring",
+        {
+          "transition-colors": showAnswer,
+          "outline-4": showAnswer && isSelected,
+          "bg-green-500 outline-green-500/40":
+            showAnswer && isAnswer && isSelected,
+          "bg-red-500 outline-red-500/40": showAnswer && !isAnswer && isSelected,
+        },
+        className,
       )}
       {...props}
     />
