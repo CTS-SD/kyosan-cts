@@ -18,6 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Spinner } from "@/components/ui/spinner";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { QuizValues, quizTypes } from "@/lib/quiz-editor";
@@ -42,7 +43,7 @@ export const QuizEditor = ({
   className,
   labels = { submit: "保存" },
 }: Props) => {
-  const { isSubmitting, isDirty } = form.formState;
+  const { isSubmitting, isSubmitted, isDirty } = form.formState;
   const formType = form.watch("type");
 
   const handleSubmit = async (values: QuizValues) => {
@@ -62,7 +63,7 @@ export const QuizEditor = ({
                   <FormLabel>問題文</FormLabel>
                   <FormControl>
                     <RichTextRenderer
-                      className="dark:bg-input/30 *:px-3 *:py-2 rounded-md border bg-transparent shadow-xs"
+                      className="dark:bg-input/30 rounded-md border bg-transparent shadow-xs *:px-3 *:py-2"
                       content={field.value}
                       onUpdate={field.onChange}
                     />
@@ -139,7 +140,8 @@ export const QuizEditor = ({
               <Button variant="secondary" asChild>
                 <Link href="/admin/puratto">キャンセル</Link>
               </Button>
-              <Button type="submit" disabled={!isDirty}>
+              <Button type="submit" disabled={!isDirty || isSubmitted}>
+                {isSubmitting && <Spinner />}
                 {labels.submit}
               </Button>
             </div>
