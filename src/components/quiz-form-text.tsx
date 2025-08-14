@@ -1,6 +1,7 @@
 "use client";
 
 import { TextQuizData } from "@/lib/quiz-data";
+import { cn } from "@/lib/utils";
 import { Input } from "./ui/input";
 
 type Props = {
@@ -11,7 +12,8 @@ type Props = {
 };
 
 export const QuizFormText = ({ quiz, value, showAnswer, setValue }: Props) => {
-  if (quiz?.type !== "text") return null;
+  const answers = quiz.answer.split("\n");
+  const isCorrect = answers.includes(value);
 
   return (
     <div className="px-4">
@@ -20,6 +22,10 @@ export const QuizFormText = ({ quiz, value, showAnswer, setValue }: Props) => {
         value={value}
         onChange={(e) => setValue([e.target.value])}
         disabled={showAnswer}
+        className={cn("opacity-100!", {
+          "border-green-500 bg-green-500/20": showAnswer && isCorrect,
+          "border-red-500 bg-red-500/20": showAnswer && !isCorrect,
+        })}
       />
     </div>
   );
