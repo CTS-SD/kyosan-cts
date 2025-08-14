@@ -6,9 +6,9 @@ import { CircleIcon, XIcon } from "lucide-react";
 
 type Props = {
   quiz: TrueFalseQuizData;
-  value: string;
+  value?: boolean;
   showAnswer: boolean;
-  setValue: React.Dispatch<React.SetStateAction<string[]>>;
+  setValue: (val: boolean) => void;
 };
 
 export const QuizFormTrueFalse = ({
@@ -20,8 +20,8 @@ export const QuizFormTrueFalse = ({
   return (
     <div className="flex gap-4 px-4">
       <OXButton
-        isSelected={value === "true"}
-        onClick={() => setValue(["true"])}
+        isSelected={value === true}
+        onClick={() => setValue(true)}
         disabled={showAnswer}
         isAnswer={quiz.answer}
         showAnswer={showAnswer}
@@ -29,8 +29,8 @@ export const QuizFormTrueFalse = ({
         <CircleIcon />
       </OXButton>
       <OXButton
-        isSelected={value === "false"}
-        onClick={() => setValue(["false"])}
+        isSelected={value === false}
+        onClick={() => setValue(false)}
         disabled={showAnswer}
         isAnswer={!quiz.answer}
         showAnswer={showAnswer}
@@ -65,7 +65,8 @@ const OXButton = ({
           "outline-4": showAnswer && isSelected,
           "bg-green-500 outline-green-500/40":
             showAnswer && isAnswer && isSelected,
-          "bg-red-500 outline-red-500/40": showAnswer && !isAnswer && isSelected,
+          "bg-red-500 outline-red-500/40":
+            showAnswer && !isAnswer && isSelected,
         },
         className,
       )}

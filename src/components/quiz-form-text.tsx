@@ -8,7 +8,7 @@ type Props = {
   quiz: TextQuizData;
   value: string;
   showAnswer: boolean;
-  setValue: React.Dispatch<React.SetStateAction<string[]>>;
+  setValue: (val: string) => void;
 };
 
 export const QuizFormText = ({ quiz, value, showAnswer, setValue }: Props) => {
@@ -20,7 +20,7 @@ export const QuizFormText = ({ quiz, value, showAnswer, setValue }: Props) => {
       <Input
         placeholder="回答を入力"
         value={value}
-        onChange={(e) => setValue([e.target.value])}
+        onChange={(e) => setValue(e.target.value)}
         disabled={showAnswer}
         className={cn("opacity-100!", {
           "border-green-500 bg-green-500/20": showAnswer && isCorrect,

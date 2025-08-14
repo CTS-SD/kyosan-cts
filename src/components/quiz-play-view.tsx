@@ -101,15 +101,17 @@ export const QuizPlayView = ({
             {quiz.type === "text" && (
               <QuizFormText
                 value={userAnswer[0] ?? ""}
-                setValue={setUserAnswer}
+                setValue={(val) => setUserAnswer([val])}
                 quiz={quiz}
                 showAnswer={showAnswer}
               />
             )}
             {quiz.type === "true_false" && (
               <QuizFormTrueFalse
-                value={userAnswer[0] ?? ""}
-                setValue={setUserAnswer}
+                value={
+                  userAnswer.length > 0 ? userAnswer[0] === "true" : undefined
+                }
+                setValue={(val) => setUserAnswer([val ? "true" : "false"])}
                 quiz={quiz}
                 showAnswer={showAnswer}
               />
