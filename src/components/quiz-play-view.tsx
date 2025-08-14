@@ -9,7 +9,7 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 import { QuizFormText } from "./quiz-form-text";
 import { QuizFormTrueFalse } from "./quiz-form-true-false";
-import { RichTextEditor } from "./rich-text-editor";
+import { RichTextRenderer } from "./rich-text-renderer";
 
 const QuizFormSelect = dynamic(() => import("@/components/quiz-form-select"), {
   ssr: false,
@@ -87,7 +87,7 @@ export const QuizPlayView = ({
       <form onSubmit={handleSubmit} className="flex grow flex-col">
         <div className="grow">
           <div className="px-6 pt-2 pb-6">
-            <RichTextEditor content={quiz.question} editable={false} />
+            <RichTextRenderer content={quiz.question} editable={false} />
           </div>
           <div>
             {quiz.type === "select" && (

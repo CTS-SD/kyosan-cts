@@ -1,6 +1,7 @@
 "use client";
 
 import { useRichTextEditor } from "@/hooks/use-rich-text-editor";
+import { cn } from "@/lib/utils";
 import { EditorContent } from "@tiptap/react";
 import { useEffect } from "react";
 
@@ -11,7 +12,7 @@ type Props = {
   className?: string;
 };
 
-export const RichTextEditor = ({
+export const RichTextRenderer = ({
   content,
   onUpdate,
   editable,
@@ -32,5 +33,13 @@ export const RichTextEditor = ({
     }
   }, [content, editor]);
 
-  return <EditorContent className={className} editor={editor} />;
+  return (
+    <EditorContent
+      className={cn(
+        "has-[.ProseMirror-focused]:border-ring ring-ring/50 transition-[color,box-shadow] has-[.ProseMirror-focused]:ring-[3px] [&>div]:outline-none!",
+        className,
+      )}
+      editor={editor}
+    />
+  );
 };

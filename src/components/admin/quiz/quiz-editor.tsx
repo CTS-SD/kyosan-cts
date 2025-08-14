@@ -1,6 +1,6 @@
 "use client";
 
-import { RichTextEditor } from "@/components/rich-text-editor";
+import { RichTextRenderer } from "@/components/rich-text-renderer";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -61,12 +61,11 @@ export const QuizEditor = ({
                 <FormItem>
                   <FormLabel>問題文</FormLabel>
                   <FormControl>
-                    <div className="dark:bg-input/30 rounded-md border bg-transparent p-4 shadow-xs">
-                      <RichTextEditor
-                        content={field.value}
-                        onUpdate={field.onChange}
-                      />
-                    </div>
+                    <RichTextRenderer
+                      className="dark:bg-input/30 *:px-3 *:py-2 rounded-md border bg-transparent shadow-xs"
+                      content={field.value}
+                      onUpdate={field.onChange}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
