@@ -53,6 +53,10 @@ export const ClientView = ({ quiz }: Props) => {
     defaultValues: makeDefaultValues(quiz),
   });
 
+  useEffect(() => {
+    form.reset(makeDefaultValues(quiz));
+  }, [quiz]);
+
   if (!quiz) return;
 
   const formValues = form.watch();
@@ -63,10 +67,6 @@ export const ClientView = ({ quiz }: Props) => {
     toast.success("問題を保存しました");
     router.refresh();
   };
-
-  useEffect(() => {
-    form.reset(makeDefaultValues(quiz));
-  }, [quiz]);
 
   return (
     <QuizView
