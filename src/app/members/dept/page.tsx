@@ -17,6 +17,7 @@ import {
 import { StudentNumberSchema } from "@/lib/student-editor";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import z from "zod";
@@ -43,41 +44,51 @@ const Page = () => {
 
   return (
     <div className="mx-auto max-w-lg p-6">
-      <div className="bg-background flex justify-center rounded-3xl p-6 shadow-lg">
-        <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(handleSubmit)}
-            className="space-y-2"
-          >
-            <FormField
-              control={form.control}
-              name="studentNumber"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>学籍番号（6桁） </FormLabel>
-                  <FormControl>
-                    <InputOTP
-                      maxLength={6}
-                      pattern={REGEXP_ONLY_DIGITS}
-                      {...field}
-                    >
-                      <InputOTPGroup>
-                        <InputOTPSlot index={0} />
-                        <InputOTPSlot index={1} />
-                        <InputOTPSlot index={2} />
-                        <InputOTPSlot index={3} />
-                        <InputOTPSlot index={4} />
-                        <InputOTPSlot index={5} />
-                      </InputOTPGroup>
-                    </InputOTP>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            {<Button className="w-full">配属部署を確認</Button>}
-          </form>
-        </Form>
+      <div className="flex flex-col items-center">
+        <Image
+          src="/people.svg"
+          alt="people"
+          width={300}
+          height={300}
+          objectFit="contain"
+          className="drop-shadow-lg"
+        />
+        <div className="bg-card flex w-full justify-center rounded-3xl border p-6 shadow-xl">
+          <Form {...form}>
+            <form
+              onSubmit={form.handleSubmit(handleSubmit)}
+              className="space-y-2"
+            >
+              <FormField
+                control={form.control}
+                name="studentNumber"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>あなたの学籍番号（6桁） </FormLabel>
+                    <FormControl>
+                      <InputOTP
+                        maxLength={6}
+                        pattern={REGEXP_ONLY_DIGITS}
+                        {...field}
+                      >
+                        <InputOTPGroup>
+                          <InputOTPSlot index={0} />
+                          <InputOTPSlot index={1} />
+                          <InputOTPSlot index={2} />
+                          <InputOTPSlot index={3} />
+                          <InputOTPSlot index={4} />
+                          <InputOTPSlot index={5} />
+                        </InputOTPGroup>
+                      </InputOTP>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {<Button className="w-full">配属部署を確認</Button>}
+            </form>
+          </Form>
+        </div>
       </div>
     </div>
   );
