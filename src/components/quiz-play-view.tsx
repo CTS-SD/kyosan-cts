@@ -54,7 +54,7 @@ export const QuizPlayView = ({
     } else if (quiz.type === "text") {
       isCorrect = !!quiz.answer?.split("\n").includes(userAnswer[0]?.trim());
     } else if (quiz.type === "true_false") {
-      isCorrect = Boolean(userAnswer[0] === "true") === quiz.answer;
+      isCorrect = (userAnswer[0] === "true") === quiz.answer;
     }
 
     const resultItem = {
