@@ -31,7 +31,7 @@ export const ClientView = ({ studentName, departmentName }: Props) => {
   }, []);
 
   return (
-    <div className="mx-auto pt-10 max-w-lg p-6 sm:pt-20">
+    <div className="mx-auto max-w-lg p-6 pt-10 sm:pt-20">
       <div className="flex flex-col items-center rounded-3xl p-4 text-white">
         <div className="flex flex-col items-center gap-6 text-2xl font-semibold select-none">
           <div className="flex items-baseline transition delay-1000 duration-600 ease-out starting:translate-y-2 starting:opacity-0 starting:blur-xs">
@@ -62,8 +62,13 @@ export const ClientView = ({ studentName, departmentName }: Props) => {
             <div className="ml-2 text-2xl font-semibold">です！</div>
           </div>
         </div>
-        <div className="mt-10 starting:opacity-0 transition delay-8800 ease-out starting:scale-0">
-          <Button asChild variant="ghost" size="lg" className="font-semibold animate-bounce">
+        <div className="mt-10 transition delay-8800 ease-out starting:scale-0 starting:opacity-0">
+          <Button
+            asChild
+            variant="ghost"
+            size="lg"
+            className="animate-bounce font-semibold"
+          >
             <Link href="/members/dept/list">
               部署一覧を見る
               <ArrowRightIcon />

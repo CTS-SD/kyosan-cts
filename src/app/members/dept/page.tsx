@@ -51,9 +51,9 @@ const Page = () => {
           width={300}
           height={300}
           objectFit="contain"
-          className="drop-shadow-lg w-60"
+          className="w-60 drop-shadow-lg"
         />
-        <div className="bg-card flex w-full justify-center rounded-lg border p-6 shadow-xl z-10">
+        <div className="bg-card z-10 flex w-full justify-center rounded-lg border p-6 shadow-xl">
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(handleSubmit)}
