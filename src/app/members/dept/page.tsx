@@ -43,7 +43,7 @@ const Page = () => {
   }
 
   return (
-    <div className="mx-auto max-w-lg p-6">
+    <div className="mx-auto mt-6 max-w-md p-6">
       <div className="flex flex-col items-center">
         <Image
           src="/people.svg"
@@ -51,9 +51,9 @@ const Page = () => {
           width={300}
           height={300}
           objectFit="contain"
-          className="drop-shadow-lg"
+          className="drop-shadow-lg w-60"
         />
-        <div className="bg-card flex w-full justify-center rounded-3xl border p-6 shadow-xl">
+        <div className="bg-card flex w-full justify-center rounded-lg border p-6 shadow-xl z-10">
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(handleSubmit)}

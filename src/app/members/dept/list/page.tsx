@@ -21,11 +21,8 @@ const Page = async () => {
   }
 
   return (
-    <div className="mx-auto max-w-xl p-6">
-      <div className="">
-        <h1 className="text-center text-3xl font-bold text-foreground">配属発表</h1>
-      </div>
-      <div className="mt-6 flex flex-col gap-4">
+    <div className="mx-auto max-w-xl py-6 sm:px-6">
+      <div className="flex flex-col gap-4">
         {departments.map((department) => (
           <DepartmentMembers
             key={department.id}

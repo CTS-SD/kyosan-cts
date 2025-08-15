@@ -15,7 +15,7 @@ export const DepartmentMembers = ({ department, students }: Props) => {
   const deptStyles = getDepartmentStyles(department.name);
 
   return (
-    <div className="bg-background dark:bg-background/40 text-foreground p-6 rounded-3xl shadow-lg">
+    <div className="bg-background dark:bg-background/40 text-foreground px-4 py-6 shadow-lg sm:rounded-3xl">
       <div className="flex items-center justify-center gap-2.5 [&_svg]:size-6">
         <div className="text-foreground/50 dark:text-foreground/80">
           {deptIcon}
