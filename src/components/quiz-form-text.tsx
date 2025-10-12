@@ -1,6 +1,6 @@
 "use client";
 
-import { TextQuizData } from "@/lib/quiz-data";
+import { TextQuizData } from "@/lib/quiz/data";
 import { cn } from "@/lib/utils";
 import { Input } from "./ui/input";
 

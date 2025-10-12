@@ -2,8 +2,8 @@
 
 import { QuizView } from "@/components/admin/quiz/quiz-view";
 import { useQuizForm } from "@/hooks/use-quiz-form";
-import { insertQuiz } from "@/lib/quiz-actions";
-import { makePseudoQuiz, QuizValues } from "@/lib/quiz-editor";
+import { insertQuiz } from "@/lib/quiz/actions";
+import { makePseudoQuiz, QuizValues } from "@/lib/quiz/editor";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 

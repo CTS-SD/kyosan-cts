@@ -1,4 +1,4 @@
-import { QuizEditorSchema, QuizValues } from "@/lib/quiz-editor";
+import { QuizEditorSchema, QuizValues } from "@/lib/quiz/editor";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 

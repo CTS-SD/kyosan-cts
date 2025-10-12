@@ -21,7 +21,7 @@ import {
 import { Spinner } from "@/components/ui/spinner";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
-import { QuizValues, quizTypes } from "@/lib/quiz-editor";
+import { QuizValues, quizTypes } from "@/lib/quiz/editor";
 import Link from "next/link";
 import { UseFormReturn } from "react-hook-form";
 import { QuizEditorSelect } from "./quiz-editor-select";

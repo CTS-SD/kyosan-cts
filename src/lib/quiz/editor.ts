@@ -1,5 +1,5 @@
 import z from "zod";
-import { QuizData } from "./quiz-data";
+import { QuizData } from "./data";
 
 /**
  * Split a string by lines, trim each line, and remove empty lines.
@@ -141,6 +141,9 @@ export const QuizEditorSchema = z.discriminatedUnion("type", [
 ]);
 
 export type QuizValues = z.infer<typeof QuizEditorSchema>;
+export type SelectQuizValues = z.infer<typeof SelectQuizEditorSchema>;
+export type TextQuizValues = z.infer<typeof TextQuizEditorSchema>;
+export type TrueFalseQuizValues = z.infer<typeof TrueFalseQuizEditorSchema>;
 
 export function makePseudoQuiz(values: QuizValues): QuizData | null {
   const commonData = {

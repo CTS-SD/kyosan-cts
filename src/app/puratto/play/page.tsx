@@ -1,4 +1,4 @@
-import { getQuizzes } from "@/lib/quiz-actions";
+import { getQuizzes } from "@/lib/quiz/actions";
 import { ClientView } from "./client-view";
 
 export const revalidate = 0;
