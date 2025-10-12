@@ -1,6 +1,6 @@
 "use client";
 
-import { TrueFalseQuizData } from "@/lib/quiz-data";
+import { TrueFalseQuizData } from "@/lib/quiz/data";
 import { cn } from "@/lib/utils";
 import { CircleIcon, XIcon } from "lucide-react";
 

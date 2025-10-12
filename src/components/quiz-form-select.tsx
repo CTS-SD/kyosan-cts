@@ -1,6 +1,6 @@
 "use client";
 
-import { SelectQuizData } from "@/lib/quiz-data";
+import { SelectQuizData } from "@/lib/quiz/data";
 import { cn } from "@/lib/utils";
 import { shuffle } from "es-toolkit";
 import { useMemo } from "react";

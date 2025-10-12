@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { QuizData } from "@/lib/quiz-data";
+import { QuizData } from "@/lib/quiz/data";
 import { QuizResult } from "@/lib/quiz-form";
 import { cn } from "@/lib/utils";
 import dynamic from "next/dynamic";

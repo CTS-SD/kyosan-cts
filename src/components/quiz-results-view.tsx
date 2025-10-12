@@ -1,4 +1,4 @@
-import { QuizData } from "@/lib/quiz-data";
+import { QuizData } from "@/lib/quiz/data";
 import { QuizResult } from "@/lib/quiz-form";
 import Link from "next/link";
 import { Button } from "./ui/button";

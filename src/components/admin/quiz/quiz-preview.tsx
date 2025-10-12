@@ -2,7 +2,7 @@
 
 import { QuizPlayView } from "@/components/quiz-play-view";
 import { Badge } from "@/components/ui/badge";
-import { QuizData } from "@/lib/quiz-data";
+import { QuizData } from "@/lib/quiz/data";
 
 type Props = {
   quiz: QuizData | null;

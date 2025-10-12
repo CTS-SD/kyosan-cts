@@ -1,4 +1,4 @@
-import { QuizData } from "@/lib/quiz-data";
+import { QuizData } from "@/lib/quiz/data";
 import { cn } from "@/lib/utils";
 import { CircleIcon, XIcon } from "lucide-react";
 

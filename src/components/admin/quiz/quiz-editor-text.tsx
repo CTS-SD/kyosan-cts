@@ -7,7 +7,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Textarea } from "@/components/ui/textarea";
-import { QuizEditorSchema } from "@/lib/quiz-editor";
+import { QuizEditorSchema } from "@/lib/quiz/editor";
 import { UseFormReturn } from "react-hook-form";
 import z from "zod";
 

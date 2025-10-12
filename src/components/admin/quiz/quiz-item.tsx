@@ -1,7 +1,7 @@
 import { QuizAnswerRenderer } from "@/components/quiz-answer-renderer";
 import { RichTextRenderer } from "@/components/rich-text-renderer";
 import { Badge } from "@/components/ui/badge";
-import { QuizData } from "@/lib/quiz-data";
+import { QuizData } from "@/lib/quiz/data";
 import { LockIcon } from "lucide-react";
 import Link from "next/link";
 
