@@ -52,7 +52,7 @@ export const StudentEditor = ({
   const { isSubmitting } = form.formState;
 
   const handleSubmit = async (values: StudentValues) => {
-    const shouldClean = (await onSubmit(values)) === true;
+    const shouldClean = await onSubmit(values);
     if (shouldClean) {
       form.reset({
         name: "",
