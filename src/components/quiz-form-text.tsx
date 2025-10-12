@@ -12,7 +12,7 @@ type Props = {
 };
 
 export const QuizFormText = ({ quiz, value, showAnswer, setValue }: Props) => {
-  const answers = quiz.answer.split("\n");
+  const answers = quiz.answer?.split("\n") ?? [];
   const isCorrect = answers.includes(value);
 
   return (
