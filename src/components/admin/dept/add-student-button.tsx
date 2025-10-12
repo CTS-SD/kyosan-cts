@@ -11,7 +11,7 @@ import {
 import { insertStudents } from "@/lib/student-actions";
 import { StudentValues } from "@/lib/student-editor";
 import { useDeptStore } from "@/providers/dept-store-provider";
-import { UserPlus2Icon } from "lucide-react";
+import { PlusIcon } from "lucide-react";
 import { toast } from "sonner";
 import { StudentEditor } from "./student-editor";
 
@@ -34,7 +34,7 @@ export const AddStudentButton = () => {
       <DialogTrigger asChild>
         <Button>
           学生を追加
-          <UserPlus2Icon />
+          <PlusIcon />
         </Button>
       </DialogTrigger>
       <DialogContent>
