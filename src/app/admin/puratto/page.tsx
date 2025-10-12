@@ -14,7 +14,7 @@ const Page = async () => {
   return (
     <div className="mx-auto max-w-5xl p-6">
       <div className="flex gap-2">
-        <Input placeholder="問題を検索" />
+        <Input placeholder="問題を検索" disabled />
         <Button asChild>
           <Link href="/admin/puratto/q/new">
             新規作成
