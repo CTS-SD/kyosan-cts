@@ -43,7 +43,7 @@ export const QuizEditor = ({
   className,
   labels = { submit: "保存" },
 }: Props) => {
-  const { isSubmitting, isSubmitted, isDirty } = form.formState;
+  const { isSubmitting, isDirty } = form.formState;
   const formType = form.watch("type");
 
   const handleSubmit = async (values: QuizValues) => {
@@ -140,7 +140,7 @@ export const QuizEditor = ({
               <Button variant="secondary" asChild>
                 <Link href="/admin/puratto">キャンセル</Link>
               </Button>
-              <Button type="submit" disabled={!isDirty || isSubmitted}>
+              <Button type="submit" disabled={isSubmitting || !isDirty}>
                 {isSubmitting && <Spinner />}
                 {labels.submit}
               </Button>
