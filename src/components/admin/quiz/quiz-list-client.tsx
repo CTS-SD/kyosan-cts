@@ -10,7 +10,7 @@ type Props = {
   loadMore: (offset: number) => Promise<QuizData[]>;
 };
 
-const PAGE_SIZE = 24;
+const PAGE_SIZE = 48;
 
 export const QuizListClient = ({ initialQuizzes, loadMore }: Props) => {
   const [quizzes, setQuizzes] = useState(initialQuizzes);

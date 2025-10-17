@@ -2,7 +2,7 @@ import { getQuizzes } from "@/lib/quiz/actions";
 import { QuizListClient } from "./quiz-list-client";
 
 const GET_QUIZZES_ARGS = {
-  limit: 24,
+  limit: 48,
   orderBy: "id_desc" as const,
 } as const;
 
