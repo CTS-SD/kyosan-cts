@@ -4,9 +4,7 @@ import { upsertConfigValue } from "@/lib/config/actions";
 import { useConfig } from "@/providers/config-provider";
 import { useTransition } from "react";
 
-type Props = {};
-
-export const VisibilityToggle = ({}: Props) => {
+export const VisibilityToggle = () => {
   const [published, setPublished] = useConfig(
     "departmentAnnouncementsPublished",
   );

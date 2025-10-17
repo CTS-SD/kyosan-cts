@@ -5,6 +5,8 @@ import ClientView from "./client-view";
 import { ConfigProvider } from "@/providers/config-provider";
 import { getConfig } from "@/lib/config/actions";
 
+export const dynamic = "force-dynamic";
+
 const Page = async () => {
   const departments = await db.select().from(DepartmentTable);
   const faculties = await db.select().from(FacultyTable);

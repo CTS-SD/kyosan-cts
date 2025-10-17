@@ -2,7 +2,7 @@ import { QuizAnswerRenderer } from "@/components/quiz-answer-renderer";
 import { RichTextRenderer } from "@/components/rich-text-renderer";
 import { Badge } from "@/components/ui/badge";
 import { QuizData } from "@/lib/quiz/data";
-import { getQuizTypeLabel, quizTypes } from "@/lib/quiz/types";
+import { getQuizTypeLabel } from "@/lib/quiz/types";
 import { CornerDownRightIcon, LockIcon } from "lucide-react";
 import Link from "next/link";
 

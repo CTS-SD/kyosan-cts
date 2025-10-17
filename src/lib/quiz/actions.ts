@@ -81,6 +81,19 @@ const quizOrderByMap = {
   id_desc: desc(QuizTable.id),
 };
 
+type QuizRow = {
+  id: number;
+  type: QuizData["type"];
+  question: string;
+  explanation: string | null;
+  isPublished: boolean;
+  createdAt: Date;
+  select_correctChoices: string[] | null;
+  select_incorrectChoices: string[] | null;
+  text_answer: string | null;
+  true_false_answer: boolean | null;
+};
+
 export async function getQuizzes(
   {
     limit,
@@ -96,7 +109,7 @@ export async function getQuizzes(
     orderBy: "id_desc",
   },
 ) {
-  const rows = await db
+  const rows: QuizRow[] = await db
     .select({
       id: QuizTable.id,
       type: QuizTable.type,
@@ -121,30 +134,36 @@ export async function getQuizzes(
   return rows.map((row) => parseQuizRow(row));
 }
 
-const quizRowParsers = {
-  select: (row: any) =>
-    SelectQuizSchema.parse({
-      ...row,
-      correctChoices: row.select_correctChoices,
-      incorrectChoices: row.select_incorrectChoices,
-    }),
-  text: (row: any) => TextQuizSchema.parse({ ...row, answer: row.text_answer }),
-  true_false: (row: any) =>
-    TrueFalseQuizSchema.parse({ ...row, answer: row.true_false_answer }),
-} as const;
-
-function parseQuizRow(row: any): QuizData {
-  const parser = quizRowParsers[row.type as keyof typeof quizRowParsers];
-  if (!parser) throw new Error(`Unknown quiz type: ${row.type}`);
-  return parser({
+function parseQuizRow(row: QuizRow): QuizData {
+  const base = {
     id: row.id,
     type: row.type,
     question: row.question,
     explanation: row.explanation,
     isPublished: row.isPublished,
     createdAt: row.createdAt,
-    ...row,
-  });
+  };
+
+  switch (row.type) {
+    case "select":
+      return SelectQuizSchema.parse({
+        ...base,
+        correctChoices: row.select_correctChoices,
+        incorrectChoices: row.select_incorrectChoices,
+      });
+    case "text":
+      return TextQuizSchema.parse({
+        ...base,
+        answer: row.text_answer,
+      });
+    case "true_false":
+      return TrueFalseQuizSchema.parse({
+        ...base,
+        answer: row.true_false_answer,
+      });
+    default:
+      throw new Error(`Unknown quiz type: ${row.type}`);
+  }
 }
 
 export async function getQuizzesCount() {

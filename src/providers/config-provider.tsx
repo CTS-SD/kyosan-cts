@@ -1,30 +1,80 @@
 "use client";
 
-import { ConfigKey, ConfigMap, ConfigValue } from "@/lib/config/definitions";
-import { createContext, type ReactNode, useContext, useState } from "react";
+import {
+  ConfigKey,
+  ConfigMap,
+  ConfigValue,
+} from "@/lib/config/definitions";
+import {
+  createContext,
+  type ReactNode,
+  useCallback,
+  useContext,
+  useRef,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
+import { useStore } from "zustand";
+import {
+  ConfigStore,
+  ConfigStoreState,
+  createConfigStore,
+} from "@/stores/config-store";
 
-const ConfigContext = createContext<ConfigMap | undefined>(undefined);
+const ConfigStoreContext = createContext<ConfigStore | null>(null);
 
 type ConfigProviderProps = {
   value: ConfigMap;
   children: ReactNode;
 };
 
-export const ConfigProvider = ({ value, children }: ConfigProviderProps) => (
-  <ConfigContext.Provider value={value}>{children}</ConfigContext.Provider>
-);
+export const ConfigProvider = ({ value, children }: ConfigProviderProps) => {
+  const storeRef = useRef<ConfigStore | null>(null);
 
-export function useConfig<K extends ConfigKey>(key: K) {
-  const context = useContext(ConfigContext);
+  if (!storeRef.current) {
+    storeRef.current = createConfigStore(value);
+  } else {
+    const store = storeRef.current;
+    const currentValues = store.getState().values;
 
-  if (!context) {
+    if (currentValues !== value) {
+      store.setState({ values: value });
+    }
+  }
+
+  return (
+    <ConfigStoreContext.Provider value={storeRef.current}>
+      {children}
+    </ConfigStoreContext.Provider>
+  );
+};
+
+function useConfigStore<T>(selector: (state: ConfigStoreState) => T): T {
+  const store = useContext(ConfigStoreContext);
+
+  if (!store) {
     throw new Error("useConfig must be used within a ConfigProvider");
   }
 
-  const [value, setValue] = useState(context[key]);
+  return useStore(store, selector);
+}
 
-  return [value, setValue] as [
-    ConfigValue<K>,
-    React.Dispatch<React.SetStateAction<ConfigValue<K>>>,
-  ];
+export function useConfig<K extends ConfigKey>(
+  key: K,
+): [ConfigValue<K>, Dispatch<SetStateAction<ConfigValue<K>>>] {
+  const value = useConfigStore(
+    (state) => state.values[key] as ConfigValue<K>,
+  );
+  const setValueInStore = useConfigStore((state) => state.setValue);
+
+  const setValue = useCallback<
+    Dispatch<SetStateAction<ConfigValue<K>>>
+  >(
+    (updater) => {
+      setValueInStore(key, updater);
+    },
+    [key, setValueInStore],
+  );
+
+  return [value, setValue];
 }

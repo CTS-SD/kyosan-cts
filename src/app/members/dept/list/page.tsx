@@ -4,6 +4,8 @@ import { DepartmentTable, FacultyTable, StudentTable } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 
+export const dynamic = "force-dynamic";
+
 const Page = async () => {
   const departments = await db.select().from(DepartmentTable);
   const students = await db

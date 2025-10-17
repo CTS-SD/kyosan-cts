@@ -1,6 +1,5 @@
 import { QuizList } from "@/components/admin/quiz/quiz-list";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { PlusIcon } from "lucide-react";
 import Link from "next/link";
 
