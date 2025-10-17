@@ -1,24 +1,31 @@
-import { QuizData } from "@/lib/quiz/data";
-import { QuizItem } from "./quiz-item";
-import { Button } from "@/components/ui/button";
+import { getQuizzes } from "@/lib/quiz/actions";
+import { QuizListClient } from "./quiz-list-client";
 
-type Props = {
-  quizzes: QuizData[];
-};
+const GET_QUIZZES_ARGS = {
+  limit: 24,
+  orderBy: "id_desc" as const,
+} as const;
 
-export const QuizList = ({ quizzes }: Props) => {
+export const QuizList = async () => {
+  const initialQuizzes = await getQuizzes({
+    ...GET_QUIZZES_ARGS,
+  });
+
+  async function loadMore(offset: number) {
+    "use server";
+
+    return getQuizzes({
+      ...GET_QUIZZES_ARGS,
+      offset,
+    });
+  }
+
   return (
-    <div>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {quizzes.map((quiz) => {
-          return <QuizItem key={quiz.id} quiz={quiz} />;
-        })}
-      </div>
-      <div className="mt-4">
-        <Button className="w-full" variant="outline">
-          さらに表示
-        </Button>
-      </div>
-    </div>
+    <QuizListClient
+      {...{
+        initialQuizzes,
+        loadMore,
+      }}
+    />
   );
 };

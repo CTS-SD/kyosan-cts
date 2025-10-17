@@ -70,18 +70,27 @@ export async function getQuizById(id: number) {
   return handler.dataSchema.parse({ ...quiz, ...extra });
 }
 
-export async function getQuizzes({
-  limit,
-  orderBy,
-}: {
-  limit: number;
-  orderBy: "random" | "created_at_desc";
-}) {
-  const orderByMap = {
-    random: sql`random()`,
-    created_at_desc: desc(QuizTable.createdAt),
-  };
+const quizOrderByMap = {
+  random: sql`random()`,
+  created_at_desc: desc(QuizTable.createdAt),
+  id_desc: desc(QuizTable.id),
+};
 
+export async function getQuizzes(
+  {
+    limit,
+    offset,
+    orderBy,
+  }: {
+    limit: number;
+    offset?: number;
+    orderBy: keyof typeof quizOrderByMap;
+  } = {
+    limit: 24,
+    offset: 0,
+    orderBy: "id_desc",
+  },
+) {
   const rows = await db
     .select({
       id: QuizTable.id,
@@ -100,7 +109,8 @@ export async function getQuizzes({
     .leftJoin(SelectQuizTable, eq(QuizTable.id, SelectQuizTable.quizId))
     .leftJoin(TextQuizTable, eq(QuizTable.id, TextQuizTable.quizId))
     .leftJoin(TrueFalseQuizTable, eq(QuizTable.id, TrueFalseQuizTable.quizId))
-    .orderBy(orderByMap[orderBy])
+    .orderBy(quizOrderByMap[orderBy])
+    .offset(offset ?? 0)
     .limit(limit);
 
   return rows.map((row) => parseQuizRow(row));

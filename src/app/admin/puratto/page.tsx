@@ -6,10 +6,6 @@ import { PlusIcon } from "lucide-react";
 import Link from "next/link";
 
 const Page = async () => {
-  const quizzes = await getQuizzes({
-    limit: 24,
-    orderBy: "created_at_desc",
-  });
 
   return (
     <div className="mx-auto max-w-5xl p-6">
@@ -23,7 +19,7 @@ const Page = async () => {
         </Button>
       </div>
       <div className="mt-4">
-        <QuizList quizzes={quizzes} />
+        <QuizList />
       </div>
     </div>
   );
