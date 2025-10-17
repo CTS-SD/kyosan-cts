@@ -1,18 +1,31 @@
-import NextAuth from "next-auth";
-import Google from "next-auth/providers/google";
+import { betterAuth } from "better-auth";
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { db } from "@/lib/db";
+import { env } from "./env";
+import * as schema from "@/lib/db/schema";
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
-  session: {
-    strategy: "jwt",
+export const auth = betterAuth({
+  database: drizzleAdapter(db, {
+    provider: "pg",
+    schema: schema,
+  }),
+  emailAndPassword: {
+    enabled: true,
   },
-  secret: process.env.AUTH_SECRET,
-  providers: [Google],
-  callbacks: {
-    authorized: async ({ auth }) => {
-      return !!auth;
+  socialProviders: {
+    google: {
+      clientId: env.GOOGLE_CLIENT_ID,
+      clientSecret: env.GOOGLE_CLIENT_SECRET,
+      prompt: "select_account",
     },
   },
-  pages: {
-    signIn: "/signin",
+  user: {
+    additionalFields: {
+      role: {
+        type: "string",
+        defaultValue: "none",
+        input: false,
+      },
+    },
   },
 });

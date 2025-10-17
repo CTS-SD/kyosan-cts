@@ -1,16 +1,23 @@
+import { Toaster } from "@/components/ui/sonner";
 import type { Metadata } from "next";
+import { ThemeProvider } from "next-themes";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import "./markdown.css";
-import { Toaster } from "sonner";
-import Providers from "./Providers";
-import { Noto_Sans_JP } from "next/font/google";
 
-const notoSansJp = Noto_Sans_JP({
-  weight: ["400", "500", "600", "700", "800", "900"],
+const geistSans = Geist({
+  variable: "--font-geist-sans",
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {};
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "KYOSAN CTS",
+  description: "京都産業大学キャンスタ",
+};
 
 export default function RootLayout({
   children,
@@ -18,12 +25,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja">
-      <body className={`${notoSansJp.className} antialiased`}>
-        <Providers>
+    <html lang="en" suppressHydrationWarning>
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <ThemeProvider attribute="class" defaultTheme="light">
           {children}
           <Toaster />
-        </Providers>
+        </ThemeProvider>
       </body>
     </html>
   );

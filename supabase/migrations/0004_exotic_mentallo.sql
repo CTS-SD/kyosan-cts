@@ -1,1 +1,0 @@
-ALTER TABLE "quiz" ADD COLUMN "is_available" boolean DEFAULT true NOT NULL;

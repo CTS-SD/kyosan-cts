@@ -1,15 +1,16 @@
-import SideBar from "./Header";
+import { AdminHeader } from "@/components/admin/admin-header";
+import { ProtectedRoute } from "@/components/protected-route";
 
 type Props = {
   children: React.ReactNode;
 };
 
-const Layout = ({ children }: Props) => {
+const Layout = async ({ children }: Props) => {
   return (
-    <div className="">
-      <SideBar />
+    <ProtectedRoute roles={["admin"]} fallbackUrl="/sign-in?tab=admin">
+      <AdminHeader />
       {children}
-    </div>
+    </ProtectedRoute>
   );
 };
 
