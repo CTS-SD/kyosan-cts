@@ -25,7 +25,7 @@ export const QuizItem = ({ quiz }: Props) => {
       <div className="h-[4.5lh] overflow-clip mask-b-from-60% px-3.5 py-3">
         <RichTextRenderer content={quiz.question} editable={false} />
       </div>
-      <div className="bg-accent mt-2 flex items-center gap-2 border-t px-3.5 py-2">
+      <div className="bg-accent mt-2 flex items-center gap-2 border-t px-3.5 py-2 h-9">
         <CornerDownRightIcon className="size-4 text-muted-foreground" />
         <QuizAnswerRenderer
           className="truncate text-sm [&_svg]:size-3.5"
