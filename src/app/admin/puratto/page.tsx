@@ -7,7 +7,7 @@ import Link from "next/link";
 
 const Page = async () => {
   const quizzes = await getQuizzes({
-    limit: 10,
+    limit: 24,
     orderBy: "created_at_desc",
   });
 
