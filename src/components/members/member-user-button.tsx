@@ -11,7 +11,7 @@ import {
 import { signOut } from "@/lib/auth-client";
 import { User } from "better-auth";
 import { LogOutIcon } from "lucide-react";
-import { redirect } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { Button } from "../ui/button";
@@ -21,10 +21,17 @@ type Props = {
 };
 
 export const MemberUserButton = ({ user }: Props) => {
+  const router = useRouter();
+
   const handleSignOut = async () => {
-    await signOut();
+    await signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          router.push("/");
+        },
+      },
+    });
     toast.success("ログアウトしました");
-    redirect("/");
   };
 
   return (
