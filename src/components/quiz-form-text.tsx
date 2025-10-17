@@ -1,7 +1,7 @@
 "use client";
 
 import { TextQuizData } from "@/lib/quiz/data";
-import { cn } from "@/lib/utils";
+import { cn, splitByLines } from "@/lib/utils";
 import { Input } from "./ui/input";
 
 type Props = {
@@ -12,7 +12,7 @@ type Props = {
 };
 
 export const QuizFormText = ({ quiz, value, showAnswer, setValue }: Props) => {
-  const answers = quiz.answer?.split("\n") ?? [];
+  const answers = splitByLines(quiz.answer);
   const isCorrect = answers.includes(value);
 
   return (

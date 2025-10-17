@@ -1,16 +1,6 @@
 import z from "zod";
 import { QuizData } from "./data";
-
-/**
- * Split a string by lines, trim each line, and remove empty lines.
- * @param str
- * @returns
- */
-const splitByLines = (str: string) =>
-  str
-    .split(/\r?\n/)
-    .map((line) => line.trim())
-    .filter((line) => line.length > 0);
+import { splitByLines } from "../utils";
 
 /**
  * Split a string by lines, trim each line, and remove empty lines.
@@ -143,8 +133,8 @@ export function makePseudoQuiz(values: QuizValues): QuizData | null {
     return {
       ...commonData,
       type: values.type,
-      correctChoices: values.correctChoicesText.split(/\n/),
-      incorrectChoices: values.incorrectChoicesText.split(/\n/),
+      correctChoices: splitByLines(values.correctChoicesText ?? ""),
+      incorrectChoices: splitByLines(values.incorrectChoicesText ?? ""),
     };
   }
   if (values.type === "text") {

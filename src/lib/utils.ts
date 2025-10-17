@@ -5,7 +5,11 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function splitByLines(text: string): string[] {
+export function splitByLines(text?: string | null): string[] {
+  if (typeof text !== "string") {
+    return [];
+  }
+
   return text
     .split(/\r?\n/)
     .map((line) => line.trim())
