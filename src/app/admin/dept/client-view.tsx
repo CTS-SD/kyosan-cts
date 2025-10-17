@@ -2,6 +2,7 @@
 
 import { AddStudentButton } from "@/components/admin/dept/add-student-button";
 import { DepartmentBox } from "@/components/admin/dept/department-box";
+import { VisibilityToggle } from "@/components/admin/dept/visibility-toggle";
 import { Button } from "@/components/ui/button";
 import { useDeptStore } from "@/providers/dept-store-provider";
 import { ArrowUpRightIcon } from "lucide-react";
@@ -12,8 +13,9 @@ const ClientView = () => {
 
   return (
     <div className="mx-auto max-w-5xl p-6">
-      <div className="flex justify-end gap-2">
-        <Button variant="link" asChild>
+      <div className="flex gap-2">
+        <VisibilityToggle />
+        <Button variant="link" asChild className="ml-auto">
           <Link href="/members/dept/list" target="_blank" rel="noreferrer">
             プレビュー
             <ArrowUpRightIcon />
