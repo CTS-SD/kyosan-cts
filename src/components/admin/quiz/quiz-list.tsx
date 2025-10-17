@@ -1,22 +1,19 @@
 import { getQuizzes, getQuizzesCount } from "@/lib/quiz/actions";
 import { QuizListClient } from "./quiz-list-client";
 
-const GET_QUIZZES_ARGS = {
-  limit: 48,
-  orderBy: "id_desc" as const,
-} as const;
-
 export const QuizList = async () => {
   const count = await getQuizzesCount();
   const initialQuizzes = await getQuizzes({
-    ...GET_QUIZZES_ARGS,
+    limit: 12,
+    orderBy: "id_desc",
   });
 
   async function loadMore(offset: number) {
     "use server";
 
     return getQuizzes({
-      ...GET_QUIZZES_ARGS,
+      limit: 48,
+      orderBy: "id_desc",
       offset,
     });
   }

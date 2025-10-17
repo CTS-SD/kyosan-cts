@@ -1,8 +1,8 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { QuizData } from "@/lib/quiz/data";
+import { useMemo, useState, useTransition } from "react";
 import { QuizItem } from "./quiz-item";
 
 type Props = {
@@ -10,11 +10,12 @@ type Props = {
   loadMore: (offset: number) => Promise<QuizData[]>;
 };
 
+const INIT_SIZE = 12;
 const PAGE_SIZE = 48;
 
 export const QuizListClient = ({ initialQuizzes, loadMore }: Props) => {
   const [quizzes, setQuizzes] = useState(initialQuizzes);
-  const [hasMore, setHasMore] = useState(initialQuizzes.length >= PAGE_SIZE);
+  const [hasMore, setHasMore] = useState(initialQuizzes.length >= INIT_SIZE);
   const [isPending, startTransition] = useTransition();
 
   const gridItems = useMemo(
