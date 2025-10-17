@@ -50,8 +50,8 @@ export const StudentItem = ({ student }: Props) => {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <button className="flex w-full flex-col items-start border-t py-2">
-          <div className="font-semibold">{student.name}</div>
+        <button className="hover:bg-muted flex w-full flex-col items-start rounded-md px-3 py-1.5">
+          <div className="font-medium">{student.name}</div>
           <div className="text-foreground/60 flex gap-2 text-sm">
             <div>{student.studentNumber}</div>
             <div>{getFacultyById(student.facultyId)?.name}</div>
