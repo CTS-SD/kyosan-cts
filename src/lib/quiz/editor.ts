@@ -22,6 +22,7 @@ const findDuplicates = (arr: string[]) => {
 };
 
 export const CommonQuizEditorSchema = z.object({
+  id: z.number().nullable(),
   question: z
     .string()
     .min(1, "問題文を入力してください。")

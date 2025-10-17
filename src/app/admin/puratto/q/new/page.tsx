@@ -26,7 +26,6 @@ const Page = () => {
       form={form}
       previewQuiz={pseudoQuiz}
       onSubmit={handleSubmit}
-      labels={{ submit: "作成" }}
     />
   );
 };

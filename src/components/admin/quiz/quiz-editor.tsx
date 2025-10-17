@@ -22,28 +22,33 @@ import { Spinner } from "@/components/ui/spinner";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { QuizValues } from "@/lib/quiz/editor";
+import { quizTypes } from "@/lib/quiz/types";
+import { Trash2Icon } from "lucide-react";
 import Link from "next/link";
 import { UseFormReturn } from "react-hook-form";
 import { QuizEditorSelect } from "./quiz-editor-select";
 import { QuizEditorText } from "./quiz-editor-text";
 import { QuizEditorTrueFalse } from "./quiz-editor-true-false";
-import { quizTypes } from "@/lib/quiz/types";
+import { deleteQuiz } from "@/lib/quiz/actions";
 
 type Props = {
   form: UseFormReturn<QuizValues>;
   onSubmit: (values: QuizValues) => Promise<void>;
   className?: string;
-  labels?: {
-    submit?: string;
-  };
+  isNew: boolean;
 };
 
-export const QuizEditor = ({
-  form,
-  onSubmit,
-  className,
-  labels = { submit: "保存" },
-}: Props) => {
+const LABELS = {
+  new: {
+    submit: "作成",
+  },
+  edit: {
+    submit: "保存",
+  },
+};
+
+export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
+  const labels = isNew ? LABELS.new : LABELS.edit;
   const { isSubmitting, isDirty } = form.formState;
   const formType = form.watch("type");
 
@@ -138,7 +143,7 @@ export const QuizEditor = ({
               )}
             />
             <div className="flex justify-end gap-2">
-              <Button variant="secondary" asChild>
+              <Button className="ml-auto" variant="secondary" asChild>
                 <Link href="/admin/puratto">キャンセル</Link>
               </Button>
               <Button type="submit" disabled={isSubmitting || !isDirty}>

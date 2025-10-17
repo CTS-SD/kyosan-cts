@@ -16,6 +16,7 @@ import {
   TextQuizSchema,
   TrueFalseQuizSchema,
 } from "./data";
+import { notFound } from "next/navigation";
 
 export async function insertQuiz(values: QuizValues) {
   const [{ id: quizId }] = await db
@@ -55,11 +56,15 @@ export async function updateQuiz(quizId: number, values: QuizValues) {
   });
 }
 
+export async function deleteQuiz(quizId: number) {
+  await db.delete(QuizTable).where(eq(QuizTable.id, quizId));
+}
+
 export async function getQuizById(id: number) {
   const quiz = await db.query.QuizTable.findFirst({
     where: (t, { eq }) => eq(t.id, id),
   });
-  if (!quiz) throw new Error(`Quiz not found: ${id}`);
+  if (!quiz) return notFound();
 
   const handler = quizTypeHandlers[quiz.type];
   const [extra] = await db

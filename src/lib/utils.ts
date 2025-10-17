@@ -15,3 +15,12 @@ export function splitByLines(text?: string | null): string[] {
     .map((line) => line.trim())
     .filter((line) => line.length > 0);
 }
+
+export async function copyToClipboard(text: string) {
+  if ("clipboard" in navigator && window.isSecureContext) {
+    await navigator.clipboard.writeText(text);
+    return true;
+  }
+
+  return false;
+}

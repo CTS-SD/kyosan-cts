@@ -15,6 +15,7 @@ type Props = {
 
 function makeDefaultValues(quiz: QuizData): QuizValues {
   const commonValues = {
+    id: quiz.id,
     question: quiz.question,
     explanation: quiz.explanation ?? undefined,
     isPublished: quiz.isPublished,
@@ -79,7 +80,6 @@ export const ClientView = ({ quiz }: Props) => {
       form={form}
       previewQuiz={pseudoQuiz}
       onSubmit={handleSubmit}
-      labels={{ submit: "保存" }}
     />
   );
 };

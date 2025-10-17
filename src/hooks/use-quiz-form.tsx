@@ -9,6 +9,7 @@ type Args = {
 export const useQuizForm = (
   { defaultValues }: Args = {
     defaultValues: {
+      id: null,
       type: "select",
       question: "",
       explanation: "",

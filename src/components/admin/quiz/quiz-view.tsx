@@ -7,25 +7,20 @@ import { useState } from "react";
 import { UseFormReturn } from "react-hook-form";
 import { QuizEditor } from "./quiz-editor";
 import { QuizPreview } from "./quiz-preview";
+import { QuizViewMenu } from "./quiz-view-menu";
 
 type Props = {
   heading?: React.ReactNode;
   form: UseFormReturn<QuizValues>;
   previewQuiz: QuizData | null;
-  labels: {
-    submit: string;
-  };
   onSubmit: (values: QuizValues) => Promise<void>;
 };
 
-export const QuizView = ({
-  heading,
-  form,
-  previewQuiz,
-  labels,
-  onSubmit,
-}: Props) => {
+export const QuizView = ({ heading, form, previewQuiz, onSubmit }: Props) => {
   const [showPreviewOverlay, setShowPreviewOverlay] = useState(false);
+
+  const quizId = form.getValues("id");
+  const isNew = quizId == null;
 
   return (
     <div className="mx-auto flex h-[calc(100dvh-48px)] max-w-5xl">
@@ -46,12 +41,17 @@ export const QuizView = ({
               <EyeIcon />
               プレビュー
             </Button>
+            {!isNew && (
+              <div className="ml-auto">
+                <QuizViewMenu quizId={quizId} />
+              </div>
+            )}
           </div>
           <QuizEditor
             form={form}
             onSubmit={onSubmit}
             className="mt-6"
-            labels={labels}
+            isNew={isNew}
           />
         </div>
       </div>
