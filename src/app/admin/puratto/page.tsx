@@ -1,4 +1,4 @@
-import { QuizItem } from "@/components/admin/quiz/quiz-item";
+import { QuizList } from "@/components/admin/quiz/quiz-list";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getQuizzes } from "@/lib/quiz/actions";
@@ -22,10 +22,8 @@ const Page = async () => {
           </Link>
         </Button>
       </div>
-      <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {quizzes.map((quiz) => {
-          return <QuizItem key={quiz.id} quiz={quiz} />;
-        })}
+      <div className="mt-4">
+        <QuizList quizzes={quizzes} />
       </div>
     </div>
   );
