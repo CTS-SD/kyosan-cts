@@ -9,7 +9,7 @@ type Props = React.ComponentProps<"div"> & {
 export const QuizAnswerRenderer = ({ quiz, className, ...props }: Props) => {
   return (
     <div className={cn("[&_svg]:size-4", className)} {...props}>
-      {quiz.type === "select" && quiz.correctChoicesText.replace(/\n/g, ", ")}
+      {quiz.type === "select" && quiz.correctChoices.join(", ")}
       {quiz.type === "text" && quiz.answer.replace(/\n/g, ", ")}
       {quiz.type === "true_false" && quiz.answer && <CircleIcon />}
       {quiz.type === "true_false" && !quiz.answer && <XIcon />}

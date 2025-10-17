@@ -19,8 +19,8 @@ export const QuizFormSelect = ({
   showAnswer,
   setValue,
 }: Props) => {
-  const correctChoices = quiz.correctChoicesText?.split("\n") ?? [];
-  const incorrectChoices = quiz.incorrectChoicesText?.split("\n") ?? [];
+  const correctChoices = quiz.correctChoices ?? [];
+  const incorrectChoices = quiz.incorrectChoices ?? [];
 
   const choices = useMemo(() => {
     return shuffle(
@@ -28,7 +28,7 @@ export const QuizFormSelect = ({
         .map((choice) => choice.trim())
         .filter(Boolean),
     );
-  }, [quiz.correctChoicesText, quiz.incorrectChoicesText]);
+  }, [quiz.correctChoices, quiz.incorrectChoices]);
 
   const handleChoice = (choice: string) => {
     setValue((prev) =>

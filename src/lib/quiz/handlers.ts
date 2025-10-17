@@ -1,4 +1,3 @@
-import { Table } from "drizzle-orm";
 import {
   SelectQuizTable,
   TextQuizTable,
@@ -8,13 +7,9 @@ import { SelectQuizSchema, TextQuizSchema, TrueFalseQuizSchema } from "./data";
 import {
   QuizValues,
   SelectQuizEditorSchema,
-  SelectQuizValues,
   TextQuizEditorSchema,
-  TextQuizValues,
   TrueFalseQuizEditorSchema,
-  TrueFalseQuizValues,
 } from "./editor";
-import z from "zod";
 
 export const quizTypeHandlers = {
   select: {

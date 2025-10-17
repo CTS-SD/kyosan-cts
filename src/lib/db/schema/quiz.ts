@@ -23,8 +23,8 @@ export const SelectQuizTable = pgTable("select_quiz", {
   quizId: integer("quiz_id")
     .references(() => QuizTable.id, { onDelete: "cascade" })
     .primaryKey(),
-  correctChoicesText: text("correct_choices_text").notNull(),
-  incorrectChoicesText: text("incorrect_choices_text").notNull(),
+  correctChoices: text("correct_choices").array().notNull().default([]),
+  incorrectChoices: text("incorrect_choices").array().notNull().default([]),
 });
 
 export const TextQuizTable = pgTable("text_quiz", {

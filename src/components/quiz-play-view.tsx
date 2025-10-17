@@ -47,10 +47,9 @@ export const QuizPlayView = ({
 
     let isCorrect = false;
     if (quiz.type === "select") {
-      const correctAnswers = quiz.correctChoicesText?.split("\n");
       isCorrect =
-        userAnswer.length === correctAnswers?.length &&
-        userAnswer.every((ans) => correctAnswers?.includes(ans));
+        userAnswer.length === quiz.correctChoices.length &&
+        userAnswer.every((ans) => quiz.correctChoices.includes(ans));
     } else if (quiz.type === "text") {
       isCorrect = !!quiz.answer?.split("\n").includes(userAnswer[0]?.trim());
     } else if (quiz.type === "true_false") {

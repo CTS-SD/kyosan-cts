@@ -91,8 +91,8 @@ export async function getQuizzes({
       isPublished: QuizTable.isPublished,
       createdAt: QuizTable.createdAt,
 
-      select_correctChoicesText: SelectQuizTable.correctChoicesText,
-      select_incorrectChoicesText: SelectQuizTable.incorrectChoicesText,
+      select_correctChoices: SelectQuizTable.correctChoices,
+      select_incorrectChoices: SelectQuizTable.incorrectChoices,
       text_answer: TextQuizTable.answer,
       true_false_answer: TrueFalseQuizTable.answer,
     })
@@ -110,8 +110,8 @@ const quizRowParsers = {
   select: (row: any) =>
     SelectQuizSchema.parse({
       ...row,
-      correctChoicesText: row.select_correctChoicesText,
-      incorrectChoicesText: row.select_incorrectChoicesText,
+      correctChoices: row.select_correctChoices,
+      incorrectChoices: row.select_incorrectChoices,
     }),
   text: (row: any) => TextQuizSchema.parse({ ...row, answer: row.text_answer }),
   true_false: (row: any) =>

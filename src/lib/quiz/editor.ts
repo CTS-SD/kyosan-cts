@@ -158,8 +158,8 @@ export function makePseudoQuiz(values: QuizValues): QuizData | null {
     return {
       ...commonData,
       type: values.type,
-      correctChoicesText: values.correctChoicesText,
-      incorrectChoicesText: values.incorrectChoicesText,
+      correctChoices: values.correctChoicesText.split(/\n/),
+      incorrectChoices: values.incorrectChoicesText.split(/\n/),
     };
   }
   if (values.type === "text") {

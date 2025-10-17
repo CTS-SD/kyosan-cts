@@ -26,8 +26,8 @@ function makeDefaultValues(quiz: QuizData): QuizValues {
       return {
         type: quiz.type,
         ...commonValues,
-        correctChoicesText: quiz.correctChoicesText,
-        incorrectChoicesText: quiz.incorrectChoicesText,
+        correctChoicesText: quiz.correctChoices.join("\n"),
+        incorrectChoicesText: quiz.incorrectChoices.join("\n"),
       };
     case "text":
       return {

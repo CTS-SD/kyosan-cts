@@ -11,8 +11,8 @@ export const CommonQuizSchema = z.object({
 
 export const SelectQuizSchema = CommonQuizSchema.extend({
   type: z.literal("select"),
-  correctChoicesText: z.string(),
-  incorrectChoicesText: z.string(),
+  correctChoices: z.array(z.string()),
+  incorrectChoices: z.array(z.string()),
 });
 
 export const TextQuizSchema = CommonQuizSchema.extend({

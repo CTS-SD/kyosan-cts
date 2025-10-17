@@ -3,7 +3,7 @@
 import { QuizPlayView } from "@/components/quiz-play-view";
 import { QuizResultsView } from "@/components/quiz-results-view";
 import { Button } from "@/components/ui/button";
-import { QuizData } from "@/lib/quiz-data";
+import { QuizData } from "@/lib/quiz/data";
 import { QuizResult } from "@/lib/quiz-form";
 import { XIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
