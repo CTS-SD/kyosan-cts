@@ -63,12 +63,7 @@ export const ClientView = ({ studentName, departmentName }: Props) => {
           </div>
         </div>
         <div className="mt-10 transition delay-8800 ease-out starting:scale-0 starting:opacity-0">
-          <Button
-            asChild
-            variant="ghost"
-            size="lg"
-            className="animate-bounce font-semibold"
-          >
+          <Button asChild variant="link" size="lg" className="font-bold text-white">
             <Link href="/members/dept/list">
               部署一覧を見る
               <ArrowRightIcon />
