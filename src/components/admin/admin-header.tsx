@@ -25,6 +25,7 @@ export const AdminHeader = async () => {
           <NavMenu>
             <NavLink href="/admin/puratto">ぷらっとテスト</NavLink>
             <NavLink href="/admin/dept">配属発表</NavLink>
+            <NavLink href="/admin/settings">設定</NavLink>
           </NavMenu>
         </div>
         <div className="ml-auto flex items-center gap-2">
