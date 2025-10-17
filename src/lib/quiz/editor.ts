@@ -31,21 +31,6 @@ const findDuplicates = (arr: string[]) => {
   return Array.from(dup);
 };
 
-export const quizTypes = [
-  {
-    label: "選択問題",
-    id: "select",
-  },
-  {
-    label: "テキスト",
-    id: "text",
-  },
-  {
-    label: "○Xクイズ",
-    id: "true_false",
-  },
-];
-
 export const CommonQuizEditorSchema = z.object({
   question: z
     .string()
