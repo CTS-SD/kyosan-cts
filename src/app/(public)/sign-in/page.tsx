@@ -2,7 +2,6 @@
 
 import { GoogleIcon } from "@/components/icons/google-icon";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import {
   InputGroup,
   InputGroupAddon,
@@ -11,8 +10,7 @@ import {
 } from "@/components/ui/input-group";
 import { Separator } from "@/components/ui/separator";
 import { signIn } from "@/lib/auth-client";
-import { EyeClosedIcon, EyeIcon, SendHorizontalIcon } from "lucide-react";
-import Link from "next/link";
+import { EyeClosedIcon, EyeIcon } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
 
