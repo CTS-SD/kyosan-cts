@@ -3,6 +3,7 @@ import {
   TextQuizTable,
   TrueFalseQuizTable,
 } from "../db/schema";
+import { splitByLines } from "../utils";
 import { SelectQuizSchema, TextQuizSchema, TrueFalseQuizSchema } from "./data";
 import {
   QuizValues,
@@ -21,8 +22,8 @@ export const quizTypeHandlers = {
         SelectQuizEditorSchema.parse(values);
       return {
         quizId,
-        correctChoicesText,
-        incorrectChoicesText,
+        correctChoices: splitByLines(correctChoicesText),
+        incorrectChoices: splitByLines(incorrectChoicesText),
       };
     },
   },
