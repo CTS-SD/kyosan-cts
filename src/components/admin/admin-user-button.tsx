@@ -10,11 +10,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { signOut } from "@/lib/auth-client";
 import { User } from "better-auth";
-import { LogOutIcon } from "lucide-react";
+import { CogIcon, HomeIcon, LogOutIcon } from "lucide-react";
 import { redirect } from "next/navigation";
 import { toast } from "sonner";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
+import Link from "next/link";
 
 type Props = {
   user?: User;
@@ -40,7 +41,21 @@ export const AdminUserButton = ({ user }: Props) => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="min-w-40">
-        <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
+        <DropdownMenuLabel className="text-muted-foreground">
+          {user.name}
+        </DropdownMenuLabel>
+        <DropdownMenuItem asChild>
+          <Link href="/">
+            <HomeIcon aria-hidden />
+            ホーム
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href="/admin/puratto">
+            <CogIcon aria-hidden />
+            管理者ページ
+          </Link>
+        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleSignOut}>
           <LogOutIcon />
