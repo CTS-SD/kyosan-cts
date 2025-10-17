@@ -19,7 +19,11 @@ export const createConfigStore = (initialValues: ConfigMap): ConfigStore =>
       const previous = get().values[key] as ConfigValue<typeof key>;
       const nextValue =
         typeof updater === "function"
-          ? (updater as (prev: ConfigValue<typeof key>) => ConfigValue<typeof key>)(previous)
+          ? (
+              updater as (
+                prev: ConfigValue<typeof key>,
+              ) => ConfigValue<typeof key>
+            )(previous)
           : updater;
 
       set((state) => ({

@@ -1,4 +1,4 @@
-'use server';
+"use server";
 
 import { eq } from "drizzle-orm";
 import { db } from "@/lib/db";
@@ -14,8 +14,9 @@ function buildDefaultConfig(): ConfigMap {
   const config = {} as ConfigMap;
 
   for (const key of Object.keys(configDefinitions) as ConfigKey[]) {
-    config[key] = configDefinitions[key]
-      .defaultValue as ConfigValue<typeof key>;
+    config[key] = configDefinitions[key].defaultValue as ConfigValue<
+      typeof key
+    >;
   }
 
   return config;

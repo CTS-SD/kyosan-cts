@@ -86,12 +86,8 @@
           "name": "select_quiz_quiz_id_quiz_id_fk",
           "tableFrom": "select_quiz",
           "tableTo": "quiz",
-          "columnsFrom": [
-            "quiz_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["quiz_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -125,12 +121,8 @@
           "name": "text_quiz_quiz_id_quiz_id_fk",
           "tableFrom": "text_quiz",
           "tableTo": "quiz",
-          "columnsFrom": [
-            "quiz_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["quiz_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -164,12 +156,8 @@
           "name": "true_false_quiz_quiz_id_quiz_id_fk",
           "tableFrom": "true_false_quiz",
           "tableTo": "quiz",
-          "columnsFrom": [
-            "quiz_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["quiz_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -269,12 +257,8 @@
           "name": "account_user_id_user_id_fk",
           "tableFrom": "account",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -344,12 +328,8 @@
           "name": "session_user_id_user_id_fk",
           "tableFrom": "session",
           "tableTo": "user",
-          "columnsFrom": [
-            "user_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["user_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -359,9 +339,7 @@
         "session_token_unique": {
           "name": "session_token_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "token"
-          ]
+          "columns": ["token"]
         }
       },
       "policies": {},
@@ -429,9 +407,7 @@
         "user_email_unique": {
           "name": "user_email_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "email"
-          ]
+          "columns": ["email"]
         }
       },
       "policies": {},
@@ -511,9 +487,7 @@
         "department_name_unique": {
           "name": "department_name_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "name"
-          ]
+          "columns": ["name"]
         }
       },
       "policies": {},
@@ -544,9 +518,7 @@
         "faculty_name_unique": {
           "name": "faculty_name_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "name"
-          ]
+          "columns": ["name"]
         }
       },
       "policies": {},
@@ -594,12 +566,8 @@
           "name": "student_department_id_department_id_fk",
           "tableFrom": "student",
           "tableTo": "department",
-          "columnsFrom": [
-            "department_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["department_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
@@ -607,12 +575,8 @@
           "name": "student_faculty_id_faculty_id_fk",
           "tableFrom": "student",
           "tableTo": "faculty",
-          "columnsFrom": [
-            "faculty_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
+          "columnsFrom": ["faculty_id"],
+          "columnsTo": ["id"],
           "onDelete": "cascade",
           "onUpdate": "no action"
         }
@@ -622,9 +586,7 @@
         "student_student_number_unique": {
           "name": "student_student_number_unique",
           "nullsNotDistinct": false,
-          "columns": [
-            "student_number"
-          ]
+          "columns": ["student_number"]
         }
       },
       "policies": {},

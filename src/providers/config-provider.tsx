@@ -1,10 +1,6 @@
 "use client";
 
-import {
-  ConfigKey,
-  ConfigMap,
-  ConfigValue,
-} from "@/lib/config/definitions";
+import { ConfigKey, ConfigMap, ConfigValue } from "@/lib/config/definitions";
 import {
   createContext,
   type ReactNode,
@@ -62,14 +58,10 @@ function useConfigStore<T>(selector: (state: ConfigStoreState) => T): T {
 export function useConfig<K extends ConfigKey>(
   key: K,
 ): [ConfigValue<K>, Dispatch<SetStateAction<ConfigValue<K>>>] {
-  const value = useConfigStore(
-    (state) => state.values[key] as ConfigValue<K>,
-  );
+  const value = useConfigStore((state) => state.values[key] as ConfigValue<K>);
   const setValueInStore = useConfigStore((state) => state.setValue);
 
-  const setValue = useCallback<
-    Dispatch<SetStateAction<ConfigValue<K>>>
-  >(
+  const setValue = useCallback<Dispatch<SetStateAction<ConfigValue<K>>>>(
     (updater) => {
       setValueInStore(key, updater);
     },
