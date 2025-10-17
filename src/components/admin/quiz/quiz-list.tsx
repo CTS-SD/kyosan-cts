@@ -1,4 +1,4 @@
-import { getQuizzes } from "@/lib/quiz/actions";
+import { getQuizzes, getQuizzesCount } from "@/lib/quiz/actions";
 import { QuizListClient } from "./quiz-list-client";
 
 const GET_QUIZZES_ARGS = {
@@ -7,6 +7,7 @@ const GET_QUIZZES_ARGS = {
 } as const;
 
 export const QuizList = async () => {
+  const count = await getQuizzesCount();
   const initialQuizzes = await getQuizzes({
     ...GET_QUIZZES_ARGS,
   });
@@ -21,11 +22,16 @@ export const QuizList = async () => {
   }
 
   return (
-    <QuizListClient
-      {...{
-        initialQuizzes,
-        loadMore,
-      }}
-    />
+    <div>
+      <div className="text-muted-foreground">計{count}問</div>
+      <div className="mt-4">
+        <QuizListClient
+          {...{
+            initialQuizzes,
+            loadMore,
+          }}
+        />
+      </div>
+    </div>
   );
 };

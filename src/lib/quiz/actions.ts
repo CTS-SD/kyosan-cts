@@ -1,6 +1,6 @@
 "use server";
 
-import { desc, eq, sql } from "drizzle-orm";
+import { count, desc, eq, sql } from "drizzle-orm";
 import { db } from "../db";
 import {
   QuizTable,
@@ -140,4 +140,9 @@ function parseQuizRow(row: any): QuizData {
     createdAt: row.createdAt,
     ...row,
   });
+}
+
+export async function getQuizzesCount() {
+  const [{ total }] = await db.select({ total: count() }).from(QuizTable);
+  return Number(total ?? 0);
 }
