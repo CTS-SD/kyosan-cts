@@ -54,6 +54,7 @@ const Page = () => {
   return (
     <div className="mx-auto flex max-w-sm flex-col px-6 py-20">
       <div className="flex flex-col gap-6">
+        <div className="text-center text-lg font-semibold">ログイン</div>
         <form className="flex flex-col gap-2 px-6" onSubmit={handleSubmit}>
           <InputGroup>
             <InputGroupInput
@@ -75,7 +76,7 @@ const Page = () => {
             </InputGroupAddon>
           </InputGroup>
           <Button type="submit" disabled={submitting}>
-            ログイン
+            スタッフとしてログイン
           </Button>
         </form>
         <div className="relative">
@@ -86,9 +87,8 @@ const Page = () => {
         </div>
         <div className="flex justify-center px-6">
           <Button
-            variant="ghost"
-            size="sm"
-            className="text-muted-foreground"
+            variant="outline"
+            disabled={submitting}
             onClick={async () => {
               await signIn.social({
                 provider: "google",
@@ -96,6 +96,7 @@ const Page = () => {
               });
             }}
           >
+            <GoogleIcon />
             管理者としてログイン
           </Button>
         </div>
