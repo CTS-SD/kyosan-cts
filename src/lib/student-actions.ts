@@ -12,6 +12,7 @@ export async function insertStudents(values: StudentValues[]) {
       .values(values)
       .returning()
       .execute();
+
     return {
       success: true as const,
       data: students,

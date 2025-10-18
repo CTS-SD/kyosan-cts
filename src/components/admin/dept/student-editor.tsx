@@ -16,10 +16,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useStudentBundlePromise } from "@/ctx/student-bundle-promise-context";
 import { Student } from "@/lib/db/schema";
 import { StudentEditorSchema, StudentValues } from "@/lib/student-editor";
-import { useDeptStore } from "@/providers/dept-store-provider";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { use } from "react";
 import { FormState, useForm } from "react-hook-form";
 
 export type StudentEditorProps = {
@@ -30,7 +31,7 @@ export type StudentEditorProps = {
    * @param values The submitted form values
    * @returns If the form should be cleaned or not
    */
-  onSubmit: (values: StudentValues) => Promise<boolean | void>;
+  onSubmit?: (values: StudentValues) => Promise<boolean | void>;
 };
 
 export const StudentEditor = ({
@@ -38,7 +39,7 @@ export const StudentEditor = ({
   footerContent,
   onSubmit,
 }: StudentEditorProps) => {
-  const { faculties, departments } = useDeptStore((store) => store);
+  const { faculties, departments } = use(useStudentBundlePromise());
 
   const form = useForm<StudentValues>({
     resolver: zodResolver(StudentEditorSchema),
@@ -52,7 +53,7 @@ export const StudentEditor = ({
   const { isSubmitting } = form.formState;
 
   const handleSubmit = async (values: StudentValues) => {
-    const shouldClean = await onSubmit(values);
+    const shouldClean = onSubmit ? await onSubmit(values) : false;
     if (shouldClean) {
       form.reset({
         name: "",

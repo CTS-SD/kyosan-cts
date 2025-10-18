@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -10,8 +12,9 @@ import { Label } from "@/components/ui/label";
 import { Setting } from "@/components/ui/setting";
 import { Switch } from "@/components/ui/switch";
 import { upsertConfigValue } from "@/lib/config/actions";
-import { useConfig } from "@/providers/config-provider";
+import { ConfigMap } from "@/lib/config/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { use } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
@@ -20,13 +23,17 @@ const FormSchema = z.object({
   published: z.boolean(),
 });
 
-export const VisibilitySetting = () => {
-  const [published, _] = useConfig("departmentAnnouncementsPublished");
+type Props = {
+  configPromise: Promise<ConfigMap>;
+};
+
+export const VisibilitySetting = ({ configPromise }: Props) => {
+  const config = use(configPromise);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      published,
+      published: config.departmentAnnouncementsPublished,
     },
   });
 

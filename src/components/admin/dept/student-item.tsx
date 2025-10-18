@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -10,8 +12,8 @@ import {
 import { Student } from "@/lib/db/schema";
 import * as studentActions from "@/lib/student-actions";
 import { StudentValues } from "@/lib/student-editor";
-import { useDeptStore } from "@/providers/dept-store-provider";
 import { Trash2Icon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { StudentEditor } from "./student-editor";
 
@@ -20,9 +22,7 @@ type Props = {
 };
 
 export const StudentItem = ({ student }: Props) => {
-  const { updateStudent, getFacultyById, removeStudent } = useDeptStore(
-    (store) => store,
-  );
+  const router = useRouter();
 
   const handleUpdateStudent = async (values: StudentValues) => {
     const updateResult = await studentActions.updateStudent(student.id, values);
@@ -30,8 +30,8 @@ export const StudentItem = ({ student }: Props) => {
       toast.error(updateResult.message);
       return;
     }
-    updateStudent(updateResult.data);
     toast.success(updateResult.message);
+    router.refresh();
     return;
   };
 
@@ -42,8 +42,8 @@ export const StudentItem = ({ student }: Props) => {
       toast.error(deleteResult.message);
       return;
     }
-    removeStudent(student.id);
     toast.success(deleteResult.message);
+    router.refresh();
     return;
   };
 
@@ -54,7 +54,7 @@ export const StudentItem = ({ student }: Props) => {
           <div className="font-medium">{student.name}</div>
           <div className="text-foreground/60 flex gap-2 text-sm">
             <div>{student.studentNumber}</div>
-            <div>{getFacultyById(student.facultyId)?.name}</div>
+            {/* <div>{getFacultyById(student.facultyId)?.name}</div> */}
           </div>
         </button>
       </DialogTrigger>
