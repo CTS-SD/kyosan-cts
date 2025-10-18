@@ -1,5 +1,5 @@
 import { QuizList } from "@/components/admin/quiz/quiz-list";
-import { QuizListSkeleton } from "@/components/admin/quiz/quiz-list-skeleton";
+import { QuizListFallback } from "@/components/admin/quiz/quiz-list-fallback";
 import { Button } from "@/components/ui/button";
 import { PlusIcon } from "lucide-react";
 import Link from "next/link";
@@ -17,7 +17,7 @@ const Page = async () => {
         </Button>
       </div>
       <div className="mt-4">
-        <Suspense fallback={<QuizListSkeleton />}>
+        <Suspense fallback={<QuizListFallback />}>
           <QuizList />
         </Suspense>
       </div>

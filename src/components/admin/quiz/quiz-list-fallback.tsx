@@ -1,6 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-export const QuizListSkeleton = () => {
+export const QuizListFallback = () => {
   return (
     <div>
       <div>

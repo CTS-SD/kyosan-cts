@@ -1,4 +1,4 @@
-import { QuizPageSkeleton } from "@/components/admin/quiz/quiz-page-skeleton";
+import { QuizPageFallback } from "@/components/admin/quiz/quiz-page-fallback";
 import { Suspense } from "react";
 
 type Props = {
@@ -6,7 +6,7 @@ type Props = {
 };
 
 const Layout = ({ children }: Props) => {
-  return <Suspense fallback={<QuizPageSkeleton />}>{children}</Suspense>;
+  return <Suspense fallback={<QuizPageFallback />}>{children}</Suspense>;
 };
 
 export default Layout;
