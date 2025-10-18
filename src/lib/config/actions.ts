@@ -11,15 +11,15 @@ import {
 } from "./definitions";
 
 function buildDefaultConfig(): ConfigMap {
-  const config = {} as ConfigMap;
+  const entries = Object.keys(configDefinitions).map((key) => {
+    const typedKey = key as ConfigKey;
+    const defaultValue = configDefinitions[typedKey]
+      .defaultValue as ConfigValue<typeof typedKey>;
 
-  for (const key of Object.keys(configDefinitions) as ConfigKey[]) {
-    config[key] = configDefinitions[key].defaultValue as ConfigValue<
-      typeof key
-    >;
-  }
+    return [typedKey, defaultValue] as const;
+  });
 
-  return config;
+  return Object.fromEntries(entries) as ConfigMap;
 }
 
 export async function getConfigValue<K extends ConfigKey>(
@@ -45,7 +45,7 @@ export async function getConfigValue<K extends ConfigKey>(
     console.error("Failed to load config value", { key, error });
   }
 
-  return definition.defaultValue;
+  return definition.defaultValue as ConfigValue<K>;
 }
 
 export async function getConfig(): Promise<ConfigMap> {
@@ -53,7 +53,7 @@ export async function getConfig(): Promise<ConfigMap> {
     const rows = await db.select().from(ConfigTable);
 
     const rowsByKey = new Map(rows.map((item) => [item.key, item.value]));
-    const config = {} as ConfigMap;
+    const configEntries: Array<[ConfigKey, ConfigValue<ConfigKey>]> = [];
 
     for (const key of Object.keys(configDefinitions) as ConfigKey[]) {
       const definition = configDefinitions[key];
@@ -63,15 +63,18 @@ export async function getConfig(): Promise<ConfigMap> {
         const parsed = definition.schema.safeParse(rawValue);
 
         if (parsed.success) {
-          config[key] = parsed.data as ConfigValue<typeof key>;
+          configEntries.push([key, parsed.data as ConfigValue<typeof key>]);
           continue;
         }
       }
 
-      config[key] = definition.defaultValue as ConfigValue<typeof key>;
+      configEntries.push([
+        key,
+        definition.defaultValue as ConfigValue<typeof key>,
+      ]);
     }
 
-    return config;
+    return Object.fromEntries(configEntries) as ConfigMap;
   } catch (error) {
     console.error("Failed to load config map", error);
     return buildDefaultConfig();
