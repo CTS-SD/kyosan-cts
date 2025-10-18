@@ -9,11 +9,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { useStudentBundlePromise } from "@/ctx/student-bundle-promise-context";
 import { Student } from "@/lib/db/schema";
 import * as studentActions from "@/lib/student-actions";
 import { StudentValues } from "@/lib/student-editor";
 import { Trash2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { use } from "react";
 import { toast } from "sonner";
 import { StudentEditor } from "./student-editor";
 
@@ -22,7 +24,13 @@ type Props = {
 };
 
 export const StudentItem = ({ student }: Props) => {
+  const { faculties } = use(useStudentBundlePromise());
   const router = useRouter();
+
+  const getFacultyName = (facultyId: number) => {
+    const faculty = faculties.find((f) => f.id === facultyId);
+    return faculty?.name;
+  };
 
   const handleUpdateStudent = async (values: StudentValues) => {
     const updateResult = await studentActions.updateStudent(student.id, values);
@@ -54,7 +62,7 @@ export const StudentItem = ({ student }: Props) => {
           <div className="font-medium">{student.name}</div>
           <div className="text-foreground/60 flex gap-2 text-sm">
             <div>{student.studentNumber}</div>
-            {/* <div>{getFacultyById(student.facultyId)?.name}</div> */}
+            <div>{getFacultyName(student.facultyId)}</div>
           </div>
         </button>
       </DialogTrigger>
