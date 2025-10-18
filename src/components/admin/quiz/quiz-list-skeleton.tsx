@@ -1,8 +1,6 @@
 import { Skeleton } from "@/components/ui/skeleton";
 
-type Props = {};
-
-export const QuizListSkeleton = ({}: Props) => {
+export const QuizListSkeleton = () => {
   return (
     <div>
       <div>
