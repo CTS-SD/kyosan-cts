@@ -11,8 +11,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Setting } from "@/components/ui/setting";
 import { upsertConfigValue } from "@/lib/config/actions";
-import { useConfig } from "@/providers/config-provider";
+import { ConfigMap } from "@/lib/config/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { use } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
@@ -27,13 +28,17 @@ const FormSchema = z.object({
 
 type FormValues = z.infer<typeof FormSchema>;
 
-export const YearSetting = () => {
-  const [year] = useConfig("departmentAnnouncementsYear");
+type Props = {
+  configPromise: Promise<ConfigMap>;
+};
+
+export const YearSetting = ({ configPromise }: Props) => {
+  const config = use(configPromise);
 
   const form = useForm<FormValues>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      year,
+      year: config.departmentAnnouncementsYear,
     },
   });
 

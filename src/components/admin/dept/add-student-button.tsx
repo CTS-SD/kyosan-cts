@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -10,13 +12,13 @@ import {
 } from "@/components/ui/dialog";
 import { insertStudents } from "@/lib/student-actions";
 import { StudentValues } from "@/lib/student-editor";
-import { useDeptStore } from "@/providers/dept-store-provider";
 import { PlusIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { StudentEditor } from "./student-editor";
 
 export const AddStudentButton = () => {
-  const { addStudents } = useDeptStore((store) => store);
+  const router = useRouter();
 
   const handleAddStudent = async (studentData: StudentValues) => {
     const insertResult = await insertStudents([studentData]);
@@ -24,8 +26,8 @@ export const AddStudentButton = () => {
       toast.error(insertResult.message);
       return;
     }
-    addStudents(insertResult.data);
     toast.success(insertResult.message);
+    router.refresh();
     return true;
   };
 
@@ -46,15 +48,15 @@ export const AddStudentButton = () => {
         </DialogHeader>
         <StudentEditor
           onSubmit={handleAddStudent}
-          footerContent={({ isDirty }) => (
+          footerContent={(formState) => (
             <>
               <DialogClose asChild>
                 <Button type="button" variant="secondary" className="ml-auto">
                   キャンセル
                 </Button>
               </DialogClose>
-              <Button type="submit" disabled={!isDirty}>
-                追加
+              <Button type="submit" disabled={!formState.isDirty}>
+                更新
               </Button>
             </>
           )}
