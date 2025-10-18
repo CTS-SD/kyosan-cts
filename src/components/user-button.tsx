@@ -9,11 +9,7 @@ export const UserButton = async () => {
   const session = await auth.api.getSession({ headers: await headers() });
 
   if (!session) {
-    return (
-      <Button asChild variant="outline" size="sm" className="rounded-full">
-        <Link href="/sign-in">ログイン</Link>
-      </Button>
-    );
+    return <LoginButton />;
   }
 
   const user = session.user;
@@ -24,5 +20,13 @@ export const UserButton = async () => {
     return <MemberUserButton user={user} />;
   }
 
-  return null;
+  return <LoginButton />;
+};
+
+const LoginButton = () => {
+  return (
+    <Button asChild variant="outline" size="sm" className="rounded-full">
+      <Link href="/sign-in">ログイン</Link>
+    </Button>
+  );
 };

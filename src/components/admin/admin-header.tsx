@@ -30,7 +30,7 @@ export const AdminHeader = async () => {
         </div>
         <div className="ml-auto flex items-center gap-2">
           <ToggleTheme />
-          <AdminUserButton user={user} />
+          {user && <AdminUserButton user={user} />}
         </div>
       </div>
     </div>

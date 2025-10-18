@@ -4,6 +4,8 @@ import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import { ClientView } from "./client-view";
 
+export const dynamic = "force-dynamic";
+
 type Props = {
   params: Promise<{ studentNumber: string }>;
 };

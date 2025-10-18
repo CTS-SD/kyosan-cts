@@ -7,7 +7,7 @@ type Props = {
 
 const Layout = async ({ children }: Props) => {
   return (
-    <ProtectedRoute roles={["admin"]} fallbackUrl="/sign-in?tab=admin">
+    <ProtectedRoute roles={["admin"]} fallbackUrl="/sign-in">
       <AdminHeader />
       {children}
     </ProtectedRoute>

@@ -11,8 +11,6 @@ import {
 import { signOut } from "@/lib/auth-client";
 import { User } from "better-auth";
 import { LogOutIcon } from "lucide-react";
-import { redirect } from "next/navigation";
-import { toast } from "sonner";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { Button } from "../ui/button";
 
@@ -22,9 +20,13 @@ type Props = {
 
 export const MemberUserButton = ({ user }: Props) => {
   const handleSignOut = async () => {
-    await signOut();
-    toast.success("ログアウトしました");
-    redirect("/");
+    await signOut({
+      fetchOptions: {
+        onSuccess: () => {
+          window.location.href = "/";
+        },
+      },
+    });
   };
 
   return (

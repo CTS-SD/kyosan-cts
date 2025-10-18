@@ -1,6 +1,6 @@
 {
-  "id": "872859f3-b46a-4d1f-bd34-c79b93db0132",
-  "prevId": "c4c4c73c-47de-4501-90e9-d38a98314196",
+  "id": "46bce960-e35b-4ec1-a9ba-7cb9822ab916",
+  "prevId": "872859f3-b46a-4d1f-bd34-c79b93db0132",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -589,6 +589,31 @@
           "columns": ["student_number"]
         }
       },
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.config": {
+      "name": "config",
+      "schema": "",
+      "columns": {
+        "key": {
+          "name": "key",
+          "type": "text",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "value": {
+          "name": "value",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false

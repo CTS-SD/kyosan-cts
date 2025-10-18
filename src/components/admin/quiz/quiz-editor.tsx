@@ -23,13 +23,11 @@ import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { QuizValues } from "@/lib/quiz/editor";
 import { quizTypes } from "@/lib/quiz/types";
-import { Trash2Icon } from "lucide-react";
 import Link from "next/link";
 import { UseFormReturn } from "react-hook-form";
 import { QuizEditorSelect } from "./quiz-editor-select";
 import { QuizEditorText } from "./quiz-editor-text";
 import { QuizEditorTrueFalse } from "./quiz-editor-true-false";
-import { deleteQuiz } from "@/lib/quiz/actions";
 
 type Props = {
   form: UseFormReturn<QuizValues>;
