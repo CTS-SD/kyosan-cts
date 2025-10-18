@@ -3,6 +3,8 @@ import { getConfigValue } from "@/lib/config/actions";
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
 
+export const revalidate = 0;
+
 export default async function Home() {
   const showDeptButton = await getConfigValue(
     "departmentAnnouncementsPublished",
