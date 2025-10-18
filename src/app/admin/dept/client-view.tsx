@@ -1,20 +1,17 @@
 "use client";
 
 import { AddStudentButton } from "@/components/admin/dept/add-student-button";
-import { DepartmentBox } from "@/components/admin/dept/department-box";
-import { VisibilityToggle } from "@/components/admin/dept/visibility-toggle";
+import { DepartmentBoxList } from "@/components/admin/dept/department-box-list";
+import { VisibilitySetting } from "@/components/admin/dept/visibility-setting";
 import { Button } from "@/components/ui/button";
-import { useDeptStore } from "@/providers/dept-store-provider";
+import { Setting } from "@/components/ui/setting";
 import { ArrowUpRightIcon } from "lucide-react";
 import Link from "next/link";
 
 const ClientView = () => {
-  const { students, departments } = useDeptStore((store) => store);
-
   return (
     <div className="mx-auto max-w-5xl p-6">
       <div className="flex gap-2">
-        <VisibilityToggle />
         <Button variant="link" asChild className="ml-auto">
           <Link href="/members/dept/list" target="_blank" rel="noreferrer">
             プレビュー
@@ -23,16 +20,11 @@ const ClientView = () => {
         </Button>
         <AddStudentButton />
       </div>
-      <div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-2">
-        {departments.map((department) => (
-          <DepartmentBox
-            key={department.id}
-            department={department.name}
-            students={students.filter(
-              (student) => student.departmentId === department.id,
-            )}
-          />
-        ))}
+      <div className="mt-4">
+        <DepartmentBoxList />
+      </div>
+      <div className="mt-6">
+        <VisibilitySetting />
       </div>
     </div>
   );
