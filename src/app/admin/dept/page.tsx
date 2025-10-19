@@ -1,6 +1,7 @@
 import { AddStudentButton } from "@/components/admin/dept/add-student-button";
 import { DepartmentBoxList } from "@/components/admin/dept/department-box-list";
 import { DepartmentBoxListFallback } from "@/components/admin/dept/department-box-list-fallback";
+import { ImageUrlSetting } from "@/components/admin/dept/image-url-setting";
 import { VisibilitySetting } from "@/components/admin/dept/visibility-setting";
 import { YearSetting } from "@/components/admin/dept/year-setting";
 import { Button } from "@/components/ui/button";
@@ -37,6 +38,7 @@ const Page = () => {
       </div>
       <div className="mt-6 space-y-4">
         <YearSetting configPromise={configPromise} />
+        <ImageUrlSetting configPromise={configPromise} />
         <VisibilitySetting configPromise={configPromise} />
       </div>
     </div>
