@@ -1,6 +1,5 @@
 "use client";
 
-import { RichTextRenderer } from "@/components/rich-text-renderer";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -66,11 +65,7 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
                 <FormItem>
                   <FormLabel>問題文</FormLabel>
                   <FormControl>
-                    <RichTextRenderer
-                      className="dark:bg-input/30 rounded-md border bg-transparent shadow-xs *:px-3 *:py-2"
-                      content={field.value}
-                      onUpdate={field.onChange}
-                    />
+                    <Textarea placeholder="問題文を入力" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

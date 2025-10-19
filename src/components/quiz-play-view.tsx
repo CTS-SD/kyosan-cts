@@ -2,14 +2,14 @@
 
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { QuizData } from "@/lib/quiz/data";
 import { QuizResult } from "@/lib/quiz-form";
+import { QuizData } from "@/lib/quiz/data";
 import { cn } from "@/lib/utils";
 import dynamic from "next/dynamic";
 import { useState } from "react";
+import { Markdown } from "./markdown";
 import { QuizFormText } from "./quiz-form-text";
 import { QuizFormTrueFalse } from "./quiz-form-true-false";
-import { RichTextRenderer } from "./rich-text-renderer";
 
 const QuizFormSelect = dynamic(() => import("@/components/quiz-form-select"), {
   ssr: false,
@@ -86,7 +86,7 @@ export const QuizPlayView = ({
       <form onSubmit={handleSubmit} className="flex grow flex-col">
         <div className="grow">
           <div className="px-6 pt-2 pb-6">
-            <RichTextRenderer content={quiz.question} editable={false} />
+            <Markdown>{quiz.question}</Markdown>
           </div>
           <div>
             {quiz.type === "select" && (
