@@ -12,7 +12,7 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col">
-      <div className="my-20 text-center text-6xl font-semibold">
+      <div className="my-20 text-center text-4xl font-semibold sm:text-6xl">
         京産キャンスタ
       </div>
       <div className="flex justify-center gap-2">
