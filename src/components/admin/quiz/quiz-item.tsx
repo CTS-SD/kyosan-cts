@@ -1,5 +1,5 @@
+import { Markdown } from "@/components/markdown";
 import { QuizAnswerRenderer } from "@/components/quiz-answer-renderer";
-import { RichTextRenderer } from "@/components/rich-text-renderer";
 import { Badge } from "@/components/ui/badge";
 import { QuizData } from "@/lib/quiz/data";
 import { getQuizTypeLabel } from "@/lib/quiz/types";
@@ -23,7 +23,7 @@ export const QuizItem = ({ quiz }: Props) => {
         </div>
       </div>
       <div className="h-[4.5lh] overflow-clip mask-b-from-60% px-3.5 py-3">
-        <RichTextRenderer content={quiz.question} editable={false} />
+        <Markdown>{quiz.question}</Markdown>
       </div>
       <div className="bg-accent mt-2 flex h-9 items-center gap-2 border-t py-2 pr-2 pl-3">
         <CornerDownRightIcon className="text-muted-foreground size-4" />

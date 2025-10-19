@@ -56,7 +56,7 @@ export const AddStudentButton = () => {
                 </Button>
               </DialogClose>
               <Button type="submit" disabled={!formState.isDirty}>
-                更新
+                作成
               </Button>
             </>
           )}

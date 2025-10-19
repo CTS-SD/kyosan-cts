@@ -32,7 +32,12 @@ export const MemberUserButton = ({ user }: Props) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button className="size-8 rounded-full" size="icon" variant="outline">
+        <Button
+          className="size-8 rounded-full"
+          size="icon"
+          variant="outline"
+          aria-label="ユーザーメニューを開く"
+        >
           <Avatar>
             <AvatarFallback>{user.name.at(0)}</AvatarFallback>
           </Avatar>

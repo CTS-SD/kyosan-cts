@@ -23,29 +23,28 @@ export const QuizView = ({ heading, form, previewQuiz, onSubmit }: Props) => {
   const isNew = quizId == null;
 
   return (
-    <div className="mx-auto flex h-[calc(100dvh-48px)] max-w-5xl">
-      <div className="flex-1 overflow-auto">
+    <div className="mx-auto flex max-w-5xl">
+      <div className="flex-1">
         <div className="p-6">
           <div className="flex items-center gap-4">
             <Button asChild variant="secondary" size="icon">
-              <Link href="/admin/puratto">
+              <Link href="/admin/puratto" aria-label="戻る">
                 <ArrowLeftIcon />
               </Link>
             </Button>
             {heading && <div className="font-bold">{heading}</div>}
-            <Button
-              className="ml-auto sm:hidden"
-              variant="secondary"
-              onClick={() => setShowPreviewOverlay(true)}
-            >
-              <EyeIcon />
-              プレビュー
-            </Button>
-            {!isNew && (
-              <div className="ml-auto">
-                <QuizViewMenu quizId={quizId} />
-              </div>
-            )}
+            <div className="ml-auto flex items-center gap-2">
+              <Button
+                className="sm:hidden"
+                size="icon"
+                variant="outline"
+                onClick={() => setShowPreviewOverlay(true)}
+                aria-label="プレビューを表示"
+              >
+                <EyeIcon />
+              </Button>
+              {!isNew && <QuizViewMenu quizId={quizId} />}
+            </div>
           </div>
           <QuizEditor
             form={form}
@@ -55,17 +54,17 @@ export const QuizView = ({ heading, form, previewQuiz, onSubmit }: Props) => {
           />
         </div>
       </div>
-      <div className="hidden flex-1 sm:block">
+      <div className="sticky top-12 hidden h-[calc(100dvh-48px)] flex-1 sm:block">
         <QuizPreview quiz={previewQuiz} />
       </div>
       {showPreviewOverlay && (
-        <div className="bg-background fixed inset-0 flex flex-col transition-all duration-200 ease-out sm:hidden starting:scale-95 starting:opacity-0">
+        <div className="bg-background fixed inset-0 flex flex-col overflow-auto overscroll-contain transition-all duration-200 ease-out sm:hidden starting:scale-95 starting:opacity-0">
           <div className="flex justify-end px-4 pt-4">
             <Button
               variant="secondary"
               onClick={() => setShowPreviewOverlay(false)}
             >
-              <XIcon />
+              <XIcon aria-hidden />
               閉じる
             </Button>
           </div>

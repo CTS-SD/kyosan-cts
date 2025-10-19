@@ -1,6 +1,5 @@
 "use client";
 
-import { RichTextRenderer } from "@/components/rich-text-renderer";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -16,13 +15,14 @@ import {
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
 } from "@/components/ui/select";
 import { Spinner } from "@/components/ui/spinner";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { QuizValues } from "@/lib/quiz/editor";
 import { quizTypes } from "@/lib/quiz/types";
+import { SelectValue } from "@radix-ui/react-select";
+import { useNavigationGuard } from "next-navigation-guard";
 import Link from "next/link";
 import { UseFormReturn } from "react-hook-form";
 import { QuizEditorSelect } from "./quiz-editor-select";
@@ -50,6 +50,12 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
   const { isSubmitting, isDirty } = form.formState;
   const formType = form.watch("type");
 
+  useNavigationGuard({
+    enabled: isDirty && !isSubmitting,
+    confirm: () =>
+      window.confirm("保存されていない変更があります。ページを離れますか？"),
+  });
+
   const handleSubmit = async (values: QuizValues) => {
     await onSubmit(values);
   };
@@ -61,31 +67,14 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
           <fieldset className="space-y-6" disabled={isSubmitting}>
             <FormField
               control={form.control}
-              name="question"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>問題文</FormLabel>
-                  <FormControl>
-                    <RichTextRenderer
-                      className="dark:bg-input/30 rounded-md border bg-transparent shadow-xs *:px-3 *:py-2"
-                      content={field.value}
-                      onUpdate={field.onChange}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
               name="type"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>回答形式</FormLabel>
+                  <FormLabel className="sr-only">回答形式</FormLabel>
                   <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl>
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="形式を選択" />
+                      <SelectTrigger size="sm">
+                        <SelectValue />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -96,6 +85,19 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
                       ))}
                     </SelectContent>
                   </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="question"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>問題文</FormLabel>
+                  <FormControl>
+                    <Textarea placeholder="問題文を入力" {...field} />
+                  </FormControl>
                   <FormMessage />
                 </FormItem>
               )}

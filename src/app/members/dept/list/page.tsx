@@ -1,12 +1,17 @@
 import { DepartmentMembers } from "@/components/members/dept/department-members";
+import { Button } from "@/components/ui/button";
+import { getConfig } from "@/lib/config/actions";
 import { db } from "@/lib/db";
 import { DepartmentTable, FacultyTable, StudentTable } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
+import { ImageIcon } from "lucide-react";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 
 const Page = async () => {
+  const { departmentAnnouncementsImageUrl: imageUrl } = await getConfig();
   const departments = await db.select().from(DepartmentTable);
   const students = await db
     .select({
@@ -35,6 +40,16 @@ const Page = async () => {
           />
         ))}
       </div>
+      {imageUrl && (
+        <div className="my-10 flex justify-center">
+          <Button asChild className="rounded-full">
+            <Link href={imageUrl} target="_blank" rel="noreferrer">
+              <ImageIcon />
+              画像を保存
+            </Link>
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

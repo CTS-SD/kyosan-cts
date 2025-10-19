@@ -33,7 +33,12 @@ export const AdminUserButton = ({ user }: Props) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button className="size-8 rounded-full" size="icon" variant="outline">
+        <Button
+          className="size-8 rounded-full"
+          size="icon"
+          variant="outline"
+          aria-label="ユーザーメニューを開く"
+        >
           <Avatar className="size-6 select-none">
             <AvatarImage src={user.image ?? ""} />
             <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
@@ -46,13 +51,13 @@ export const AdminUserButton = ({ user }: Props) => {
         </DropdownMenuLabel>
         <DropdownMenuItem asChild>
           <Link href="/">
-            <HomeIcon aria-hidden />
+            <HomeIcon />
             ホーム
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link href="/admin/puratto">
-            <CogIcon aria-hidden />
+            <CogIcon />
             管理者ページ
           </Link>
         </DropdownMenuItem>

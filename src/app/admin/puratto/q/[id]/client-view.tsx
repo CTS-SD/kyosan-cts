@@ -5,6 +5,7 @@ import { useQuizForm } from "@/hooks/use-quiz-form";
 import { updateQuiz } from "@/lib/quiz/actions";
 import { QuizData } from "@/lib/quiz/data";
 import { makePseudoQuiz, QuizValues } from "@/lib/quiz/editor";
+import { NavigationGuardProvider } from "next-navigation-guard";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { toast } from "sonner";

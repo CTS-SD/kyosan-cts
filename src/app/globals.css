@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -118,70 +119,17 @@
   }
   body {
     @apply bg-background text-foreground;
-
-    &:has(.blue-page) {
-      @apply bg-blue-500 dark:bg-blue-900;
-    }
   }
 
-  .tiptap {
-    & :first-child {
+  .markdown {
+    & *:first-child {
       @apply mt-0!;
     }
-
-    /* Lists */
-    & ul {
-      @apply my-2 list-disc pl-6;
-    }
-    & ol {
-      @apply my-2 list-decimal pl-6;
-    }
-
-    /* Headings */
-    & :is(h1, h2, h3, h4, h5, h6) {
-      @apply my-2 leading-[1.1] font-bold text-pretty;
-    }
-
-    & h1 {
-      @apply text-[1.4rem];
-    }
-    & h2 {
-      @apply text-[1.2rem];
-    }
-    & h3 {
-      @apply text-[1.1rem];
-    }
-    & :is(h4, h5, h6) {
-      @apply text-base;
-    }
-
-    /* Inline code */
-    & :not(pre) code {
-      @apply bg-primary/5 rounded-sm border px-1.5 py-0.5 text-sm;
-    }
-
-    /* Pre/code blocks */
-    & pre {
-      @apply bg-primary/5 my-4 rounded-md border px-4 py-2 font-mono;
-
-      & code {
-        @apply text-sm text-inherit;
-      }
-    }
-
-    /* Blockquote */
-    & blockquote {
-      @apply my-4 border-s-2 py-1 pl-4 italic;
-    }
-
-    /* Horizontal rule */
-    & hr {
-      @apply border-border my-4;
-    }
-
-    /* Remove trailing space caused by last element margins */
-    & :last-child {
+    & *:last-child {
       @apply mb-0!;
+    }
+    & img {
+      @apply rounded-md;
     }
   }
 }

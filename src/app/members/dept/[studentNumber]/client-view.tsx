@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { getDepartmentStyles } from "@/lib/department";
+import { getDepartmentAsset } from "@/lib/department";
 import { cn } from "@/lib/utils";
 import confetti from "canvas-confetti";
 import { ArrowRightIcon } from "lucide-react";
@@ -14,7 +14,7 @@ type Props = {
 };
 
 export const ClientView = ({ studentName, departmentName }: Props) => {
-  const deptStyles = getDepartmentStyles(departmentName);
+  const deptAsset = getDepartmentAsset(departmentName);
 
   useEffect(() => {
     setTimeout(() => {
@@ -53,7 +53,7 @@ export const ClientView = ({ studentName, departmentName }: Props) => {
               <div
                 className={cn(
                   "bg-clip-text text-5xl font-bold text-transparent",
-                  deptStyles,
+                  deptAsset.styles,
                 )}
               >
                 {departmentName}

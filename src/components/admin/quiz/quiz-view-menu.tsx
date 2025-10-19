@@ -55,21 +55,21 @@ export const QuizViewMenu = ({ quizId }: Props) => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant="outline" size="icon" aria-label="問題メニュー">
-          <EllipsisIcon aria-hidden />
+          <EllipsisIcon />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem onClick={handleCopyUrl}>
-          <CopyIcon aria-hidden />
+          <CopyIcon />
           リンクをコピー
         </DropdownMenuItem>
         <DropdownMenuItem onClick={handleShare}>
-          <ShareIcon aria-hidden />
+          <ShareIcon />
           共有
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleDelete}>
-          <Trash2Icon aria-hidden />
+          <Trash2Icon />
           削除
         </DropdownMenuItem>
       </DropdownMenuContent>
