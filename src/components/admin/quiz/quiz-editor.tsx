@@ -51,7 +51,7 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
   const formType = form.watch("type");
 
   useNavigationGuard({
-    enabled: isDirty,
+    enabled: isDirty && !isSubmitting,
     confirm: () =>
       window.confirm("保存されていない変更があります。ページを離れますか？"),
   });
