@@ -1,6 +1,5 @@
 "use client";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -11,14 +10,18 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Select, SelectContent, SelectItem } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+} from "@/components/ui/select";
 import { Spinner } from "@/components/ui/spinner";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { QuizValues } from "@/lib/quiz/editor";
 import { quizTypes } from "@/lib/quiz/types";
-import { SelectTrigger, SelectValue } from "@radix-ui/react-select";
-import { ChevronDownIcon } from "lucide-react";
+import { SelectValue } from "@radix-ui/react-select";
 import { useNavigationGuard } from "next-navigation-guard";
 import Link from "next/link";
 import { UseFormReturn } from "react-hook-form";
@@ -49,7 +52,8 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
 
   useNavigationGuard({
     enabled: isDirty,
-    confirm: () => window.confirm("保存されていない変更があります。ページを離れますか？"),
+    confirm: () =>
+      window.confirm("保存されていない変更があります。ページを離れますか？"),
   });
 
   const handleSubmit = async (values: QuizValues) => {
@@ -66,13 +70,11 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
               name="type"
               render={({ field }) => (
                 <FormItem>
+                  <FormLabel className="sr-only">回答形式</FormLabel>
                   <Select onValueChange={field.onChange} value={field.value}>
                     <FormControl>
-                      <SelectTrigger className="w-fit" asChild>
-                        <Badge variant="outline">
-                          <SelectValue />
-                          <ChevronDownIcon />
-                        </Badge>
+                      <SelectTrigger size="sm">
+                        <SelectValue />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>

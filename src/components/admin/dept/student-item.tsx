@@ -80,6 +80,7 @@ export const StudentItem = ({ student }: Props) => {
                 size="icon"
                 variant="outline"
                 onClick={handleDeleteStudent}
+                aria-label="学生を削除"
               >
                 <Trash2Icon />
               </Button>
@@ -89,7 +90,7 @@ export const StudentItem = ({ student }: Props) => {
                 </Button>
               </DialogClose>
               <Button type="submit" disabled={!formState.isDirty}>
-                更新
+                保存
               </Button>
             </>
           )}

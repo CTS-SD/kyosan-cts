@@ -28,7 +28,7 @@ export const QuizView = ({ heading, form, previewQuiz, onSubmit }: Props) => {
         <div className="p-6">
           <div className="flex items-center gap-4">
             <Button asChild variant="secondary" size="icon">
-              <Link href="/admin/puratto">
+              <Link href="/admin/puratto" aria-label="戻る">
                 <ArrowLeftIcon />
               </Link>
             </Button>
@@ -39,6 +39,7 @@ export const QuizView = ({ heading, form, previewQuiz, onSubmit }: Props) => {
                 size="icon"
                 variant="outline"
                 onClick={() => setShowPreviewOverlay(true)}
+                aria-label="プレビューを表示"
               >
                 <EyeIcon />
               </Button>
@@ -63,7 +64,7 @@ export const QuizView = ({ heading, form, previewQuiz, onSubmit }: Props) => {
               variant="secondary"
               onClick={() => setShowPreviewOverlay(false)}
             >
-              <XIcon />
+              <XIcon aria-hidden />
               閉じる
             </Button>
           </div>
