@@ -23,8 +23,8 @@ export const QuizView = ({ heading, form, previewQuiz, onSubmit }: Props) => {
   const isNew = quizId == null;
 
   return (
-    <div className="mx-auto flex h-[calc(100dvh-48px)] max-w-5xl">
-      <div className="flex-1 overflow-auto">
+    <div className="mx-auto flex max-w-5xl">
+      <div className="flex-1">
         <div className="p-6">
           <div className="flex items-center gap-4">
             <Button asChild variant="secondary" size="icon">
@@ -53,11 +53,11 @@ export const QuizView = ({ heading, form, previewQuiz, onSubmit }: Props) => {
           />
         </div>
       </div>
-      <div className="hidden flex-1 sm:block">
+      <div className="sticky top-12 hidden h-[calc(100dvh-48px)] flex-1 sm:block">
         <QuizPreview quiz={previewQuiz} />
       </div>
       {showPreviewOverlay && (
-        <div className="bg-background fixed inset-0 flex flex-col transition-all duration-200 ease-out sm:hidden starting:scale-95 starting:opacity-0">
+        <div className="bg-background fixed inset-0 flex flex-col overflow-auto overscroll-contain transition-all duration-200 ease-out sm:hidden starting:scale-95 starting:opacity-0">
           <div className="flex justify-end px-4 pt-4">
             <Button
               variant="secondary"
