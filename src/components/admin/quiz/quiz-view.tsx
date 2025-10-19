@@ -33,19 +33,17 @@ export const QuizView = ({ heading, form, previewQuiz, onSubmit }: Props) => {
               </Link>
             </Button>
             {heading && <div className="font-bold">{heading}</div>}
-            <Button
-              className="ml-auto sm:hidden"
-              variant="secondary"
-              onClick={() => setShowPreviewOverlay(true)}
-            >
-              <EyeIcon />
-              プレビュー
-            </Button>
-            {!isNew && (
-              <div className="ml-auto">
-                <QuizViewMenu quizId={quizId} />
-              </div>
-            )}
+            <div className="ml-auto flex items-center gap-2">
+              <Button
+                className="sm:hidden"
+                size="icon"
+                variant="outline"
+                onClick={() => setShowPreviewOverlay(true)}
+              >
+                <EyeIcon />
+              </Button>
+              {!isNew && <QuizViewMenu quizId={quizId} />}
+            </div>
           </div>
           <QuizEditor
             form={form}
