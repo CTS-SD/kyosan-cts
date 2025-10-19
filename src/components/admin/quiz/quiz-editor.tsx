@@ -19,6 +19,7 @@ import { QuizValues } from "@/lib/quiz/editor";
 import { quizTypes } from "@/lib/quiz/types";
 import { SelectTrigger, SelectValue } from "@radix-ui/react-select";
 import { ChevronDownIcon } from "lucide-react";
+import { useNavigationGuard } from "next-navigation-guard";
 import Link from "next/link";
 import { UseFormReturn } from "react-hook-form";
 import { QuizEditorSelect } from "./quiz-editor-select";
@@ -45,6 +46,11 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
   const labels = isNew ? LABELS.new : LABELS.edit;
   const { isSubmitting, isDirty } = form.formState;
   const formType = form.watch("type");
+
+  useNavigationGuard({
+    enabled: isDirty,
+    confirm: () => window.confirm("保存されていない変更があります。ページを離れますか？"),
+  });
 
   const handleSubmit = async (values: QuizValues) => {
     await onSubmit(values);
