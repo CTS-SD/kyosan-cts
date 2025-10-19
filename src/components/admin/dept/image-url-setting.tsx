@@ -13,6 +13,8 @@ import { Setting } from "@/components/ui/setting";
 import { upsertConfigValue } from "@/lib/config/actions";
 import { ConfigMap } from "@/lib/config/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ExternalLinkIcon } from "lucide-react";
+import Link from "next/link";
 import { use } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -60,15 +62,27 @@ export const ImageUrlSetting = ({ configPromise }: Props) => {
             name="imageUrl"
             render={({ field }) => (
               <FormItem>
-                <FormControl>
-                  <Input
-                    type="url"
-                    inputMode="url"
-                    placeholder="https://example.com/image.jpg"
-                    disabled={isSubmitting}
-                    {...field}
-                  />
-                </FormControl>
+                <div className="flex gap-2">
+                  <FormControl>
+                    <Input
+                      type="url"
+                      inputMode="url"
+                      placeholder="https://example.com/image.jpg"
+                      disabled={isSubmitting}
+                      {...field}
+                    />
+                  </FormControl>
+                  <Button asChild variant="outline" size="icon">
+                    <Link
+                      href={field.value}
+                      target="_blank"
+                      rel="noreferrer"
+                      aria-label="画像リンクを開く"
+                    >
+                      <ExternalLinkIcon />
+                    </Link>
+                  </Button>
+                </div>
                 <FormMessage />
               </FormItem>
             )}
