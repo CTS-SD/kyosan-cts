@@ -2,8 +2,8 @@
 
 import { useSessionPromise } from "@/ctx/session-promise";
 import { use } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "../ui/button";
+import { UserAvatar } from "../user-avatar";
 import { AdminUserMenu } from "./admin-user-menu";
 
 export const AdminUserButton = () => {
@@ -16,13 +16,10 @@ export const AdminUserButton = () => {
       <Button
         className="size-8 rounded-full"
         size="icon"
-        variant="outline"
+        variant="ghost"
         aria-label="ユーザーメニューを開く"
       >
-        <Avatar className="size-6 select-none">
-          <AvatarImage src={user.image ?? ""} />
-          <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
-        </Avatar>
+        <UserAvatar className="size-7" user={user} />
       </Button>
     </AdminUserMenu>
   );

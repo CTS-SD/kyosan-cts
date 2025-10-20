@@ -27,8 +27,8 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { use } from "react";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Badge } from "../ui/badge";
+import { UserAvatar } from "../user-avatar";
 import { AdminUserMenu } from "./admin-user-menu";
 
 const items = [
@@ -127,10 +127,7 @@ export const AdminSidebar = () => {
           <SidebarMenuItem>
             <AdminUserMenu>
               <SidebarMenuButton className="h-10">
-                <Avatar className="size-6">
-                  <AvatarImage src={user.image || ""} />
-                  <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
-                </Avatar>
+                <UserAvatar user={user} />
                 <span>{user.name}</span>
                 <ChevronsUpDownIcon className="text-muted-foreground ml-auto" />
               </SidebarMenuButton>

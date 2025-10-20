@@ -10,8 +10,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { signOut, useSession } from "@/lib/auth-client";
 import { LogOutIcon } from "lucide-react";
-import { Avatar, AvatarFallback } from "../ui/avatar";
 import { Button } from "../ui/button";
+import { UserAvatar } from "../user-avatar";
 
 export const MemberUserButton = () => {
   const { data: session } = useSession();
@@ -34,12 +34,10 @@ export const MemberUserButton = () => {
         <Button
           className="size-8 rounded-full"
           size="icon"
-          variant="outline"
+          variant="ghost"
           aria-label="ユーザーメニューを開く"
         >
-          <Avatar>
-            <AvatarFallback>{user.name.at(0)}</AvatarFallback>
-          </Avatar>
+          <UserAvatar user={user} />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="min-w-40">
