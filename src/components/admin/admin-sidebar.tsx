@@ -10,6 +10,9 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
   useSidebar,
 } from "@/components/ui/sidebar";
 import { useSessionPromise } from "@/ctx/session-promise";
@@ -17,6 +20,8 @@ import {
   ChevronsUpDownIcon,
   CogIcon,
   NotebookIcon,
+  NotebookPenIcon,
+  PartyPopperIcon,
   UsersRoundIcon,
 } from "lucide-react";
 import Link from "next/link";
@@ -53,6 +58,8 @@ export const AdminSidebar = () => {
 
   if (!user) return null;
 
+  const handleClickItem = () => setOpenMobile(false);
+
   return (
     <Sidebar>
       <SidebarHeader>
@@ -71,19 +78,46 @@ export const AdminSidebar = () => {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <Link
-                      href={item.url}
-                      onClick={() => setOpenMobile(false)}
-                    >
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                </SidebarMenuItem>
-              ))}
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <Link href="/admin/puratto" onClick={handleClickItem}>
+                    <NotebookPenIcon />
+                    <span>ぷらっとテスト</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <Link href="/admin/dept" onClick={handleClickItem}>
+                    <PartyPopperIcon />
+                    <span>配属発表</span>
+                  </Link>
+                </SidebarMenuButton>
+                <SidebarMenuSub>
+                  <SidebarMenuSubItem>
+                    <SidebarMenuSubButton asChild>
+                      <Link href="/admin/dept" onClick={handleClickItem}>
+                        メンバー管理
+                      </Link>
+                    </SidebarMenuSubButton>
+                  </SidebarMenuSubItem>
+                  <SidebarMenuSubItem>
+                    <SidebarMenuSubButton asChild onClick={handleClickItem}>
+                      <Link href="/admin/dept/settings">表示設定</Link>
+                    </SidebarMenuSubButton>
+                  </SidebarMenuSubItem>
+                </SidebarMenuSub>
+              </SidebarMenuItem>
+
+              <SidebarMenuItem>
+                <SidebarMenuButton asChild>
+                  <Link href="/admin/settings" onClick={handleClickItem}>
+                    <CogIcon />
+                    <span>設定</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
