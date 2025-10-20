@@ -9,6 +9,7 @@ import {
   ConfigMap,
   ConfigValue,
 } from "./definitions";
+import { cache } from "react";
 
 function buildDefaultConfig(): ConfigMap {
   const entries = Object.keys(configDefinitions).map((key) => {
@@ -48,7 +49,7 @@ export async function getConfigValue<K extends ConfigKey>(
   return definition.defaultValue as ConfigValue<K>;
 }
 
-export async function getConfig(): Promise<ConfigMap> {
+export const getConfig = cache(async (): Promise<ConfigMap> => {
   try {
     const rows = await db.select().from(ConfigTable);
 
@@ -79,7 +80,7 @@ export async function getConfig(): Promise<ConfigMap> {
     console.error("Failed to load config map", error);
     return buildDefaultConfig();
   }
-}
+});
 
 export async function upsertConfigValue<K extends ConfigKey>(
   key: K,
