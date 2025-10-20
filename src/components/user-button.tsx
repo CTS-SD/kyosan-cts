@@ -14,9 +14,9 @@ export const UserButton = async () => {
   const user = session.user;
 
   if (user.role === "admin") {
-    return <AdminUserButton user={user} />;
+    return <AdminUserButton />;
   } else if (user.role === "member") {
-    return <MemberUserButton user={user} />;
+    return <MemberUserButton />;
   }
 
   return <LoginButton />;

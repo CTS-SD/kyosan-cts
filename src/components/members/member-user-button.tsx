@@ -8,17 +8,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { signOut } from "@/lib/auth-client";
-import { User } from "better-auth";
+import { signOut, useSession } from "@/lib/auth-client";
 import { LogOutIcon } from "lucide-react";
-import { Avatar, AvatarFallback } from "../ui/avatar";
 import { Button } from "../ui/button";
+import { UserAvatar } from "../user-avatar";
 
-type Props = {
-  user: User;
-};
+export const MemberUserButton = () => {
+  const { data: session } = useSession();
+  const user = session?.user;
+  if (!user) return null;
 
-export const MemberUserButton = ({ user }: Props) => {
   const handleSignOut = async () => {
     await signOut({
       fetchOptions: {
@@ -35,12 +34,10 @@ export const MemberUserButton = ({ user }: Props) => {
         <Button
           className="size-8 rounded-full"
           size="icon"
-          variant="outline"
+          variant="ghost"
           aria-label="ユーザーメニューを開く"
         >
-          <Avatar>
-            <AvatarFallback>{user.name.at(0)}</AvatarFallback>
-          </Avatar>
+          <UserAvatar user={user} />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="min-w-40">

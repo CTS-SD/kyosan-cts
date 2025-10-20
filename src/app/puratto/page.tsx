@@ -16,9 +16,8 @@ const Page = () => {
               ホームに戻る
             </Link>
           </Button>
-          <Button disabled>
-            {/* <Link href="/puratto/play">スタート</Link> */}
-            メンテナンス中
+          <Button>
+            <Link href="/puratto/play">スタート</Link>
           </Button>
         </div>
       </div>

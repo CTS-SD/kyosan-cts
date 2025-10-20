@@ -1,6 +1,7 @@
-import { QuizData } from "@/lib/quiz/data";
 import { QuizResult } from "@/lib/quiz-form";
+import { QuizData } from "@/lib/quiz/data";
 import Link from "next/link";
+import { QuizResultItem } from "./quiz-result-item";
 import { Button } from "./ui/button";
 
 type Props = {
@@ -8,12 +9,29 @@ type Props = {
   results: QuizResult[];
 };
 
-export const QuizResultsView = ({}: Props) => {
+export const QuizResultsView = ({ quizzes, results }: Props) => {
+  const correctCount = results.filter((r) => r.isCorrect).length;
+
   return (
-    <div>
-      <Button asChild size="lg">
-        <Link href="/puratto">OK</Link>
-      </Button>
+    <div className="mx-auto max-w-2xl p-6">
+      <div className="flex justify-center py-16">
+        <div className="text-3xl font-bold">{correctCount}問正解</div>
+      </div>
+      <div className="space-y-6">
+        {results.map((result, i) => (
+          <QuizResultItem
+            key={i}
+            index={i + 1}
+            result={result}
+            quiz={quizzes.find((q) => q.id === result.quizId)!}
+          />
+        ))}
+      </div>
+      <div className="mt-6">
+        <Button asChild className="w-full">
+          <Link href="/puratto">OK</Link>
+        </Button>
+      </div>
     </div>
   );
 };

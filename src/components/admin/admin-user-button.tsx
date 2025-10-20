@@ -1,72 +1,26 @@
 "use client";
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { signOut } from "@/lib/auth-client";
-import { User } from "better-auth";
-import { CogIcon, HomeIcon, LogOutIcon } from "lucide-react";
-import Link from "next/link";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { useSessionPromise } from "@/ctx/session-promise";
+import { use } from "react";
 import { Button } from "../ui/button";
+import { UserAvatar } from "../user-avatar";
+import { AdminUserMenu } from "./admin-user-menu";
 
-type Props = {
-  user: User;
-};
-
-export const AdminUserButton = ({ user }: Props) => {
-  const handleSignOut = async () => {
-    await signOut({
-      fetchOptions: {
-        onSuccess: () => {
-          window.location.href = "/";
-        },
-      },
-    });
-  };
+export const AdminUserButton = () => {
+  const session = use(useSessionPromise());
+  const user = session?.user;
+  if (!user) return null;
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button
-          className="size-8 rounded-full"
-          size="icon"
-          variant="outline"
-          aria-label="ユーザーメニューを開く"
-        >
-          <Avatar className="size-6 select-none">
-            <AvatarImage src={user.image ?? ""} />
-            <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
-          </Avatar>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="min-w-40">
-        <DropdownMenuLabel className="text-muted-foreground">
-          {user.name}
-        </DropdownMenuLabel>
-        <DropdownMenuItem asChild>
-          <Link href="/">
-            <HomeIcon />
-            ホーム
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href="/admin/puratto">
-            <CogIcon />
-            管理者ページ
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handleSignOut}>
-          <LogOutIcon />
-          ログアウト
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <AdminUserMenu>
+      <Button
+        className="size-8 rounded-full"
+        size="icon"
+        variant="ghost"
+        aria-label="ユーザーメニューを開く"
+      >
+        <UserAvatar className="size-7" user={user} />
+      </Button>
+    </AdminUserMenu>
   );
 };
