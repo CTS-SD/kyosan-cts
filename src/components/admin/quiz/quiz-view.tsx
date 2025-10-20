@@ -1,6 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { QuizData } from "@/lib/quiz/data";
-import { QuizValues } from "@/lib/quiz/editor";
+import { makePseudoQuiz, QuizValues } from "@/lib/quiz/editor";
 import { ArrowLeftIcon, EyeIcon, XIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
@@ -10,17 +9,19 @@ import { QuizPreview } from "./quiz-preview";
 import { QuizViewMenu } from "./quiz-view-menu";
 
 type Props = {
-  heading?: React.ReactNode;
+  heading: React.ReactNode;
   form: UseFormReturn<QuizValues>;
-  previewQuiz: QuizData | null;
   onSubmit: (values: QuizValues) => Promise<void>;
 };
 
-export const QuizView = ({ heading, form, previewQuiz, onSubmit }: Props) => {
+export const QuizView = ({ heading, form, onSubmit }: Props) => {
   const [showPreviewOverlay, setShowPreviewOverlay] = useState(false);
 
-  const quizId = form.getValues("id");
-  const isNew = quizId == null;
+  const formValues = form.watch();
+  const previewQuiz = makePseudoQuiz(formValues);
+
+  const quizId = formValues.id;
+  const isNew = quizId === null;
 
   return (
     <div className="mx-auto flex max-w-5xl">

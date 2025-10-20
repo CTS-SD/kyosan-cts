@@ -33,15 +33,12 @@ const Page = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSubmitting(true);
-    const { error } = await signIn
-      .email({
-        email: "cts-member@example.com",
-        password,
-        callbackURL: "/members",
-      })
-      .finally(() => {
-        setSubmitting(false);
-      });
+    const { error } = await signIn.email({
+      email: "cts-member@example.com",
+      password,
+      callbackURL: "/members",
+    });
+    setSubmitting(false);
     if (error) {
       toast.error(getErrorMessage(error.message));
       setPassword("");

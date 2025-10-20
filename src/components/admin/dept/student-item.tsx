@@ -9,7 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useStudentBundlePromise } from "@/ctx/student-bundle-promise-context";
+import { useStudentBundlePromise } from "@/ctx/student-bundle-promise";
 import { Student } from "@/lib/db/schema";
 import * as studentActions from "@/lib/student-actions";
 import { StudentValues } from "@/lib/student-editor";

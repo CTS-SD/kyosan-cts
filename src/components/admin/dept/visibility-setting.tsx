@@ -6,13 +6,13 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Label } from "@/components/ui/label";
 import { Setting } from "@/components/ui/setting";
 import { Switch } from "@/components/ui/switch";
+import { useConfigPromise } from "@/ctx/config-promise";
 import { upsertConfigValue } from "@/lib/config/actions";
-import { ConfigMap } from "@/lib/config/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { use } from "react";
 import { useForm } from "react-hook-form";
@@ -23,12 +23,8 @@ const FormSchema = z.object({
   published: z.boolean(),
 });
 
-type Props = {
-  configPromise: Promise<ConfigMap>;
-};
-
-export const VisibilitySetting = ({ configPromise }: Props) => {
-  const config = use(configPromise);
+export const VisibilitySetting = () => {
+  const config = use(useConfigPromise());
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -66,15 +62,12 @@ export const VisibilitySetting = ({ configPromise }: Props) => {
                   <div className="flex items-center gap-3">
                     <FormControl>
                       <Switch
-                        id="visibility-toggle"
                         checked={field.value}
                         onCheckedChange={field.onChange}
                         disabled={isSubmitting}
                       />
                     </FormControl>
-                    <Label htmlFor="visibility-toggle">
-                      {field.value ? "公開中" : "非公開"}
-                    </Label>
+                    <FormLabel>{field.value ? "公開中" : "非公開"}</FormLabel>
                   </div>
                   <FormMessage />
                 </FormItem>

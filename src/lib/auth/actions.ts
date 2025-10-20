@@ -4,6 +4,15 @@ import { eq } from "drizzle-orm";
 import { db } from "../db";
 import { account as AccountTable, user as UserTable } from "../db/schema";
 import { signUp } from "../auth-client";
+import { auth } from "../auth";
+import { headers } from "next/headers";
+import { cache } from "react";
+
+export const getSession = cache(async () =>
+  auth.api.getSession({
+    headers: await headers(),
+  }),
+);
 
 export async function getUserById(userId: string) {
   const [user] = await db

@@ -16,7 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useStudentBundlePromise } from "@/ctx/student-bundle-promise-context";
+import { useStudentBundlePromise } from "@/ctx/student-bundle-promise";
 import { Student } from "@/lib/db/schema";
 import { StudentEditorSchema, StudentValues } from "@/lib/student-editor";
 import { zodResolver } from "@hookform/resolvers/zod";

@@ -1,6 +1,6 @@
 "use client";
 
-import { useStudentBundlePromise } from "@/ctx/student-bundle-promise-context";
+import { useStudentBundlePromise } from "@/ctx/student-bundle-promise";
 import { use } from "react";
 import { DepartmentBox } from "./department-box";
 
