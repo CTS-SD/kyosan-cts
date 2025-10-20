@@ -37,12 +37,8 @@ type Props = {
 };
 
 const LABELS = {
-  new: {
-    submit: "作成",
-  },
-  edit: {
-    submit: "保存",
-  },
+  new: { submit: "作成" },
+  edit: { submit: "保存" },
 };
 
 export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
@@ -56,14 +52,10 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
       window.confirm("保存されていない変更があります。ページを離れますか？"),
   });
 
-  const handleSubmit = async (values: QuizValues) => {
-    await onSubmit(values);
-  };
-
   return (
     <div className={className}>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)}>
+        <form onSubmit={form.handleSubmit(onSubmit)}>
           <fieldset className="space-y-6" disabled={isSubmitting}>
             <FormField
               control={form.control}

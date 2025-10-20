@@ -10,7 +10,6 @@ import {
   QuizValues,
 } from "@/lib/quiz/editor";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 import { toast } from "sonner";
 
 type Props = {
@@ -23,19 +22,11 @@ export const ClientView = ({ quiz }: Props) => {
     defaultValues: makeDefaultValues(quiz),
   });
 
-  useEffect(() => {
-    form.reset(makeDefaultValues(quiz));
-  }, [quiz]);
-
-  if (!quiz) return;
-
-  const formValues = form.watch();
-  const pseudoQuiz = makePseudoQuiz(formValues);
-
   const handleSubmit = async (values: QuizValues) => {
     await updateQuiz(quiz.id, values);
     toast.success("問題を保存しました");
     router.refresh();
+    form.reset(values);
   };
 
   return (
@@ -47,7 +38,6 @@ export const ClientView = ({ quiz }: Props) => {
         </div>
       }
       form={form}
-      previewQuiz={pseudoQuiz}
       onSubmit={handleSubmit}
     />
   );
