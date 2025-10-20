@@ -4,15 +4,17 @@ import Link from "next/link";
 import { ToggleTheme } from "../theme-toggle";
 import { Badge } from "../ui/badge";
 import { NavLink, NavMenu } from "../ui/nav-menu";
+import { SidebarTrigger } from "../ui/sidebar";
 
 export const AdminHeader = async () => {
   const session = await getSession();
   const user = session?.user;
 
   return (
-    <div className="border-b border-dashed">
+    <div className="border-b border-dashed md:hidden">
       <div className="mx-auto flex h-[47px] max-w-5xl items-center gap-4 px-6">
         <div className="flex items-center gap-2">
+          <SidebarTrigger className="md:hidden" />
           <Link href="/" className="text-sm font-semibold">
             京産キャンスタ
           </Link>
@@ -21,7 +23,7 @@ export const AdminHeader = async () => {
           </Link>
         </div>
         <div>
-          <NavMenu>
+          <NavMenu className="hidden md:flex">
             <NavLink href="/admin/puratto">ぷらっとテスト</NavLink>
             <NavLink href="/admin/dept">配属発表</NavLink>
             <NavLink href="/admin/settings">設定</NavLink>

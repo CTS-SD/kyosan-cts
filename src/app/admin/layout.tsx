@@ -1,5 +1,7 @@
 import { AdminHeader } from "@/components/admin/admin-header";
+import { AdminSidebar } from "@/components/admin/admin-sidebar";
 import { ProtectedRoute } from "@/components/protected-route";
+import { SidebarProvider } from "@/components/ui/sidebar";
 
 type Props = {
   children: React.ReactNode;
@@ -8,8 +10,13 @@ type Props = {
 const Layout = async ({ children }: Props) => {
   return (
     <ProtectedRoute roles={["admin"]} fallbackUrl="/sign-in">
-      <AdminHeader />
-      {children}
+      <SidebarProvider>
+        <AdminSidebar />
+        <div className="grow">
+          <AdminHeader />
+          {children}
+        </div>
+      </SidebarProvider>
     </ProtectedRoute>
   );
 };
