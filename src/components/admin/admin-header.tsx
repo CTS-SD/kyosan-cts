@@ -1,13 +1,12 @@
 import { AdminUserButton } from "@/components/admin/admin-user-button";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
+import { getSession } from "@/lib/auth/actions";
 import Link from "next/link";
 import { ToggleTheme } from "../theme-toggle";
 import { Badge } from "../ui/badge";
 import { NavLink, NavMenu } from "../ui/nav-menu";
 
 export const AdminHeader = async () => {
-  const session = await auth.api.getSession({ headers: await headers() });
+  const session = await getSession();
   const user = session?.user;
 
   return (
