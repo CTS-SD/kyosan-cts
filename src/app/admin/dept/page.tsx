@@ -5,6 +5,7 @@ import { ImageUrlSetting } from "@/components/admin/dept/image-url-setting";
 import { VisibilitySetting } from "@/components/admin/dept/visibility-setting";
 import { YearSetting } from "@/components/admin/dept/year-setting";
 import { Button } from "@/components/ui/button";
+import { ConfigPromiseProvider } from "@/ctx/config-promise";
 import { getConfig } from "@/lib/config/actions";
 import { getStudentBundle } from "@/lib/students";
 import { StudentBundlePromiseProvider } from "@/providers/student-bundle-promise-provider";
@@ -37,9 +38,11 @@ const Page = () => {
         </StudentBundlePromiseProvider>
       </div>
       <div className="mt-6 space-y-4">
-        <YearSetting configPromise={configPromise} />
-        <ImageUrlSetting configPromise={configPromise} />
-        <VisibilitySetting configPromise={configPromise} />
+        <ConfigPromiseProvider value={configPromise}>
+          <YearSetting />
+          <ImageUrlSetting />
+          <VisibilitySetting />
+        </ConfigPromiseProvider>
       </div>
     </div>
   );

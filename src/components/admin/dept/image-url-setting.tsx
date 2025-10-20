@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Setting } from "@/components/ui/setting";
+import { useConfigPromise } from "@/ctx/config-promise";
 import { upsertConfigValue } from "@/lib/config/actions";
 import { ConfigMap } from "@/lib/config/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -24,16 +25,10 @@ const FormSchema = z.object({
   imageUrl: z.url("有効なURLを入力してください。").or(z.literal("")),
 });
 
-type FormValues = z.infer<typeof FormSchema>;
+export const ImageUrlSetting = () => {
+  const config = use(useConfigPromise());
 
-type Props = {
-  configPromise: Promise<ConfigMap>;
-};
-
-export const ImageUrlSetting = ({ configPromise }: Props) => {
-  const config = use(configPromise);
-
-  const form = useForm<FormValues>({
+  const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
       imageUrl: config.departmentAnnouncementsImageUrl,

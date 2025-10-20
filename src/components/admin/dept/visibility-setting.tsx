@@ -11,8 +11,8 @@ import {
 } from "@/components/ui/form";
 import { Setting } from "@/components/ui/setting";
 import { Switch } from "@/components/ui/switch";
+import { useConfigPromise } from "@/ctx/config-promise";
 import { upsertConfigValue } from "@/lib/config/actions";
-import { ConfigMap } from "@/lib/config/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { use } from "react";
 import { useForm } from "react-hook-form";
@@ -23,12 +23,8 @@ const FormSchema = z.object({
   published: z.boolean(),
 });
 
-type Props = {
-  configPromise: Promise<ConfigMap>;
-};
-
-export const VisibilitySetting = ({ configPromise }: Props) => {
-  const config = use(configPromise);
+export const VisibilitySetting = () => {
+  const config = use(useConfigPromise());
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
