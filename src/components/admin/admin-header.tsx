@@ -7,7 +7,6 @@ export const AdminHeader = async () => {
     <div className="border-b border-dashed md:hidden">
       <div className="mx-auto flex h-[47px] max-w-5xl items-center gap-4 px-6">
         <div className="flex items-center gap-2">
-          <SidebarTrigger className="md:hidden" />
           <Link href="/" className="text-sm font-semibold">
             京産キャンスタ
           </Link>

@@ -1,4 +1,4 @@
-import { AdminHeader } from "@/components/admin/admin-header";
+import { AdminPageHeader } from "@/components/admin/admin-page-header";
 import { AdminSidebar } from "@/components/admin/admin-sidebar";
 import { ProtectedRoute } from "@/components/protected-route";
 import { SidebarProvider } from "@/components/ui/sidebar";
@@ -13,7 +13,6 @@ const Layout = async ({ children }: Props) => {
       <SidebarProvider>
         <AdminSidebar />
         <div className="grow">
-          <AdminHeader />
           {children}
         </div>
       </SidebarProvider>
