@@ -1,6 +1,7 @@
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarHeader,
@@ -8,9 +9,17 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { CogIcon, NotebookIcon, UsersRoundIcon } from "lucide-react";
+import { getSession } from "@/lib/auth/actions";
+import {
+  ChevronsUpDownIcon,
+  CogIcon,
+  NotebookIcon,
+  UsersRoundIcon,
+} from "lucide-react";
 import Link from "next/link";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Badge } from "../ui/badge";
+import { AdminUserMenu } from "./admin-user-menu";
 
 const items = [
   {
@@ -30,7 +39,11 @@ const items = [
   },
 ];
 
-export const AdminSidebar = () => {
+export const AdminSidebar = async () => {
+  const session = await getSession();
+  const user = session?.user;
+  if (!user) return null;
+
   return (
     <Sidebar>
       <SidebarHeader>
@@ -63,6 +76,22 @@ export const AdminSidebar = () => {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <AdminUserMenu>
+              <SidebarMenuButton className="h-10">
+                <Avatar className="size-6">
+                  <AvatarImage src={user.image || ""} />
+                  <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+                </Avatar>
+                <span>{user.name}</span>
+                <ChevronsUpDownIcon className="text-muted-foreground ml-auto" />
+              </SidebarMenuButton>
+            </AdminUserMenu>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
   );
 };

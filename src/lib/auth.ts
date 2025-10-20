@@ -19,6 +19,12 @@ export const auth = betterAuth({
       prompt: "select_account",
     },
   },
+  session: {
+    cookieCache: {
+      enabled: true,
+      maxAge: 10
+    },
+  },
   user: {
     additionalFields: {
       role: {

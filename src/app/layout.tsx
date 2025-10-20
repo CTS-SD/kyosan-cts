@@ -1,4 +1,6 @@
 import { Toaster } from "@/components/ui/sonner";
+import { SessionPromiseProvider } from "@/ctx/session-promise";
+import { getSession } from "@/lib/auth/actions";
 import type { Metadata } from "next";
 import { NavigationGuardProvider } from "next-navigation-guard";
 import { ThemeProvider } from "next-themes";
@@ -20,21 +22,25 @@ export const metadata: Metadata = {
   description: "京都産業大学キャンスタ",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const sessionPromise = getSession();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <NavigationGuardProvider>
-          <ThemeProvider attribute="class" defaultTheme="light">
-            {children}
-            <Toaster />
-          </ThemeProvider>
+          <SessionPromiseProvider value={sessionPromise}>
+            <ThemeProvider attribute="class" defaultTheme="light">
+              {children}
+              <Toaster />
+            </ThemeProvider>
+          </SessionPromiseProvider>
         </NavigationGuardProvider>
       </body>
     </html>

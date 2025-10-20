@@ -8,17 +8,16 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { signOut } from "@/lib/auth-client";
-import { User } from "better-auth";
+import { signOut, useSession } from "@/lib/auth-client";
 import { LogOutIcon } from "lucide-react";
 import { Avatar, AvatarFallback } from "../ui/avatar";
 import { Button } from "../ui/button";
 
-type Props = {
-  user: User;
-};
+export const MemberUserButton = () => {
+  const { data: session } = useSession();
+  const user = session?.user;
+  if (!user) return null;
 
-export const MemberUserButton = ({ user }: Props) => {
   const handleSignOut = async () => {
     await signOut({
       fetchOptions: {
