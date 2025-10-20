@@ -4,11 +4,7 @@ import { QuizView } from "@/components/admin/quiz/quiz-view";
 import { useQuizForm } from "@/hooks/use-quiz-form";
 import { updateQuiz } from "@/lib/quiz/actions";
 import { QuizData } from "@/lib/quiz/data";
-import {
-  makeDefaultValues,
-  makePseudoQuiz,
-  QuizValues,
-} from "@/lib/quiz/editor";
+import { makeDefaultValues, QuizValues } from "@/lib/quiz/editor";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 

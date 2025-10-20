@@ -3,13 +3,14 @@
 import { ConfigMap } from "@/lib/config/definitions";
 import { createContext, useContext } from "react";
 
-const ConfigPromiseContext = createContext<Promise<ConfigMap> | null>(
-  null,
-);
+const ConfigPromiseContext = createContext<Promise<ConfigMap> | null>(null);
 
 export const useConfigPromise = () => {
   const value = useContext(ConfigPromiseContext);
-  if (!value) throw new Error("useConfigPromise must be used within a ConfigPromiseProvider");
+  if (!value)
+    throw new Error(
+      "useConfigPromise must be used within a ConfigPromiseProvider",
+    );
   return value;
 };
 
