@@ -6,9 +6,9 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Label } from "@/components/ui/label";
 import { Setting } from "@/components/ui/setting";
 import { Switch } from "@/components/ui/switch";
 import { upsertConfigValue } from "@/lib/config/actions";
@@ -66,15 +66,12 @@ export const VisibilitySetting = ({ configPromise }: Props) => {
                   <div className="flex items-center gap-3">
                     <FormControl>
                       <Switch
-                        id="visibility-toggle"
                         checked={field.value}
                         onCheckedChange={field.onChange}
                         disabled={isSubmitting}
                       />
                     </FormControl>
-                    <Label htmlFor="visibility-toggle">
-                      {field.value ? "公開中" : "非公開"}
-                    </Label>
+                    <FormLabel>{field.value ? "公開中" : "非公開"}</FormLabel>
                   </div>
                   <FormMessage />
                 </FormItem>
