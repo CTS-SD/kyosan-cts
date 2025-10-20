@@ -10,11 +10,11 @@ const Page = async ({ params }: Props) => {
   const { id } = await params;
   const quizId = parseInt(id, 10);
 
-  if (isNaN(quizId)) notFound();
+  if (isNaN(quizId)) return notFound();
 
   const quiz = await getQuizById(quizId);
 
-  if (!quiz) notFound();
+  if (!quiz) return notFound();
 
   return <ClientView quiz={quiz} />;
 };

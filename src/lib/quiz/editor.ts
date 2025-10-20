@@ -121,6 +121,41 @@ export type SelectQuizValues = z.infer<typeof SelectQuizEditorSchema>;
 export type TextQuizValues = z.infer<typeof TextQuizEditorSchema>;
 export type TrueFalseQuizValues = z.infer<typeof TrueFalseQuizEditorSchema>;
 
+export function makeDefaultValues(quiz: QuizData): QuizValues {
+  const commonValues = {
+    id: quiz.id,
+    question: quiz.question,
+    explanation: quiz.explanation ?? undefined,
+    isPublished: quiz.isPublished,
+  };
+  const quizType = quiz.type;
+
+  switch (quiz.type) {
+    case "select":
+      return {
+        type: quiz.type,
+        ...commonValues,
+        correctChoicesText: quiz.correctChoices.join("\n"),
+        incorrectChoicesText: quiz.incorrectChoices.join("\n"),
+      };
+    case "text":
+      return {
+        type: quiz.type,
+        ...commonValues,
+        answer: quiz.answer,
+      };
+    case "true_false":
+      return {
+        type: quiz.type,
+        ...commonValues,
+        answer: quiz.answer,
+      };
+    default: {
+      throw new Error(`Unknown quiz type: ${quizType}`);
+    }
+  }
+}
+
 export function makePseudoQuiz(values: QuizValues): QuizData | null {
   const commonData = {
     id: -1,
