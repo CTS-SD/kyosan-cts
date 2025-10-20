@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Sidebar,
   SidebarContent,
@@ -8,8 +10,9 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  useSidebar,
 } from "@/components/ui/sidebar";
-import { getSession } from "@/lib/auth/actions";
+import { useSessionPromise } from "@/ctx/session-promise";
 import {
   ChevronsUpDownIcon,
   CogIcon,
@@ -17,6 +20,8 @@ import {
   UsersRoundIcon,
 } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { use } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Badge } from "../ui/badge";
 import { AdminUserMenu } from "./admin-user-menu";
@@ -39,9 +44,13 @@ const items = [
   },
 ];
 
-export const AdminSidebar = async () => {
-  const session = await getSession();
+export const AdminSidebar = () => {
+  const session = use(useSessionPromise());
   const user = session?.user;
+
+  const router = useRouter();
+  const { setOpenMobile } = useSidebar();
+
   if (!user) return null;
 
   return (
@@ -65,7 +74,10 @@ export const AdminSidebar = async () => {
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <Link href={item.url}>
+                    <Link
+                      href={item.url}
+                      onClick={() => setOpenMobile(false)}
+                    >
                       <item.icon />
                       <span>{item.title}</span>
                     </Link>
