@@ -125,7 +125,7 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>公開設定</FormLabel>
-                  <label className="flex items-center justify-between rounded-md border px-4 py-3">
+                  <label className="dark:bg-input/32 flex items-center justify-between rounded-md border px-4 py-3">
                     <div>
                       <div>問題を公開する</div>
                       <FormDescription>
@@ -143,7 +143,7 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
                 </FormItem>
               )}
             />
-            <div className="flex justify-end gap-2">
+            <div className="to-background sticky bottom-0 -mb-4 flex justify-end gap-2 bg-gradient-to-b pb-4">
               <Button
                 render={<Link href="/admin/puratto">キャンセル</Link>}
                 className="ml-auto"
