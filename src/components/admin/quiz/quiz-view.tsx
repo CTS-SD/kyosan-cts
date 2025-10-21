@@ -24,7 +24,7 @@ export const QuizView = ({ heading, form, onSubmit }: Props) => {
   const isNew = quizId === null;
 
   return (
-    <div className="mx-auto flex max-w-5xl">
+    <div className="mx-auto flex max-w-6xl">
       <div className="flex-1">
         <div className="p-6">
           <div className="flex items-center gap-4">

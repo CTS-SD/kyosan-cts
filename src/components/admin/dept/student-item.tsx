@@ -58,17 +58,13 @@ export const StudentItem = ({ student }: Props) => {
 
   return (
     <Dialog>
-      <DialogTrigger
-        render={
-          <button className="hover:bg-muted flex w-full flex-col items-start rounded-md px-3 py-1.5">
-            <div className="font-medium">{student.name}</div>
-            <div className="text-foreground/60 flex gap-2 text-sm">
-              <div>{student.studentNumber}</div>
-              <div>{getFacultyName(student.facultyId)}</div>
-            </div>
-          </button>
-        }
-      />
+      <DialogTrigger className="hover:bg-muted flex w-full flex-col items-start rounded-md px-3 py-1.5">
+        <div className="font-medium">{student.name}</div>
+        <div className="text-foreground/60 flex gap-2 text-sm">
+          <div>{student.studentNumber}</div>
+          <div>{getFacultyName(student.facultyId)}</div>
+        </div>
+      </DialogTrigger>
       <DialogPopup>
         <DialogHeader>
           <DialogTitle>学生を編集</DialogTitle>

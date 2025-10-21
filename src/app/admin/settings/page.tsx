@@ -5,7 +5,7 @@ const Page = () => {
   return (
     <div>
       <AdminPageHeader heading="設定" />
-      <div className="mx-auto max-w-5xl p-6">
+      <div className="mx-auto max-w-2xl p-6">
         <ResetMemberPassword />
       </div>
     </div>
