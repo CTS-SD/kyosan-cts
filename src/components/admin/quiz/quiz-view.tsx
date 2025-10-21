@@ -64,17 +64,20 @@ export const QuizView = ({ heading, form, onSubmit }: Props) => {
       </div>
       {showPreviewOverlay && (
         <div className="bg-background fixed inset-0 z-30 flex flex-col overflow-auto overscroll-contain transition-all duration-200 ease-out sm:hidden starting:scale-95 starting:opacity-0">
-          <div className="flex justify-end px-4 pt-4">
-            <Button
-              variant="outline"
-              onClick={() => setShowPreviewOverlay(false)}
-            >
-              <XIcon aria-hidden />
-              閉じる
-            </Button>
-          </div>
           <div className="w-full grow">
-            <QuizPreview quiz={previewQuiz} />
+            <QuizPreview
+              quiz={previewQuiz}
+              headerEndContent={
+                <Button
+                  variant="outline"
+                  className=""
+                  onClick={() => setShowPreviewOverlay(false)}
+                >
+                  <XIcon aria-hidden />
+                  閉じる
+                </Button>
+              }
+            />
           </div>
         </div>
       )}

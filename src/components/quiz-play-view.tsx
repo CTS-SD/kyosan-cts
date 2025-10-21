@@ -18,7 +18,8 @@ const QuizFormSelect = dynamic(() => import("@/components/quiz-form-select"), {
 type Props = React.ComponentProps<"div"> & {
   quiz: QuizData;
   progress: number;
-  headerContent?: React.ReactNode;
+  headerStartContent?: React.ReactNode;
+  headerEndContent?: React.ReactNode;
   addResult?: (result: QuizResult) => void;
   onNext?: () => void;
 };
@@ -28,7 +29,8 @@ export const QuizPlayView = ({
   progress,
   addResult,
   onNext,
-  headerContent,
+  headerStartContent,
+  headerEndContent,
   className,
   ...props
 }: Props) => {
@@ -77,11 +79,12 @@ export const QuizPlayView = ({
       className={cn("mx-auto flex h-full max-w-xl grow flex-col", className)}
       {...props}
     >
-      <header className="flex h-12 items-center gap-2 ps-2 pe-6">
-        {headerContent}
+      <header className="flex h-12 items-center gap-2 px-4">
+        {headerStartContent}
         <div className="grow">
           <Progress value={progress} className="w-full" />
         </div>
+        {headerEndContent}
       </header>
       <form onSubmit={handleSubmit} className="flex grow flex-col">
         <div className="grow">
