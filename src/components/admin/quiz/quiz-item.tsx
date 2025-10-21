@@ -30,8 +30,8 @@ export const QuizItem = ({ quiz }: Props) => {
         </div>
       </div>
       <div className="flex items-center">
-        <div className="mx-3 flex h-9 items-center gap-2">
-          <CornerDownRightIcon className="text-muted-foreground size-4" />
+        <div className="mx-3 flex h-9 items-center gap-2 truncate">
+          <CornerDownRightIcon className="text-muted-foreground size-4 shrink-0" />
           <QuizAnswerRenderer
             className="truncate text-sm font-semibold [&_svg]:size-3.5"
             quiz={quiz}
