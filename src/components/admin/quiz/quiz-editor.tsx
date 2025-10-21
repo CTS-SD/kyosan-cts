@@ -74,7 +74,7 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
                     value={field.value}
                   >
                     <FormControl>
-                      <SelectTrigger size="sm">
+                      <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
                     </FormControl>
