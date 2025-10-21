@@ -12,11 +12,14 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col">
-      <div className="my-20 text-center text-4xl font-semibold sm:text-6xl">
-        京産キャンスタ
+      <div className="font-zmg mt-20 mb-12 flex flex-col items-center gap-4 sm:gap-10">
+        <div className="text-5xl font-bold sm:text-7xl">#キャンスタ</div>
+        <div className="text-sm font-semibold sm:text-xl">
+          京都産業大学 キャンパスツアースタッフ
+        </div>
       </div>
       <div className="flex justify-center gap-2">
-        <Button variant="secondary" asChild>
+        <Button asChild className="rounded-full font-bold" size="lg">
           <Link href="/puratto">ぷらっとテスト</Link>
         </Button>
         {showDeptButton && (
@@ -28,6 +31,7 @@ export default async function Home() {
           </Button>
         )}
       </div>
+      <div className="absolute inset-0 -z-1 min-h-[100dvh] bg-radial-[at_50%_30%] from-sky-100 via-sky-300 to-blue-900 to-96% dark:bg-radial-[at_50%_100%] dark:from-black dark:via-gray-900 dark:to-blue-900"></div>
     </div>
   );
 }
