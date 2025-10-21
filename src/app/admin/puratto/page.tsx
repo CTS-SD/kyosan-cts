@@ -7,14 +7,17 @@ import { Suspense } from "react";
 
 const Page = async () => {
   return (
-    <div className="mx-auto max-w-5xl p-6">
+    <div className="mx-auto max-w-6xl p-6">
       <div className="flex gap-2">
-        <Button asChild className="ml-auto">
-          <Link href="/admin/puratto/q/new">
-            新規作成
-            <PlusIcon />
-          </Link>
-        </Button>
+        <Button
+          render={
+            <Link href="/admin/puratto/q/new">
+              新規作成
+              <PlusIcon />
+            </Link>
+          }
+          className="ml-auto"
+        />
       </div>
       <div className="mt-4">
         <Suspense fallback={<QuizListFallback />}>

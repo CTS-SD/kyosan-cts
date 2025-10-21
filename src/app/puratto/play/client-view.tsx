@@ -40,7 +40,7 @@ export const ClientView = ({ quizzes }: Props) => {
     <QuizPlayView
       quiz={quiz}
       progress={(results.length / quizzes.length) * 100}
-      headerContent={
+      headerStartContent={
         <Button size="icon" onClick={handleQuit} variant="ghost">
           <XIcon />
         </Button>

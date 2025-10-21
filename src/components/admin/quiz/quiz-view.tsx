@@ -24,25 +24,29 @@ export const QuizView = ({ heading, form, onSubmit }: Props) => {
   const isNew = quizId === null;
 
   return (
-    <div className="mx-auto flex max-w-5xl">
+    <div className="mx-auto flex max-w-6xl">
       <div className="flex-1">
         <div className="p-6">
           <div className="flex items-center gap-4">
-            <Button asChild variant="secondary" size="icon">
-              <Link href="/admin/puratto" aria-label="戻る">
-                <ArrowLeftIcon />
-              </Link>
-            </Button>
+            <Button
+              render={
+                <Link href="/admin/puratto" aria-label="戻る">
+                  <ArrowLeftIcon />
+                </Link>
+              }
+              variant="secondary"
+              size="icon"
+            />
             {heading && <div className="font-bold">{heading}</div>}
             <div className="ml-auto flex items-center gap-2">
               <Button
                 className="sm:hidden"
-                size="icon"
                 variant="outline"
                 onClick={() => setShowPreviewOverlay(true)}
                 aria-label="プレビューを表示"
               >
                 <EyeIcon />
+                プレビュー
               </Button>
               {!isNew && <QuizViewMenu quizId={quizId} />}
             </div>
@@ -59,18 +63,21 @@ export const QuizView = ({ heading, form, onSubmit }: Props) => {
         <QuizPreview quiz={previewQuiz} />
       </div>
       {showPreviewOverlay && (
-        <div className="bg-background fixed inset-0 flex flex-col overflow-auto overscroll-contain transition-all duration-200 ease-out sm:hidden starting:scale-95 starting:opacity-0">
-          <div className="flex justify-end px-4 pt-4">
-            <Button
-              variant="secondary"
-              onClick={() => setShowPreviewOverlay(false)}
-            >
-              <XIcon aria-hidden />
-              閉じる
-            </Button>
-          </div>
+        <div className="bg-background fixed inset-0 z-30 flex flex-col overflow-auto overscroll-contain transition-all duration-200 ease-out sm:hidden starting:scale-95 starting:opacity-0">
           <div className="w-full grow">
-            <QuizPreview quiz={previewQuiz} />
+            <QuizPreview
+              quiz={previewQuiz}
+              headerEndContent={
+                <Button
+                  variant="outline"
+                  className=""
+                  onClick={() => setShowPreviewOverlay(false)}
+                >
+                  <XIcon aria-hidden />
+                  閉じる
+                </Button>
+              }
+            />
           </div>
         </div>
       )}

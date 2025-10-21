@@ -1,13 +1,13 @@
 "use client";
 
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+  Menu,
+  MenuGroup,
+  MenuGroupLabel,
+  MenuItem,
+  MenuPopup,
+  MenuTrigger,
+} from "@/components/ui/menu";
 import { signOut, useSession } from "@/lib/auth-client";
 import { LogOutIcon } from "lucide-react";
 import { Button } from "../ui/button";
@@ -29,8 +29,8 @@ export const MemberUserButton = () => {
   };
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
+    <Menu>
+      <MenuTrigger asChild>
         <Button
           className="size-8 rounded-full"
           size="icon"
@@ -39,15 +39,16 @@ export const MemberUserButton = () => {
         >
           <UserAvatar user={user} />
         </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="min-w-40">
-        <DropdownMenuLabel>{user.name}</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handleSignOut}>
-          <LogOutIcon />
-          ログアウト
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+      </MenuTrigger>
+      <MenuPopup align="end">
+        <MenuGroup>
+          <MenuGroupLabel>{user.name}</MenuGroupLabel>
+          <MenuItem onClick={handleSignOut}>
+            <LogOutIcon />
+            ログアウト
+          </MenuItem>
+        </MenuGroup>
+      </MenuPopup>
+    </Menu>
   );
 };

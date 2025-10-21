@@ -2,12 +2,8 @@
 
 import { GoogleIcon } from "@/components/icons/google-icon";
 import { Button } from "@/components/ui/button";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupInput,
-} from "@/components/ui/input-group";
+import { Group, GroupItem, GroupSeparator } from "@/components/ui/group";
+import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { signIn } from "@/lib/auth-client";
 import { EyeClosedIcon, EyeIcon } from "lucide-react";
@@ -51,25 +47,32 @@ const Page = () => {
       <div className="flex flex-col gap-6">
         <div className="text-center text-lg font-semibold">ログイン</div>
         <form className="flex flex-col gap-2 px-6" onSubmit={handleSubmit}>
-          <InputGroup>
-            <InputGroupInput
-              type={showPassword ? "text" : "password"}
-              placeholder="パスワード"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              disabled={submitting}
+          <Group className="w-full">
+            <GroupItem
+              render={
+                <Input
+                  type={showPassword ? "text" : "password"}
+                  placeholder="パスワード"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  disabled={submitting}
+                />
+              }
             />
-            <InputGroupAddon align="inline-end">
-              <InputGroupButton
-                type="button"
-                onClick={toggleShowPassword}
-                variant="secondary"
-                disabled={submitting}
-              >
-                {showPassword ? <EyeIcon /> : <EyeClosedIcon />}
-              </InputGroupButton>
-            </InputGroupAddon>
-          </InputGroup>
+            <GroupSeparator />
+            <GroupItem
+              render={
+                <Button
+                  type="button"
+                  onClick={toggleShowPassword}
+                  variant="outline"
+                  disabled={submitting}
+                />
+              }
+            >
+              {showPassword ? <EyeIcon /> : <EyeClosedIcon />}
+            </GroupItem>
+          </Group>
           <Button type="submit" disabled={submitting}>
             スタッフとしてログイン
           </Button>

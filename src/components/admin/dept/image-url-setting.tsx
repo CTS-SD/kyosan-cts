@@ -12,7 +12,6 @@ import { Input } from "@/components/ui/input";
 import { Setting } from "@/components/ui/setting";
 import { useConfigPromise } from "@/ctx/config-promise";
 import { upsertConfigValue } from "@/lib/config/actions";
-import { ConfigMap } from "@/lib/config/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ExternalLinkIcon } from "lucide-react";
 import Link from "next/link";
@@ -67,16 +66,20 @@ export const ImageUrlSetting = () => {
                       {...field}
                     />
                   </FormControl>
-                  <Button asChild variant="outline" size="icon">
-                    <Link
-                      href={field.value}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label="画像リンクを開く"
-                    >
-                      <ExternalLinkIcon />
-                    </Link>
-                  </Button>
+                  <Button
+                    render={
+                      <Link
+                        href={field.value}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label="画像リンクを開く"
+                      >
+                        <ExternalLinkIcon />
+                      </Link>
+                    }
+                    variant="outline"
+                    size="icon"
+                  />
                 </div>
                 <FormMessage />
               </FormItem>

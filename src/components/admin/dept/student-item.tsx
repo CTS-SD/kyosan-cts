@@ -4,8 +4,9 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
-  DialogContent,
+  DialogFooter,
   DialogHeader,
+  DialogPopup,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
@@ -57,16 +58,14 @@ export const StudentItem = ({ student }: Props) => {
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <button className="hover:bg-muted flex w-full flex-col items-start rounded-md px-3 py-1.5">
-          <div className="font-medium">{student.name}</div>
-          <div className="text-foreground/60 flex gap-2 text-sm">
-            <div>{student.studentNumber}</div>
-            <div>{getFacultyName(student.facultyId)}</div>
-          </div>
-        </button>
+      <DialogTrigger className="hover:bg-muted flex w-full flex-col items-start rounded-md px-3 py-1.5">
+        <div className="font-medium">{student.name}</div>
+        <div className="text-foreground/60 flex gap-2 text-sm">
+          <div>{student.studentNumber}</div>
+          <div>{getFacultyName(student.facultyId)}</div>
+        </div>
       </DialogTrigger>
-      <DialogContent>
+      <DialogPopup>
         <DialogHeader>
           <DialogTitle>学生を編集</DialogTitle>
         </DialogHeader>
@@ -77,25 +76,28 @@ export const StudentItem = ({ student }: Props) => {
             <>
               <Button
                 type="button"
-                size="icon"
-                variant="outline"
+                variant="destructive-outline"
                 onClick={handleDeleteStudent}
-                aria-label="学生を削除"
               >
                 <Trash2Icon />
+                削除
               </Button>
-              <DialogClose asChild>
-                <Button type="button" variant="secondary" className="ml-auto">
-                  キャンセル
+              <DialogFooter>
+                <DialogClose
+                  render={
+                    <Button type="button" variant="ghost">
+                      キャンセル
+                    </Button>
+                  }
+                />
+                <Button type="submit" disabled={!formState.isDirty}>
+                  保存
                 </Button>
-              </DialogClose>
-              <Button type="submit" disabled={!formState.isDirty}>
-                保存
-              </Button>
+              </DialogFooter>
             </>
           )}
         />
-      </DialogContent>
+      </DialogPopup>
     </Dialog>
   );
 };

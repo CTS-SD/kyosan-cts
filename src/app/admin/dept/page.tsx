@@ -12,14 +12,18 @@ const Page = () => {
   const studentBundlePromise = getStudentBundle();
 
   return (
-    <div className="mx-auto max-w-5xl p-6">
+    <div className="mx-auto max-w-6xl p-6">
       <div className="flex gap-2">
-        <Button variant="link" asChild className="ml-auto">
-          <Link href="/members/dept/list" target="_blank" rel="noreferrer">
-            プレビュー
-            <ArrowUpRightIcon />
-          </Link>
-        </Button>
+        <Button
+          render={
+            <Link href="/members/dept/list" target="_blank" rel="noreferrer">
+              プレビュー
+              <ArrowUpRightIcon />
+            </Link>
+          }
+          variant="link"
+          className="ml-auto"
+        />
         <StudentBundlePromiseProvider value={studentBundlePromise}>
           <AddStudentButton />
         </StudentBundlePromiseProvider>
