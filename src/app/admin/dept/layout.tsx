@@ -5,9 +5,12 @@ type Props = {
 };
 
 const Layout = ({ children }: Props) => {
-  return <>
-    <AdminPageHeader heading="配属発表" />
-    {children}</>;
+  return (
+    <>
+      <AdminPageHeader heading="配属発表" />
+      {children}
+    </>
+  );
 };
 
 export default Layout;

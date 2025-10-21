@@ -2,12 +2,12 @@
 
 import { Button } from "@/components/ui/button";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+  Menu,
+  MenuItem,
+  MenuPopup,
+  MenuSeparator,
+  MenuTrigger,
+} from "@/components/ui/menu";
 import { deleteQuiz } from "@/lib/quiz/actions";
 import { copyToClipboard } from "@/lib/utils";
 import { CopyIcon, EllipsisIcon, ShareIcon, Trash2Icon } from "lucide-react";
@@ -52,27 +52,27 @@ export const QuizViewMenu = ({ quizId }: Props) => {
   };
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
+    <Menu>
+      <MenuTrigger asChild>
         <Button variant="outline" size="icon" aria-label="問題メニュー">
           <EllipsisIcon />
         </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={handleCopyUrl}>
+      </MenuTrigger>
+      <MenuPopup align="end">
+        <MenuItem onClick={handleCopyUrl}>
           <CopyIcon />
           リンクをコピー
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={handleShare}>
+        </MenuItem>
+        <MenuItem onClick={handleShare}>
           <ShareIcon />
           共有
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handleDelete}>
+        </MenuItem>
+        <MenuSeparator />
+        <MenuItem onClick={handleDelete} variant="destructive">
           <Trash2Icon />
           削除
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+        </MenuItem>
+      </MenuPopup>
+    </Menu>
   );
 };

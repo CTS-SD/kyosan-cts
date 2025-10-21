@@ -116,7 +116,7 @@ export const AdminSidebar = () => {
           <SidebarMenuItem>
             <AdminUserMenu>
               <SidebarMenuButton className="h-10">
-                <UserAvatar user={user} />
+                <UserAvatar user={user} className="size-6" />
                 <span>{user.name}</span>
                 <ChevronsUpDownIcon className="text-muted-foreground ml-auto" />
               </SidebarMenuButton>

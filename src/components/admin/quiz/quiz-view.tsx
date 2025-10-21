@@ -63,7 +63,7 @@ export const QuizView = ({ heading, form, onSubmit }: Props) => {
         <QuizPreview quiz={previewQuiz} />
       </div>
       {showPreviewOverlay && (
-        <div className="bg-background fixed z-30 inset-0 flex flex-col overflow-auto overscroll-contain transition-all duration-200 ease-out sm:hidden starting:scale-95 starting:opacity-0">
+        <div className="bg-background fixed inset-0 z-30 flex flex-col overflow-auto overscroll-contain transition-all duration-200 ease-out sm:hidden starting:scale-95 starting:opacity-0">
           <div className="flex justify-end px-4 pt-4">
             <Button
               variant="secondary"
