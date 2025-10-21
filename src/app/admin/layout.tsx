@@ -1,4 +1,3 @@
-import { AdminPageHeader } from "@/components/admin/admin-page-header";
 import { AdminSidebar } from "@/components/admin/admin-sidebar";
 import { ProtectedRoute } from "@/components/protected-route";
 import { SidebarProvider } from "@/components/ui/sidebar";
