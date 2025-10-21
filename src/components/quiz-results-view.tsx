@@ -28,9 +28,10 @@ export const QuizResultsView = ({ quizzes, results }: Props) => {
         ))}
       </div>
       <div className="mt-6">
-        <Button asChild className="w-full">
-          <Link href="/puratto">OK</Link>
-        </Button>
+        <Button
+          render={<Link href="/puratto">OK</Link>}
+          className="w-full"
+        />
       </div>
     </div>
   );

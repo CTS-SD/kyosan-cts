@@ -4,9 +4,10 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
-  DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
+  DialogPopup,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
@@ -33,13 +34,15 @@ export const AddStudentButton = () => {
 
   return (
     <Dialog>
-      <DialogTrigger asChild>
-        <Button>
-          学生を追加
-          <PlusIcon />
-        </Button>
-      </DialogTrigger>
-      <DialogContent>
+      <DialogTrigger
+        render={
+          <Button>
+            学生を追加
+            <PlusIcon />
+          </Button>
+        }
+      />
+      <DialogPopup>
         <DialogHeader>
           <DialogTitle>学生を追加</DialogTitle>
           <DialogDescription>
@@ -49,19 +52,21 @@ export const AddStudentButton = () => {
         <StudentEditor
           onSubmit={handleAddStudent}
           footerContent={(formState) => (
-            <>
-              <DialogClose asChild>
-                <Button type="button" variant="secondary" className="ml-auto">
-                  キャンセル
-                </Button>
-              </DialogClose>
+            <DialogFooter>
+              <DialogClose
+                render={
+                  <Button type="button" variant="secondary">
+                    キャンセル
+                  </Button>
+                }
+              />
               <Button type="submit" disabled={!formState.isDirty}>
                 作成
               </Button>
-            </>
+            </DialogFooter>
           )}
         />
-      </DialogContent>
+      </DialogPopup>
     </Dialog>
   );
 };

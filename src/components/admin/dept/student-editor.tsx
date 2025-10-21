@@ -11,8 +11,8 @@ import {
 import { Input } from "@/components/ui/input";
 import {
   Select,
-  SelectContent,
   SelectItem,
+  SelectPopup,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -46,11 +46,29 @@ export const StudentEditor = ({
     defaultValues: {
       name: "",
       studentNumber: "",
+      departmentId: 0,
+      facultyId: 0,
       ...defaultValues,
     },
   });
 
   const { isSubmitting } = form.formState;
+
+  const facultyItems = [
+    { label: "学部を選択", value: 0 },
+    ...faculties.map((fac) => ({
+      label: fac.name,
+      value: fac.id,
+    })),
+  ];
+
+  const departmentItems = [
+    { label: "部署を選択", value: 0 },
+    ...departments.map((dept) => ({
+      label: dept.name,
+      value: dept.id,
+    })),
+  ];
 
   const handleSubmit = async (values: StudentValues) => {
     const shouldClean = onSubmit ? await onSubmit(values) : false;
@@ -104,23 +122,22 @@ export const StudentEditor = ({
                 <FormItem>
                   <FormLabel>学部</FormLabel>
                   <Select
+                    items={facultyItems}
                     onValueChange={(val) => field.onChange(Number(val))}
-                    defaultValue={
-                      field.value > 0 ? String(field.value) : undefined
-                    }
+                    value={field.value}
                   >
                     <FormControl>
                       <SelectTrigger className="w-full">
-                        <SelectValue placeholder="学部を選択" />
+                        <SelectValue />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent>
-                      {faculties.map((faculty) => (
-                        <SelectItem key={faculty.id} value={String(faculty.id)}>
-                          {faculty.name}
+                    <SelectPopup>
+                      {facultyItems.map((faculty) => (
+                        <SelectItem key={faculty.value} value={faculty.value}>
+                          {faculty.label}
                         </SelectItem>
                       ))}
-                    </SelectContent>
+                    </SelectPopup>
                   </Select>
                   <FormMessage />
                 </FormItem>
@@ -133,34 +150,31 @@ export const StudentEditor = ({
                 <FormItem>
                   <FormLabel>配属部署</FormLabel>
                   <Select
-                    onValueChange={(val) => field.onChange(Number(val))}
-                    defaultValue={
-                      field.value > 0 ? String(field.value) : undefined
-                    }
+                    items={departmentItems}
+                    onValueChange={(val) => field.onChange(val)}
+                    value={field.value}
                   >
                     <FormControl>
                       <SelectTrigger className="w-full">
-                        <SelectValue placeholder="配属部署を選択" />
+                        <SelectValue />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent>
-                      {departments.map((department) => (
+                    <SelectPopup>
+                      {departmentItems.map((department) => (
                         <SelectItem
-                          key={department.id}
-                          value={String(department.id)}
+                          key={department.value}
+                          value={department.value}
                         >
-                          {department.name}
+                          {department.label}
                         </SelectItem>
                       ))}
-                    </SelectContent>
+                    </SelectPopup>
                   </Select>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <div className="flex justify-end gap-2">
-              {footerContent?.(form.formState)}
-            </div>
+            {footerContent?.(form.formState)}
           </fieldset>
         </form>
       </Form>

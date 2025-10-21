@@ -28,11 +28,15 @@ export const QuizView = ({ heading, form, onSubmit }: Props) => {
       <div className="flex-1">
         <div className="p-6">
           <div className="flex items-center gap-4">
-            <Button asChild variant="secondary" size="icon">
-              <Link href="/admin/puratto" aria-label="戻る">
-                <ArrowLeftIcon />
-              </Link>
-            </Button>
+            <Button
+              render={
+                <Link href="/admin/puratto" aria-label="戻る">
+                  <ArrowLeftIcon />
+                </Link>
+              }
+              variant="secondary"
+              size="icon"
+            />
             {heading && <div className="font-bold">{heading}</div>}
             <div className="ml-auto flex items-center gap-2">
               <Button
@@ -59,7 +63,7 @@ export const QuizView = ({ heading, form, onSubmit }: Props) => {
         <QuizPreview quiz={previewQuiz} />
       </div>
       {showPreviewOverlay && (
-        <div className="bg-background fixed inset-0 flex flex-col overflow-auto overscroll-contain transition-all duration-200 ease-out sm:hidden starting:scale-95 starting:opacity-0">
+        <div className="bg-background fixed z-30 inset-0 flex flex-col overflow-auto overscroll-contain transition-all duration-200 ease-out sm:hidden starting:scale-95 starting:opacity-0">
           <div className="flex justify-end px-4 pt-4">
             <Button
               variant="secondary"

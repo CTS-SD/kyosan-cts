@@ -12,16 +12,16 @@ import {
 } from "@/components/ui/form";
 import {
   Select,
-  SelectContent,
   SelectItem,
+  SelectPopup,
   SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select";
 import { Spinner } from "@/components/ui/spinner";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { QuizValues } from "@/lib/quiz/editor";
 import { quizTypes } from "@/lib/quiz/types";
-import { SelectValue } from "@radix-ui/react-select";
 import { useNavigationGuard } from "next-navigation-guard";
 import Link from "next/link";
 import { UseFormReturn } from "react-hook-form";
@@ -52,6 +52,11 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
       window.confirm("保存されていない変更があります。ページを離れますか？"),
   });
 
+  const quizTypeItems = quizTypes.map((type) => ({
+    label: type.label,
+    value: type.id,
+  }));
+
   return (
     <div className={className}>
       <Form {...form}>
@@ -63,19 +68,23 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="sr-only">回答形式</FormLabel>
-                  <Select onValueChange={field.onChange} value={field.value}>
+                  <Select
+                    items={quizTypeItems}
+                    onValueChange={field.onChange}
+                    value={field.value}
+                  >
                     <FormControl>
                       <SelectTrigger size="sm">
                         <SelectValue />
                       </SelectTrigger>
                     </FormControl>
-                    <SelectContent>
-                      {quizTypes.map((type) => (
-                        <SelectItem key={type.id} value={type.id}>
+                    <SelectPopup>
+                      {quizTypeItems.map((type) => (
+                        <SelectItem key={type.value} value={type.value}>
                           {type.label}
                         </SelectItem>
                       ))}
-                    </SelectContent>
+                    </SelectPopup>
                   </Select>
                   <FormMessage />
                 </FormItem>
@@ -135,9 +144,11 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
               )}
             />
             <div className="flex justify-end gap-2">
-              <Button className="ml-auto" variant="secondary" asChild>
-                <Link href="/admin/puratto">キャンセル</Link>
-              </Button>
+              <Button
+                render={<Link href="/admin/puratto">キャンセル</Link>}
+                className="ml-auto"
+                variant="secondary"
+              />
               <Button type="submit" disabled={isSubmitting || !isDirty}>
                 {isSubmitting && <Spinner />}
                 {labels.submit}

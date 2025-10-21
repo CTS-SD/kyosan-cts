@@ -10,15 +10,16 @@ const Page = () => {
       <div className="my-20 flex flex-col items-center">
         <div className="text-3xl font-semibold sm:text-5xl">ぷらっとテスト</div>
         <div className="mt-10 flex gap-2">
-          <Button variant="ghost" asChild>
-            <Link href="/">
-              <ArrowLeftIcon />
-              ホームに戻る
-            </Link>
-          </Button>
-          <Button>
-            <Link href="/puratto/play">スタート</Link>
-          </Button>
+          <Button
+            variant="ghost"
+            render={
+              <Link href="/">
+                <ArrowLeftIcon />
+                ホームに戻る
+              </Link>
+            }
+          />
+          <Button render={<Link href="/puratto/play">スタート</Link>} />
         </div>
       </div>
     </div>

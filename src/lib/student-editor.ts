@@ -19,8 +19,12 @@ export const StudentEditorSchema = z.object({
     })
     .transform((val) => val.replace(/\s+/g, " ")),
   studentNumber: StudentNumberSchema,
-  facultyId: z.number("学部を選択してください。").min(1),
-  departmentId: z.number("配属部署を選択してください。").min(1),
+  facultyId: z
+    .number("学部を選択してください。")
+    .min(1, "学部を選択してください。"),
+  departmentId: z
+    .number("配属部署を選択してください。")
+    .min(1, "配属部署を選択してください。"),
 });
 
 export type StudentValues = z.infer<typeof StudentEditorSchema>;
