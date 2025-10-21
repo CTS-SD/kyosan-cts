@@ -1,4 +1,4 @@
 # Instructions
 
 - Use `zsh` terminal.
-- Run `pnpm build` to check the errors when you done your tasks.
+- Run `pnpm typecheck` to confirm there's no errors.
