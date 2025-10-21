@@ -41,12 +41,12 @@ export const QuizView = ({ heading, form, onSubmit }: Props) => {
             <div className="ml-auto flex items-center gap-2">
               <Button
                 className="sm:hidden"
-                size="icon"
                 variant="outline"
                 onClick={() => setShowPreviewOverlay(true)}
                 aria-label="プレビューを表示"
               >
                 <EyeIcon />
+                プレビュー
               </Button>
               {!isNew && <QuizViewMenu quizId={quizId} />}
             </div>
@@ -66,7 +66,7 @@ export const QuizView = ({ heading, form, onSubmit }: Props) => {
         <div className="bg-background fixed inset-0 z-30 flex flex-col overflow-auto overscroll-contain transition-all duration-200 ease-out sm:hidden starting:scale-95 starting:opacity-0">
           <div className="flex justify-end px-4 pt-4">
             <Button
-              variant="secondary"
+              variant="outline"
               onClick={() => setShowPreviewOverlay(false)}
             >
               <XIcon aria-hidden />
