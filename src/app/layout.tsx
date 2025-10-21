@@ -25,8 +25,8 @@ const zenMaruGothic = Zen_Maru_Gothic({
 });
 
 export const metadata: Metadata = {
-  title: "KYOSAN CTS",
-  description: "京都産業大学キャンスタ",
+  title: "京産キャンスタ",
+  description: "京都産業大学キャンパススタッフ",
 };
 
 export default async function RootLayout({
