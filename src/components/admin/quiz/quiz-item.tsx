@@ -14,27 +14,33 @@ export const QuizItem = ({ quiz }: Props) => {
   return (
     <Link
       href={`/admin/puratto/q/${quiz.id}`}
-      className="bg-card overflow-clip rounded-lg border"
+      className="bg-muted/50 overflow-clip rounded-xl border"
     >
-      <div className="flex pt-2 pr-3 pl-2">
-        <Badge variant="outline">{getQuizTypeLabel(quiz.type)}</Badge>
-        <div className="text-muted-foreground ml-auto shrink-0 text-sm font-medium">
-          #{quiz.id}
+      <div className="px-1 pt-1">
+        <div className="bg-background rounded-lg border">
+          <div className="flex pt-2 pr-3 pl-2">
+            <Badge variant="outline">{getQuizTypeLabel(quiz.type)}</Badge>
+            <div className="text-muted-foreground ml-auto shrink-0 text-sm font-medium">
+              #{quiz.id}
+            </div>
+          </div>
+          <div className="h-[4.5lh] overflow-clip mask-b-from-60% px-3.5 py-3">
+            <Markdown>{quiz.question}</Markdown>
+          </div>
         </div>
       </div>
-      <div className="h-[4.5lh] overflow-clip mask-b-from-60% px-3.5 py-3">
-        <Markdown>{quiz.question}</Markdown>
-      </div>
-      <div className="bg-accent mt-2 flex h-9 items-center gap-2 border-t py-2 pr-2 pl-3">
-        <CornerDownRightIcon className="text-muted-foreground size-4" />
-        <QuizAnswerRenderer
-          className="truncate text-sm [&_svg]:size-3.5"
-          quiz={quiz}
-        />
+      <div className="flex items-center">
+        <div className="mx-3 flex h-9 items-center gap-2">
+          <CornerDownRightIcon className="text-muted-foreground size-4" />
+          <QuizAnswerRenderer
+            className="truncate text-sm font-semibold [&_svg]:size-3.5"
+            quiz={quiz}
+          />
+        </div>
         {!quiz.isPublished && (
-          <div className="ml-auto">
-            <Badge>
-              <LockIcon />
+          <div className="mr-1 ml-auto">
+            <Badge className="rounded-lg">
+              <LockIcon className="size-4" />
               非公開
             </Badge>
           </div>
