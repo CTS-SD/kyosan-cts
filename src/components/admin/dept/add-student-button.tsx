@@ -61,7 +61,7 @@ export const AddStudentButton = () => {
                 }
               />
               <Button type="submit" disabled={!formState.isDirty}>
-                作成
+                追加
               </Button>
             </DialogFooter>
           )}
