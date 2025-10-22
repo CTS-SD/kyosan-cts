@@ -74,7 +74,7 @@ const Page = () => {
             </GroupItem>
           </Group>
           <Button type="submit" disabled={isPending}>
-            <Spinner show={isPending} />
+            {isPending && <Spinner />}
             スタッフとしてログイン
           </Button>
         </form>
