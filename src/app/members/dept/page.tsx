@@ -15,6 +15,7 @@ import {
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { Spinner } from "@/components/ui/spinner";
+import { existsStudentByStudentNumber } from "@/lib/student-actions";
 import { StudentNumberSchema } from "@/lib/student-editor";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
@@ -22,6 +23,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 import z from "zod";
 
 const FormSchema = z.object({
@@ -43,6 +45,14 @@ const Page = () => {
 
   function handleSubmit(values: FormValues) {
     startTransition(async () => {
+      const exists = await existsStudentByStudentNumber(values.studentNumber);
+      if (!exists) {
+        form.reset();
+        toast.error("学生が見つかりませんでした", {
+          description: "学籍番号をご確認の上、再度お試しください。",
+        });
+        return;
+      }
       router.push(`/members/dept/${values.studentNumber}`);
     });
   }
@@ -67,6 +77,7 @@ const Page = () => {
               <FormField
                 control={form.control}
                 name="studentNumber"
+                disabled={isPending}
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>あなたの学籍番号（6桁） </FormLabel>

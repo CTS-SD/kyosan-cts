@@ -61,3 +61,13 @@ export async function deleteStudent(id: number) {
     };
   }
 }
+
+export async function existsStudentByStudentNumber(studentNumber: string) {
+  const student = await db
+    .select()
+    .from(StudentTable)
+    .where(eq(StudentTable.studentNumber, studentNumber))
+    .limit(1)
+    .execute();
+  return student.length > 0;
+}
