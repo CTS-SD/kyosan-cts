@@ -8,10 +8,14 @@ const Page = () => {
     <div className="mx-auto max-w-5xl p-6 pt-0">
       <PublicHeader />
       <div className="my-20 flex flex-col items-center">
-        <div className="text-3xl font-semibold sm:text-5xl">ぷらっとテスト</div>
+        <div className="font-zmg text-3xl font-bold sm:text-5xl">
+          ぷらっとテスト
+        </div>
         <div className="mt-10 flex gap-2">
           <Button
             variant="ghost"
+            className="rounded-full"
+            size="lg"
             render={
               <Link href="/">
                 <ArrowLeftIcon />
@@ -19,7 +23,10 @@ const Page = () => {
               </Link>
             }
           />
-          <Button render={<Link href="/puratto/play">スタート</Link>} />
+          {/* <Button size="lg" className="rounded-full" render={<Link href="/puratto/play">スタート</Link>} /> */}
+          <Button disabled className="rounded-full" size="lg">
+            メンテナンス中
+          </Button>
         </div>
       </div>
     </div>
