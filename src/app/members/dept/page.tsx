@@ -14,11 +14,13 @@ import {
   InputOTPGroup,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
+import { Spinner } from "@/components/ui/spinner";
 import { StudentNumberSchema } from "@/lib/student-editor";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 import z from "zod";
 
@@ -36,10 +38,13 @@ const Page = () => {
     },
   });
 
+  const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
   function handleSubmit(values: FormValues) {
-    router.push(`/members/dept/${values.studentNumber}`);
+    startTransition(async () => {
+      router.push(`/members/dept/${values.studentNumber}`);
+    });
   }
 
   return (
@@ -85,7 +90,10 @@ const Page = () => {
                   </FormItem>
                 )}
               />
-              {<Button className="w-full">配属部署を確認</Button>}
+              <Button type="submit" className="w-full" disabled={isPending}>
+                {isPending && <Spinner />}
+                配属部署を確認
+              </Button>
             </form>
           </Form>
         </div>
