@@ -5,9 +5,10 @@ import { Button } from "@/components/ui/button";
 import { Group, GroupItem, GroupSeparator } from "@/components/ui/group";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
+import { Spinner } from "@/components/ui/spinner";
 import { signIn } from "@/lib/auth-client";
 import { EyeClosedIcon, EyeIcon } from "lucide-react";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { toast } from "sonner";
 
 const getErrorMessage = (message?: string) => {
@@ -20,7 +21,7 @@ const getErrorMessage = (message?: string) => {
 const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
-  const [submitting, setSubmitting] = useState(false);
+  const [isPending, startTransition] = useTransition();
 
   const toggleShowPassword = () => {
     setShowPassword((prev) => !prev);
@@ -28,18 +29,17 @@ const Page = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitting(true);
-    const { error } = await signIn.email({
-      email: "cts-member@example.com",
-      password,
-      callbackURL: "/members",
+    startTransition(async () => {
+      const { error } = await signIn.email({
+        email: "cts-member@example.com",
+        password,
+        callbackURL: "/members",
+      });
+      if (error) {
+        toast.error(getErrorMessage(error.message));
+        setPassword("");
+      }
     });
-    setSubmitting(false);
-    if (error) {
-      toast.error(getErrorMessage(error.message));
-      setPassword("");
-      return;
-    }
   };
 
   return (
@@ -55,7 +55,7 @@ const Page = () => {
                   placeholder="パスワード"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  disabled={submitting}
+                  disabled={isPending}
                 />
               }
             />
@@ -66,14 +66,15 @@ const Page = () => {
                   type="button"
                   onClick={toggleShowPassword}
                   variant="outline"
-                  disabled={submitting}
+                  disabled={isPending}
                 />
               }
             >
               {showPassword ? <EyeIcon /> : <EyeClosedIcon />}
             </GroupItem>
           </Group>
-          <Button type="submit" disabled={submitting}>
+          <Button type="submit" disabled={isPending}>
+            <Spinner show={isPending} />
             スタッフとしてログイン
           </Button>
         </form>
@@ -86,7 +87,7 @@ const Page = () => {
         <div className="flex justify-center px-6">
           <Button
             variant="outline"
-            disabled={submitting}
+            disabled={isPending}
             onClick={async () => {
               await signIn.social({
                 provider: "google",
