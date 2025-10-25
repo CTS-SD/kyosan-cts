@@ -23,10 +23,10 @@ const Page = () => {
               </Link>
             }
           />
-          {/* <Button size="lg" className="rounded-full" render={<Link href="/puratto/play">スタート</Link>} /> */}
-          <Button disabled className="rounded-full" size="lg">
+          <Button size="lg" className="rounded-full" render={<Link href="/puratto/play">スタート</Link>} />
+          {/* <Button disabled className="rounded-full" size="lg">
             メンテナンス中
-          </Button>
+          </Button> */}
         </div>
       </div>
     </div>
