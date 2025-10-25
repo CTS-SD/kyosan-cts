@@ -8,7 +8,7 @@ type Props = React.ComponentProps<"div"> & {
 
 export const QuizAnswerRenderer = ({ quiz, className, ...props }: Props) => {
   return (
-    <div className={cn("[&_svg]:h-[1lh]", className)} {...props}>
+    <div className={cn("[&_svg]:h-lh", className)} {...props}>
       {quiz.type === "select" && quiz.correctChoices.join(", ")}
       {quiz.type === "text" && quiz.answer.replace(/\n/g, ", ")}
       {quiz.type === "true_false" && quiz.answer && <CircleIcon />}
