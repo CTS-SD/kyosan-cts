@@ -1,8 +1,8 @@
 "use client";
 
 import { TrueFalseQuizData } from "@/lib/quiz/data";
-import { cn } from "@/lib/utils";
 import { CircleIcon, XIcon } from "lucide-react";
+import { PlayfulButton } from "./ui/playful-button";
 
 type Props = {
   quiz: TrueFalseQuizData;
@@ -23,8 +23,6 @@ export const QuizFormTrueFalse = ({
         isSelected={value === true}
         onClick={() => setValue(true)}
         disabled={showAnswer}
-        isAnswer={quiz.answer}
-        showAnswer={showAnswer}
       >
         <CircleIcon />
       </OXButton>
@@ -32,8 +30,6 @@ export const QuizFormTrueFalse = ({
         isSelected={value === false}
         onClick={() => setValue(false)}
         disabled={showAnswer}
-        isAnswer={!quiz.answer}
-        showAnswer={showAnswer}
       >
         <XIcon />
       </OXButton>
@@ -41,35 +37,17 @@ export const QuizFormTrueFalse = ({
   );
 };
 
-type OXButtonProps = React.ComponentProps<"button"> & {
+type OXButtonProps = React.ComponentProps<typeof PlayfulButton> & {
   isSelected: boolean;
-  isAnswer: boolean;
-  showAnswer: boolean;
 };
 
-const OXButton = ({
-  isSelected,
-  isAnswer,
-  showAnswer,
-  className,
-  ...props
-}: OXButtonProps) => {
+const OXButton = ({ isSelected, className, ...props }: OXButtonProps) => {
   return (
-    <button
+    <PlayfulButton
+      variant="outline"
+      tint={isSelected ? "blue" : "default"}
+      className="flex items-center justify-center aspect-square flex-1 rounded-2xl relative [&_svg]:size-1/2"
       type="button"
-      className={cn(
-        "grid aspect-square flex-1 place-content-center rounded-3xl border [&_svg]:size-20",
-        isSelected && "bg-primary text-primary-foreground shadow-xl ring",
-        {
-          "transition-colors": showAnswer,
-          "outline-4": showAnswer && isSelected,
-          "bg-green-500 outline-green-500/40":
-            showAnswer && isAnswer && isSelected,
-          "bg-red-500 outline-red-500/40":
-            showAnswer && !isAnswer && isSelected,
-        },
-        className,
-      )}
       {...props}
     />
   );
