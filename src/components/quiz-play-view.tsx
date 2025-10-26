@@ -81,7 +81,7 @@ export const QuizPlayView = ({
       className={cn("mx-auto flex h-full max-w-xl grow flex-col", className)}
       {...props}
     >
-      <header className="flex h-12 items-center gap-2 px-4">
+      <header className="bg-background sticky top-0 flex h-12 items-center gap-2 px-4">
         {headerStartContent}
         <div className="grow">
           <Progress value={progress} className="w-full" />
@@ -93,7 +93,7 @@ export const QuizPlayView = ({
           <div className="px-6 pt-2 pb-6">
             <Markdown>{quiz.question}</Markdown>
           </div>
-          <div>
+          <div className="pb-4">
             {quiz.type === "select" && (
               <QuizFormSelect
                 value={userAnswer}
@@ -122,7 +122,7 @@ export const QuizPlayView = ({
             )}
           </div>
         </div>
-        <div className="flex flex-col gap-3 border-t p-4 sticky bottom-0 bg-background">
+        <div className="bg-background sticky bottom-0 flex flex-col gap-3 border-t p-4">
           {result && (
             <div className="flex flex-col gap-1.5 px-2">
               <div
@@ -149,7 +149,11 @@ export const QuizPlayView = ({
                   <QuizAnswerRenderer quiz={quiz} />
                 </div>
               )}
-              {quiz.explanation && <Markdown className="max-h-32 overflow-auto">{quiz.explanation}</Markdown>}
+              {quiz.explanation && (
+                <Markdown className="max-h-32 overflow-auto">
+                  {quiz.explanation}
+                </Markdown>
+              )}
             </div>
           )}
           <PlayfulButton
