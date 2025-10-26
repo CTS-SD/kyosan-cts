@@ -1,15 +1,17 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { QuizResult } from "@/lib/quiz-form";
 import { QuizData } from "@/lib/quiz/data";
 import { cn } from "@/lib/utils";
+import { CircleIcon, XIcon } from "lucide-react";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import { Markdown } from "./markdown";
+import { QuizAnswerRenderer } from "./quiz-answer-renderer";
 import { QuizFormText } from "./quiz-form-text";
 import { QuizFormTrueFalse } from "./quiz-form-true-false";
+import { PlayfulButton } from "./ui/playful-button";
 
 const QuizFormSelect = dynamic(() => import("@/components/quiz-form-select"), {
   ssr: false,
@@ -120,34 +122,43 @@ export const QuizPlayView = ({
             )}
           </div>
         </div>
-        <div className="flex flex-col gap-3 p-4">
+        <div className="flex flex-col gap-3 border-t p-4 sticky bottom-0 bg-background">
           {result && (
             <div className="flex flex-col gap-1.5 px-2">
               <div
                 className={cn(
-                  "text-lg font-bold",
+                  "flex items-center gap-1 text-xl font-bold [&_svg]:size-5",
                   result.isCorrect ? "text-green-500" : "text-red-500",
                 )}
               >
-                {result.isCorrect ? "正解" : "不正解"}
+                {result.isCorrect ? (
+                  <>
+                    <CircleIcon />
+                    <span>正解</span>
+                  </>
+                ) : (
+                  <>
+                    <XIcon />
+                    <span>不正解</span>
+                  </>
+                )}
               </div>
-              {quiz.explanation && <p>{quiz.explanation}</p>}
+              {!result.isCorrect && (
+                <div className="flex gap-2">
+                  <div>正解:</div>
+                  <QuizAnswerRenderer quiz={quiz} />
+                </div>
+              )}
+              {quiz.explanation && <Markdown className="max-h-32 overflow-auto">{quiz.explanation}</Markdown>}
             </div>
           )}
-          <Button
+          <PlayfulButton
             type="submit"
-            className={cn(
-              "w-full",
-              result
-                ? result.isCorrect
-                  ? "bg-green-500!"
-                  : "bg-red-500!"
-                : null,
-            )}
-            size="lg"
+            className={cn("w-full")}
+            tint={result ? (result.isCorrect ? "green" : "red") : "default"}
           >
             {result ? "OK" : "送信"}
-          </Button>
+          </PlayfulButton>
         </div>
       </form>
     </div>

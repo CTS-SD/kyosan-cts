@@ -1,9 +1,9 @@
 "use client";
 
 import { SelectQuizData } from "@/lib/quiz/data";
-import { cn } from "@/lib/utils";
 import { shuffle } from "es-toolkit";
 import { useMemo } from "react";
+import { PlayfulButton } from "./ui/playful-button";
 
 type Props = {
   quiz: SelectQuizData;
@@ -45,22 +45,20 @@ export const QuizFormSelect = ({
 
   return (
     <div className="px-4">
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2.5">
         {choices.map((choice, i) => {
           const isSelected = value.includes(choice);
           return (
-            <button
+            <PlayfulButton
+              variant="outline"
+              tint={isSelected ? "blue" : "default"}
               type="button"
               key={`${choice}-${i}`}
               onClick={() => handleChoice(choice)}
               disabled={showAnswer}
-              className={cn(
-                "flex justify-center rounded-lg leading-tight border border-b-3 px-3 py-2.5 text-start font-semibold transition-all duration-50 active:mb-0.5 active:translate-y-0.5 active:border-b",
-                isSelected && "border-blue-300 bg-blue-100/60",
-              )}
             >
               {choice}
-            </button>
+            </PlayfulButton>
           );
         })}
       </div>
