@@ -2,7 +2,8 @@
 
 import { Button } from "@/components/ui/button";
 import { QuizData } from "@/lib/quiz/data";
-import { useMemo, useState, useTransition } from "react";
+import { useQuizzesStore } from "@/stores/use-quizzes-store";
+import { useEffect, useMemo, useState, useTransition } from "react";
 import { QuizItem } from "./quiz-item";
 
 type Props = {
@@ -14,7 +15,8 @@ const INIT_SIZE = 12;
 const PAGE_SIZE = 48;
 
 export const QuizListClient = ({ initialQuizzes, loadMore }: Props) => {
-  const [quizzes, setQuizzes] = useState(initialQuizzes);
+  const { quizzes, setQuizzes } = useQuizzesStore();
+
   const [hasMore, setHasMore] = useState(initialQuizzes.length >= INIT_SIZE);
   const [isPending, startTransition] = useTransition();
 
@@ -37,9 +39,7 @@ export const QuizListClient = ({ initialQuizzes, loadMore }: Props) => {
             return;
           }
 
-          setQuizzes((prev) => {
-            return [...prev, ...next];
-          });
+          setQuizzes([...quizzes, ...next]);
 
           if (next.length < PAGE_SIZE) {
             setHasMore(false);
@@ -50,6 +50,12 @@ export const QuizListClient = ({ initialQuizzes, loadMore }: Props) => {
         });
     });
   };
+
+  useEffect(() => {
+    if (quizzes.length === 0) {
+      setQuizzes(initialQuizzes);
+    }
+  }, [quizzes.length, initialQuizzes, setQuizzes]);
 
   return (
     <div>
