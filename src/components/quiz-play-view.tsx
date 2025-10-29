@@ -81,14 +81,14 @@ export const QuizPlayView = ({
       className={cn("mx-auto flex h-full max-w-xl grow flex-col", className)}
       {...props}
     >
-      <header className="bg-background sticky top-0 flex h-12 items-center gap-2 px-4">
+      <header className="bg-background sticky top-0 flex h-12 items-center gap-2 px-4 shrink-0">
         {headerStartContent}
         <div className="grow">
           <Progress value={progress} className="w-full" />
         </div>
         {headerEndContent}
       </header>
-      <form onSubmit={handleSubmit} className="flex grow flex-col">
+      <form onSubmit={handleSubmit} className="flex grow flex-col shrink-0">
         <div className="grow">
           <div className="px-6 pt-2 pb-6">
             <Markdown>{quiz.question}</Markdown>
@@ -150,7 +150,7 @@ export const QuizPlayView = ({
                 </div>
               )}
               {quiz.explanation && (
-                <Markdown className="max-h-32 overflow-auto">
+                <Markdown className="max-h-64 overflow-auto">
                   {quiz.explanation}
                 </Markdown>
               )}

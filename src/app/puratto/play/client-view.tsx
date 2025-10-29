@@ -47,7 +47,7 @@ export const ClientView = ({ quizzes }: Props) => {
       }
       addResult={addResult}
       onNext={handleNext}
-      className="h-[100dvh]"
+      className="h-dvh"
     />
   );
 };
