@@ -127,7 +127,7 @@ export const QuizPlayView = ({
           </div>
         </div>
         <div
-          className={cn("sticky bottom-0", {
+          className={cn("sticky bottom-0 bg-background", {
             "bg-green-50": showAnswer && result.isCorrect,
             "bg-red-50": showAnswer && !result.isCorrect,
           })}

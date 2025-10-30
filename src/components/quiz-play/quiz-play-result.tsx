@@ -81,10 +81,14 @@ export const QuizPlayResult = ({ result, quiz }: Props) => {
       )}
       {hasExplanation && (
         <motion.div
-          className="h-0 opacity-0"
+          className="h-0 overflow-hidden opacity-0"
           animate={{
             height: showExplanation ? "auto" : 0,
             opacity: showExplanation ? 1 : 0,
+            scale: showExplanation ? 1 : 0.95,
+          }}
+          transition={{
+            ease: [0, 0, 0.2, 1],
           }}
         >
           <Markdown className="text-inherit">{quiz.explanation}</Markdown>

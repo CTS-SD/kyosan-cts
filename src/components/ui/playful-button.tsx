@@ -6,7 +6,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const playfulButtonVariants = cva(
-  "select-none not-disabled:active:shadow-none flex justify-center rounded-lg leading-tight text-start font-bold transition-all duration-50 not-disabled:active:translate-y-0.5",
+  "select-none not-disabled:active:shadow-none flex justify-center leading-tight text-start font-bold transition-all duration-50 not-disabled:active:translate-y-0.5",
   {
     variants: {
       variant: {
@@ -20,8 +20,8 @@ const playfulButtonVariants = cva(
         blue: "",
       },
       size: {
-        sm: "text-sm py-1.5 px-2.5",
-        md: "text-base py-2.5 px-3",
+        sm: "text-sm py-1.5 px-2.5 rounded-lg",
+        md: "text-base py-2.5 px-3 rounded-lg",
       },
     },
     compoundVariants: [
