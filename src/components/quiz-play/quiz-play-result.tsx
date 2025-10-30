@@ -18,8 +18,8 @@ export const QuizPlayResult = ({ result, quiz }: Props) => {
           ? "bg-green-50 text-green-500"
           : "bg-red-50 text-red-500",
       )}
-      initial={{ opacity: 0, translateY: "100%" }}
-      animate={{ opacity: 1, translateY: "0%" }}
+      initial={{ translateY: "100%" }}
+      animate={{ translateY: "0%" }}
       transition={{
         type: "spring",
         stiffness: 500,

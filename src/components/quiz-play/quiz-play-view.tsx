@@ -4,6 +4,7 @@ import { QuizResult } from "@/lib/quiz-form";
 import { QuizData } from "@/lib/quiz/data";
 import { getQuizPrompt } from "@/lib/quiz/types";
 import { cn } from "@/lib/utils";
+import { AnimatePresence } from "motion/react";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import { Markdown } from "../markdown";
