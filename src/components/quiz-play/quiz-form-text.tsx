@@ -7,7 +7,7 @@ import { TextQuizData } from "@/lib/quiz/data";
 
 type Props = {
   quiz: TextQuizData;
-}
+};
 
 export const QuizFormText = ({ quiz }: Props) => {
   const { result, value, setValue } = useQuizPlay();

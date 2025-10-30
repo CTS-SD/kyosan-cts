@@ -7,7 +7,7 @@ import { TrueFalseQuizData } from "@/lib/quiz/data";
 
 type Props = {
   quiz: TrueFalseQuizData;
-}
+};
 
 export const QuizFormTrueFalse = ({ quiz }: Props) => {
   const { result, value, setValue } = useQuizPlay();

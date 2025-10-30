@@ -144,7 +144,7 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
               )}
             />
           </fieldset>
-          <div className="to-background bg-background/90 backdrop-blur-xs sticky bottom-0 -mb-4 flex justify-end gap-2 py-4">
+          <div className="to-background bg-background/90 sticky bottom-0 -mb-4 flex justify-end gap-2 py-4 backdrop-blur-xs">
             <Button
               render={<Link href="/admin/puratto">キャンセル</Link>}
               className="ml-auto"

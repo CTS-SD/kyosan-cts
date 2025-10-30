@@ -28,8 +28,11 @@ export const QuizResultsView = ({ quizzes, results }: Props) => {
           />
         ))}
       </div>
-      <div className="mt-6 sticky bottom-0 py-4 bg-background">
-        <PlayfulButton render={<Link href="/puratto">OK</Link>} className="w-full" />
+      <div className="bg-background sticky bottom-0 mt-6 py-4">
+        <PlayfulButton
+          render={<Link href="/puratto">OK</Link>}
+          className="w-full"
+        />
       </div>
     </div>
   );
