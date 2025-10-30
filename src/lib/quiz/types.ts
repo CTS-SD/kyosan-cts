@@ -1,28 +1,22 @@
-export enum QuizTypeEnum {
-  SELECT = "select",
-  TEXT = "text",
-  TRUE_FALSE = "true_false",
-}
-
 export const quizTypes = [
   {
     label: "選択問題",
-    id: QuizTypeEnum.SELECT,
+    id: "select",
     prompt: "答えを選択してください",
   },
   {
     label: "テキスト",
-    id: QuizTypeEnum.TEXT,
+    id: "text",
     prompt: "答えを入力してください",
   },
   {
     label: "○✗クイズ",
-    id: QuizTypeEnum.TRUE_FALSE,
+    id: "true_false",
     prompt: "○か✗を選択してください",
   },
 ] as const satisfies ReadonlyArray<{
   label: string;
-  id: QuizTypeEnum;
+  id: string;
   prompt: string;
 }>;
 
