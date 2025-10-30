@@ -75,7 +75,7 @@ export const QuizPlayResult = ({ result, quiz }: Props) => {
       </div>
       {!result.isCorrect && (
         <div className="flex gap-2">
-          <div className="font-semibold">正解:</div>
+          <div className="font-semibold shrink-0">正解:</div>
           <QuizAnswerRenderer className="font-bold" quiz={quiz} />
         </div>
       )}
@@ -91,7 +91,7 @@ export const QuizPlayResult = ({ result, quiz }: Props) => {
             ease: [0, 0, 0.2, 1],
           }}
         >
-          <Markdown className="text-inherit">{quiz.explanation}</Markdown>
+          <Markdown className="text-inherit py-2">{quiz.explanation}</Markdown>
         </motion.div>
       )}
     </motion.div>

@@ -104,8 +104,10 @@ export const QuizPlayView = ({
           </div>
           <div
             className={cn("bg-background sticky bottom-0", {
-              "bg-green-50": showAnswer && result.isCorrect,
-              "bg-red-50": showAnswer && !result.isCorrect,
+              "border-t-2 border-green-100 bg-green-50":
+                showAnswer && result.isCorrect,
+              "border-t-2 border-red-100 bg-red-50":
+                showAnswer && !result.isCorrect,
             })}
           >
             <div className={cn("flex flex-col gap-3 p-4")}>
