@@ -6,10 +6,10 @@ type Props = {
 
 const Layout = ({ children }: Props) => {
   return (
-    <div className="mx-auto max-w-5xl px-6">
+    <>
       <AppHeader />
-      {children}
-    </div>
+      <div className="mx-auto max-w-5xl px-6">{children}</div>
+    </>
   );
 };
 
