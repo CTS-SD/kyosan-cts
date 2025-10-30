@@ -21,15 +21,18 @@ const getErrorMessage = (message?: string) => {
 const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
-  const [isPending, startTransition] = useTransition();
+  const [isStaffPending, startStaffTransition] = useTransition();
+  const [isAdminPending, setIsAdminPending] = useState(false);
+
+  const isPending = isStaffPending || isAdminPending;
 
   const toggleShowPassword = () => {
     setShowPassword((prev) => !prev);
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const staffSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    startTransition(async () => {
+    startStaffTransition(async () => {
       const { error } = await signIn.email({
         email: "cts-member@example.com",
         password,
@@ -42,11 +45,19 @@ const Page = () => {
     });
   };
 
+  const adminSignIn = async () => {
+    setIsAdminPending(true);
+    await signIn.social({
+      provider: "google",
+      callbackURL: "/admin",
+    });
+  };
+
   return (
     <div className="mx-auto flex max-w-sm flex-col px-6 py-20">
       <div className="flex flex-col gap-6">
         <div className="text-center text-lg font-semibold">ログイン</div>
-        <form className="flex flex-col gap-2 px-6" onSubmit={handleSubmit}>
+        <form className="flex flex-col gap-2 px-6" onSubmit={staffSignIn}>
           <Group className="w-full">
             <GroupItem
               render={
@@ -74,7 +85,7 @@ const Page = () => {
             </GroupItem>
           </Group>
           <Button type="submit" disabled={isPending}>
-            {isPending && <Spinner />}
+            {isStaffPending && <Spinner />}
             スタッフとしてログイン
           </Button>
         </form>
@@ -85,17 +96,8 @@ const Page = () => {
           </span>
         </div>
         <div className="flex justify-center px-6">
-          <Button
-            variant="outline"
-            disabled={isPending}
-            onClick={async () => {
-              await signIn.social({
-                provider: "google",
-                callbackURL: "/admin",
-              });
-            }}
-          >
-            <GoogleIcon />
+          <Button variant="outline" disabled={isPending} onClick={adminSignIn}>
+            {isAdminPending ? <Spinner /> : <GoogleIcon />}
             管理者としてログイン
           </Button>
         </div>
