@@ -143,18 +143,19 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
                 </FormItem>
               )}
             />
-            <div className="to-background sticky bottom-0 -mb-4 flex justify-end gap-2 bg-gradient-to-b pb-4">
-              <Button
-                render={<Link href="/admin/puratto">キャンセル</Link>}
-                className="ml-auto"
-                variant="secondary"
-              />
-              <Button type="submit" disabled={isSubmitting || !isDirty}>
-                {isSubmitting && <Spinner />}
-                {labels.submit}
-              </Button>
-            </div>
           </fieldset>
+          <div className="to-background bg-background/90 backdrop-blur-xs sticky bottom-0 -mb-4 flex justify-end gap-2 py-4">
+            <Button
+              render={<Link href="/admin/puratto">キャンセル</Link>}
+              className="ml-auto"
+              variant="secondary"
+              disabled={isSubmitting}
+            />
+            <Button type="submit" disabled={isSubmitting || !isDirty}>
+              {isSubmitting && <Spinner />}
+              {labels.submit}
+            </Button>
+          </div>
         </form>
       </Form>
     </div>
