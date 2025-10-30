@@ -10,22 +10,50 @@ const playfulButtonVariants = cva(
   {
     variants: {
       variant: {
-        default:
-          "bg-[var(--tint)] shadow-[0_3px_0] shadow-[color:var(--tint-heavy)]",
-        outline:
-          "border shadow-[0_2px_0] border-[var(--tint)] shadow-[color:var(--tint)] bg-[var(--tint-light)]",
+        solid: "bg-[var(--tint)] shadow-[0_3px_0] text-white",
+        outline: "border shadow-[0_2px_0]",
       },
       tint: {
-        default:
-          "[--tint-light:transparent] [--tint:var(--color-neutral-300)] [--tint-heavy:var(--color-neutral-400)]",
-        green:
-          "[--tint-light:var(--color-green-100)] [--tint:var(--color-green-300)] [--tint-heavy:var(--color-green-400)]",
-        blue: "[--tint-light:var(--color-blue-100)] [--tint:var(--color-blue-300)] [--tint-heavy:var(--color-blue-400)]",
-        red: "[--tint-light:var(--color-red-100)] [--tint:var(--color-red-300)] [--tint-heavy:var(--color-red-600)]",
+        default: "",
+        red: "",
+        green: "",
+        blue: "",
       },
     },
+    compoundVariants: [
+      {
+        variant: "solid",
+        tint: "default",
+        class: "bg-neutral-500 shadow-neutral-700",
+      },
+      {
+        variant: "outline",
+        tint: "default",
+        class: "border-neutral-300 shadow-neutral-300",
+      },
+      {
+        variant: "solid",
+        tint: "red",
+        class: "bg-red-500 shadow-red-700",
+      },
+      {
+        variant: "solid",
+        tint: "green",
+        class: "bg-green-500 shadow-green-700",
+      },
+      {
+        variant: "solid",
+        tint: "blue",
+        class: "bg-blue-500 shadow-blue-700",
+      },
+      {
+        variant: "outline",
+        tint: "blue",
+        class: "border-blue-300 shadow-blue-300 bg-blue-50 text-blue-500",
+      },
+    ],
     defaultVariants: {
-      variant: "default",
+      variant: "solid",
       tint: "green",
     },
   },
