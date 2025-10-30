@@ -46,7 +46,7 @@ const OXButton = ({ isSelected, className, ...props }: OXButtonProps) => {
     <PlayfulButton
       variant="outline"
       tint={isSelected ? "blue" : "default"}
-      className="flex items-center justify-center aspect-square flex-1 rounded-2xl relative [&_svg]:size-1/2"
+      className="relative flex aspect-square flex-1 items-center justify-center rounded-2xl [&_svg]:size-1/2"
       type="button"
       {...props}
     />
