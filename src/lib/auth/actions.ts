@@ -3,8 +3,8 @@
 import { eq } from "drizzle-orm";
 import { db } from "../db";
 import { account as AccountTable, user as UserTable } from "../db/schema";
-import { signUp } from "../auth-client";
-import { auth } from "../auth";
+import { signUp } from "./client";
+import { auth } from ".";
 import { headers } from "next/headers";
 import { cache } from "react";
 

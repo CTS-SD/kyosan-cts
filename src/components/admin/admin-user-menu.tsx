@@ -8,7 +8,7 @@ import {
   MenuTrigger,
 } from "@/components/ui/menu";
 import { useSessionPromise } from "@/ctx/session-promise";
-import { signOut } from "@/lib/auth-client";
+import { signOut } from "@/lib/auth/client";
 import { HomeIcon, LogOutIcon, ShieldCheckIcon } from "lucide-react";
 import Link from "next/link";
 import { use } from "react";

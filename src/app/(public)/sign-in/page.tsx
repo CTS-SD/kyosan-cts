@@ -6,7 +6,7 @@ import { Group, GroupItem, GroupSeparator } from "@/components/ui/group";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
-import { signIn } from "@/lib/auth-client";
+import { signIn } from "@/lib/auth/client";
 import { EyeClosedIcon, EyeIcon } from "lucide-react";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";

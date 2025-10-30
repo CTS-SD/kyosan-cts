@@ -7,7 +7,7 @@ import {
   MenuSeparator,
   MenuTrigger,
 } from "@/components/ui/menu";
-import { signOut, useSession } from "@/lib/auth-client";
+import { signOut, useSession } from "@/lib/auth/client";
 import { LogOutIcon } from "lucide-react";
 import { ThemeSubmenu } from "../theme-submenu";
 import { Button } from "../ui/button";
