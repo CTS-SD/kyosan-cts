@@ -3,6 +3,7 @@ import { QuizData } from "@/lib/quiz/data";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import { QuizResultItem } from "./quiz-result-item";
+import { PlayfulButton } from "../ui/playful-button";
 
 type Props = {
   quizzes: QuizData[];
@@ -27,8 +28,8 @@ export const QuizResultsView = ({ quizzes, results }: Props) => {
           />
         ))}
       </div>
-      <div className="mt-6">
-        <Button render={<Link href="/puratto">OK</Link>} className="w-full" />
+      <div className="mt-6 sticky bottom-0 py-4 bg-background">
+        <PlayfulButton render={<Link href="/puratto">OK</Link>} className="w-full" />
       </div>
     </div>
   );
