@@ -1,5 +1,6 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { nextCookies } from "better-auth/next-js";
 import { db } from "@/lib/db";
 import { env } from "./env";
 import * as schema from "@/lib/db/schema";
@@ -22,7 +23,7 @@ export const auth = betterAuth({
   session: {
     cookieCache: {
       enabled: true,
-      maxAge: 10,
+      maxAge: 180,
     },
   },
   user: {
@@ -34,4 +35,5 @@ export const auth = betterAuth({
       },
     },
   },
+  plugins: [nextCookies()],
 });
