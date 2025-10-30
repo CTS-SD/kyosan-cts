@@ -28,7 +28,7 @@ export const QuizResultItem = ({ result, quiz, index }: Props) => {
           <Markdown className="">{quiz.question}</Markdown>
         </div>
         <div className="my-4 flex gap-3 px-4">
-          <CornerDownRightIcon className="h-[1lh] w-4 shrink-0" />
+          <CornerDownRightIcon className="h-lh w-4 shrink-0" />
           <QuizAnswerRenderer quiz={quiz} className="font-bold text-blue-500" />
         </div>
         {quiz.explanation && (

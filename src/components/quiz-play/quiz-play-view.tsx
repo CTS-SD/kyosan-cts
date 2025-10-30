@@ -90,7 +90,7 @@ export const QuizPlayView = ({
           <div className="grow">
             <div className="mt-2 mb-6 space-y-4 px-6">
               <div className="text-xl font-bold">
-                {getQuizPrompt(quiz.type)}
+                {getQuizPrompt(quiz)}
               </div>
               <div className="">
                 <Markdown>{quiz.question}</Markdown>
