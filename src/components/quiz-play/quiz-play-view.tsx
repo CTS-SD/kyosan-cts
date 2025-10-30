@@ -89,9 +89,7 @@ export const QuizPlayView = ({
         <form onSubmit={handleSubmit} className="flex shrink-0 grow flex-col">
           <div className="grow">
             <div className="mt-2 mb-6 space-y-4 px-6">
-              <div className="text-xl font-bold">
-                {getQuizPrompt(quiz)}
-              </div>
+              <div className="text-xl font-bold">{getQuizPrompt(quiz)}</div>
               <div className="">
                 <Markdown>{quiz.question}</Markdown>
               </div>
@@ -103,10 +101,10 @@ export const QuizPlayView = ({
             </div>
           </div>
           <div
-            className={cn("bg-background sticky bottom-0", {
-              "border-t-2 border-green-100 bg-green-50":
+            className={cn("bg-background sticky bottom-0 backdrop-blur-lg", {
+              "dark:bg-background dark:border-border border-t-2 border-green-100 bg-green-50":
                 showAnswer && result.isCorrect,
-              "border-t-2 border-red-100 bg-red-50":
+              "dark:bg-background dark:border-border border-t-2 border-red-100 bg-red-50":
                 showAnswer && !result.isCorrect,
             })}
           >
