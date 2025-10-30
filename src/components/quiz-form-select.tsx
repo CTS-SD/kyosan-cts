@@ -1,5 +1,6 @@
 "use client";
 
+import { QuizResult } from "@/lib/quiz-form";
 import { SelectQuizData } from "@/lib/quiz/data";
 import { shuffle } from "es-toolkit";
 import { useMemo } from "react";
@@ -8,32 +9,18 @@ import { PlayfulButton } from "./ui/playful-button";
 type Props = {
   quiz: SelectQuizData;
   value: string[];
-  showAnswer: boolean;
+  result?: QuizResult | null;
   setValue: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-export const QuizFormSelect = ({
-  quiz,
-  value,
-  showAnswer,
-  setValue,
-}: Props) => {
-  const correctChoices = useMemo(
-    () => quiz.correctChoices ?? [],
-    [quiz.correctChoices],
-  );
-  const incorrectChoices = useMemo(
-    () => quiz.incorrectChoices ?? [],
-    [quiz.incorrectChoices],
-  );
-
+export const QuizFormSelect = ({ quiz, value, result, setValue }: Props) => {
   const choices = useMemo(() => {
     return shuffle(
-      [...correctChoices, ...incorrectChoices]
+      [...quiz.correctChoices, ...quiz.incorrectChoices]
         .map((choice) => choice.trim())
         .filter(Boolean),
     );
-  }, [correctChoices, incorrectChoices]);
+  }, [quiz.correctChoices, quiz.incorrectChoices]);
 
   const handleChoice = (choice: string) => {
     setValue((prev) =>
@@ -48,14 +35,23 @@ export const QuizFormSelect = ({
       <div className="flex flex-col gap-2.5">
         {choices.map((choice, i) => {
           const isSelected = value.includes(choice);
+          const isHighlighted =
+            result?.isCorrect &&
+            isSelected &&
+            quiz.correctChoices.includes(choice);
+          const tint = isHighlighted
+            ? "green"
+            : isSelected
+              ? "blue"
+              : "default";
           return (
             <PlayfulButton
               variant="outline"
-              tint={isSelected ? "blue" : "default"}
               type="button"
+              tint={tint}
               key={`${choice}-${i}`}
               onClick={() => handleChoice(choice)}
-              disabled={showAnswer}
+              disabled={!!result}
             >
               {choice}
             </PlayfulButton>

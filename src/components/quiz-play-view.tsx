@@ -103,7 +103,7 @@ export const QuizPlayView = ({
                 value={userAnswer}
                 setValue={setUserAnswer}
                 quiz={quiz}
-                showAnswer={showAnswer}
+                result={result}
               />
             )}
             {quiz.type === "text" && (
