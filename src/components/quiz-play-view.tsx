@@ -3,6 +3,7 @@
 import { Progress } from "@/components/ui/progress";
 import { QuizResult } from "@/lib/quiz-form";
 import { QuizData } from "@/lib/quiz/data";
+import { getQuizPrompt } from "@/lib/quiz/types";
 import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
 import dynamic from "next/dynamic";
@@ -90,8 +91,11 @@ export const QuizPlayView = ({
       </header>
       <form onSubmit={handleSubmit} className="flex shrink-0 grow flex-col">
         <div className="grow">
-          <div className="px-6 pt-2 pb-6">
-            <Markdown>{quiz.question}</Markdown>
+          <div className="mt-2 mb-6 space-y-4 px-6">
+            <div className="text-xl font-bold">{getQuizPrompt(quiz.type)}</div>
+            <div className="">
+              <Markdown>{quiz.question}</Markdown>
+            </div>
           </div>
           <div className="pb-4">
             {quiz.type === "select" && (
