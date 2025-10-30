@@ -15,6 +15,7 @@ export const getSession = cache(async () =>
 );
 
 export async function getUserById(userId: string) {
+  await requireRole(["admin"]);
   const [user] = await db
     .select()
     .from(UserTable)
@@ -23,6 +24,7 @@ export async function getUserById(userId: string) {
 }
 
 export async function getUserByEmail(email: string) {
+  await requireRole(["admin"]);
   const [user] = await db
     .select()
     .from(UserTable)
@@ -31,10 +33,12 @@ export async function getUserByEmail(email: string) {
 }
 
 export async function updateUserRole(userId: string, role: string) {
+  await requireRole(["admin"]);
   await db.update(UserTable).set({ role }).where(eq(UserTable.id, userId));
 }
 
 export async function deleteUser(userId: string) {
+  await requireRole(["admin"]);
   await db.delete(UserTable).where(eq(UserTable.id, userId));
   await db.delete(AccountTable).where(eq(AccountTable.userId, userId));
 }
@@ -44,6 +48,8 @@ export async function resetMemberPassword({
 }: {
   newPassword: string;
 }) {
+  await requireRole(["admin"]);
+
   const member = await getUserByEmail("cts-member@example.com");
 
   await deleteUser(member.id);
@@ -60,4 +66,12 @@ export async function resetMemberPassword({
 
   const newMember = await getUserById(result.data.user.id);
   await updateUserRole(newMember.id, "member");
+}
+
+export async function requireRole(roles: string[]) {
+  const session = await getSession();
+  if (!session || !roles.includes(session.user.role)) {
+    throw new Error("Unauthorized");
+  }
+  return session;
 }

@@ -4,8 +4,10 @@ import { db } from "./db";
 import { StudentTable } from "./db/schema";
 import { eq } from "drizzle-orm";
 import { StudentValues } from "./student-editor";
+import { requireRole } from "./auth/actions";
 
 export async function insertStudents(values: StudentValues[]) {
+  await requireRole(["admin"]);
   try {
     const students = await db
       .insert(StudentTable)
@@ -27,6 +29,7 @@ export async function insertStudents(values: StudentValues[]) {
 }
 
 export async function updateStudent(id: number, values: StudentValues) {
+  await requireRole(["admin"]);
   try {
     const [student] = await db
       .update(StudentTable)
@@ -48,6 +51,7 @@ export async function updateStudent(id: number, values: StudentValues) {
 }
 
 export async function deleteStudent(id: number) {
+  await requireRole(["admin"]);
   try {
     await db.delete(StudentTable).where(eq(StudentTable.id, id)).execute();
     return {

@@ -17,8 +17,11 @@ import {
   TrueFalseQuizSchema,
 } from "./data";
 import { notFound } from "next/navigation";
+import { requireRole } from "../auth/actions";
 
 export async function insertQuiz(values: QuizValues) {
+  await requireRole(["admin"]);
+
   const [{ id: quizId }] = await db
     .insert(QuizTable)
     .values({
@@ -37,6 +40,8 @@ export async function insertQuiz(values: QuizValues) {
 }
 
 export async function updateQuiz(quizId: number, values: QuizValues) {
+  await requireRole(["admin"]);
+
   await db
     .update(QuizTable)
     .set({
@@ -57,6 +62,7 @@ export async function updateQuiz(quizId: number, values: QuizValues) {
 }
 
 export async function deleteQuiz(quizId: number) {
+  await requireRole(["admin"]);
   await db.delete(QuizTable).where(eq(QuizTable.id, quizId));
 }
 
