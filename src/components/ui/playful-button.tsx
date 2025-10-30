@@ -6,7 +6,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const playfulButtonVariants = cva(
-  "px-3 select-none py-2.5 not-disabled:active:shadow-none flex justify-center rounded-lg leading-tight text-start font-semibold transition-all duration-50 not-disabled:active:translate-y-0.5",
+  "select-none not-disabled:active:shadow-none flex justify-center rounded-lg leading-tight text-start font-bold transition-all duration-50 not-disabled:active:translate-y-0.5",
   {
     variants: {
       variant: {
@@ -18,6 +18,10 @@ const playfulButtonVariants = cva(
         red: "",
         green: "",
         blue: "",
+      },
+      size: {
+        sm: "text-sm py-1.5 px-2.5",
+        md: "text-base py-2.5 px-3",
       },
     },
     compoundVariants: [
@@ -65,6 +69,7 @@ const playfulButtonVariants = cva(
     defaultVariants: {
       variant: "solid",
       tint: "green",
+      size: "md",
     },
   },
 );
@@ -72,12 +77,14 @@ const playfulButtonVariants = cva(
 interface ButtonProps extends useRender.ComponentProps<"button"> {
   variant?: VariantProps<typeof playfulButtonVariants>["variant"];
   tint?: VariantProps<typeof playfulButtonVariants>["tint"];
+  size?: VariantProps<typeof playfulButtonVariants>["size"];
 }
 
 function PlayfulButton({
   className,
   variant,
   tint,
+  size,
   render,
   ...props
 }: ButtonProps) {
@@ -86,7 +93,7 @@ function PlayfulButton({
 
   const defaultProps = {
     "data-slot": "button",
-    className: cn(playfulButtonVariants({ tint, variant, className })),
+    className: cn(playfulButtonVariants({ tint, variant, size, className })),
     type: typeValue,
   };
 

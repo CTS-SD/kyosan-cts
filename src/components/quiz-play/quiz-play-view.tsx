@@ -4,7 +4,6 @@ import { QuizResult } from "@/lib/quiz-form";
 import { QuizData } from "@/lib/quiz/data";
 import { getQuizPrompt } from "@/lib/quiz/types";
 import { cn } from "@/lib/utils";
-import { AnimatePresence } from "motion/react";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import { Markdown } from "../markdown";
@@ -127,16 +126,23 @@ export const QuizPlayView = ({
             )}
           </div>
         </div>
-        <div className="sticky bottom-0 flex flex-col gap-3 p-4">
-          <PlayfulButton
-            type="submit"
-            className={cn("w-full")}
-            tint={result ? (result.isCorrect ? "green" : "red") : "green"}
-          >
-            {result ? "次へ" : "送信する"}
-          </PlayfulButton>
+        <div
+          className={cn("sticky bottom-0", {
+            "bg-green-50": showAnswer && result.isCorrect,
+            "bg-red-50": showAnswer && !result.isCorrect,
+          })}
+        >
+          <div className={cn("flex flex-col gap-3 p-4")}>
+            {result && <QuizPlayResult quiz={quiz} result={result} />}
+            <PlayfulButton
+              type="submit"
+              className="z-10 w-full"
+              tint={result ? (result.isCorrect ? "green" : "red") : "green"}
+            >
+              {result ? "次へ" : "送信する"}
+            </PlayfulButton>
+          </div>
         </div>
-        {result && <QuizPlayResult quiz={quiz} result={result} />}
       </form>
     </div>
   );
