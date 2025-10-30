@@ -1,6 +1,5 @@
 "use client";
 
-import { Progress } from "@/components/ui/progress";
 import { QuizResult } from "@/lib/quiz-form";
 import { QuizData } from "@/lib/quiz/data";
 import { getQuizPrompt } from "@/lib/quiz/types";
@@ -8,15 +7,19 @@ import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
 import dynamic from "next/dynamic";
 import { useState } from "react";
-import { Markdown } from "./markdown";
-import { QuizAnswerRenderer } from "./quiz-answer-renderer";
+import { Markdown } from "../markdown";
+import { QuizAnswerRenderer } from "../quiz-answer-renderer";
+import { PlayfulButton } from "../ui/playful-button";
 import { QuizFormText } from "./quiz-form-text";
 import { QuizFormTrueFalse } from "./quiz-form-true-false";
-import { PlayfulButton } from "./ui/playful-button";
+import { QuizPlayHeader } from "./quiz-play-header";
 
-const QuizFormSelect = dynamic(() => import("@/components/quiz-form-select"), {
-  ssr: false,
-});
+const QuizFormSelect = dynamic(
+  () => import("@/components/quiz-play/quiz-form-select"),
+  {
+    ssr: false,
+  },
+);
 
 type Props = React.ComponentProps<"div"> & {
   quiz: QuizData;
@@ -82,13 +85,11 @@ export const QuizPlayView = ({
       className={cn("mx-auto flex h-full max-w-xl grow flex-col", className)}
       {...props}
     >
-      <header className="bg-background sticky top-0 flex h-12 shrink-0 items-center gap-2 px-4">
-        {headerStartContent}
-        <div className="grow">
-          <Progress value={progress} className="w-full" />
-        </div>
-        {headerEndContent}
-      </header>
+      <QuizPlayHeader
+        startContent={headerStartContent}
+        endContent={headerEndContent}
+        progress={progress}
+      />
       <form onSubmit={handleSubmit} className="flex shrink-0 grow flex-col">
         <div className="grow">
           <div className="mt-2 mb-6 space-y-4 px-6">

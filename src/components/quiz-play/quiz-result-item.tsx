@@ -1,8 +1,8 @@
 import { QuizResult } from "@/lib/quiz-form";
 import { QuizData } from "@/lib/quiz/data";
 import { CornerDownRightIcon } from "lucide-react";
-import { Markdown } from "./markdown";
-import { QuizAnswerRenderer } from "./quiz-answer-renderer";
+import { Markdown } from "../markdown";
+import { QuizAnswerRenderer } from "../quiz-answer-renderer";
 
 type Props = {
   result: QuizResult;

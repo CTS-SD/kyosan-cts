@@ -1,6 +1,6 @@
 "use client";
 
-import { QuizPlayView } from "@/components/quiz-play-view";
+import { QuizPlayView } from "@/components/quiz-play/quiz-play-view";
 import { Badge } from "@/components/ui/badge";
 import { QuizData } from "@/lib/quiz/data";
 

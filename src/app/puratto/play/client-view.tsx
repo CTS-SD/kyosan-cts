@@ -1,10 +1,10 @@
 "use client";
 
-import { QuizPlayView } from "@/components/quiz-play-view";
-import { QuizResultsView } from "@/components/quiz-results-view";
+import { QuizPlayView } from "@/components/quiz-play/quiz-play-view";
+import { QuizResultsView } from "@/components/quiz-play/quiz-results-view";
 import { Button } from "@/components/ui/button";
-import { QuizData } from "@/lib/quiz/data";
 import { QuizResult } from "@/lib/quiz-form";
+import { QuizData } from "@/lib/quiz/data";
 import { XIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

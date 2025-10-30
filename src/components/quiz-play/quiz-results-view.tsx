@@ -1,8 +1,8 @@
 import { QuizResult } from "@/lib/quiz-form";
 import { QuizData } from "@/lib/quiz/data";
 import Link from "next/link";
+import { Button } from "../ui/button";
 import { QuizResultItem } from "./quiz-result-item";
-import { Button } from "./ui/button";
 
 type Props = {
   quizzes: QuizData[];

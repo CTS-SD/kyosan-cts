@@ -2,7 +2,7 @@
 
 import { TrueFalseQuizData } from "@/lib/quiz/data";
 import { CircleIcon, XIcon } from "lucide-react";
-import { PlayfulButton } from "./ui/playful-button";
+import { PlayfulButton } from "../ui/playful-button";
 
 type Props = {
   quiz: TrueFalseQuizData;

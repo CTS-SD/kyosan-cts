@@ -4,7 +4,7 @@ import { QuizResult } from "@/lib/quiz-form";
 import { SelectQuizData } from "@/lib/quiz/data";
 import { shuffle } from "es-toolkit";
 import { useMemo } from "react";
-import { PlayfulButton } from "./ui/playful-button";
+import { PlayfulButton } from "../ui/playful-button";
 
 type Props = {
   quiz: SelectQuizData;
