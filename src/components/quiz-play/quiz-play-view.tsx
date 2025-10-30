@@ -7,7 +7,7 @@ import { judgeQuiz } from "@/lib/quiz/judge";
 import { getQuizPrompt } from "@/lib/quiz/types";
 import { cn } from "@/lib/utils";
 import dynamic from "next/dynamic";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Markdown } from "../markdown";
 import { PlayfulButton } from "../ui/playful-button";
 import { QuizFormText } from "./quiz-form-text";
@@ -68,10 +68,6 @@ export const QuizPlayView = ({
     setResult(resultItem);
     addResult?.(resultItem);
   };
-
-  useEffect(() => {
-    reset();
-  }, [quiz.type]);
 
   return (
     <QuizPlayContext.Provider
