@@ -1,6 +1,6 @@
 "use client";
 
-import { QuizResult } from "@/lib/quiz-form";
+import { useQuizPlay } from "@/ctx/quiz-play";
 import { SelectQuizData } from "@/lib/quiz/data";
 import { shuffle } from "es-toolkit";
 import { useMemo } from "react";
@@ -8,12 +8,11 @@ import { PlayfulButton } from "../ui/playful-button";
 
 type Props = {
   quiz: SelectQuizData;
-  value: string[];
-  result?: QuizResult | null;
-  setValue: React.Dispatch<React.SetStateAction<string[]>>;
 };
 
-export const QuizFormSelect = ({ quiz, value, result, setValue }: Props) => {
+export const QuizFormSelect = ({ quiz }: Props) => {
+  const { result, value: selections, setValue } = useQuizPlay();
+
   const choices = useMemo(() => {
     return shuffle(
       [...quiz.correctChoices, ...quiz.incorrectChoices]
@@ -23,18 +22,24 @@ export const QuizFormSelect = ({ quiz, value, result, setValue }: Props) => {
   }, [quiz.correctChoices, quiz.incorrectChoices]);
 
   const handleChoice = (choice: string) => {
-    setValue((prev) =>
-      prev.includes(choice)
-        ? prev.filter((c) => c !== choice)
-        : [...prev, choice],
-    );
+    if (selections.includes(choice)) {
+      setValue((prev) => prev.filter((c) => c !== choice));
+      return;
+    }
+
+    if (selections.length === quiz.correctChoices.length) {
+      setValue((prev) => [...prev.slice(0, -1), choice]);
+      return;
+    }
+
+    setValue((prev) => [...prev, choice]);
   };
 
   return (
     <div className="px-4">
       <div className="flex flex-col gap-2.5">
         {choices.map((choice, i) => {
-          const isSelected = value.includes(choice);
+          const isSelected = selections.includes(choice);
           const isHighlighted =
             result?.isCorrect &&
             isSelected &&

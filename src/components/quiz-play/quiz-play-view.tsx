@@ -1,11 +1,13 @@
 "use client";
 
+import { QuizPlayContext } from "@/ctx/quiz-play";
 import { QuizResult } from "@/lib/quiz-form";
 import { QuizData } from "@/lib/quiz/data";
+import { judgeQuiz } from "@/lib/quiz/judge";
 import { getQuizPrompt } from "@/lib/quiz/types";
 import { cn } from "@/lib/utils";
 import dynamic from "next/dynamic";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Markdown } from "../markdown";
 import { PlayfulButton } from "../ui/playful-button";
 import { QuizFormText } from "./quiz-form-text";
@@ -44,106 +46,81 @@ export const QuizPlayView = ({
 
   const showAnswer = !!result;
 
+  const reset = () => {
+    setResult(null);
+    setUserAnswer([]);
+  };
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (showAnswer) {
-      handleNext();
+      reset();
+      onNext?.();
       return;
-    }
-
-    let isCorrect = false;
-    if (quiz.type === "select") {
-      isCorrect =
-        userAnswer.length === quiz.correctChoices.length &&
-        userAnswer.every((ans) => quiz.correctChoices.includes(ans));
-    } else if (quiz.type === "text") {
-      isCorrect = !!quiz.answer?.split("\n").includes(userAnswer[0]?.trim());
-    } else if (quiz.type === "true_false") {
-      isCorrect = (userAnswer[0] === "true") === quiz.answer;
     }
 
     const resultItem = {
       quizId: quiz.id,
       userAnswer,
-      isCorrect,
+      isCorrect: judgeQuiz(quiz, userAnswer),
     };
-
     setResult(resultItem);
     addResult?.(resultItem);
   };
 
-  const handleNext = () => {
-    setResult(null);
-    setUserAnswer([]);
-    onNext?.();
-  };
+  useEffect(() => {
+    reset();
+  }, [quiz.type]);
 
   return (
-    <div
-      className={cn("mx-auto flex h-full max-w-xl grow flex-col", className)}
-      {...props}
+    <QuizPlayContext.Provider
+      value={{ value: userAnswer, setValue: setUserAnswer, quiz, result }}
     >
-      <QuizPlayHeader
-        startContent={headerStartContent}
-        endContent={headerEndContent}
-        progress={progress}
-      />
-      <form onSubmit={handleSubmit} className="flex shrink-0 grow flex-col">
-        <div className="grow">
-          <div className="mt-2 mb-6 space-y-4 px-6">
-            <div className="text-xl font-bold">{getQuizPrompt(quiz.type)}</div>
-            <div className="">
-              <Markdown>{quiz.question}</Markdown>
+      <div
+        className={cn("mx-auto flex h-full max-w-xl grow flex-col", className)}
+        {...props}
+      >
+        <QuizPlayHeader
+          startContent={headerStartContent}
+          endContent={headerEndContent}
+          progress={progress}
+        />
+        <form onSubmit={handleSubmit} className="flex shrink-0 grow flex-col">
+          <div className="grow">
+            <div className="mt-2 mb-6 space-y-4 px-6">
+              <div className="text-xl font-bold">
+                {getQuizPrompt(quiz.type)}
+              </div>
+              <div className="">
+                <Markdown>{quiz.question}</Markdown>
+              </div>
+            </div>
+            <div className="pb-4">
+              {quiz.type === "select" && <QuizFormSelect quiz={quiz} />}
+              {quiz.type === "text" && <QuizFormText quiz={quiz} />}
+              {quiz.type === "true_false" && <QuizFormTrueFalse quiz={quiz} />}
             </div>
           </div>
-          <div className="pb-4">
-            {quiz.type === "select" && (
-              <QuizFormSelect
-                value={userAnswer}
-                setValue={setUserAnswer}
-                quiz={quiz}
-                result={result}
-              />
-            )}
-            {quiz.type === "text" && (
-              <QuizFormText
-                value={userAnswer[0] ?? ""}
-                setValue={(val) => setUserAnswer([val])}
-                quiz={quiz}
-                showAnswer={showAnswer}
-              />
-            )}
-            {quiz.type === "true_false" && (
-              <QuizFormTrueFalse
-                value={
-                  userAnswer.length > 0 ? userAnswer[0] === "true" : undefined
-                }
-                setValue={(val) => setUserAnswer([val ? "true" : "false"])}
-                quiz={quiz}
-                showAnswer={showAnswer}
-              />
-            )}
+          <div
+            className={cn("bg-background sticky bottom-0", {
+              "bg-green-50": showAnswer && result.isCorrect,
+              "bg-red-50": showAnswer && !result.isCorrect,
+            })}
+          >
+            <div className={cn("flex flex-col gap-3 p-4")}>
+              {result && <QuizPlayResult quiz={quiz} result={result} />}
+              <PlayfulButton
+                type="submit"
+                className="z-10 w-full"
+                tint={result ? (result.isCorrect ? "green" : "red") : "green"}
+              >
+                {result ? "次へ" : "送信する"}
+              </PlayfulButton>
+            </div>
           </div>
-        </div>
-        <div
-          className={cn("sticky bottom-0 bg-background", {
-            "bg-green-50": showAnswer && result.isCorrect,
-            "bg-red-50": showAnswer && !result.isCorrect,
-          })}
-        >
-          <div className={cn("flex flex-col gap-3 p-4")}>
-            {result && <QuizPlayResult quiz={quiz} result={result} />}
-            <PlayfulButton
-              type="submit"
-              className="z-10 w-full"
-              tint={result ? (result.isCorrect ? "green" : "red") : "green"}
-            >
-              {result ? "次へ" : "送信する"}
-            </PlayfulButton>
-          </div>
-        </div>
-      </form>
-    </div>
+        </form>
+      </div>
+    </QuizPlayContext.Provider>
   );
 };

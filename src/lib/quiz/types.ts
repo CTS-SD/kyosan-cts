@@ -14,11 +14,7 @@ export const quizTypes = [
     id: "true_false",
     prompt: "○か✗を選択してください",
   },
-] as const satisfies ReadonlyArray<{
-  label: string;
-  id: string;
-  prompt: string;
-}>;
+] as const;
 
 export function getQuizTypeLabel(type: string) {
   return quizTypes.find((quizType) => quizType.id === type)?.label ?? "不明";
