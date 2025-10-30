@@ -1,4 +1,4 @@
-import { PublicHeader } from "@/components/public-header";
+import { AppHeader } from "@/components/app-header";
 import { Button } from "@/components/ui/button";
 import { ArrowLeftIcon } from "lucide-react";
 import Link from "next/link";
@@ -6,7 +6,7 @@ import Link from "next/link";
 const Page = () => {
   return (
     <div className="mx-auto max-w-5xl p-6 pt-0">
-      <PublicHeader />
+      <AppHeader />
       <div className="my-20 flex flex-col items-center">
         <div className="font-zmg text-3xl font-bold sm:text-5xl">
           ぷらっとテスト
@@ -23,10 +23,11 @@ const Page = () => {
               </Link>
             }
           />
-          <Button size="lg" className="rounded-full" render={<Link href="/puratto/play">スタート</Link>} />
-          {/* <Button disabled className="rounded-full" size="lg">
-            メンテナンス中
-          </Button> */}
+          <Button
+            size="lg"
+            className="rounded-full"
+            render={<Link href="/puratto/play">スタート</Link>}
+          />
         </div>
       </div>
     </div>

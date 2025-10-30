@@ -1,4 +1,4 @@
-import { MembersHeader } from "@/components/members/members-header";
+import { AppHeader } from "@/components/app-header";
 import { ProtectedRoute } from "@/components/protected-route";
 import { getConfigValue } from "@/lib/config/actions";
 
@@ -12,7 +12,7 @@ const Layout = async ({ children }: Props) => {
   if (!available) {
     return (
       <ProtectedRoute roles={["admin"]} fallbackUrl="/">
-        <MembersHeader />
+        <AppHeader />
         {children}
       </ProtectedRoute>
     );
@@ -20,7 +20,7 @@ const Layout = async ({ children }: Props) => {
 
   return (
     <ProtectedRoute roles={["admin", "member"]} fallbackUrl="/sign-in">
-      <MembersHeader />
+      <AppHeader />
       {children}
     </ProtectedRoute>
   );

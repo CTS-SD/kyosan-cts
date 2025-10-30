@@ -2,14 +2,14 @@
 
 import {
   Menu,
-  MenuGroup,
-  MenuGroupLabel,
   MenuItem,
   MenuPopup,
+  MenuSeparator,
   MenuTrigger,
 } from "@/components/ui/menu";
 import { signOut, useSession } from "@/lib/auth-client";
 import { LogOutIcon } from "lucide-react";
+import { ThemeSubmenu } from "../theme-submenu";
 import { Button } from "../ui/button";
 import { UserAvatar } from "../user-avatar";
 
@@ -41,13 +41,12 @@ export const MemberUserButton = () => {
         </Button>
       </MenuTrigger>
       <MenuPopup align="end">
-        <MenuGroup>
-          <MenuGroupLabel>{user.name}</MenuGroupLabel>
-          <MenuItem onClick={handleSignOut}>
-            <LogOutIcon />
-            ログアウト
-          </MenuItem>
-        </MenuGroup>
+        <ThemeSubmenu />
+        <MenuSeparator />
+        <MenuItem onClick={handleSignOut} variant="destructive">
+          <LogOutIcon />
+          ログアウト
+        </MenuItem>
       </MenuPopup>
     </Menu>
   );

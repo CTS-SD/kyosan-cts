@@ -70,7 +70,7 @@ function MenuItem({
         "data-[disabled]:pointer-events-none data-[disabled]:opacity-64",
         "data-[highlighted]:bg-accent data-[highlighted]:text-accent-foreground",
         "data-[variant=destructive]:text-destructive-foreground data-inset:ps-8",
-        "sm:text-sm [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg]:opacity-60 [&_svg:not([class*='size-'])]:size-4",
+        "sm:text-sm [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4",
         className,
       )}
       {...props}

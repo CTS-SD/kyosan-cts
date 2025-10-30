@@ -12,6 +12,7 @@ import { signOut } from "@/lib/auth-client";
 import { HomeIcon, LogOutIcon, ShieldCheckIcon } from "lucide-react";
 import Link from "next/link";
 import { use } from "react";
+import { ThemeSubmenu } from "../theme-submenu";
 
 export const AdminUserMenu = (
   props: React.ComponentProps<typeof MenuTrigger>,
@@ -46,6 +47,7 @@ export const AdminUserMenu = (
             管理者ページ
           </Link>
         </MenuItem>
+        <ThemeSubmenu />
         <MenuSeparator />
         <MenuItem onClick={handleSignOut} variant="destructive">
           <LogOutIcon />
