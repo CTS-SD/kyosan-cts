@@ -17,7 +17,7 @@ export const Markdown = ({
   return (
     <div
       className={cn(
-        "prose prose-blue prose-p:leading-normal markdown dark:prose-invert",
+        "prose prose-blue prose-p:leading-normal markdown dark:prose-invert prose-p:my-2",
         className,
       )}
     >
