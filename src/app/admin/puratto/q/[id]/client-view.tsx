@@ -5,7 +5,6 @@ import { useQuizForm } from "@/hooks/use-quiz-form";
 import { updateQuiz } from "@/lib/quiz/actions";
 import { QuizData } from "@/lib/quiz/data";
 import { makeDefaultValues, QuizValues } from "@/lib/quiz/editor";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
 type Props = {
@@ -13,7 +12,6 @@ type Props = {
 };
 
 export const ClientView = ({ quiz }: Props) => {
-  const router = useRouter();
   const form = useQuizForm({
     defaultValues: makeDefaultValues(quiz),
   });
@@ -21,7 +19,6 @@ export const ClientView = ({ quiz }: Props) => {
   const handleSubmit = async (values: QuizValues) => {
     await updateQuiz(quiz.id, values);
     toast.success("問題を保存しました");
-    router.refresh();
     form.reset(values);
   };
 
