@@ -7,14 +7,16 @@ import {
   MenuSeparator,
   MenuTrigger,
 } from "@/components/ui/menu";
-import { signOut, useSession } from "@/lib/auth/client";
+import { useSessionPromise } from "@/ctx/session-promise";
+import { signOut } from "@/lib/auth/client";
 import { LogOutIcon } from "lucide-react";
+import { use } from "react";
 import { ThemeSubmenu } from "../theme-submenu";
 import { Button } from "../ui/button";
 import { UserAvatar } from "../user-avatar";
 
 export const MemberUserButton = () => {
-  const { data: session } = useSession();
+  const session = use(useSessionPromise());
   const user = session?.user;
   if (!user) return null;
 

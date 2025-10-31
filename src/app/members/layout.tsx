@@ -1,5 +1,5 @@
 import { AppHeader } from "@/components/app-header";
-import { ProtectedRoute } from "@/components/protected-route";
+import { requireRole } from "@/lib/auth/actions";
 import { getConfigValue } from "@/lib/config/actions";
 
 type Props = {
@@ -9,20 +9,17 @@ type Props = {
 const Layout = async ({ children }: Props) => {
   const available = await getConfigValue("departmentAnnouncementsPublished");
 
-  if (!available) {
-    return (
-      <ProtectedRoute roles={["admin"]} fallbackUrl="/">
-        <AppHeader />
-        {children}
-      </ProtectedRoute>
-    );
+  if (available) {
+    await requireRole(["member", "admin"]);
+  } else {
+    await requireRole(["admin"]);
   }
 
   return (
-    <ProtectedRoute roles={["admin", "member"]} fallbackUrl="/sign-in">
+    <>
       <AppHeader />
       {children}
-    </ProtectedRoute>
+    </>
   );
 };
 

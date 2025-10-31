@@ -1,5 +1,4 @@
 import { getSession } from "@/lib/auth/actions";
-import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 type Props = {
