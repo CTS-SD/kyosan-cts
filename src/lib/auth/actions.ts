@@ -7,6 +7,7 @@ import { signUp } from "./client";
 import { auth } from ".";
 import { headers } from "next/headers";
 import { cache } from "react";
+import { unauthorized } from "next/navigation";
 
 export const getSession = cache(async () =>
   auth.api.getSession({
@@ -71,7 +72,7 @@ export async function resetMemberPassword({
 export async function requireRole(roles: string[]) {
   const session = await getSession();
   if (!session || !roles.includes(session.user.role)) {
-    throw new Error("Unauthorized");
+    throw unauthorized();
   }
   return session;
 }
