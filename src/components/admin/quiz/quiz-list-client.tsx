@@ -1,23 +1,18 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { QuizData } from "@/lib/quiz/data";
+import { getQuizzes } from "@/lib/quiz/actions";
 import { useQuizzesStore } from "@/stores/use-quizzes-store";
 import { useEffect, useMemo, useState, useTransition } from "react";
 import { QuizItem } from "./quiz-item";
 
-type Props = {
-  initialQuizzes: QuizData[];
-  loadMore: (offset: number) => Promise<QuizData[]>;
-};
-
 const INIT_SIZE = 12;
 const PAGE_SIZE = 48;
 
-export const QuizListClient = ({ initialQuizzes, loadMore }: Props) => {
+export const QuizListClient = () => {
   const { quizzes, setQuizzes } = useQuizzesStore();
 
-  const [hasMore, setHasMore] = useState(initialQuizzes.length >= INIT_SIZE);
+  const [hasMore, setHasMore] = useState(true);
   const [isPending, startTransition] = useTransition();
 
   const gridItems = useMemo(
@@ -28,34 +23,27 @@ export const QuizListClient = ({ initialQuizzes, loadMore }: Props) => {
     [quizzes],
   );
 
-  const handleLoadMore = () => {
+  const handleLoadQuizzes = (limit: number) => {
     if (isPending || !hasMore) return;
 
-    startTransition(() => {
-      loadMore(quizzes.length)
-        .then((next) => {
-          if (next.length === 0) {
-            setHasMore(false);
-            return;
-          }
-
-          setQuizzes([...quizzes, ...next]);
-
-          if (next.length < PAGE_SIZE) {
-            setHasMore(false);
-          }
-        })
-        .catch((error) => {
-          console.error("Failed to load more quizzes", error);
-        });
+    startTransition(async () => {
+      const newQuizzes = await getQuizzes({
+        limit,
+        offset: quizzes.length,
+        orderBy: "id_desc",
+      });
+      setQuizzes([...quizzes, ...newQuizzes]);
+      if (newQuizzes.length < limit) {
+        setHasMore(false);
+      }
     });
   };
 
   useEffect(() => {
     if (quizzes.length === 0) {
-      setQuizzes(initialQuizzes);
+      handleLoadQuizzes(INIT_SIZE);
     }
-  }, [quizzes.length, initialQuizzes, setQuizzes]);
+  }, []);
 
   return (
     <div>
@@ -67,7 +55,7 @@ export const QuizListClient = ({ initialQuizzes, loadMore }: Props) => {
           <Button
             className="w-full"
             variant="outline"
-            onClick={handleLoadMore}
+            onClick={() => handleLoadQuizzes(PAGE_SIZE)}
             disabled={isPending}
           >
             {isPending ? "読み込み中..." : "さらに表示"}
