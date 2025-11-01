@@ -18,15 +18,14 @@ export const QuizList = () => {
         offset: pageParam,
         orderBy: "id_desc",
       }),
-    getNextPageParam: (last, pages) =>
-      last.length === PAGE_SIZE ? pages.flat().length : undefined,
+    getNextPageParam: (last) => (last.hasMore ? last.nextCursor : undefined),
     staleTime: 1000 * 60 * 5,
   });
 
   if (q.isLoading && !q.data) return <QuizListFallback />;
   if (q.isError) return <div>Failed</div>;
 
-  const quizzes = q.data!.pages.flat();
+  const quizzes = q.data!.pages.flatMap((p) => p.quizzes);
 
   return (
     <div>

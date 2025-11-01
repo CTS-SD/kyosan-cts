@@ -107,7 +107,7 @@ export async function getQuizzes(
     orderBy,
   }: {
     limit: number;
-    offset?: number;
+    offset: number;
     orderBy: keyof typeof quizOrderByMap;
   } = {
     limit: 24,
@@ -115,6 +115,7 @@ export async function getQuizzes(
     orderBy: "id_desc",
   },
 ) {
+  const _limit = limit + 1;
   const rows: QuizRow[] = await db
     .select({
       id: QuizTable.id,
@@ -135,9 +136,17 @@ export async function getQuizzes(
     .leftJoin(TrueFalseQuizTable, eq(QuizTable.id, TrueFalseQuizTable.quizId))
     .orderBy(quizOrderByMap[orderBy])
     .offset(offset ?? 0)
-    .limit(limit);
+    .limit(_limit);
 
-  return rows.map((row) => parseQuizRow(row));
+  const quizzes = rows.map((row) => parseQuizRow(row));
+  const hasMore = rows.length === _limit;
+  const nextCursor = hasMore ? offset + limit : null;
+
+  return {
+    quizzes: quizzes.slice(0, limit),
+    hasMore,
+    nextCursor,
+  };
 }
 
 function parseQuizRow(row: QuizRow): QuizData {
