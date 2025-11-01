@@ -2,6 +2,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { SessionPromiseProvider } from "@/ctx/session-promise";
 import { getSession } from "@/lib/auth/actions";
 import { cn } from "@/lib/utils";
+import { QueryProvider } from "@/providers/query";
 import type { Metadata } from "next";
 import { NavigationGuardProvider } from "next-navigation-guard";
 import { ThemeProvider } from "next-themes";
@@ -49,7 +50,7 @@ export default async function RootLayout({
         <NavigationGuardProvider>
           <SessionPromiseProvider value={sessionPromise}>
             <ThemeProvider attribute="class" defaultTheme="light">
-              {children}
+              <QueryProvider>{children}</QueryProvider>
               <Toaster />
             </ThemeProvider>
           </SessionPromiseProvider>
