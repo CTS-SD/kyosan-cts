@@ -63,10 +63,10 @@ const Page = () => {
         <Image
           src="/people.svg"
           alt="people"
-          width={300}
-          height={300}
-          objectFit="contain"
-          className="w-60 drop-shadow-lg"
+          width={240}
+          height={182.72}
+          loading="eager"
+          className="drop-shadow-lg"
         />
         <div className="bg-card z-10 flex w-full justify-center rounded-lg border p-6 shadow-xl">
           <Form {...form}>
