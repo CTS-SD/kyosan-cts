@@ -181,7 +181,20 @@ function parseQuizRow(row: QuizRow): QuizData {
   }
 }
 
-export async function getQuizzesCount() {
-  const [{ total }] = await db.select({ total: count() }).from(QuizTable);
-  return Number(total ?? 0);
+export async function getQuizListStats() {
+  const [row] = await db
+    .select({
+      publicCount: sql<number>`count(case when ${QuizTable.isPublished} = true then 1 end)`.as('publicCount'),
+      privateCount: sql<number>`count(case when ${QuizTable.isPublished} = false then 1 end)`.as('privateCount'),
+    })
+    .from(QuizTable);
+
+  const publicCount = Number(row.publicCount ?? 0);
+  const privateCount = Number(row.privateCount ?? 0);
+
+  return {
+    totalCount: publicCount + privateCount,
+    publicCount,
+    privateCount,
+  };
 }
