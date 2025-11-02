@@ -18,7 +18,7 @@ export const QuizListStats = () => {
     staleTime: 1000 * 60 * 5,
   });
 
-  if (q.isLoading) return <Skeleton className="h-6 w-48" />
+  if (q.isLoading) return <Skeleton className="h-6 w-48" />;
   if (q.isError || !q.data) return <div>Error</div>;
 
   return (
