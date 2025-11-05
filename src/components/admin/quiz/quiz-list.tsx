@@ -1,10 +1,12 @@
 "use client";
 
+import { Alert, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { getQuizzes } from "@/lib/quiz/actions";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { AlertCircleIcon } from "lucide-react";
 import { QuizItem } from "./quiz-item";
-import { QuizListFallback } from "./quiz-list-fallback";
+import { QuizListSkeleton } from "./quiz-list-skeleton";
 
 const PAGE_SIZE = 24;
 
@@ -16,14 +18,19 @@ export const QuizList = () => {
       getQuizzes({
         limit: PAGE_SIZE,
         offset: pageParam,
-        orderBy: "id_desc",
       }),
     getNextPageParam: (last) => (last.hasMore ? last.nextCursor : undefined),
     staleTime: 1000 * 60 * 5,
   });
 
-  if (q.isLoading && !q.data) return <QuizListFallback />;
-  if (q.isError) return <div>Failed</div>;
+  if (q.isLoading && !q.data) return <QuizListSkeleton />;
+  if (q.isError)
+    return (
+      <Alert variant="destructive">
+        <AlertCircleIcon />
+        <AlertTitle>問題の取得中にエラーが発生しました。</AlertTitle>
+      </Alert>
+    );
 
   const quizzes = q.data!.pages.flatMap((p) => p.quizzes);
 

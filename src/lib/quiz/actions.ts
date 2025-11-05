@@ -1,6 +1,6 @@
 "use server";
 
-import { count, desc, eq, sql } from "drizzle-orm";
+import { count, desc, eq, SQL, sql } from "drizzle-orm";
 import { db } from "../db";
 import {
   QuizTable,
@@ -81,12 +81,6 @@ export async function getQuizById(id: number) {
   return handler.dataSchema.parse({ ...quiz, ...extra });
 }
 
-const quizOrderByMap = {
-  random: sql`random()`,
-  created_at_desc: desc(QuizTable.createdAt),
-  id_desc: desc(QuizTable.id),
-};
-
 type QuizRow = {
   id: number;
   type: QuizData["type"];
@@ -100,21 +94,17 @@ type QuizRow = {
   true_false_answer: boolean | null;
 };
 
-export async function getQuizzes(
-  {
-    limit,
-    offset,
-    orderBy,
-  }: {
-    limit: number;
-    offset: number;
-    orderBy: keyof typeof quizOrderByMap;
-  } = {
-    limit: 24,
-    offset: 0,
-    orderBy: "id_desc",
-  },
-) {
+export async function getQuizzes({
+  limit,
+  offset,
+  where,
+  orderBy,
+}: {
+  limit: number;
+  offset: number;
+  where?: SQL;
+  orderBy?: SQL;
+}) {
   const _limit = limit + 1;
   const rows: QuizRow[] = await db
     .select({
@@ -134,7 +124,8 @@ export async function getQuizzes(
     .leftJoin(SelectQuizTable, eq(QuizTable.id, SelectQuizTable.quizId))
     .leftJoin(TextQuizTable, eq(QuizTable.id, TextQuizTable.quizId))
     .leftJoin(TrueFalseQuizTable, eq(QuizTable.id, TrueFalseQuizTable.quizId))
-    .orderBy(quizOrderByMap[orderBy])
+    .where(where ?? sql`1 = 1`)
+    .orderBy(orderBy ?? desc(QuizTable.id))
     .offset(offset ?? 0)
     .limit(_limit);
 
