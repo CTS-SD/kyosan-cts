@@ -1,13 +1,15 @@
 "use client";
 
+import { QuizPlayAdminMenu } from "@/components/quiz-play/quiz-play-admin-menu";
 import { QuizPlayView } from "@/components/quiz-play/quiz-play-view";
 import { QuizResultsView } from "@/components/quiz-play/quiz-results-view";
 import { Button } from "@/components/ui/button";
+import { useSessionPromise } from "@/ctx/session-promise";
 import { QuizResult } from "@/lib/quiz-form";
 import { QuizData } from "@/lib/quiz/data";
 import { XIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { use, useState } from "react";
 
 type Props = {
   quizzes: QuizData[];
@@ -15,6 +17,7 @@ type Props = {
 
 export const ClientView = ({ quizzes }: Props) => {
   const router = useRouter();
+  const session = use(useSessionPromise());
   const [quizIndex, setQuizIndex] = useState(0);
   const [results, setResults] = useState<QuizResult[]>([]);
   const quiz = quizzes[quizIndex];
@@ -44,6 +47,11 @@ export const ClientView = ({ quizzes }: Props) => {
         <Button size="icon" onClick={handleQuit} variant="ghost">
           <XIcon />
         </Button>
+      }
+      headerEndContent={
+        session?.user.role === "admin" ? (
+          <QuizPlayAdminMenu quizId={quiz.id} />
+        ) : null
       }
       addResult={addResult}
       onNext={handleNext}
