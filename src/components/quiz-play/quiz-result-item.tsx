@@ -1,6 +1,5 @@
 import { QuizResult } from "@/lib/quiz-form";
 import { QuizData } from "@/lib/quiz/data";
-import { ArrowRightIcon } from "lucide-react";
 import { Markdown } from "../markdown";
 import { QuizAnswerRenderer } from "../quiz-answer-renderer";
 import { Badge } from "../ui/badge";
@@ -26,13 +25,8 @@ export const QuizResultItem = ({ result, quiz, index }: Props) => {
           </Badge>
         </div>
         <Markdown className="">{quiz.question}</Markdown>
-      </div>
-      <div className="mt-4">
-        <div className="flex gap-2">
-          <ArrowRightIcon
-            className="text-muted-foreground h-lh w-4"
-            strokeWidth={2.8}
-          />
+        <div className="flex border-t pt-3">
+          <span className="text-muted-foreground">答え：</span>
           <QuizAnswerRenderer quiz={quiz} className="font-semibold" />
         </div>
       </div>
