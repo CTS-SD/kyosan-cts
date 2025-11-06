@@ -25,7 +25,7 @@ export const QuizResultItem = ({ result, quiz, index }: Props) => {
           </Badge>
         </div>
         <Markdown className="">{quiz.question}</Markdown>
-        <div className="flex border-t pt-3">
+        <div className="flex">
           <span className="text-muted-foreground">答え：</span>
           <QuizAnswerRenderer quiz={quiz} className="font-semibold" />
         </div>
