@@ -5,9 +5,9 @@ import Link from "next/link";
 const Page = () => {
   return (
     <div className="my-20 flex flex-col items-center">
-      <div className="font-zmg text-3xl font-bold sm:text-5xl">
+      <h1 className="font-zmg text-3xl font-bold sm:text-5xl">
         ぷらっとテスト
-      </div>
+      </h1>
       <div className="mt-10 flex gap-2">
         <Button variant="ghost" className="rounded-full" size="lg" asChild>
           <Link href="/">

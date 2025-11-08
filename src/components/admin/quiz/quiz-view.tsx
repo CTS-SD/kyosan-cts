@@ -33,7 +33,7 @@ export const QuizView = ({ heading, form, onSubmit }: Props) => {
                 <ArrowLeftIcon />
               </Link>
             </Button>
-            {heading && <div className="font-bold">{heading}</div>}
+            {heading && <h1 className="font-bold">{heading}</h1>}
             <div className="ml-auto flex items-center gap-2">
               <Button
                 className="sm:hidden"

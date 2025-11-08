@@ -15,6 +15,7 @@ export const QuizItem = ({ quiz }: Props) => {
     <Link
       href={`/admin/puratto/q/${quiz.id}`}
       className="bg-muted/50 overflow-clip rounded-xl border"
+      data-testid="quiz-item"
     >
       <div className="px-1 pt-1">
         <div className="bg-background rounded-lg border">

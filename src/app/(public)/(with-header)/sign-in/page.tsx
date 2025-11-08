@@ -60,7 +60,7 @@ const Page = () => {
   return (
     <div className="mx-auto flex max-w-sm flex-col px-6 py-20">
       <div className="flex flex-col gap-6">
-        <div className="text-center text-lg font-semibold">ログイン</div>
+        <h1 className="text-center text-lg font-semibold">ログイン</h1>
         <form className="flex flex-col gap-2 px-6" onSubmit={staffSignIn}>
           <InputGroup className="w-full">
             <InputGroupInput
