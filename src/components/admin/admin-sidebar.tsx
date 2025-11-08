@@ -17,6 +17,7 @@ import {
 } from "@/components/ui/sidebar";
 import { useSessionPromise } from "@/ctx/session-promise";
 import {
+  ChevronRightIcon,
   ChevronsUpDownIcon,
   CogIcon,
   NotebookIcon,
@@ -25,6 +26,11 @@ import {
 import Link from "next/link";
 import { use } from "react";
 import { Badge } from "../ui/badge";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "../ui/collapsible";
 import { UserAvatar } from "../user-avatar";
 import { AdminUserMenu } from "./admin-user-menu";
 
@@ -84,29 +90,46 @@ export const AdminSidebar = () => {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <Link href={item.url} onClick={handleClickItem}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </Link>
-                  </SidebarMenuButton>
-                  {item.subItems && (
-                    <SidebarMenuSub>
-                      {item.subItems.map((subItem) => (
-                        <SidebarMenuSubItem key={subItem.title}>
-                          <SidebarMenuSubButton asChild>
-                            <Link href={subItem.url} onClick={handleClickItem}>
-                              {subItem.title}
-                            </Link>
-                          </SidebarMenuSubButton>
-                        </SidebarMenuSubItem>
-                      ))}
-                    </SidebarMenuSub>
-                  )}
-                </SidebarMenuItem>
-              ))}
+              {items.map((item) =>
+                item.subItems ? (
+                  <Collapsible key={item.title}>
+                    <SidebarMenuItem>
+                      <CollapsibleTrigger asChild>
+                        <SidebarMenuButton>
+                          <item.icon />
+                          {item.title}
+                          <ChevronRightIcon className="ml-auto transition-transform in-data-[state=open]:rotate-90" />
+                        </SidebarMenuButton>
+                      </CollapsibleTrigger>
+                      <CollapsibleContent>
+                        <SidebarMenuSub>
+                          {item.subItems.map((subItem) => (
+                            <SidebarMenuSubItem key={subItem.title}>
+                              <SidebarMenuSubButton asChild>
+                                <Link
+                                  href={subItem.url}
+                                  onClick={handleClickItem}
+                                >
+                                  {subItem.title}
+                                </Link>
+                              </SidebarMenuSubButton>
+                            </SidebarMenuSubItem>
+                          ))}
+                        </SidebarMenuSub>
+                      </CollapsibleContent>
+                    </SidebarMenuItem>
+                  </Collapsible>
+                ) : (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild>
+                      <Link href={item.url} onClick={handleClickItem}>
+                        <item.icon />
+                        {item.title}
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ),
+              )}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
