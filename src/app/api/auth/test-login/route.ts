@@ -1,4 +1,5 @@
 import { auth } from "@/lib/auth";
+import { env } from "@/lib/env";
 
 export async function GET() {
   if (process.env.PLAYWRIGHT_TEST !== "1") {
@@ -7,8 +8,8 @@ export async function GET() {
 
   const response = await auth.api.signInEmail({
     body: {
-      email: process.env.TEST_USER_EMAIL!,
-      password: process.env.TEST_USER_PASSWORD!,
+      email: env.TEST_USER_EMAIL,
+      password: env.TEST_USER_PASSWORD,
     },
     asResponse: true,
   });
