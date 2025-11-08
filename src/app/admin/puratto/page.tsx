@@ -34,11 +34,7 @@ const Page = () => {
         <QuizListStats />
       </div>
       <div className="mt-4">
-        {computedQuery.length > 0 ? (
-          <QuizSearchResults />
-        ) : (
-          <QuizList />
-        )}
+        {computedQuery.length > 0 ? <QuizSearchResults /> : <QuizList />}
       </div>
     </div>
   );
