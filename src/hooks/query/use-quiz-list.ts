@@ -3,7 +3,7 @@ import { useInfiniteQuery } from "@tanstack/react-query";
 
 const PAGE_SIZE = 24;
 
-export const useQuizzes = () => {
+export const useQuizList = () => {
   const query = useInfiniteQuery({
     queryKey: ["quizzes"],
     initialPageParam: 0,

@@ -2,7 +2,7 @@
 
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { useQuizzes } from "@/hooks/use-quizzes";
+import { useQuizList } from "@/hooks/query/use-quiz-list";
 import { AlertCircleIcon } from "lucide-react";
 import { QuizItem } from "./quiz-item";
 import { QuizListSkeleton } from "./quiz-list-skeleton";
@@ -15,7 +15,7 @@ export const QuizList = () => {
     isError,
     hasNextPage,
     fetchNextPage,
-  } = useQuizzes();
+  } = useQuizList();
 
   if (isLoading) return <QuizListSkeleton />;
   if (isError)
