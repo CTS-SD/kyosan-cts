@@ -1,12 +1,12 @@
 "use client";
 
 import {
-  Menu,
-  MenuItem,
-  MenuPopup,
-  MenuSeparator,
-  MenuTrigger,
-} from "@/components/ui/menu";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { useSessionPromise } from "@/ctx/session-promise";
 import { signOut } from "@/lib/auth/client";
 import { HomeIcon, LogOutIcon, ShieldCheckIcon } from "lucide-react";
@@ -15,7 +15,7 @@ import { use } from "react";
 import { ThemeSubmenu } from "../theme-submenu";
 
 export const AdminUserMenu = (
-  props: React.ComponentProps<typeof MenuTrigger>,
+  props: React.ComponentProps<typeof DropdownMenuTrigger>,
 ) => {
   const session = use(useSessionPromise());
   const user = session?.user;
@@ -32,28 +32,28 @@ export const AdminUserMenu = (
   };
 
   return (
-    <Menu>
-      <MenuTrigger asChild {...props} />
-      <MenuPopup align="end" className="min-w-40">
-        <MenuItem asChild>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild {...props} />
+      <DropdownMenuContent align="end" className="min-w-40">
+        <DropdownMenuItem asChild>
           <Link href="/">
             <HomeIcon />
             ホーム
           </Link>
-        </MenuItem>
-        <MenuItem asChild>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
           <Link href="/admin/puratto">
             <ShieldCheckIcon />
             管理者ページ
           </Link>
-        </MenuItem>
+        </DropdownMenuItem>
         <ThemeSubmenu />
-        <MenuSeparator />
-        <MenuItem onClick={handleSignOut} variant="destructive">
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={handleSignOut} variant="destructive">
           <LogOutIcon />
           ログアウト
-        </MenuItem>
-      </MenuPopup>
-    </Menu>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };

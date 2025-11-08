@@ -3,12 +3,12 @@
 import { PaletteIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 import {
-  MenuRadioGroup,
-  MenuRadioItem,
-  MenuSub,
-  MenuSubPopup,
-  MenuSubTrigger,
-} from "./ui/menu";
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+} from "./ui/dropdown-menu";
 
 const themes = [
   { id: "light", label: "ライト" },
@@ -20,19 +20,19 @@ export const ThemeSubmenu = () => {
   const { theme: currentTheme, setTheme } = useTheme();
 
   return (
-    <MenuSub>
-      <MenuSubTrigger>
+    <DropdownMenuSub>
+      <DropdownMenuSubTrigger>
         <PaletteIcon /> テーマ
-      </MenuSubTrigger>
-      <MenuSubPopup>
-        <MenuRadioGroup value={currentTheme} onValueChange={setTheme}>
+      </DropdownMenuSubTrigger>
+      <DropdownMenuSubContent>
+        <DropdownMenuRadioGroup value={currentTheme} onValueChange={setTheme}>
           {themes.map((theme) => (
-            <MenuRadioItem key={theme.id} value={theme.id}>
+            <DropdownMenuRadioItem key={theme.id} value={theme.id}>
               {theme.label}
-            </MenuRadioItem>
+            </DropdownMenuRadioItem>
           ))}
-        </MenuRadioGroup>
-      </MenuSubPopup>
-    </MenuSub>
+        </DropdownMenuRadioGroup>
+      </DropdownMenuSubContent>
+    </DropdownMenuSub>
   );
 };

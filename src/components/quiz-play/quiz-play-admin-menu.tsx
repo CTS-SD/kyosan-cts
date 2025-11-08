@@ -3,7 +3,12 @@
 import { EditIcon, EllipsisIcon } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { Menu, MenuItem, MenuPopup, MenuTrigger } from "../ui/menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu";
 
 type Props = {
   quizId: number;
@@ -11,20 +16,20 @@ type Props = {
 
 export const QuizPlayAdminMenu = ({ quizId }: Props) => {
   return (
-    <Menu>
-      <MenuTrigger asChild>
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
         <Button size="icon" variant="outline">
           <EllipsisIcon />
         </Button>
-      </MenuTrigger>
-      <MenuPopup align="end">
-        <MenuItem asChild>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuItem asChild>
           <Link href={`/admin/puratto/q/${quizId}`}>
             <EditIcon />
             問題を編集
           </Link>
-        </MenuItem>
-      </MenuPopup>
-    </Menu>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };
