@@ -1,6 +1,6 @@
 "use server";
 
-import { count, desc, eq, SQL, sql } from "drizzle-orm";
+import { count, desc, eq, ilike, or, SQL, sql } from "drizzle-orm";
 import { db } from "../db";
 import {
   QuizTable,
@@ -178,6 +178,20 @@ function parseQuizRow(row: QuizRow): QuizData {
     default:
       throw new Error(`Unknown quiz type: ${row.type}`);
   }
+}
+
+export async function searchQuizzes(query: string) {
+  const likeQuery = `%${query}%`;
+  const quizzes = await getQuizzes({
+    limit: 1000,
+    offset: 0,
+    where: or(
+      eq(QuizTable.id, parseInt(query) || -1),
+      ilike(QuizTable.question, likeQuery),
+      ilike(QuizTable.explanation, likeQuery),
+    ),
+  });
+  return quizzes;
 }
 
 export async function getQuizListStats() {
