@@ -4,8 +4,12 @@ import { QuizList } from "@/components/admin/quiz/quiz-list";
 import { QuizListStats } from "@/components/admin/quiz/quiz-list-stats";
 import { QuizSearchResults } from "@/components/admin/quiz/quiz-search-results";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { PlusIcon } from "lucide-react";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupInput,
+} from "@/components/ui/input-group";
+import { PlusIcon, SearchIcon } from "lucide-react";
 import Link from "next/link";
 import { useQueryState } from "nuqs";
 
@@ -16,13 +20,18 @@ const Page = () => {
   return (
     <div className="mx-auto max-w-6xl p-6">
       <div className="flex gap-2">
-        <Input
-          type="search"
-          className="grow"
-          placeholder="問題を検索"
-          value={query ?? ""}
-          onChange={(e) => setQuery(e.target.value)}
-        />
+        <InputGroup>
+          <InputGroupAddon>
+            <SearchIcon />
+          </InputGroupAddon>
+          <InputGroupInput
+            type="search"
+            className="grow"
+            placeholder="問題を検索"
+            value={query ?? ""}
+            onChange={(e) => setQuery(e.target.value)}
+          />
+        </InputGroup>
         <Button className="shrink-0" asChild>
           <Link href="/admin/puratto/q/new">
             新規作成
