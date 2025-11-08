@@ -1,14 +1,12 @@
 import {
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldLabel,
+} from "@/components/ui/field";
 import { Textarea } from "@/components/ui/textarea";
 import { QuizEditorSchema } from "@/lib/quiz/editor";
-import { UseFormReturn } from "react-hook-form";
+import { Controller, UseFormReturn } from "react-hook-form";
 import z from "zod";
 
 type Props = {
@@ -17,31 +15,19 @@ type Props = {
 
 export const QuizEditorText = ({ form }: Props) => {
   return (
-    <>
-      <FormField
-        control={form.control}
-        name="answer"
-        render={({ field }) => (
-          <FormItem>
-            <FormLabel>解答</FormLabel>
-            <FormControl>
-              <Textarea
-                placeholder={"荒木俊馬\nあらきとしま\n..."}
-                value={typeof field.value === "string" ? field.value : ""}
-                onChange={(e) => field.onChange(e.target.value)}
-                onBlur={field.onBlur}
-                name={field.name}
-                disabled={field.disabled}
-                ref={field.ref}
-              />
-            </FormControl>
-            <FormDescription>
-              改行区切りで複数パターンの解答を入力でき、いずれか一つに一致すると正解となります。空白は無視されます。
-            </FormDescription>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-    </>
+    <Controller
+      name="textAnswer"
+      control={form.control}
+      render={({ field, fieldState }) => (
+        <Field data-invalid={fieldState.invalid}>
+          <FieldLabel>解答</FieldLabel>
+          <Textarea {...field} placeholder={"荒木俊馬\nあらきとしま\n..."} />
+          <FieldDescription>
+            改行区切りで複数パターンの解答を入力でき、いずれか一つに一致すると正解となります。空白は無視されます。
+          </FieldDescription>
+          {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+        </Field>
+      )}
+    />
   );
 };

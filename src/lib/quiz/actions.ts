@@ -8,8 +8,13 @@ import {
   TextQuizTable,
   TrueFalseQuizTable,
 } from "../db/schema";
-import { QuizValues } from "./editor";
-import { quizTypeHandlers } from "./handlers";
+import {
+  QuizValues,
+  SelectQuizEditorSchema,
+  TextQuizEditorSchema,
+  TrueFalseQuizEditorSchema,
+} from "./editor";
+import { getQuizHandler, quizTypeHandlers } from "./handlers";
 import {
   QuizData,
   SelectQuizSchema,
@@ -32,7 +37,7 @@ export async function insertQuiz(values: QuizValues) {
     })
     .returning({ id: QuizTable.id });
 
-  const handler = quizTypeHandlers[values.type];
+  const handler = getQuizHandler(values.type);
   const payload = handler.buildPayload(quizId, values);
   await db.insert(handler.table).values(payload);
 
@@ -52,7 +57,7 @@ export async function updateQuiz(quizId: number, values: QuizValues) {
     })
     .where(eq(QuizTable.id, quizId));
 
-  const handler = quizTypeHandlers[values.type];
+  const handler = getQuizHandler(values.type);
   const payload = handler.buildPayload(quizId, values);
 
   await db.insert(handler.table).values(payload).onConflictDoUpdate({
@@ -72,7 +77,7 @@ export async function getQuizById(id: number) {
   });
   if (!quiz) return notFound();
 
-  const handler = quizTypeHandlers[quiz.type];
+  const handler = getQuizHandler(quiz.type);
   const [extra] = await db
     .select()
     .from(handler.table)
@@ -151,22 +156,25 @@ function parseQuizRow(row: QuizRow): QuizData {
   };
 
   switch (row.type) {
-    case "select":
+    case "select": {
       return SelectQuizSchema.parse({
         ...base,
         correctChoices: row.select_correctChoices,
         incorrectChoices: row.select_incorrectChoices,
       });
-    case "text":
+    }
+    case "text": {
       return TextQuizSchema.parse({
         ...base,
         answer: row.text_answer,
       });
-    case "true_false":
+    }
+    case "true_false": {
       return TrueFalseQuizSchema.parse({
         ...base,
         answer: row.true_false_answer,
       });
+    }
     default:
       throw new Error(`Unknown quiz type: ${row.type}`);
   }

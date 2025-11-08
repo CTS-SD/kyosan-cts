@@ -1,18 +1,11 @@
 "use client";
 
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Field, FieldError, FieldLabel, FieldSet } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import {
   Select,
+  SelectContent,
   SelectItem,
-  SelectPopup,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -21,7 +14,7 @@ import { Student } from "@/lib/db/schema";
 import { StudentEditorSchema, StudentValues } from "@/lib/student-editor";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { use } from "react";
-import { FormState, useForm } from "react-hook-form";
+import { Controller, FormState, useForm } from "react-hook-form";
 
 export type StudentEditorProps = {
   defaultValues?: Partial<Student>;
@@ -54,22 +47,6 @@ export const StudentEditor = ({
 
   const { isSubmitting } = form.formState;
 
-  const facultyItems = [
-    { label: "学部を選択", value: 0 },
-    ...faculties.map((fac) => ({
-      label: fac.name,
-      value: fac.id,
-    })),
-  ];
-
-  const departmentItems = [
-    { label: "部署を選択", value: 0 },
-    ...departments.map((dept) => ({
-      label: dept.name,
-      value: dept.id,
-    })),
-  ];
-
   const handleSubmit = async (values: StudentValues) => {
     const shouldClean = onSubmit ? await onSubmit(values) : false;
     if (shouldClean) {
@@ -84,100 +61,95 @@ export const StudentEditor = ({
 
   return (
     <div>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleSubmit)}>
-          <fieldset className="space-y-4" disabled={isSubmitting}>
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
-              <FormField
-                control={form.control}
-                name="name"
-                render={({ field }) => (
-                  <FormItem className="flex-1">
-                    <FormLabel>氏名</FormLabel>
-                    <FormControl>
-                      <Input placeholder="京産 花子" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="studentNumber"
-                render={({ field }) => (
-                  <FormItem className="flex-1">
-                    <FormLabel>学籍番号（6桁）</FormLabel>
-                    <FormControl>
-                      <Input placeholder="123456" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-            </div>
-            <FormField
+      <form onSubmit={form.handleSubmit(handleSubmit)}>
+        <FieldSet disabled={isSubmitting}>
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
+            <Controller
+              name="name"
               control={form.control}
-              name="facultyId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>学部</FormLabel>
-                  <Select
-                    items={facultyItems}
-                    onValueChange={(val) => field.onChange(Number(val))}
-                    value={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger className="w-full">
-                        <SelectValue />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectPopup>
-                      {facultyItems.map((faculty) => (
-                        <SelectItem key={faculty.value} value={faculty.value}>
-                          {faculty.label}
-                        </SelectItem>
-                      ))}
-                    </SelectPopup>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid} className="flex-1">
+                  <FieldLabel>氏名</FieldLabel>
+                  <Input {...field} placeholder="京産 花子" />
+                  {fieldState.invalid && <FieldError />}
+                </Field>
               )}
             />
-            <FormField
+            <Controller
+              name="studentNumber"
               control={form.control}
-              name="departmentId"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>配属部署</FormLabel>
-                  <Select
-                    items={departmentItems}
-                    onValueChange={(val) => field.onChange(val)}
-                    value={field.value}
-                  >
-                    <FormControl>
-                      <SelectTrigger className="w-full">
-                        <SelectValue />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectPopup>
-                      {departmentItems.map((department) => (
-                        <SelectItem
-                          key={department.value}
-                          value={department.value}
-                        >
-                          {department.label}
-                        </SelectItem>
-                      ))}
-                    </SelectPopup>
-                  </Select>
-                  <FormMessage />
-                </FormItem>
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid} className="flex-1">
+                  <FieldLabel>学籍番号（6桁）</FieldLabel>
+                  <Input {...field} placeholder="123456" />
+                  {fieldState.invalid && <FieldError />}
+                </Field>
               )}
             />
-            {footerContent?.(form.formState)}
-          </fieldset>
-        </form>
-      </Form>
+          </div>
+          <Controller
+            name="facultyId"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel>学部</FieldLabel>
+                <Select
+                  onValueChange={(val) =>
+                    field.onChange(Number(val) || undefined)
+                  }
+                  value={field.value.toString()}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {faculties.map((faculty) => (
+                      <SelectItem
+                        key={faculty.id}
+                        value={faculty.id.toString()}
+                      >
+                        {faculty.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {fieldState.invalid && <FieldError />}
+              </Field>
+            )}
+          />
+          <Controller
+            name="departmentId"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <FieldLabel>配属部署</FieldLabel>
+                <Select
+                  onValueChange={(val) =>
+                    field.onChange(Number(val) || undefined)
+                  }
+                  value={field.value.toString()}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {departments.map((department) => (
+                      <SelectItem
+                        key={department.id}
+                        value={department.id.toString()}
+                      >
+                        {department.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+                {fieldState.invalid && <FieldError />}
+              </Field>
+            )}
+          />
+          {footerContent?.(form.formState)}
+        </FieldSet>
+      </form>
     </div>
   );
 };
