@@ -1,7 +1,7 @@
 import { auth } from "@/lib/auth";
 
 export async function GET() {
-  if (process.env.PLAYWRIGHT_TEST !== "1") {
+  if (!["development", "test"].includes(process.env.NODE_ENV)) {
     return new Response("Not found", { status: 404 });
   }
 
