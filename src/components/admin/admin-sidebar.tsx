@@ -24,6 +24,7 @@ import {
   UsersRoundIcon,
 } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { use } from "react";
 import { Badge } from "../ui/badge";
 import {
@@ -37,12 +38,20 @@ import { AdminUserMenu } from "./admin-user-menu";
 const items = [
   {
     title: "ぷらっとテスト",
-    url: "/admin/puratto",
     icon: NotebookIcon,
+    subItems: [
+      {
+        title: "問題リスト",
+        url: "/admin/puratto",
+      },
+      {
+        title: "出題設定",
+        url: "/admin/puratto/settings",
+      },
+    ],
   },
   {
     title: "配属発表",
-    url: "/admin/dept",
     icon: UsersRoundIcon,
     subItems: [
       {
@@ -66,6 +75,7 @@ export const AdminSidebar = () => {
   const session = use(useSessionPromise());
   const user = session?.user;
 
+  const pathname = usePathname();
   const { setOpenMobile } = useSidebar();
 
   if (!user) return null;
@@ -105,7 +115,10 @@ export const AdminSidebar = () => {
                         <SidebarMenuSub>
                           {item.subItems.map((subItem) => (
                             <SidebarMenuSubItem key={subItem.title}>
-                              <SidebarMenuSubButton asChild>
+                              <SidebarMenuSubButton
+                                asChild
+                                isActive={pathname === subItem.url}
+                              >
                                 <Link
                                   href={subItem.url}
                                   onClick={handleClickItem}
@@ -121,7 +134,7 @@ export const AdminSidebar = () => {
                   </Collapsible>
                 ) : (
                   <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild>
+                    <SidebarMenuButton asChild isActive={pathname === item.url}>
                       <Link href={item.url} onClick={handleClickItem}>
                         <item.icon />
                         {item.title}
