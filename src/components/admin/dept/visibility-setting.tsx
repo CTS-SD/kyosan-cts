@@ -1,21 +1,14 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Setting } from "@/components/ui/setting";
 import { Switch } from "@/components/ui/switch";
 import { useConfigPromise } from "@/ctx/config-promise";
 import { upsertConfigValue } from "@/lib/config/actions";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { use } from "react";
-import { useForm } from "react-hook-form";
+import { use, useId } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
 
@@ -35,6 +28,8 @@ export const VisibilitySetting = () => {
 
   const { isSubmitting } = form.formState;
 
+  const switchId = useId();
+
   const handleSubmit = form.handleSubmit(async (values) => {
     await upsertConfigValue(
       "departmentAnnouncementsPublished",
@@ -45,44 +40,46 @@ export const VisibilitySetting = () => {
 
   return (
     <div className="flex items-center gap-3">
-      <Form {...form}>
-        <Setting.Root className="w-full" onSubmit={handleSubmit}>
-          <Setting.Header>
-            <Setting.Title>配属発表ページを公開</Setting.Title>
-            <Setting.Description>
-              配属部署発表ページをスタッフ向けに公開するかどうかを設定します。非公開中は管理者のみがアクセスできる状態となります。
-            </Setting.Description>
-          </Setting.Header>
-          <Setting.Body>
-            <FormField
-              control={form.control}
-              name="published"
-              render={({ field }) => (
-                <FormItem>
-                  <div className="flex items-center gap-3">
-                    <FormControl>
-                      <Switch
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                        disabled={isSubmitting}
-                      />
-                    </FormControl>
-                    <FormLabel>{field.value ? "公開中" : "非公開"}</FormLabel>
-                  </div>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </Setting.Body>
-          <Setting.Footer>
-            <Setting.Actions>
-              <Button type="submit" size="sm" disabled={isSubmitting}>
-                保存
-              </Button>
-            </Setting.Actions>
-          </Setting.Footer>
-        </Setting.Root>
-      </Form>
+      <Setting.Root className="w-full" onSubmit={handleSubmit}>
+        <Setting.Header>
+          <Setting.Title>配属発表ページを公開</Setting.Title>
+          <Setting.Description>
+            配属部署発表ページをスタッフ向けに公開するかどうかを設定します。非公開中は管理者のみがアクセスできる状態となります。
+          </Setting.Description>
+        </Setting.Header>
+        <Setting.Body>
+          <Controller
+            name="published"
+            control={form.control}
+            render={({ field, fieldState }) => (
+              <Field data-invalid={fieldState.invalid}>
+                <div className="flex items-center gap-3">
+                  <Switch
+                    id={switchId}
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                    disabled={isSubmitting}
+                    aria-invalid={fieldState.invalid}
+                  />
+                  <FieldLabel htmlFor={switchId}>
+                    {field.value ? "公開中" : "非公開"}
+                  </FieldLabel>
+                </div>
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
+              </Field>
+            )}
+          />
+        </Setting.Body>
+        <Setting.Footer>
+          <Setting.Actions>
+            <Button type="submit" size="sm" disabled={isSubmitting}>
+              保存
+            </Button>
+          </Setting.Actions>
+        </Setting.Footer>
+      </Setting.Root>
     </div>
   );
 };
