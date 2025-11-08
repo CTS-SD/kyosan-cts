@@ -55,7 +55,7 @@ export const QuizView = ({ heading, form, onSubmit }: Props) => {
           />
         </div>
       </div>
-      <div className="sticky top-12 hidden h-[calc(100dvh-48px)] flex-1 sm:block">
+      <div className="sticky top-12 hidden h-[calc(100dvh-48px)] flex-1 overflow-auto overscroll-contain sm:block">
         <QuizPreview quiz={previewQuiz} />
       </div>
       {showPreviewOverlay && (
