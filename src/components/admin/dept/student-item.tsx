@@ -76,7 +76,7 @@ export const StudentItem = ({ student }: Props) => {
             <>
               <Button
                 type="button"
-                variant="destructive-outline"
+                variant="destructive"
                 onClick={handleDeleteStudent}
               >
                 <Trash2Icon />

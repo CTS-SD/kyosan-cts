@@ -58,20 +58,16 @@ export const ImageUrlSetting = () => {
                   disabled={isSubmitting}
                   aria-invalid={fieldState.invalid}
                 />
-                <Button
-                  render={
-                    <Link
-                      href={field.value}
-                      target="_blank"
-                      rel="noreferrer"
-                      aria-label="画像リンクを開く"
-                    >
-                      <ExternalLinkIcon />
-                    </Link>
-                  }
-                  variant="outline"
-                  size="icon"
-                />
+                <Button variant="outline" size="icon" asChild>
+                  <Link
+                    href={field.value}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="画像リンクを開く"
+                  >
+                    <ExternalLinkIcon />
+                  </Link>
+                </Button>
               </div>
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>

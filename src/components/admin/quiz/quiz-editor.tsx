@@ -128,11 +128,13 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
       </FieldGroup>
       <div className="to-background bg-background/90 sticky bottom-0 -mb-4 flex justify-end gap-2 py-4 backdrop-blur-xs">
         <Button
-          render={<Link href="/admin/puratto">キャンセル</Link>}
           className="ml-auto"
           variant="secondary"
           disabled={isSubmitting}
-        />
+          asChild
+        >
+          <Link href="/admin/puratto">キャンセル</Link>
+        </Button>
         <Button type="submit" disabled={isSubmitting || !isDirty}>
           {isSubmitting && <Spinner />}
           {labels.submit}

@@ -9,22 +9,15 @@ const Page = () => {
         ぷらっとテスト
       </div>
       <div className="mt-10 flex gap-2">
-        <Button
-          variant="ghost"
-          className="rounded-full"
-          size="lg"
-          render={
-            <Link href="/">
-              <ArrowLeftIcon />
-              ホームに戻る
-            </Link>
-          }
-        />
-        <Button
-          size="lg"
-          className="rounded-full"
-          render={<Link href="/puratto/play">スタート</Link>}
-        />
+        <Button variant="ghost" className="rounded-full" size="lg" asChild>
+          <Link href="/">
+            <ArrowLeftIcon />
+            ホームに戻る
+          </Link>
+        </Button>
+        <Button size="lg" className="rounded-full" asChild>
+          <Link href="/puratto/play">スタート</Link>
+        </Button>
       </div>
     </div>
   );

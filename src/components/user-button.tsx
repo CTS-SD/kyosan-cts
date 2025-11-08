@@ -24,12 +24,8 @@ export const UserButton = async () => {
 
 const LoginButton = () => {
   return (
-    <Button
-      render={<Link href="/sign-in" />}
-      className="rounded-full"
-      size="sm"
-    >
-      ログイン
+    <Button className="rounded-full" size="sm" asChild>
+      <Link href="/sign-in">ログイン</Link>
     </Button>
   );
 };

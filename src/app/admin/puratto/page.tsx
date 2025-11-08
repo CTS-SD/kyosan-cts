@@ -8,15 +8,12 @@ const Page = async () => {
   return (
     <div className="mx-auto max-w-6xl p-6">
       <div className="flex gap-2">
-        <Button
-          render={
-            <Link href="/admin/puratto/q/new">
-              新規作成
-              <PlusIcon />
-            </Link>
-          }
-          className="ml-auto"
-        />
+        <Button className="ml-auto" asChild>
+          <Link href="/admin/puratto/q/new">
+            新規作成
+            <PlusIcon />
+          </Link>
+        </Button>
       </div>
       <div className="mt-4">
         <QuizListStats />
