@@ -1,14 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import {
   InputOTP,
   InputOTPGroup,
@@ -22,7 +15,7 @@ import { REGEXP_ONLY_DIGITS } from "input-otp";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
 
@@ -69,44 +62,43 @@ const Page = () => {
           className="drop-shadow-lg"
         />
         <div className="bg-card z-10 flex w-full justify-center rounded-lg border p-6 shadow-xl">
-          <Form {...form}>
-            <form
-              onSubmit={form.handleSubmit(handleSubmit)}
-              className="space-y-2"
-            >
-              <FormField
-                control={form.control}
-                name="studentNumber"
-                disabled={isPending}
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>あなたの学籍番号（6桁） </FormLabel>
-                    <FormControl>
-                      <InputOTP
-                        maxLength={6}
-                        pattern={REGEXP_ONLY_DIGITS}
-                        {...field}
-                      >
-                        <InputOTPGroup>
-                          <InputOTPSlot index={0} />
-                          <InputOTPSlot index={1} />
-                          <InputOTPSlot index={2} />
-                          <InputOTPSlot index={3} />
-                          <InputOTPSlot index={4} />
-                          <InputOTPSlot index={5} />
-                        </InputOTPGroup>
-                      </InputOTP>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button type="submit" className="w-full" disabled={isPending}>
-                {isPending && <Spinner />}
-                配属部署を確認
-              </Button>
-            </form>
-          </Form>
+          <form
+            onSubmit={form.handleSubmit(handleSubmit)}
+            className="space-y-2"
+          >
+            <Controller
+              control={form.control}
+              name="studentNumber"
+              disabled={isPending}
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
+                  <FieldLabel>あなたの学籍番号（6桁） </FieldLabel>
+                  <InputOTP
+                    maxLength={6}
+                    pattern={REGEXP_ONLY_DIGITS}
+                    aria-invalid={fieldState.invalid}
+                    {...field}
+                  >
+                    <InputOTPGroup>
+                      <InputOTPSlot index={0} />
+                      <InputOTPSlot index={1} />
+                      <InputOTPSlot index={2} />
+                      <InputOTPSlot index={3} />
+                      <InputOTPSlot index={4} />
+                      <InputOTPSlot index={5} />
+                    </InputOTPGroup>
+                  </InputOTP>
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
+                </Field>
+              )}
+            />
+            <Button type="submit" className="w-full" disabled={isPending}>
+              {isPending && <Spinner />}
+              配属部署を確認
+            </Button>
+          </form>
         </div>
       </div>
     </div>

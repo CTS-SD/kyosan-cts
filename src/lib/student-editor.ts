@@ -11,9 +11,9 @@ export const StudentNumberSchema = z
 
 export const StudentEditorSchema = z.object({
   name: z
-    .string()
+    .string("氏名を入力してください。")
     .trim()
-    .max(256)
+    .max(256, "氏名は256文字以内で入力してください。")
     .refine((val) => /\s|・/.test(val), {
       message: "苗字と名前をスペースで区切って入力してください。",
     })

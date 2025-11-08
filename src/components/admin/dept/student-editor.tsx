@@ -39,8 +39,6 @@ export const StudentEditor = ({
     defaultValues: {
       name: "",
       studentNumber: "",
-      departmentId: 0,
-      facultyId: 0,
       ...defaultValues,
     },
   });
@@ -71,7 +69,9 @@ export const StudentEditor = ({
                 <Field data-invalid={fieldState.invalid} className="flex-1">
                   <FieldLabel>氏名</FieldLabel>
                   <Input {...field} placeholder="京産 花子" />
-                  {fieldState.invalid && <FieldError />}
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
                 </Field>
               )}
             />
@@ -82,7 +82,9 @@ export const StudentEditor = ({
                 <Field data-invalid={fieldState.invalid} className="flex-1">
                   <FieldLabel>学籍番号（6桁）</FieldLabel>
                   <Input {...field} placeholder="123456" />
-                  {fieldState.invalid && <FieldError />}
+                  {fieldState.invalid && (
+                    <FieldError errors={[fieldState.error]} />
+                  )}
                 </Field>
               )}
             />
@@ -97,23 +99,25 @@ export const StudentEditor = ({
                   onValueChange={(val) =>
                     field.onChange(Number(val) || undefined)
                   }
-                  value={field.value.toString()}
+                  value={field.value?.toString()}
                 >
                   <SelectTrigger className="w-full">
-                    <SelectValue />
+                    <SelectValue placeholder="学部を選択" />
                   </SelectTrigger>
                   <SelectContent>
                     {faculties.map((faculty) => (
                       <SelectItem
                         key={faculty.id}
-                        value={faculty.id.toString()}
+                        value={faculty.id?.toString()}
                       >
                         {faculty.name}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
-                {fieldState.invalid && <FieldError />}
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
               </Field>
             )}
           />
@@ -127,23 +131,25 @@ export const StudentEditor = ({
                   onValueChange={(val) =>
                     field.onChange(Number(val) || undefined)
                   }
-                  value={field.value.toString()}
+                  value={field.value?.toString()}
                 >
                   <SelectTrigger className="w-full">
-                    <SelectValue />
+                    <SelectValue placeholder="部署を選択" />
                   </SelectTrigger>
                   <SelectContent>
                     {departments.map((department) => (
                       <SelectItem
                         key={department.id}
-                        value={department.id.toString()}
+                        value={department.id?.toString()}
                       >
                         {department.name}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
-                {fieldState.invalid && <FieldError />}
+                {fieldState.invalid && (
+                  <FieldError errors={[fieldState.error]} />
+                )}
               </Field>
             )}
           />
