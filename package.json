@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev --turbopack",
+    "dev:seed": "dotenv -e .env.local -- pnpm tsx script/seed.ts",
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",

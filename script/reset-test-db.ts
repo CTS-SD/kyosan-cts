@@ -4,7 +4,7 @@ import { execSync } from "child_process";
 import { db } from "@/lib/db";
 import { eq } from "drizzle-orm";
 import { user as UserTable } from "@/lib/db/schema";
-import { seed } from "./seed";
+import { seed } from "./lib/seed";
 
 reset().catch((err) => {
   console.error("Failed to reset test database:", err);
@@ -20,6 +20,14 @@ async function reset() {
 
   if (!connectionString) {
     throw new Error("DATABASE_URL is not defined");
+  }
+
+  const parsed = new URL(connectionString);
+  const allowedHosts = new Set(["127.0.0.1", "localhost", "postgres-test"]);
+  if (!allowedHosts.has(parsed.hostname)) {
+    throw new Error(
+      `Refusing to reset database on host \"${parsed.hostname}\". Update script/reset-test-db.ts allowlist if this is a safe test database.`,
+    );
   }
 
   const client = new Client({ connectionString });
