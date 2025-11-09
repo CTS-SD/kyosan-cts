@@ -102,7 +102,12 @@ export const AdminSidebar = () => {
             <SidebarMenu>
               {items.map((item) =>
                 item.subItems ? (
-                  <Collapsible key={item.title}>
+                  <Collapsible
+                    key={item.title}
+                    defaultOpen={item.subItems.some(
+                      (sub) => sub.url === pathname,
+                    )}
+                  >
                     <SidebarMenuItem>
                       <CollapsibleTrigger asChild>
                         <SidebarMenuButton>
