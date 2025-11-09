@@ -1,4 +1,4 @@
-name: Playwright Tests
+name: E2E Tests
 
 on:
   push:
@@ -7,13 +7,13 @@ on:
     branches: [main]
 
 jobs:
-  test:
+  e2e:
     runs-on: ubuntu-latest
     timeout-minutes: 60
 
     env:
       NODE_ENV: test
-      BETTER_AUTH_URL: http://localhost:3000
+      BETTER_AUTH_URL: http://localhost:3001
       DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5433/test
       BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
       GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
@@ -61,7 +61,7 @@ jobs:
       - name: Reset Test DB
         run: pnpm e2e:reset
 
-      - name: Run Playwright tests
+      - name: Run E2E tests
         run: pnpm e2e:run
 
       - name: Upload Playwright report
