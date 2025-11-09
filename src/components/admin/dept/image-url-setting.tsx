@@ -1,13 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
+import { Field, FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Setting } from "@/components/ui/setting";
 import { useConfigPromise } from "@/ctx/config-promise";
@@ -16,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ExternalLinkIcon } from "lucide-react";
 import Link from "next/link";
 import { use } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
 
@@ -42,61 +36,54 @@ export const ImageUrlSetting = () => {
   });
 
   return (
-    <Form {...form}>
-      <Setting.Root onSubmit={handleSubmit}>
-        <Setting.Header>
-          <Setting.Title>画像URL</Setting.Title>
-          <Setting.Description>
-            スタッフが配属部署一覧を画像として保存できるようにするための参照先を設定します。GoogleDrive等にアップロードした画像の共有可能なURLを指定してください。
-          </Setting.Description>
-        </Setting.Header>
-        <Setting.Body className="flex flex-col gap-4">
-          <FormField
-            control={form.control}
-            name="imageUrl"
-            render={({ field }) => (
-              <FormItem>
-                <div className="flex gap-2">
-                  <FormControl>
-                    <Input
-                      type="url"
-                      inputMode="url"
-                      placeholder="https://example.com/image.jpg"
-                      disabled={isSubmitting}
-                      {...field}
-                    />
-                  </FormControl>
-                  <Button
-                    render={
-                      <Link
-                        href={field.value}
-                        target="_blank"
-                        rel="noreferrer"
-                        aria-label="画像リンクを開く"
-                      >
-                        <ExternalLinkIcon />
-                      </Link>
-                    }
-                    variant="outline"
-                    size="icon"
-                  />
-                </div>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </Setting.Body>
-        <Setting.Footer>
-          <Setting.Hint>
-            空欄の場合、配属部署発表ページに画像リンクは表示されません。
-          </Setting.Hint>
-          <Setting.Actions>
-            <Button type="submit" size="sm" disabled={isSubmitting}>
-              保存
-            </Button>
-          </Setting.Actions>
-        </Setting.Footer>
-      </Setting.Root>
-    </Form>
+    <Setting.Root onSubmit={handleSubmit}>
+      <Setting.Header>
+        <Setting.Title>画像URL</Setting.Title>
+        <Setting.Description>
+          スタッフが配属部署一覧を画像として保存できるようにするための参照先を設定します。GoogleDrive等にアップロードした画像の共有可能なURLを指定してください。
+        </Setting.Description>
+      </Setting.Header>
+      <Setting.Body className="flex flex-col gap-4">
+        <Controller
+          name="imageUrl"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <div className="flex gap-2">
+                <Input
+                  {...field}
+                  type="url"
+                  inputMode="url"
+                  placeholder="https://example.com/image.jpg"
+                  disabled={isSubmitting}
+                  aria-invalid={fieldState.invalid}
+                />
+                <Button variant="outline" size="icon" asChild>
+                  <Link
+                    href={field.value}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label="画像リンクを開く"
+                  >
+                    <ExternalLinkIcon />
+                  </Link>
+                </Button>
+              </div>
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
+          )}
+        />
+      </Setting.Body>
+      <Setting.Footer>
+        <Setting.Hint>
+          空欄の場合、配属部署発表ページに画像リンクは表示されません。
+        </Setting.Hint>
+        <Setting.Actions>
+          <Button type="submit" size="sm" disabled={isSubmitting}>
+            保存
+          </Button>
+        </Setting.Actions>
+      </Setting.Footer>
+    </Setting.Root>
   );
 };

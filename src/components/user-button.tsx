@@ -14,7 +14,14 @@ export const UserButton = async () => {
   const user = session.user;
 
   if (user.role === "admin") {
-    return <AdminUserButton />;
+    return (
+      <div className="flex items-center gap-2">
+        <Button size="sm" variant="link" asChild>
+          <Link href="/admin/puratto">管理者</Link>
+        </Button>
+        <AdminUserButton />
+      </div>
+    );
   } else if (user.role === "member") {
     return <MemberUserButton />;
   }
@@ -24,12 +31,8 @@ export const UserButton = async () => {
 
 const LoginButton = () => {
   return (
-    <Button
-      render={<Link href="/sign-in" />}
-      className="rounded-full"
-      size="sm"
-    >
-      ログイン
+    <Button className="rounded-full" size="sm" asChild>
+      <Link href="/sign-in">ログイン</Link>
     </Button>
   );
 };

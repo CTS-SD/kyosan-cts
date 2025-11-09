@@ -42,15 +42,12 @@ const Page = async () => {
       </div>
       {imageUrl && (
         <div className="my-10 flex justify-center">
-          <Button
-            render={
-              <Link href={imageUrl} target="_blank" rel="noreferrer">
-                <ImageIcon />
-                画像を保存
-              </Link>
-            }
-            className="rounded-full"
-          />
+          <Button className="rounded-full" asChild>
+            <Link href={imageUrl} target="_blank" rel="noreferrer">
+              <ImageIcon />
+              画像を保存
+            </Link>
+          </Button>
         </div>
       )}
     </div>

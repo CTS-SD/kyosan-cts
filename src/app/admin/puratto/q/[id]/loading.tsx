@@ -1,11 +1,5 @@
-import { Spinner } from "@/components/ui/spinner";
-
 const Loading = () => {
-  return (
-    <div className="flex items-center justify-center py-40">
-      <Spinner />
-    </div>
-  );
+  return null;
 };
 
 export default Loading;

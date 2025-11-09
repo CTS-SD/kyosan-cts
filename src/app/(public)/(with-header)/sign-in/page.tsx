@@ -2,8 +2,12 @@
 
 import { GoogleIcon } from "@/components/icons/google-icon";
 import { Button } from "@/components/ui/button";
-import { Group, GroupItem, GroupSeparator } from "@/components/ui/group";
-import { Input } from "@/components/ui/input";
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
+} from "@/components/ui/input-group";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
 import { signIn } from "@/lib/auth/client";
@@ -56,34 +60,28 @@ const Page = () => {
   return (
     <div className="mx-auto flex max-w-sm flex-col px-6 py-20">
       <div className="flex flex-col gap-6">
-        <div className="text-center text-lg font-semibold">ログイン</div>
+        <h1 className="text-center text-lg font-semibold">ログイン</h1>
         <form className="flex flex-col gap-2 px-6" onSubmit={staffSignIn}>
-          <Group className="w-full">
-            <GroupItem
-              render={
-                <Input
-                  type={showPassword ? "text" : "password"}
-                  placeholder="パスワード"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  disabled={isPending}
-                />
-              }
+          <InputGroup className="w-full">
+            <InputGroupInput
+              type={showPassword ? "text" : "password"}
+              placeholder="パスワード"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              disabled={isPending}
             />
-            <GroupSeparator />
-            <GroupItem
-              render={
-                <Button
-                  type="button"
-                  onClick={toggleShowPassword}
-                  variant="outline"
-                  disabled={isPending}
-                />
-              }
-            >
-              {showPassword ? <EyeIcon /> : <EyeClosedIcon />}
-            </GroupItem>
-          </Group>
+            <InputGroupAddon align="inline-end">
+              <InputGroupButton
+                type="button"
+                onClick={toggleShowPassword}
+                variant="ghost"
+                disabled={isPending}
+                size="icon-sm"
+              >
+                {showPassword ? <EyeIcon /> : <EyeClosedIcon />}
+              </InputGroupButton>
+            </InputGroupAddon>
+          </InputGroup>
           <Button type="submit" disabled={isPending}>
             {isStaffPending && <Spinner />}
             スタッフとしてログイン

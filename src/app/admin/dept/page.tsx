@@ -14,16 +14,12 @@ const Page = () => {
   return (
     <div className="mx-auto max-w-6xl p-6">
       <div className="flex gap-2">
-        <Button
-          render={
-            <Link href="/members/dept/list" target="_blank" rel="noreferrer">
-              プレビュー
-              <ArrowUpRightIcon />
-            </Link>
-          }
-          variant="link"
-          className="ml-auto"
-        />
+        <Button variant="link" className="ml-auto" asChild>
+          <Link href="/members/dept/list" target="_blank" rel="noreferrer">
+            プレビュー
+            <ArrowUpRightIcon />
+          </Link>
+        </Button>
         <StudentBundlePromiseProvider value={studentBundlePromise}>
           <AddStudentButton />
         </StudentBundlePromiseProvider>

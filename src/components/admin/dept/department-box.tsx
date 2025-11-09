@@ -8,11 +8,9 @@ type Props = {
 
 export const DepartmentBox = ({ name, students }: Props) => {
   return (
-    <div className="bg-muted/50 flex flex-col rounded-2xl border p-1">
+    <section className="bg-muted/50 flex flex-col rounded-2xl border p-1">
       <div className="flex items-center gap-2 px-4 pt-2 pb-2.5">
-        <div className="text-muted-foreground text-sm font-semibold">
-          {name}
-        </div>
+        <h2 className="text-muted-foreground text-sm font-semibold">{name}</h2>
         <div className="text-muted-foreground text-sm">{students.length}名</div>
       </div>
       <div className="bg-background grow rounded-xl border p-1">
@@ -20,6 +18,6 @@ export const DepartmentBox = ({ name, students }: Props) => {
           <StudentItem key={student.id} student={student} />
         ))}
       </div>
-    </div>
+    </section>
   );
 };

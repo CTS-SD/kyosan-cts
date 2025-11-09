@@ -1,20 +1,14 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormMessage,
-} from "@/components/ui/form";
+import { Field, FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Setting } from "@/components/ui/setting";
 import { useConfigPromise } from "@/ctx/config-promise";
 import { upsertConfigValue } from "@/lib/config/actions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { use } from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
 
@@ -44,52 +38,49 @@ export const YearSetting = () => {
   });
 
   return (
-    <Form {...form}>
-      <Setting.Root onSubmit={handleSubmit}>
-        <Setting.Header>
-          <Setting.Title>表示年度</Setting.Title>
-          <Setting.Description>
-            配属部署発表ページに表示する年度の値を設定します。
-          </Setting.Description>
-        </Setting.Header>
-        <Setting.Body className="flex flex-col gap-4">
-          <FormField
-            control={form.control}
-            name="year"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Input
-                    type="number"
-                    inputMode="numeric"
-                    placeholder={new Date().getFullYear().toString()}
-                    disabled={isSubmitting}
-                    {...field}
-                    value={field.value}
-                    onChange={(event) => {
-                      const nextValue = event.target.value.trim();
-                      if (nextValue === "") {
-                        field.onChange("");
-                        return;
-                      }
-                      field.onChange(Number(nextValue));
-                    }}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </Setting.Body>
-        <Setting.Footer>
-          <Setting.Hint>4桁の数値を入力してください。</Setting.Hint>
-          <Setting.Actions>
-            <Button type="submit" size="sm" disabled={isSubmitting}>
-              保存
-            </Button>
-          </Setting.Actions>
-        </Setting.Footer>
-      </Setting.Root>
-    </Form>
+    <Setting.Root onSubmit={handleSubmit}>
+      <Setting.Header>
+        <Setting.Title>表示年度</Setting.Title>
+        <Setting.Description>
+          配属部署発表ページに表示する年度の値を設定します。
+        </Setting.Description>
+      </Setting.Header>
+      <Setting.Body className="flex flex-col gap-4">
+        <Controller
+          name="year"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <Input
+                {...field}
+                type="number"
+                inputMode="numeric"
+                placeholder={new Date().getFullYear().toString()}
+                disabled={isSubmitting}
+                value={field.value}
+                onChange={(event) => {
+                  const nextValue = event.target.value.trim();
+                  if (nextValue === "") {
+                    field.onChange("");
+                    return;
+                  }
+                  field.onChange(Number(nextValue));
+                }}
+                aria-invalid={fieldState.invalid}
+              />
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
+          )}
+        />
+      </Setting.Body>
+      <Setting.Footer>
+        <Setting.Hint>4桁の数値を入力してください。</Setting.Hint>
+        <Setting.Actions>
+          <Button type="submit" size="sm" disabled={isSubmitting}>
+            保存
+          </Button>
+        </Setting.Actions>
+      </Setting.Footer>
+    </Setting.Root>
   );
 };

@@ -27,7 +27,7 @@ export const CommonQuizEditorSchema = z.object({
     .string()
     .min(1, "問題文を入力してください。")
     .max(1000, "問題文は1000文字以内で入力してください。"),
-  explanation: z.string().optional(),
+  explanation: z.string().nullable(),
   isPublished: z.boolean(),
 });
 
@@ -87,7 +87,7 @@ export const SelectQuizEditorSchema = CommonQuizEditorSchema.extend({
 
 export const TextQuizEditorSchema = CommonQuizEditorSchema.extend({
   type: z.literal("text"),
-  answer: z
+  textAnswer: z
     .string("解答を入力してください。")
     .refine((val) => splitByLines(val).length > 0, {
       message: "解答を入力してください。",
@@ -107,7 +107,7 @@ export const TextQuizEditorSchema = CommonQuizEditorSchema.extend({
 
 export const TrueFalseQuizEditorSchema = CommonQuizEditorSchema.extend({
   type: z.literal("true_false"),
-  answer: z.boolean("解答を選択してください。"),
+  trueFalseAnswer: z.boolean("解答を選択してください。"),
 });
 
 export const QuizEditorSchema = z.discriminatedUnion("type", [
@@ -125,7 +125,7 @@ export function makeDefaultValues(quiz: QuizData): QuizValues {
   const commonValues = {
     id: quiz.id,
     question: quiz.question,
-    explanation: quiz.explanation ?? undefined,
+    explanation: quiz.explanation,
     isPublished: quiz.isPublished,
   };
   const quizType = quiz.type;
@@ -133,22 +133,22 @@ export function makeDefaultValues(quiz: QuizData): QuizValues {
   switch (quiz.type) {
     case "select":
       return {
-        type: quiz.type,
         ...commonValues,
+        type: quiz.type,
         correctChoicesText: quiz.correctChoices.join("\n"),
         incorrectChoicesText: quiz.incorrectChoices.join("\n"),
       };
     case "text":
       return {
-        type: quiz.type,
         ...commonValues,
-        answer: quiz.answer,
+        type: quiz.type,
+        textAnswer: quiz.answer,
       };
     case "true_false":
       return {
-        type: quiz.type,
         ...commonValues,
-        answer: quiz.answer,
+        type: quiz.type,
+        trueFalseAnswer: quiz.answer,
       };
     default: {
       throw new Error(`Unknown quiz type: ${quizType}`);
@@ -177,14 +177,14 @@ export function makePseudoQuiz(values: QuizValues): QuizData | null {
     return {
       ...commonData,
       type: values.type,
-      answer: values.answer,
+      answer: values.textAnswer,
     };
   }
   if (values.type === "true_false") {
     return {
       ...commonData,
       type: values.type,
-      answer: values.answer,
+      answer: values.trueFalseAnswer,
     };
   }
   return null;

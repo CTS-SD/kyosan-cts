@@ -1,58 +1,57 @@
+import {
+  Field,
+  FieldContent,
+  FieldLabel,
+  FieldSet,
+  FieldTitle,
+} from "@/components/ui/field";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { QuizEditorSchema } from "@/lib/quiz/editor";
-import { UseFormReturn } from "react-hook-form";
+import { Controller, UseFormReturn } from "react-hook-form";
 import z from "zod";
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
 
 type Props = {
   form: UseFormReturn<z.infer<typeof QuizEditorSchema>>;
 };
 
+const options = [
+  { label: "○ 正しい", value: "true" },
+  { label: "✗ 誤り", value: "false" },
+];
+
 export const QuizEditorTrueFalse = ({ form }: Props) => {
   return (
-    <>
-      <FormField
-        control={form.control}
-        name="answer"
-        render={({ field }) => (
-          <FormItem className="space-y-3">
-            <FormLabel>解答</FormLabel>
-            <FormControl>
-              <RadioGroup
-                value={
-                  typeof field.value === "boolean"
-                    ? field.value
-                      ? "true"
-                      : "false"
-                    : undefined
-                }
-                onValueChange={(v) => field.onChange(v === "true")}
-                className="flex flex-col space-y-1"
-              >
-                <FormItem className="flex items-center space-y-0 space-x-3">
-                  <FormControl>
-                    <RadioGroupItem value="true" />
-                  </FormControl>
-                  <FormLabel className="font-normal">○ 正しい</FormLabel>
-                </FormItem>
-                <FormItem className="flex items-center space-y-0 space-x-3">
-                  <FormControl>
-                    <RadioGroupItem value="false" />
-                  </FormControl>
-                  <FormLabel className="font-normal">✗ 誤り</FormLabel>
-                </FormItem>
-              </RadioGroup>
-            </FormControl>
-            <FormMessage />
-          </FormItem>
-        )}
-      />
-    </>
+    <Controller
+      control={form.control}
+      name="trueFalseAnswer"
+      render={({ field, fieldState }) => (
+        <FieldSet data-invalid={fieldState.invalid}>
+          <FieldLabel>解答</FieldLabel>
+          <RadioGroup
+            name={field.name}
+            value={field.value ? "true" : "false"}
+            onValueChange={(value) => field.onChange(value === "true")}
+            aria-invalid={fieldState.invalid}
+          >
+            {options.map((option) => (
+              <FieldLabel key={option.value}>
+                <Field
+                  orientation="horizontal"
+                  data-invalid={fieldState.invalid}
+                >
+                  <FieldContent>
+                    <FieldTitle>{option.label}</FieldTitle>
+                  </FieldContent>
+                  <RadioGroupItem
+                    value={option.value}
+                    aria-invalid={fieldState.invalid}
+                  />
+                </Field>
+              </FieldLabel>
+            ))}
+          </RadioGroup>
+        </FieldSet>
+      )}
+    />
   );
 };
