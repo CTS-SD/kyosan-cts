@@ -17,8 +17,8 @@ import {
 } from "@/components/ui/sidebar";
 import { useSessionPromise } from "@/ctx/session-promise";
 import {
+  ChevronDownIcon,
   ChevronRightIcon,
-  ChevronsUpDownIcon,
   CogIcon,
   NotebookIcon,
   UsersRoundIcon,
@@ -26,7 +26,6 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { use } from "react";
-import { Badge } from "../ui/badge";
 import {
   Collapsible,
   CollapsibleContent,
@@ -84,17 +83,14 @@ export const AdminSidebar = () => {
 
   return (
     <Sidebar>
-      <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem className="flex gap-2 p-2 text-sm">
-            <Link href="/" className="font-semibold">
-              京産キャンスタ
-            </Link>
-            <Link href="/admin/puratto">
-              <Badge>管理者</Badge>
-            </Link>
-          </SidebarMenuItem>
-        </SidebarMenu>
+      <SidebarHeader className="pt-4">
+        <AdminUserMenu>
+          <SidebarMenuButton className="h-8 w-fit px-1">
+            <UserAvatar user={user} className="size-6" />
+            <span>{user.name}</span>
+            <ChevronDownIcon className="text-muted-foreground size-3.5!" />
+          </SidebarMenuButton>
+        </AdminUserMenu>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
@@ -154,15 +150,7 @@ export const AdminSidebar = () => {
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
-          <SidebarMenuItem>
-            <AdminUserMenu>
-              <SidebarMenuButton className="h-10">
-                <UserAvatar user={user} className="size-6" />
-                <span>{user.name}</span>
-                <ChevronsUpDownIcon className="text-muted-foreground ml-auto" />
-              </SidebarMenuButton>
-            </AdminUserMenu>
-          </SidebarMenuItem>
+          <SidebarMenuItem></SidebarMenuItem>
         </SidebarMenu>
       </SidebarFooter>
     </Sidebar>
