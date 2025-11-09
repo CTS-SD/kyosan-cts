@@ -35,12 +35,6 @@ export const AdminUserMenu = (
     <DropdownMenu>
       <DropdownMenuTrigger asChild {...props} />
       <DropdownMenuContent align="end" className="min-w-40">
-        <DropdownMenuItem asChild>
-          <Link href="/">
-            <HomeIcon />
-            ホーム
-          </Link>
-        </DropdownMenuItem>
         <ThemeSubmenu />
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleSignOut} variant="destructive">

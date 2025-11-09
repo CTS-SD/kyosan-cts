@@ -26,6 +26,7 @@ import {
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { use } from "react";
+import { Badge } from "../ui/badge";
 import {
   Collapsible,
   CollapsibleContent,
@@ -83,16 +84,32 @@ export const AdminSidebar = () => {
 
   return (
     <Sidebar>
-      <SidebarHeader className="pt-4">
-        <AdminUserMenu>
-          <SidebarMenuButton className="h-8 w-fit px-1">
-            <UserAvatar user={user} className="size-6" />
-            <span>{user.name}</span>
-            <ChevronDownIcon className="text-muted-foreground size-3.5!" />
-          </SidebarMenuButton>
-        </AdminUserMenu>
+      <SidebarHeader className="flex flex-row items-center">
+        <SidebarMenu>
+          <SidebarMenuItem className="flex items-center gap-2">
+            <SidebarMenuButton className="font-zmg w-fit font-semibold" asChild>
+              <Link href="/">京産キャンスタ</Link>
+            </SidebarMenuButton>
+            <Badge asChild>
+              <Link href="/admin/puratto">管理者</Link>
+            </Badge>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              <AdminUserMenu>
+                <SidebarMenuButton>
+                  <UserAvatar user={user} className="size-6" />
+                  <span className="truncate">{user.name}</span>
+                  <ChevronDownIcon className="text-muted-foreground ml-auto" />
+                </SidebarMenuButton>
+              </AdminUserMenu>
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
