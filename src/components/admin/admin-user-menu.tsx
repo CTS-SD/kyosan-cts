@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useSessionPromise } from "@/ctx/session-promise";
 import { signOut } from "@/lib/auth/client";
-import { HomeIcon, LogOutIcon, ShieldCheckIcon } from "lucide-react";
+import { HomeIcon, LogOutIcon } from "lucide-react";
 import Link from "next/link";
 import { use } from "react";
 import { ThemeSubmenu } from "../theme-submenu";
@@ -39,12 +39,6 @@ export const AdminUserMenu = (
           <Link href="/">
             <HomeIcon />
             ホーム
-          </Link>
-        </DropdownMenuItem>
-        <DropdownMenuItem asChild>
-          <Link href="/admin/puratto">
-            <ShieldCheckIcon />
-            管理者ページ
           </Link>
         </DropdownMenuItem>
         <ThemeSubmenu />
