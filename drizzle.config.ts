@@ -9,6 +9,6 @@ export default defineConfig({
   dbCredentials: {
     url: process.env.DATABASE_URL as string,
   },
-  verbose: true,
+  verbose: process.env.NODE_ENV !== "production",
   strict: true,
 });
