@@ -15,9 +15,9 @@ jobs:
       NODE_ENV: test
       BETTER_AUTH_URL: http://localhost:3001
       DATABASE_URL: postgresql://postgres:postgres@127.0.0.1:5433/test
-      BETTER_AUTH_SECRET: ${{ secrets.BETTER_AUTH_SECRET }}
-      GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
-      GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+      BETTER_AUTH_SECRET: test
+      GOOGLE_CLIENT_ID: xxx
+      GOOGLE_CLIENT_SECRET: xxx
       TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
       TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
 
@@ -55,11 +55,11 @@ jobs:
       - name: Start Test DB
         run: docker compose up -d
 
-      - name: Build app
-        run: pnpm e2e:build
-
       - name: Reset Test DB
         run: pnpm e2e:reset
+
+      - name: Build app
+        run: pnpm e2e:build
 
       - name: Run E2E tests
         run: pnpm e2e:run
