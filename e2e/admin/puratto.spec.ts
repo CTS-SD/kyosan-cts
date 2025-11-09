@@ -37,6 +37,11 @@ test("should create and delete quiz", async ({ authedPage: page }) => {
   await expect(page.locator("text=問題を作成しました")).toBeVisible();
   await expect(page).toHaveURL(/\/admin\/puratto\/q\/\d+/);
 
+  // Edit quiz
+  await page.fill("textarea[name=question]", "次のうち、野菜はどれですか？");
+  await page.click("button[type=submit]");
+  await expect(page.locator("text=問題を保存しました")).toBeVisible();
+
   // Delete quiz
   await page.locator("button[aria-label='問題メニュー']").click();
   await page
