@@ -109,7 +109,7 @@ export const AdminSidebar = () => {
                         <SidebarMenuButton>
                           <item.icon />
                           {item.title}
-                          <ChevronRightIcon className="ml-auto transition-transform in-data-[state=open]:rotate-90" />
+                          <ChevronRightIcon className="text-muted-foreground ml-auto transition-transform in-data-[state=open]:rotate-90" />
                         </SidebarMenuButton>
                       </CollapsibleTrigger>
                       <CollapsibleContent>
