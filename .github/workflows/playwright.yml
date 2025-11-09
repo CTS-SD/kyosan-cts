@@ -52,11 +52,17 @@ jobs:
         if: steps.cache-playwright.outputs.cache-hit != 'true'
         run: pnpm exec playwright install --with-deps chromium
 
+      - name: Start Test DB
+        run: docker compose up -d
+
       - name: Build app
-        run: pnpm build
+        run: pnpm e2e:build
+
+      - name: Reset Test DB
+        run: pnpm e2e:reset
 
       - name: Run Playwright tests
-        run: pnpm test:e2e
+        run: pnpm e2e:run
 
       - name: Upload Playwright report
         if: ${{ !cancelled() }}

@@ -2,6 +2,9 @@ import { auth } from "@/lib/auth";
 import { env } from "@/lib/env";
 
 export async function GET() {
+
+  console.log(process.env);
+
   if (process.env.PLAYWRIGHT_TEST !== "1") {
     return new Response("Not found", { status: 404 });
   }

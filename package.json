@@ -9,11 +9,11 @@
     "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
-    "db:start": "supabase start -x gotrue,realtime,storage-api,imgproxy,mailpit,edge-runtime,logflare,vector,supavisor",
-    "db:stop": "supabase stop",
-    "db:seed": "tsx ./src/lib/db/seeds/init.ts",
     "db:migrate": "drizzle-kit generate && drizzle-kit push",
-    "test:e2e": "playwright test"
+    "e2e:build": "dotenv -e .env.test -- pnpm build",
+    "e2e:reset": "dotenv -e .env.test -- pnpm tsx script/reset-test-db.ts",
+    "e2e:run": "dotenv -e .env.test -- pnpm playwright test",
+    "e2e:studio": "dotenv -e .env.test -- pnpm drizzle-kit studio"
   },
   "dependencies": {
     "@base-ui-components/react": "1.0.0-beta.4",
@@ -75,6 +75,7 @@
     "@types/pg": "^8.15.6",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
+    "dotenv-cli": "^11.0.0",
     "drizzle-kit": "^0.31.6",
     "eslint": "^9.38.0",
     "eslint-config-next": "16.0.1",
