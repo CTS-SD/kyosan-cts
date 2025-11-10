@@ -53,7 +53,7 @@ export async function resetMemberPassword({
 
   const member = await getUserByEmail("cts-member@example.com");
 
-  await deleteUser(member.id);
+  await deleteUser(member.id).catch(() => {});
 
   const result = await signUp.email({
     name: "スタッフ",
