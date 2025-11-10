@@ -26,6 +26,18 @@ const faculties = [
 const departments = ["総務部署", "レク部署", "SD部署", "開発部署", "広報部署"];
 
 export async function seed() {
+  const dbUrl = process.env.DATABASE_URL;
+
+  if (!dbUrl) {
+    throw new Error("DATABASE_URL is not set");
+  }
+
+  if (!dbUrl.endsWith("/test") && !dbUrl.endsWith("/dev")) {
+    throw new Error(
+      'DATABASE_URL must point to the "test" or "dev" database to prevent data loss',
+    );
+  }
+
   // Faculties
   await db.insert(FacultyTable).values(
     faculties.map((name) => ({
@@ -41,16 +53,14 @@ export async function seed() {
   );
 
   // Students
-  await db
-    .insert(StudentTable)
-    .values([
-      {
-        name: "山田 太郎",
-        facultyId: 1,
-        departmentId: 1,
-        studentNumber: "000000",
-      },
-    ]);
+  await db.insert(StudentTable).values([
+    {
+      name: "山田 太郎",
+      facultyId: 1,
+      departmentId: 1,
+      studentNumber: "000000",
+    },
+  ]);
 
   // Quizzes
   const quizIds = await db

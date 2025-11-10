@@ -16,17 +16,15 @@ async function reset() {
     throw new Error("This script can only be run in test environment");
   }
 
-  const connectionString = process.env.DATABASE_URL!;
+  const connectionString = process.env.DATABASE_URL;
 
   if (!connectionString) {
-    throw new Error("DATABASE_URL is not defined");
+    throw new Error("DATABASE_URL is not set");
   }
 
-  const parsed = new URL(connectionString);
-  const allowedHosts = new Set(["127.0.0.1", "localhost", "postgres-test"]);
-  if (!allowedHosts.has(parsed.hostname)) {
+  if (!connectionString.endsWith("/test")) {
     throw new Error(
-      `Refusing to reset database on host \"${parsed.hostname}\". Update script/reset-test-db.ts allowlist if this is a safe test database.`,
+      'DATABASE_URL must point to the "test" database to prevent data loss',
     );
   }
 
