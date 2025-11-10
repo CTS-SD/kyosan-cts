@@ -53,7 +53,9 @@ export async function resetMemberPassword({
 
   const member = await getUserByEmail("cts-member@example.com");
 
-  await deleteUser(member.id);
+  if (member) {
+    await deleteUser(member.id);
+  }
 
   const result = await signUp.email({
     name: "スタッフ",
@@ -65,8 +67,7 @@ export async function resetMemberPassword({
     throw new Error(result.error.message);
   }
 
-  const newMember = await getUserById(result.data.user.id);
-  await updateUserRole(newMember.id, "member");
+  await updateUserRole(result.data.user.id, "member");
 }
 
 export async function requireRole(roles: string[]) {
