@@ -53,7 +53,7 @@ jobs:
         run: pnpm exec playwright install --with-deps chromium
 
       - name: Start Test DB
-        run: docker compose up -d
+        run: docker compose up -d --wait db_test
 
       - name: Migrate Test DB
         run: pnpm db:migrate
