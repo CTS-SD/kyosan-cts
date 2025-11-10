@@ -34,6 +34,7 @@ export const ResetMemberPassword = () => {
       await resetMemberPassword({
         newPassword: values.password,
       });
+      form.reset();
       toast.success("スタッフ用ログインパスワードをリセットしました");
     } catch {
       toast.error("スタッフ用ログインパスワードのリセットに失敗しました");
