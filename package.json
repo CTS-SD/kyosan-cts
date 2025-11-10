@@ -11,8 +11,8 @@
     "typecheck": "tsc --noEmit",
     "format": "prettier --write .",
     "db:push": "drizzle-kit generate && drizzle-kit push",
-    "e2e:build": "dotenv -e .env.test -- pnpm build",
-    "e2e:reset": "dotenv -e .env.test -- pnpm tsx script/reset-test-db.ts",
+    "e2e:reset": "dotenv -e .env.test -- pnpm tsx script/reset-db.ts",
+    "e2e:build": "dotenv -e .env.test -- pnpm next build --turbo --no-mangling",
     "e2e:run": "dotenv -e .env.test -- pnpm playwright test",
     "e2e:studio": "dotenv -e .env.test -- pnpm drizzle-kit studio"
   },
@@ -44,6 +44,7 @@
     "clsx": "^2.1.1",
     "dotenv": "^17.2.3",
     "drizzle-orm": "^0.44.7",
+    "drizzle-seed": "^0.3.1",
     "envalid": "^8.1.0",
     "es-toolkit": "^1.41.0",
     "input-otp": "^1.4.2",
@@ -68,6 +69,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
+    "@faker-js/faker": "^10.1.0",
     "@playwright/test": "^1.56.1",
     "@tailwindcss/postcss": "^4.1.16",
     "@tailwindcss/typography": "^0.5.19",

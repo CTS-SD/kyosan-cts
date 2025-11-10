@@ -21,23 +21,23 @@ export const QuizTable = pgTable("quiz", {
 
 export const SelectQuizTable = pgTable("select_quiz", {
   quizId: integer("quiz_id")
-    .references(() => QuizTable.id, { onDelete: "cascade" })
-    .primaryKey(),
+    .primaryKey()
+    .references(() => QuizTable.id, { onDelete: "cascade" }),
   correctChoices: text("correct_choices").array().notNull().default([]),
   incorrectChoices: text("incorrect_choices").array().notNull().default([]),
 });
 
 export const TextQuizTable = pgTable("text_quiz", {
   quizId: integer("quiz_id")
-    .references(() => QuizTable.id, { onDelete: "cascade" })
-    .primaryKey(),
+    .primaryKey()
+    .references(() => QuizTable.id, { onDelete: "cascade" }),
   answer: text("answer").notNull(),
 });
 
 export const TrueFalseQuizTable = pgTable("true_false_quiz", {
   quizId: integer("quiz_id")
-    .references(() => QuizTable.id, { onDelete: "cascade" })
-    .primaryKey(),
+    .primaryKey()
+    .references(() => QuizTable.id, { onDelete: "cascade" }),
   answer: boolean("answer").notNull(),
 });
 

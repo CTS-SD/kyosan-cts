@@ -1,4 +1,3 @@
-import { db } from "@/lib/db";
 import {
   DepartmentTable,
   FacultyTable,
@@ -8,59 +7,97 @@ import {
   TextQuizTable,
   TrueFalseQuizTable,
 } from "@/lib/db/schema";
+import * as schema from "@/lib/db/schema";
+import { drizzle } from "drizzle-orm/node-postgres";
+import { fakerJA as faker } from "@faker-js/faker";
+import { Client } from "pg";
 
-const faculties = [
-  "法学部",
-  "現代社会学部",
-  "国際関係学部",
-  "外国語学部",
-  "文化学部",
-  "理学部",
-  "情報理工学部",
-  "生命科学部",
-  "アントレプレナーシップ学部",
-  "経済学部",
-  "経営学部",
-];
+const usedStudentNumbers = new Set<string>();
 
-const departments = ["総務部署", "レク部署", "SD部署", "開発部署", "広報部署"];
+function generateStudentNumber(): string {
+  while (true) {
+    const digits = faker.string.numeric(6);
+    const sum = digits.split("").reduce((acc, d) => acc + Number(d), 0);
 
-export async function seed() {
-  const dbUrl = process.env.DATABASE_URL;
+    if (sum % 10 !== 0) continue;
+    if (usedStudentNumbers.has(digits)) continue;
 
-  if (!dbUrl) {
+    usedStudentNumbers.add(digits);
+    return digits;
+  }
+}
+
+export async function seeding() {
+  const connectionString = process.env.DATABASE_URL;
+
+  if (!connectionString) {
     throw new Error("DATABASE_URL is not set");
   }
 
-  if (!dbUrl.endsWith("/test") && !dbUrl.endsWith("/dev")) {
+  if (
+    !connectionString.endsWith("/test") &&
+    !connectionString.endsWith("/dev")
+  ) {
     throw new Error(
       'DATABASE_URL must point to the "test" or "dev" database to prevent data loss',
     );
   }
 
+  faker.seed(1);
+
+  const client = new Client({ connectionString });
+  await client.connect();
+
+  const db = drizzle(client, { schema });
+
   // Faculties
-  await db.insert(FacultyTable).values(
-    faculties.map((name) => ({
-      name,
-    })),
-  );
+  const faculties = await db
+    .insert(FacultyTable)
+    .values(
+      [
+        "法学部",
+        "現代社会学部",
+        "国際関係学部",
+        "外国語学部",
+        "文化学部",
+        "理学部",
+        "情報理工学部",
+        "生命科学部",
+        "アントレプレナーシップ学部",
+        "経済学部",
+        "経営学部",
+      ].map((name) => ({
+        name,
+      })),
+    )
+    .returning({ id: FacultyTable.id });
 
   // Departments
-  await db.insert(DepartmentTable).values(
-    departments.map((name) => ({
-      name,
-    })),
-  );
+  const departments = await db
+    .insert(DepartmentTable)
+    .values(
+      ["総務部署", "レク部署", "SD部署", "開発部署", "広報部署"].map(
+        (name) => ({ name }),
+      ),
+    )
+    .returning({ id: DepartmentTable.id });
 
   // Students
-  await db.insert(StudentTable).values([
-    {
-      name: "山田 太郎",
-      facultyId: 1,
-      departmentId: 1,
-      studentNumber: "000000",
-    },
-  ]);
+  await db.insert(StudentTable).values(
+    departments
+      .map((dept) =>
+        Array.from({ length: 5 }).map(() => {
+          const faculty = faker.helpers.arrayElement(faculties);
+          return {
+            name: faker.person.fullName(),
+            departmentId: dept.id,
+            facultyId: faculty.id,
+            studentNumber: generateStudentNumber(),
+          };
+        }),
+      )
+      .flat(),
+  );
 
   // Quizzes
   const quizIds = await db
@@ -96,4 +133,6 @@ export async function seed() {
   await db
     .insert(TrueFalseQuizTable)
     .values([{ quizId: quizIds[2].id, answer: false }]);
+
+  await client.end();
 }

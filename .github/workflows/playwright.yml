@@ -59,7 +59,7 @@ jobs:
         run: pnpm e2e:reset
 
       - name: Build app
-        run: pnpm e2e:build
+        run: pnpm build # full build
 
       - name: Run E2E tests
         run: pnpm e2e:run
