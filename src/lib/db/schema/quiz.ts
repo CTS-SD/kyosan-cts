@@ -1,4 +1,4 @@
-import { InferSelectModel } from "drizzle-orm";
+import { InferSelectModel, sql } from "drizzle-orm";
 import {
   boolean,
   integer,
@@ -23,8 +23,14 @@ export const SelectQuizTable = pgTable("select_quiz", {
   quizId: integer("quiz_id")
     .primaryKey()
     .references(() => QuizTable.id, { onDelete: "cascade" }),
-  correctChoices: text("correct_choices").array().notNull().default([]),
-  incorrectChoices: text("incorrect_choices").array().notNull().default([]),
+  correctChoices: text("correct_choices")
+    .array()
+    .notNull()
+    .default(sql`ARRAY[]::text[]`),
+  incorrectChoices: text("incorrect_choices")
+    .array()
+    .notNull()
+    .default(sql`ARRAY[]::text[]`),
 });
 
 export const TextQuizTable = pgTable("text_quiz", {
