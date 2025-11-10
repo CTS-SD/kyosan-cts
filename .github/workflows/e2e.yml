@@ -55,6 +55,9 @@ jobs:
       - name: Start Test DB
         run: docker compose up -d
 
+      - name: Migrate Test DB
+        run: pnpm db:migrate
+
       - name: Reset Test DB
         run: pnpm e2e:reset
 
