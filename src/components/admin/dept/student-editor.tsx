@@ -49,10 +49,9 @@ export const StudentEditor = ({
     const shouldClean = onSubmit ? await onSubmit(values) : false;
     if (shouldClean) {
       form.reset({
+        ...values,
         name: "",
         studentNumber: "",
-        facultyId: undefined,
-        departmentId: undefined,
       });
     }
   };
