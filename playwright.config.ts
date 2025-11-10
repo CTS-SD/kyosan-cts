@@ -1,12 +1,8 @@
 import { defineConfig, devices } from "@playwright/test";
+import dotenv from "dotenv";
+import path from "path";
 
-/**
- * Read environment variables from file.
- * https://github.com/motdotla/dotenv
- */
-// import dotenv from 'dotenv';
-// import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
+dotenv.config({ path: path.resolve(__dirname, ".env.test") });
 
 /**
  * See https://playwright.dev/docs/test-configuration.
@@ -73,7 +69,7 @@ export default defineConfig({
   ],
 
   webServer: {
-    command: "pnpm dotenv -e .env.test -- pnpm start --port=3001",
+    command: "pnpm start --port=3001",
     url: "http://localhost:3001",
     reuseExistingServer: !process.env.CI,
   },
