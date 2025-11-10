@@ -7,6 +7,10 @@ type Props = {
 };
 
 export const DepartmentBox = ({ name, students }: Props) => {
+  const computedStudents = students.sort((a, b) =>
+    a.studentNumber.localeCompare(b.studentNumber),
+  );
+
   return (
     <section className="bg-muted/50 flex flex-col rounded-2xl border p-1">
       <div className="flex items-center gap-2 px-4 pt-2 pb-2.5">
@@ -14,7 +18,7 @@ export const DepartmentBox = ({ name, students }: Props) => {
         <div className="text-muted-foreground text-sm">{students.length}名</div>
       </div>
       <div className="bg-background grow rounded-xl border p-1">
-        {students.map((student) => (
+        {computedStudents.map((student) => (
           <StudentItem key={student.id} student={student} />
         ))}
       </div>
