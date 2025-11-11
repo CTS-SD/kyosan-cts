@@ -1,24 +1,16 @@
 import type { Page } from "@playwright/test";
 import { expect, test } from "../fixtures";
 
-type QuizForm = {
-  question: string;
-  correctChoicesText: string;
-  incorrectChoicesText: string;
-};
-
-const defaultQuiz: QuizForm = {
+const defaultQuiz = {
   question: "次のうち、果物はどれですか？",
   correctChoicesText: "りんご",
   incorrectChoicesText: "にんじん\nじゃがいも\nピーマン",
 };
 
-const newQuizUrl = "/admin/puratto/q/new";
+async function createQuiz(page: Page) {
+  const quiz = { ...defaultQuiz };
 
-async function createQuiz(page: Page, overrides: Partial<QuizForm> = {}): Promise<QuizForm> {
-  const quiz = { ...defaultQuiz, ...overrides } satisfies QuizForm;
-
-  await page.goto(newQuizUrl);
+  await page.goto("/admin/puratto/q/new");
   await page.fill("textarea[name=question]", quiz.question);
   await page.fill("textarea[name=correctChoicesText]", quiz.correctChoicesText);
   await page.fill("textarea[name=incorrectChoicesText]", quiz.incorrectChoicesText);
@@ -47,12 +39,7 @@ test("should navigate to new quiz page", async ({ authedPage }) => {
 
 test.describe("quiz management", () => {
   test("should create quiz", async ({ authedPage: page }) => {
-    const quiz = await createQuiz(page, {
-      question: "次のうち、海に住む生き物はどれですか？",
-      correctChoicesText: "イルカ",
-      incorrectChoicesText: "スズメ\nネズミ\nハト",
-    });
-
+    const quiz = await createQuiz(page);
     await expect(page.locator("textarea[name=question]")).toHaveValue(quiz.question);
   });
 
