@@ -10,7 +10,7 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col">
-      <div className="font-zmg mt-20 mb-12 flex flex-col items-center gap-4 sm:gap-10">
+      <div className="font-accent mt-20 mb-12 flex flex-col items-center gap-4 sm:gap-10">
         <h1 className="text-5xl font-bold sm:text-7xl">#キャンスタ</h1>
         <div className="text-sm font-semibold sm:text-xl">京都産業大学 キャンパスツアースタッフ</div>
       </div>
