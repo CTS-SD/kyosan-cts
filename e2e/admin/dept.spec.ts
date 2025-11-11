@@ -8,62 +8,48 @@ type StudentData = {
   department: string;
 };
 
-const studentFormSelectors = {
-  nameInput: 'input[name="name"]',
-  studentNumberInput: 'input[name="studentNumber"]',
-  facultyDropdown: 'label:has-text("学部") + button',
-  departmentDropdown: 'label:has-text("配属部署") + button',
-  dropdownItem: '[role="option"]',
-  submitButton: 'button[type="submit"]',
-};
-
-async function createStudent(page: Page, data: StudentData) {
-  const s = studentFormSelectors;
+async function addStudent(page: Page, student: StudentData) {
   await page.locator("button", { hasText: "学生を追加" }).click();
-
-  await page.fill(s.nameInput, data.name);
-
-  await page.fill(s.studentNumberInput, data.studentNumber);
-
-  await page.locator(s.facultyDropdown).click();
-  await page.locator(s.dropdownItem, { hasText: data.faculty }).click();
-
-  await page.locator(s.departmentDropdown).click();
-  await page.locator(s.dropdownItem, { hasText: data.department }).click();
-
-  await page.click(s.submitButton);
-  await expect(page.locator("text=学生を追加しました")).toBeVisible();
-  await page.locator("button", { hasText: "キャンセル" }).click();
+  await page.locator("input[name='name']").fill(student.name);
+  await page.locator("input[name='studentNumber']").fill(student.studentNumber);
+  await page.getByRole("combobox").filter({ hasText: "学部を選択" }).click();
+  await page.getByRole("option", { name: student.faculty }).click();
+  await page.getByRole("combobox").filter({ hasText: "部署を選択" }).click();
+  await page.getByRole("option", { name: student.department }).click();
+  await page.getByRole("button", { name: "追加" }).click();
+  await page.getByRole("button", { name: "キャンセル" }).click();
 }
 
 test("should add new student", async ({ authedPage: page }) => {
   await page.goto("/admin/dept");
-  await createStudent(page, {
-    name: "田中 太郎",
+
+  await addStudent(page, {
+    name: "山田 太郎",
     studentNumber: "111999",
-    faculty: "文化学部",
+    faculty: "経済学部",
     department: "総務部署",
   });
+
+  await expect(page.getByText("学生を追加しました")).toBeVisible();
 });
 
 test("should edit student", async ({ authedPage: page }) => {
   const student = {
-    name: "佐藤 花子",
+    name: "橋本 花子",
     studentNumber: "112998",
-    faculty: "経済学部",
-    department: "広報部署",
+    faculty: "文化学部",
+    department: "レク部署",
   } satisfies StudentData;
 
   await page.goto("/admin/dept");
-  await createStudent(page, student);
+  await addStudent(page, student);
+
   await page.locator("button", { hasText: student.name }).click();
+  await page.locator("input[name='name']").fill("橋本 光子");
+  await page.locator("input[name='studentNumber']").fill("113997");
+  await page.locator("button[type='submit']").click();
 
-  const s = studentFormSelectors;
-  await page.fill(s.nameInput, "佐藤 太郎");
-  await page.fill(s.studentNumberInput, "113997");
-  await page.locator(s.submitButton).click();
-
-  await expect(page.locator("text=学生を更新しました")).toBeVisible();
+  await expect(page.getByText("学生を更新しました")).toBeVisible();
 });
 
 test("should delete student", async ({ authedPage: page }) => {
@@ -79,9 +65,10 @@ test("should delete student", async ({ authedPage: page }) => {
   });
 
   await page.goto("/admin/dept");
-  await createStudent(page, student);
+  await addStudent(page, student);
 
   await page.locator("button", { hasText: student.name }).click();
-  await page.locator("button", { hasText: "削除" }).click();
-  await expect(page.locator("text=学生を削除しました")).toBeVisible();
+  await page.getByRole("button", { name: "削除" }).click();
+
+  await expect(page.getByText("学生を削除しました")).toBeVisible();
 });
