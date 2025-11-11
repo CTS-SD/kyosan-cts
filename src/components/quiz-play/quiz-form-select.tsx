@@ -14,11 +14,7 @@ export const QuizFormSelect = ({ quiz }: Props) => {
   const { result, value: selections, setValue } = useQuizPlay();
 
   const choices = useMemo(() => {
-    return shuffle(
-      [...quiz.correctChoices, ...quiz.incorrectChoices]
-        .map((choice) => choice.trim())
-        .filter(Boolean),
-    );
+    return shuffle([...quiz.correctChoices, ...quiz.incorrectChoices].map((choice) => choice.trim()).filter(Boolean));
   }, [quiz.correctChoices, quiz.incorrectChoices]);
 
   const handleChoice = (choice: string) => {
@@ -40,15 +36,8 @@ export const QuizFormSelect = ({ quiz }: Props) => {
       <div className="flex flex-col gap-2.5">
         {choices.map((choice, i) => {
           const isSelected = selections.includes(choice);
-          const isHighlighted =
-            result?.isCorrect &&
-            isSelected &&
-            quiz.correctChoices.includes(choice);
-          const tint = isHighlighted
-            ? "green"
-            : isSelected
-              ? "blue"
-              : "default";
+          const isHighlighted = result?.isCorrect && isSelected && quiz.correctChoices.includes(choice);
+          const tint = isHighlighted ? "green" : isSelected ? "blue" : "default";
           return (
             <PlayfulButton
               variant="outline"

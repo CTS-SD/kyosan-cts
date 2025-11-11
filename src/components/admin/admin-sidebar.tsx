@@ -16,22 +16,12 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { useSessionPromise } from "@/ctx/session-promise";
-import {
-  ChevronDownIcon,
-  ChevronRightIcon,
-  CogIcon,
-  NotebookIcon,
-  UsersRoundIcon,
-} from "lucide-react";
+import { ChevronDownIcon, ChevronRightIcon, CogIcon, NotebookIcon, UsersRoundIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { use } from "react";
 import { Badge } from "../ui/badge";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "../ui/collapsible";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible";
 import { UserAvatar } from "../user-avatar";
 import { AdminUserMenu } from "./admin-user-menu";
 
@@ -115,12 +105,7 @@ export const AdminSidebar = () => {
             <SidebarMenu>
               {items.map((item) =>
                 item.subItems ? (
-                  <Collapsible
-                    key={item.title}
-                    defaultOpen={item.subItems.some(
-                      (sub) => sub.url === pathname,
-                    )}
-                  >
+                  <Collapsible key={item.title} defaultOpen={item.subItems.some((sub) => sub.url === pathname)}>
                     <SidebarMenuItem>
                       <CollapsibleTrigger asChild>
                         <SidebarMenuButton>
@@ -133,14 +118,8 @@ export const AdminSidebar = () => {
                         <SidebarMenuSub>
                           {item.subItems.map((subItem) => (
                             <SidebarMenuSubItem key={subItem.title}>
-                              <SidebarMenuSubButton
-                                asChild
-                                isActive={pathname === subItem.url}
-                              >
-                                <Link
-                                  href={subItem.url}
-                                  onClick={handleClickItem}
-                                >
+                              <SidebarMenuSubButton asChild isActive={pathname === subItem.url}>
+                                <Link href={subItem.url} onClick={handleClickItem}>
                                   {subItem.title}
                                 </Link>
                               </SidebarMenuSubButton>

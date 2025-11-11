@@ -1,11 +1,5 @@
 import { db } from "..";
-import {
-  DepartmentTable,
-  FacultyTable,
-  QuizTable,
-  StudentTable,
-  TextQuizTable,
-} from "../schema";
+import { DepartmentTable, FacultyTable, QuizTable, StudentTable, TextQuizTable } from "../schema";
 
 main();
 

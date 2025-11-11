@@ -14,9 +14,7 @@ import Link from "next/link";
 import { use } from "react";
 import { ThemeSubmenu } from "../theme-submenu";
 
-export const AdminUserMenu = (
-  props: React.ComponentProps<typeof DropdownMenuTrigger>,
-) => {
+export const AdminUserMenu = (props: React.ComponentProps<typeof DropdownMenuTrigger>) => {
   const session = use(useSessionPromise());
   const user = session?.user;
   if (!user) return null;

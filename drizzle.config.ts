@@ -9,6 +9,10 @@ export default defineConfig({
   dbCredentials: {
     url: process.env.DATABASE_URL as string,
   },
+  migrations: {
+    table: "__drizzle_migrations",
+    schema: "public",
+  },
   verbose: process.env.NODE_ENV !== "production",
   strict: true,
 });

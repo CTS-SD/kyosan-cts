@@ -1,0 +1,3 @@
+pnpm e2e:reset
+pnpm e2e:build
+pnpm e2e:run

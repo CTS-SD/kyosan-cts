@@ -6,25 +6,16 @@ import Link from "next/link";
 export const revalidate = 0;
 
 export default async function Home() {
-  const showDeptButton = await getConfigValue(
-    "departmentAnnouncementsPublished",
-  );
+  const showDeptButton = await getConfigValue("departmentAnnouncementsPublished");
 
   return (
     <div className="flex flex-col">
       <div className="font-zmg mt-20 mb-12 flex flex-col items-center gap-4 sm:gap-10">
         <h1 className="text-5xl font-bold sm:text-7xl">#キャンスタ</h1>
-        <div className="text-sm font-semibold sm:text-xl">
-          京都産業大学 キャンパスツアースタッフ
-        </div>
+        <div className="text-sm font-semibold sm:text-xl">京都産業大学 キャンパスツアースタッフ</div>
       </div>
       <div className="flex justify-center gap-4">
-        <Button
-          className="rounded-full"
-          size="lg"
-          variant={showDeptButton ? "outline" : "default"}
-          asChild
-        >
+        <Button className="rounded-full" size="lg" variant={showDeptButton ? "outline" : "default"} asChild>
           <Link href="/puratto">ぷらっとテスト</Link>
         </Button>
         {showDeptButton && (

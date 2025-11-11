@@ -26,8 +26,7 @@ export const ClientView = ({ quiz }: Props) => {
     <QuizView
       heading={
         <div className="flex gap-1">
-          問題{" "}
-          <span className="text-foreground/40 font-semibold">#{quiz.id}</span>
+          問題 <span className="text-foreground/40 font-semibold">#{quiz.id}</span>
         </div>
       }
       form={form}

@@ -33,12 +33,7 @@ export const MemberUserButton = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button
-          className="size-8 rounded-full"
-          size="icon"
-          variant="ghost"
-          aria-label="ユーザーメニューを開く"
-        >
+        <Button className="size-8 rounded-full" size="icon" variant="ghost" aria-label="ユーザーメニューを開く">
           <UserAvatar user={user} />
         </Button>
       </DropdownMenuTrigger>

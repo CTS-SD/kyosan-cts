@@ -3,8 +3,7 @@
 import { StudentBundle } from "@/lib/students";
 import { createContext, useContext } from "react";
 
-const StudentBundlePromiseContext =
-  createContext<Promise<StudentBundle> | null>(null);
+const StudentBundlePromiseContext = createContext<Promise<StudentBundle> | null>(null);
 
 export const useStudentBundlePromise = () => {
   const value = useContext(StudentBundlePromiseContext);

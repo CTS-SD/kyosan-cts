@@ -45,9 +45,7 @@ export const AddStudentButton = () => {
       <DialogPopup>
         <DialogHeader>
           <DialogTitle>学生を追加</DialogTitle>
-          <DialogDescription>
-            配属発表ページに表示する学生を追加します
-          </DialogDescription>
+          <DialogDescription>配属発表ページに表示する学生を追加します</DialogDescription>
         </DialogHeader>
         <StudentEditor
           onSubmit={handleAddStudent}

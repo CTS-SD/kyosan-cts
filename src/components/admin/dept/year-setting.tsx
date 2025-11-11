@@ -41,9 +41,7 @@ export const YearSetting = () => {
     <Setting.Root onSubmit={handleSubmit}>
       <Setting.Header>
         <Setting.Title>表示年度</Setting.Title>
-        <Setting.Description>
-          配属部署発表ページに表示する年度の値を設定します。
-        </Setting.Description>
+        <Setting.Description>配属部署発表ページに表示する年度の値を設定します。</Setting.Description>
       </Setting.Header>
       <Setting.Body className="flex flex-col gap-4">
         <Controller

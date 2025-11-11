@@ -1,10 +1,4 @@
-import {
-  Field,
-  FieldContent,
-  FieldLabel,
-  FieldSet,
-  FieldTitle,
-} from "@/components/ui/field";
+import { Field, FieldContent, FieldLabel, FieldSet, FieldTitle } from "@/components/ui/field";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { QuizEditorSchema } from "@/lib/quiz/editor";
 import { Controller, UseFormReturn } from "react-hook-form";
@@ -35,17 +29,11 @@ export const QuizEditorTrueFalse = ({ form }: Props) => {
           >
             {options.map((option) => (
               <FieldLabel key={option.value}>
-                <Field
-                  orientation="horizontal"
-                  data-invalid={fieldState.invalid}
-                >
+                <Field orientation="horizontal" data-invalid={fieldState.invalid}>
                   <FieldContent>
                     <FieldTitle>{option.label}</FieldTitle>
                   </FieldContent>
-                  <RadioGroupItem
-                    value={option.value}
-                    aria-invalid={fieldState.invalid}
-                  />
+                  <RadioGroupItem value={option.value} aria-invalid={fieldState.invalid} />
                 </Field>
               </FieldLabel>
             ))}

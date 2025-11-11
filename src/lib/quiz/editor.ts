@@ -8,8 +8,7 @@ import { splitByLines } from "../utils";
  * @param str
  * @returns
  */
-const looseSplitByLines = (str: string) =>
-  splitByLines(str).map((line) => line.replace(/\s|\./g, ""));
+const looseSplitByLines = (str: string) => splitByLines(str).map((line) => line.replace(/\s|\./g, ""));
 
 const findDuplicates = (arr: string[]) => {
   const seen = new Set<string>();
@@ -23,10 +22,7 @@ const findDuplicates = (arr: string[]) => {
 
 export const CommonQuizEditorSchema = z.object({
   id: z.number().nullable(),
-  question: z
-    .string()
-    .min(1, "問題文を入力してください。")
-    .max(1000, "問題文は1000文字以内で入力してください。"),
+  question: z.string().min(1, "問題文を入力してください。").max(1000, "問題文は1000文字以内で入力してください。"),
   explanation: z.string().nullable(),
   isPublished: z.boolean(),
 });
@@ -53,9 +49,7 @@ export const SelectQuizEditorSchema = CommonQuizEditorSchema.extend({
   const dupIncorrect = findDuplicates(incorrect);
 
   const incorrectSet = new Set(incorrect);
-  const overlap = Array.from(
-    new Set(correct.filter((c) => incorrectSet.has(c))),
-  );
+  const overlap = Array.from(new Set(correct.filter((c) => incorrectSet.has(c))));
 
   if (dupCorrect.length > 0) {
     ctx.addIssue({

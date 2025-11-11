@@ -14,9 +14,7 @@ export const test = base.extend<Fixtures>({
 
     const response = await page.goto(AUTH_LOGIN_PATH);
     if (response?.status() !== 200) {
-      throw new Error(
-        `Failed to authenticate test user. Status: ${response?.status()}`,
-      );
+      throw new Error(`Failed to authenticate test user. Status: ${response?.status()}`);
     }
 
     await page.goto("/");

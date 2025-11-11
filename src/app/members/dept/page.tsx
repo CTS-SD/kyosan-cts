@@ -2,11 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
-import {
-  InputOTP,
-  InputOTPGroup,
-  InputOTPSlot,
-} from "@/components/ui/input-otp";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { Spinner } from "@/components/ui/spinner";
 import { existsStudentByStudentNumber } from "@/lib/student-actions";
 import { StudentNumberSchema } from "@/lib/student-editor";
@@ -53,19 +49,9 @@ const Page = () => {
   return (
     <div className="mx-auto mt-6 max-w-md p-6">
       <div className="flex flex-col items-center">
-        <Image
-          src="/people.svg"
-          alt="people"
-          width={240}
-          height={182.72}
-          loading="eager"
-          className="drop-shadow-lg"
-        />
+        <Image src="/people.svg" alt="people" width={240} height={182.72} loading="eager" className="drop-shadow-lg" />
         <div className="bg-card z-10 flex w-full justify-center rounded-lg border p-6 shadow-xl">
-          <form
-            onSubmit={form.handleSubmit(handleSubmit)}
-            className="space-y-2"
-          >
+          <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-2">
             <Controller
               control={form.control}
               name="studentNumber"
@@ -73,12 +59,7 @@ const Page = () => {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel>あなたの学籍番号（6桁） </FieldLabel>
-                  <InputOTP
-                    maxLength={6}
-                    pattern={REGEXP_ONLY_DIGITS}
-                    aria-invalid={fieldState.invalid}
-                    {...field}
-                  >
+                  <InputOTP maxLength={6} pattern={REGEXP_ONLY_DIGITS} aria-invalid={fieldState.invalid} {...field}>
                     <InputOTPGroup>
                       <InputOTPSlot index={0} />
                       <InputOTPSlot index={1} />
@@ -88,9 +69,7 @@ const Page = () => {
                       <InputOTPSlot index={5} />
                     </InputOTPGroup>
                   </InputOTP>
-                  {fieldState.invalid && (
-                    <FieldError errors={[fieldState.error]} />
-                  )}
+                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
               )}
             />

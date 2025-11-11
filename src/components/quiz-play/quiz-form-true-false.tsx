@@ -26,18 +26,10 @@ export const QuizFormTrueFalse = ({ quiz }: Props) => {
 
   return (
     <div className="flex gap-4 px-4">
-      <OXButton
-        isSelected={val === true}
-        onClick={() => setVal(true)}
-        disabled={showAnswer}
-      >
+      <OXButton isSelected={val === true} onClick={() => setVal(true)} disabled={showAnswer}>
         <CircleIcon />
       </OXButton>
-      <OXButton
-        isSelected={val === false}
-        onClick={() => setVal(false)}
-        disabled={showAnswer}
-      >
+      <OXButton isSelected={val === false} onClick={() => setVal(false)} disabled={showAnswer}>
         <XIcon />
       </OXButton>
     </div>

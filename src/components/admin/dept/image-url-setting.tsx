@@ -59,12 +59,7 @@ export const ImageUrlSetting = () => {
                   aria-invalid={fieldState.invalid}
                 />
                 <Button variant="outline" size="icon" asChild>
-                  <Link
-                    href={field.value}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label="画像リンクを開く"
-                  >
+                  <Link href={field.value} target="_blank" rel="noreferrer" aria-label="画像リンクを開く">
                     <ExternalLinkIcon />
                   </Link>
                 </Button>
@@ -75,9 +70,7 @@ export const ImageUrlSetting = () => {
         />
       </Setting.Body>
       <Setting.Footer>
-        <Setting.Hint>
-          空欄の場合、配属部署発表ページに画像リンクは表示されません。
-        </Setting.Hint>
+        <Setting.Hint>空欄の場合、配属部署発表ページに画像リンクは表示されません。</Setting.Hint>
         <Setting.Actions>
           <Button type="submit" size="sm" disabled={isSubmitting}>
             保存

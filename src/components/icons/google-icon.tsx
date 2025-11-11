@@ -1,11 +1,6 @@
 export const GoogleIcon = (props: React.ComponentProps<"svg">) => {
   return (
-    <svg
-      version="1.1"
-      viewBox="0 0 268.1522 273.8827"
-      overflow="hidden"
-      {...props}
-    >
+    <svg version="1.1" viewBox="0 0 268.1522 273.8827" overflow="hidden" {...props}>
       <defs>
         <linearGradient id="a">
           <stop offset="0" stopColor="#0fbc5c" />
@@ -163,14 +158,7 @@ export const GoogleIcon = (props: React.ComponentProps<"svg">) => {
           fy="145.9691"
           r="71.46001"
         />
-        <filter
-          id="q"
-          x="-.04842873"
-          y="-.0582241"
-          width="1.096857"
-          height="1.116448"
-          colorInterpolationFilters="sRGB"
-        >
+        <filter id="q" x="-.04842873" y="-.0582241" width="1.096857" height="1.116448" colorInterpolationFilters="sRGB">
           <feGaussianBlur stdDeviation="1.700914" />
         </filter>
         <filter

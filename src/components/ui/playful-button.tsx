@@ -33,14 +33,12 @@ const playfulButtonVariants = cva(
       {
         variant: "outline",
         tint: "default",
-        class:
-          "border-neutral-300 shadow-neutral-300 dark:border-neutral-800 dark:shadow-neutral-800 dark:bg-muted/10",
+        class: "border-neutral-300 shadow-neutral-300 dark:border-neutral-800 dark:shadow-neutral-800 dark:bg-muted/10",
       },
       {
         variant: "solid",
         tint: "red",
-        class:
-          "bg-red-500 shadow-red-700 dark:bg-red-500/80 dark:shadow-red-700/80",
+        class: "bg-red-500 shadow-red-700 dark:bg-red-500/80 dark:shadow-red-700/80",
       },
       {
         variant: "outline",
@@ -51,8 +49,7 @@ const playfulButtonVariants = cva(
       {
         variant: "solid",
         tint: "green",
-        class:
-          "bg-green-500 shadow-green-700 dark:bg-green-500/80 dark:shadow-green-700/80",
+        class: "bg-green-500 shadow-green-700 dark:bg-green-500/80 dark:shadow-green-700/80",
       },
       {
         variant: "outline",
@@ -86,16 +83,8 @@ interface ButtonProps extends useRender.ComponentProps<"button"> {
   size?: VariantProps<typeof playfulButtonVariants>["size"];
 }
 
-function PlayfulButton({
-  className,
-  variant,
-  tint,
-  size,
-  render,
-  ...props
-}: ButtonProps) {
-  const typeValue: React.ButtonHTMLAttributes<HTMLButtonElement>["type"] =
-    render ? undefined : "button";
+function PlayfulButton({ className, variant, tint, size, render, ...props }: ButtonProps) {
+  const typeValue: React.ButtonHTMLAttributes<HTMLButtonElement>["type"] = render ? undefined : "button";
 
   const defaultProps = {
     "data-slot": "button",

@@ -1,9 +1,4 @@
-import {
-  Field,
-  FieldDescription,
-  FieldError,
-  FieldLabel,
-} from "@/components/ui/field";
+import { Field, FieldDescription, FieldError, FieldLabel } from "@/components/ui/field";
 import { Textarea } from "@/components/ui/textarea";
 import { QuizEditorSchema } from "@/lib/quiz/editor";
 import { Controller, UseFormReturn } from "react-hook-form";
@@ -23,9 +18,7 @@ export const QuizEditorSelect = ({ form }: Props) => {
           <Field data-invalid={fieldState.invalid}>
             <FieldLabel>正解の選択肢</FieldLabel>
             <Textarea {...field} placeholder={"選択肢1\n選択肢2\n..."} />
-            <FieldDescription>
-              改行区切りで複数の正解選択肢を入力できます。
-            </FieldDescription>
+            <FieldDescription>改行区切りで複数の正解選択肢を入力できます。</FieldDescription>
             {fieldState.invalid && <FieldError />}
           </Field>
         )}
@@ -37,9 +30,7 @@ export const QuizEditorSelect = ({ form }: Props) => {
           <Field data-invalid={fieldState.invalid}>
             <FieldLabel>不正解の選択肢</FieldLabel>
             <Textarea {...field} placeholder={"選択肢1\n選択肢2\n..."} />
-            <FieldDescription>
-              改行区切りで複数の不正解選択肢を入力できます。
-            </FieldDescription>
+            <FieldDescription>改行区切りで複数の不正解選択肢を入力できます。</FieldDescription>
             {fieldState.invalid && <FieldError />}
           </Field>
         )}

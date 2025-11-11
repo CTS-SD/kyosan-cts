@@ -53,13 +53,13 @@ jobs:
         run: pnpm exec playwright install --with-deps chromium
 
       - name: Start Test DB
-        run: docker compose up -d
+        run: docker compose up -d --wait db_test
 
       - name: Reset Test DB
         run: pnpm e2e:reset
 
       - name: Build app
-        run: pnpm e2e:build
+        run: pnpm build # full build
 
       - name: Run E2E tests
         run: pnpm e2e:run

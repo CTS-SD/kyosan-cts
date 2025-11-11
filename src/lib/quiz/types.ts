@@ -4,8 +4,7 @@ export const quizTypes = [
   {
     label: "選択問題",
     id: "select",
-    prompt: (count: number) =>
-      `答えを${count > 1 ? `${count}つ` : ""}選択してください`,
+    prompt: (count: number) => `答えを${count > 1 ? `${count}つ` : ""}選択してください`,
   },
   {
     label: "テキスト",
@@ -25,9 +24,7 @@ export function getQuizTypeLabel(type: string) {
 
 export function getQuizPrompt(quiz: QuizData) {
   if (quiz.type === "select") {
-    return quizTypes
-      .find((type) => type.id === quiz.type)
-      ?.prompt(quiz.correctChoices.length);
+    return quizTypes.find((type) => type.id === quiz.type)?.prompt(quiz.correctChoices.length);
   }
   return quizTypes.find((type) => type.id === quiz.type)?.prompt as string;
 }

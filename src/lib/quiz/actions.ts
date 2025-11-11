@@ -2,25 +2,10 @@
 
 import { count, desc, eq, ilike, or, SQL, sql } from "drizzle-orm";
 import { db } from "../db";
-import {
-  QuizTable,
-  SelectQuizTable,
-  TextQuizTable,
-  TrueFalseQuizTable,
-} from "../db/schema";
-import {
-  QuizValues,
-  SelectQuizEditorSchema,
-  TextQuizEditorSchema,
-  TrueFalseQuizEditorSchema,
-} from "./editor";
+import { QuizTable, SelectQuizTable, TextQuizTable, TrueFalseQuizTable } from "../db/schema";
+import { QuizValues, SelectQuizEditorSchema, TextQuizEditorSchema, TrueFalseQuizEditorSchema } from "./editor";
 import { getQuizHandler, quizTypeHandlers } from "./handlers";
-import {
-  QuizData,
-  SelectQuizSchema,
-  TextQuizSchema,
-  TrueFalseQuizSchema,
-} from "./data";
+import { QuizData, SelectQuizSchema, TextQuizSchema, TrueFalseQuizSchema } from "./data";
 import { notFound } from "next/navigation";
 import { requireRole } from "../auth/actions";
 
@@ -78,10 +63,7 @@ export async function getQuizById(id: number) {
   if (!quiz) return notFound();
 
   const handler = getQuizHandler(quiz.type);
-  const [extra] = await db
-    .select()
-    .from(handler.table)
-    .where(eq(handler.table.quizId, quiz.id));
+  const [extra] = await db.select().from(handler.table).where(eq(handler.table.quizId, quiz.id));
 
   return handler.dataSchema.parse({ ...quiz, ...extra });
 }
@@ -197,14 +179,8 @@ export async function searchQuizzes(query: string) {
 export async function getQuizListStats() {
   const [row] = await db
     .select({
-      publicCount:
-        sql<number>`count(case when ${QuizTable.isPublished} = true then 1 end)`.as(
-          "publicCount",
-        ),
-      privateCount:
-        sql<number>`count(case when ${QuizTable.isPublished} = false then 1 end)`.as(
-          "privateCount",
-        ),
+      publicCount: sql<number>`count(case when ${QuizTable.isPublished} = true then 1 end)`.as("publicCount"),
+      privateCount: sql<number>`count(case when ${QuizTable.isPublished} = false then 1 end)`.as("privateCount"),
     })
     .from(QuizTable);
 

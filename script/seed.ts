@@ -1,6 +1,6 @@
-import { seed } from "./lib/seed";
+import { seeding } from "./lib/seed";
 
-seed().catch((err) => {
+seeding().catch((err) => {
   console.error("Failed to seed database:", err);
   process.exit(1);
 });

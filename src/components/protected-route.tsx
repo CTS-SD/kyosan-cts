@@ -7,11 +7,7 @@ type Props = {
   fallbackUrl?: string;
 };
 
-export const ProtectedRoute = async ({
-  children,
-  roles,
-  fallbackUrl = "/sign-in",
-}: Props) => {
+export const ProtectedRoute = async ({ children, roles, fallbackUrl = "/sign-in" }: Props) => {
   const session = await getSession();
 
   if (!session || !roles.includes(session.user.role)) {

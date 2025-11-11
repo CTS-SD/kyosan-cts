@@ -4,11 +4,7 @@ import { QuizList } from "@/components/admin/quiz/quiz-list";
 import { QuizListStats } from "@/components/admin/quiz/quiz-list-stats";
 import { QuizSearchResults } from "@/components/admin/quiz/quiz-search-results";
 import { Button } from "@/components/ui/button";
-import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupInput,
-} from "@/components/ui/input-group";
+import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
 import { PlusIcon, SearchIcon } from "lucide-react";
 import Link from "next/link";
 import { useQueryState } from "nuqs";
@@ -42,9 +38,7 @@ const Page = () => {
       <div className="mt-4">
         <QuizListStats />
       </div>
-      <div className="mt-4">
-        {computedQuery.length > 0 ? <QuizSearchResults /> : <QuizList />}
-      </div>
+      <div className="mt-4">{computedQuery.length > 0 ? <QuizSearchResults /> : <QuizList />}</div>
     </div>
   );
 };

@@ -8,14 +8,7 @@ import { QuizItem } from "./quiz-item";
 import { QuizListSkeleton } from "./quiz-list-skeleton";
 
 export const QuizList = () => {
-  const {
-    quizzes,
-    isLoading,
-    isFetchingNextPage,
-    isError,
-    hasNextPage,
-    fetchNextPage,
-  } = useQuizList();
+  const { quizzes, isLoading, isFetchingNextPage, isError, hasNextPage, fetchNextPage } = useQuizList();
 
   if (isLoading) return <QuizListSkeleton />;
   if (isError)
@@ -35,12 +28,7 @@ export const QuizList = () => {
       </div>
       {hasNextPage ? (
         <div className="mt-4">
-          <Button
-            className="w-full"
-            variant="outline"
-            onClick={() => fetchNextPage()}
-            disabled={isFetchingNextPage}
-          >
+          <Button className="w-full" variant="outline" onClick={() => fetchNextPage()} disabled={isFetchingNextPage}>
             {isFetchingNextPage ? "読み込み中..." : "さらに表示"}
           </Button>
         </div>

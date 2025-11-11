@@ -1,8 +1,4 @@
-import {
-  SelectQuizTable,
-  TextQuizTable,
-  TrueFalseQuizTable,
-} from "../db/schema";
+import { SelectQuizTable, TextQuizTable, TrueFalseQuizTable } from "../db/schema";
 import { splitByLines } from "../utils";
 import {
   QuizData,
@@ -29,8 +25,7 @@ export const quizTypeHandlers = {
     dataSchema: SelectQuizSchema,
     editorSchema: SelectQuizEditorSchema,
     buildPayload: (quizId: number, values: QuizValues) => {
-      const { correctChoicesText, incorrectChoicesText } =
-        SelectQuizEditorSchema.parse(values);
+      const { correctChoicesText, incorrectChoicesText } = SelectQuizEditorSchema.parse(values);
       return {
         quizId,
         correctChoices: splitByLines(correctChoicesText),

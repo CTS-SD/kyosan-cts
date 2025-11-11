@@ -20,8 +20,7 @@ export const configDefinitions = {
 };
 
 export type ConfigKey = keyof typeof configDefinitions;
-export type ConfigSchema<K extends ConfigKey> =
-  (typeof configDefinitions)[K]["schema"];
+export type ConfigSchema<K extends ConfigKey> = (typeof configDefinitions)[K]["schema"];
 export type ConfigValue<K extends ConfigKey> = z.infer<ConfigSchema<K>>;
 export type ConfigMap = {
   [K in ConfigKey]: ConfigValue<K>;

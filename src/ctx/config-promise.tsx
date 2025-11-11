@@ -7,15 +7,10 @@ const ConfigPromiseContext = createContext<Promise<ConfigMap> | null>(null);
 
 export const useConfigPromise = () => {
   const value = useContext(ConfigPromiseContext);
-  if (!value)
-    throw new Error(
-      "useConfigPromise must be used within a ConfigPromiseProvider",
-    );
+  if (!value) throw new Error("useConfigPromise must be used within a ConfigPromiseProvider");
   return value;
 };
 
-export const ConfigPromiseProvider = (
-  props: React.ComponentProps<typeof ConfigPromiseContext.Provider>,
-) => {
+export const ConfigPromiseProvider = (props: React.ComponentProps<typeof ConfigPromiseContext.Provider>) => {
   return <ConfigPromiseContext.Provider {...props} />;
 };

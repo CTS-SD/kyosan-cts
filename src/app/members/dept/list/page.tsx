@@ -34,9 +34,7 @@ const Page = async () => {
           <DepartmentMembers
             key={department.id}
             department={department}
-            students={students.filter(
-              (student) => student.departmentId === department.id,
-            )}
+            students={students.filter((student) => student.departmentId === department.id)}
           />
         ))}
       </div>

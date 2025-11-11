@@ -48,11 +48,7 @@ export const ClientView = ({ quizzes }: Props) => {
           <XIcon />
         </Button>
       }
-      headerEndContent={
-        session?.user.role === "admin" ? (
-          <QuizPlayAdminMenu quizId={quiz.id} />
-        ) : null
-      }
+      headerEndContent={session?.user.role === "admin" ? <QuizPlayAdminMenu quizId={quiz.id} /> : null}
       addResult={addResult}
       onNext={handleNext}
       className="h-dvh"

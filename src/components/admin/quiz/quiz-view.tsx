@@ -47,12 +47,7 @@ export const QuizView = ({ heading, form, onSubmit }: Props) => {
               {!isNew && <QuizViewMenu quizId={quizId} />}
             </div>
           </div>
-          <QuizEditor
-            form={form}
-            onSubmit={onSubmit}
-            className="mt-6"
-            isNew={isNew}
-          />
+          <QuizEditor form={form} onSubmit={onSubmit} className="mt-6" isNew={isNew} />
         </div>
       </div>
       <div className="sticky top-12 hidden h-[calc(100dvh-48px)] flex-1 overflow-auto overscroll-contain sm:block">
@@ -64,11 +59,7 @@ export const QuizView = ({ heading, form, onSubmit }: Props) => {
             <QuizPreview
               quiz={previewQuiz}
               headerEndContent={
-                <Button
-                  variant="outline"
-                  className=""
-                  onClick={() => setShowPreviewOverlay(false)}
-                >
+                <Button variant="outline" className="" onClick={() => setShowPreviewOverlay(false)}>
                   <XIcon aria-hidden />
                   閉じる
                 </Button>

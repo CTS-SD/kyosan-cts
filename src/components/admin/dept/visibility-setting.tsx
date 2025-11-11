@@ -31,10 +31,7 @@ export const VisibilitySetting = () => {
   const switchId = useId();
 
   const handleSubmit = form.handleSubmit(async (values) => {
-    await upsertConfigValue(
-      "departmentAnnouncementsPublished",
-      values.published,
-    );
+    await upsertConfigValue("departmentAnnouncementsPublished", values.published);
     toast.success("設定を保存しました");
   });
 
@@ -61,13 +58,9 @@ export const VisibilitySetting = () => {
                     disabled={isSubmitting}
                     aria-invalid={fieldState.invalid}
                   />
-                  <FieldLabel htmlFor={switchId}>
-                    {field.value ? "公開中" : "非公開"}
-                  </FieldLabel>
+                  <FieldLabel htmlFor={switchId}>{field.value ? "公開中" : "非公開"}</FieldLabel>
                 </div>
-                {fieldState.invalid && (
-                  <FieldError errors={[fieldState.error]} />
-                )}
+                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
               </Field>
             )}
           />

@@ -13,9 +13,6 @@ export const QuizPlayContext = createContext<{
 
 export const useQuizPlay = () => {
   const value = useContext(QuizPlayContext);
-  if (!value)
-    throw new Error(
-      "useQuizPlay must be used within a QuizPlayContext.Provider",
-    );
+  if (!value) throw new Error("useQuizPlay must be used within a QuizPlayContext.Provider");
   return value;
 };

@@ -35,9 +35,7 @@ export const ClientView = ({ studentName, departmentName }: Props) => {
       <div className="flex flex-col items-center rounded-3xl p-4 text-white">
         <div className="flex flex-col items-center gap-6 text-2xl font-semibold select-none">
           <div className="flex items-baseline transition delay-1000 duration-600 ease-out starting:translate-y-2 starting:opacity-0 starting:blur-xs">
-            <div className="bg-white text-4xl font-bold text-black shadow-xl">
-              {studentName}
-            </div>
+            <div className="bg-white text-4xl font-bold text-black shadow-xl">{studentName}</div>
             <div className="ml-2">さんの</div>
           </div>
           <div className="flex items-baseline text-3xl font-bold *:transition *:starting:opacity-0">
@@ -50,12 +48,7 @@ export const ClientView = ({ studentName, departmentName }: Props) => {
           </div>
           <div className="flex w-fit items-baseline transition delay-6800 duration-400 ease-out starting:scale-80 starting:opacity-0">
             <div className="bg-white shadow-2xl">
-              <div
-                className={cn(
-                  "bg-clip-text text-5xl font-bold text-transparent",
-                  deptAsset.styles,
-                )}
-              >
+              <div className={cn("bg-clip-text text-5xl font-bold text-transparent", deptAsset.styles)}>
                 {departmentName}
               </div>
             </div>
