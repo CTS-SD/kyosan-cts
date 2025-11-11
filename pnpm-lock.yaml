@@ -17,6 +17,9 @@ importers:
       '@neondatabase/serverless':
         specifier: ^1.0.2
         version: 1.0.2
+      '@noble/ciphers':
+        specifier: ^2.0.1
+        version: 2.0.1
       '@paralleldrive/cuid2':
         specifier: ^2.3.1
         version: 2.3.1

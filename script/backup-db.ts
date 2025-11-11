@@ -3,15 +3,16 @@
 import "zx/globals";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { createCipheriv, randomBytes, scryptSync } from "node:crypto";
+import { randomBytes, scryptSync } from "node:crypto";
 import { format } from "date-fns";
+import { xchacha20poly1305 } from "@noble/ciphers/chacha.js";
 import dotenv from "dotenv";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
 
+const secret = process.env.BACKUP_ENCRYPTION_KEY;
 const BACKUP_DIR = ".backups";
 const ENCRYPTED_DIR = ".backups-encrypted";
-const FILE_HEADER = Buffer.from("CTSDB01");
 
 main().catch((err) => {
   console.error(err);
@@ -19,7 +20,8 @@ main().catch((err) => {
 });
 
 async function main() {
-  const secret = process.env.BACKUP_ENCRYPTION_KEY;
+  console.log("Starting database backup...");
+
   if (!secret) {
     throw new Error(`Missing BACKUP_ENCRYPTION_KEY environment variable required to encrypt backups.`);
   }
@@ -38,14 +40,10 @@ async function main() {
 }
 
 async function encryptFile(sourcePath: string, destPath: string, secret: string) {
-  const plaintext = await fs.readFile(sourcePath);
-  const salt = randomBytes(16);
-  const iv = randomBytes(12);
-  const key = scryptSync(secret, salt, 32);
-  const cipher = createCipheriv("aes-256-gcm", key, iv);
-  const ciphertext = Buffer.concat([cipher.update(plaintext), cipher.final()]);
-  const authTag = cipher.getAuthTag();
-
-  const payload = Buffer.concat([FILE_HEADER, salt, iv, authTag, ciphertext]);
-  await fs.writeFile(destPath, payload);
+  const key = Buffer.from(secret, "hex");
+  const nonce = randomBytes(24);
+  const aead = xchacha20poly1305(key, nonce);
+  const data = await fs.readFile(sourcePath);
+  const encrypted = aead.encrypt(data);
+  await fs.writeFile(destPath, Buffer.concat([nonce, encrypted]));
 }
