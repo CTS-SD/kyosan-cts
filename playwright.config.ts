@@ -10,7 +10,7 @@ const BASE_URL = `http://localhost:${PORT}`;
  * See https://playwright.dev/docs/test-configuration.
  */
 export default defineConfig({
-  testDir: "./e2e",
+  testDir: "./tests/e2e",
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -71,7 +71,7 @@ export default defineConfig({
   ],
 
   webServer: {
-    command: "pnpm start --port=3001",
+    command: `pnpm start --port=${PORT}`,
     url: BASE_URL,
     reuseExistingServer: !process.env.CI,
   },
