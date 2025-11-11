@@ -1,10 +1,4 @@
-import {
-  HeartHandshakeIcon,
-  LightbulbIcon,
-  MessageSquareHeartIcon,
-  PartyPopperIcon,
-  SparklesIcon,
-} from "lucide-react";
+import { HeartHandshakeIcon, LightbulbIcon, MessageSquareHeartIcon, PartyPopperIcon, SparklesIcon } from "lucide-react";
 
 enum DeptEnum {
   general = "総務部署",

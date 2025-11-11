@@ -9,11 +9,7 @@ import { requireRole } from "./auth/actions";
 export async function insertStudents(values: StudentValues[]) {
   await requireRole(["admin"]);
   try {
-    const students = await db
-      .insert(StudentTable)
-      .values(values)
-      .returning()
-      .execute();
+    const students = await db.insert(StudentTable).values(values).returning().execute();
 
     return {
       success: true as const,
@@ -31,12 +27,7 @@ export async function insertStudents(values: StudentValues[]) {
 export async function updateStudent(id: number, values: StudentValues) {
   await requireRole(["admin"]);
   try {
-    const [student] = await db
-      .update(StudentTable)
-      .set(values)
-      .where(eq(StudentTable.id, id))
-      .returning()
-      .execute();
+    const [student] = await db.update(StudentTable).set(values).where(eq(StudentTable.id, id)).returning().execute();
     return {
       success: true as const,
       data: student,

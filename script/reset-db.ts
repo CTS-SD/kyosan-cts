@@ -24,13 +24,8 @@ async function main() {
     throw new Error("DATABASE_URL is not set");
   }
 
-  if (
-    !connectionString.endsWith("/test") &&
-    !connectionString.endsWith("/dev")
-  ) {
-    throw new Error(
-      'DATABASE_URL must point to the "test" database to prevent data loss',
-    );
+  if (!connectionString.endsWith("/test") && !connectionString.endsWith("/dev")) {
+    throw new Error('DATABASE_URL must point to the "test" database to prevent data loss');
   }
 
   const client = new Client({ connectionString });
@@ -50,10 +45,7 @@ async function main() {
         password: process.env.TEST_USER_PASSWORD!,
       },
     });
-    await db
-      .update(UserTable)
-      .set({ role: "admin" })
-      .where(eq(UserTable.id, user.id));
+    await db.update(UserTable).set({ role: "admin" }).where(eq(UserTable.id, user.id));
   }
 
   await seeding();

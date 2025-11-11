@@ -6,11 +6,7 @@ type Props = {
   progress: number;
 };
 
-export const QuizPlayHeader = ({
-  startContent,
-  endContent,
-  progress,
-}: Props) => {
+export const QuizPlayHeader = ({ startContent, endContent, progress }: Props) => {
   return (
     <div className="bg-background sticky top-0 flex h-12 shrink-0 items-center gap-2 px-4">
       {startContent}

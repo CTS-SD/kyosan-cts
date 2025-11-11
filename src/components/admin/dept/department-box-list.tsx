@@ -13,9 +13,7 @@ export const DepartmentBoxList = () => {
         <DepartmentBox
           key={department.id}
           name={department.name}
-          students={students.filter(
-            (student) => student.departmentId === department.id,
-          )}
+          students={students.filter((student) => student.departmentId === department.id)}
         />
       ))}
     </div>

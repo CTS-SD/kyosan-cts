@@ -34,13 +34,8 @@ export async function seeding() {
     throw new Error("DATABASE_URL is not set");
   }
 
-  if (
-    !connectionString.endsWith("/test") &&
-    !connectionString.endsWith("/dev")
-  ) {
-    throw new Error(
-      'DATABASE_URL must point to the "test" or "dev" database to prevent data loss',
-    );
+  if (!connectionString.endsWith("/test") && !connectionString.endsWith("/dev")) {
+    throw new Error('DATABASE_URL must point to the "test" or "dev" database to prevent data loss');
   }
 
   faker.seed(1);
@@ -75,11 +70,7 @@ export async function seeding() {
   // Departments
   const departments = await db
     .insert(DepartmentTable)
-    .values(
-      ["総務部署", "レク部署", "SD部署", "開発部署", "広報部署"].map(
-        (name) => ({ name }),
-      ),
-    )
+    .values(["総務部署", "レク部署", "SD部署", "開発部署", "広報部署"].map((name) => ({ name })))
     .returning({ id: DepartmentTable.id });
 
   // Students
@@ -127,12 +118,8 @@ export async function seeding() {
       incorrectChoices: ["1", "3", "4"],
     },
   ]);
-  await db
-    .insert(TextQuizTable)
-    .values([{ quizId: quizIds[1].id, answer: "東京" }]);
-  await db
-    .insert(TrueFalseQuizTable)
-    .values([{ quizId: quizIds[2].id, answer: false }]);
+  await db.insert(TextQuizTable).values([{ quizId: quizIds[1].id, answer: "東京" }]);
+  await db.insert(TrueFalseQuizTable).values([{ quizId: quizIds[2].id, answer: false }]);
 
   await client.end();
 }

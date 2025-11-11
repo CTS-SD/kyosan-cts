@@ -1,10 +1,5 @@
 import { db } from "@/lib/db";
-import {
-  QuizTable,
-  SelectQuizTable,
-  TextQuizTable,
-  TrueFalseQuizTable,
-} from "@/lib/db/schema";
+import { QuizTable, SelectQuizTable, TextQuizTable, TrueFalseQuizTable } from "@/lib/db/schema";
 import { readFile } from "node:fs/promises";
 
 main();
@@ -18,9 +13,7 @@ const typeMap = {
 async function main() {
   await db.delete(QuizTable);
 
-  const quizzes = JSON.parse(
-    await readFile("./script/data.json", "utf-8"),
-  ).toReversed();
+  const quizzes = JSON.parse(await readFile("./script/data.json", "utf-8")).toReversed();
 
   for (const quiz of quizzes) {
     const t = typeMap[quiz.type as keyof typeof typeMap];

@@ -17,19 +17,13 @@ export const getSession = cache(async () =>
 
 export async function getUserById(userId: string) {
   await requireRole(["admin"]);
-  const [user] = await db
-    .select()
-    .from(UserTable)
-    .where(eq(UserTable.id, userId));
+  const [user] = await db.select().from(UserTable).where(eq(UserTable.id, userId));
   return user;
 }
 
 export async function getUserByEmail(email: string) {
   await requireRole(["admin"]);
-  const [user] = await db
-    .select()
-    .from(UserTable)
-    .where(eq(UserTable.email, email));
+  const [user] = await db.select().from(UserTable).where(eq(UserTable.email, email));
   return user;
 }
 
@@ -44,11 +38,7 @@ export async function deleteUser(userId: string) {
   await db.delete(AccountTable).where(eq(AccountTable.userId, userId));
 }
 
-export async function resetMemberPassword({
-  newPassword,
-}: {
-  newPassword: string;
-}) {
+export async function resetMemberPassword({ newPassword }: { newPassword: string }) {
   await requireRole(["admin"]);
 
   const member = await getUserByEmail("cts-member@example.com");

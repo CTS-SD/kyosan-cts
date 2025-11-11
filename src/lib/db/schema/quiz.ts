@@ -1,12 +1,5 @@
 import { InferSelectModel, sql } from "drizzle-orm";
-import {
-  boolean,
-  integer,
-  pgTable,
-  serial,
-  text,
-  timestamp,
-} from "drizzle-orm/pg-core";
+import { boolean, integer, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
 
 export const QuizTable = pgTable("quiz", {
   id: serial("id").primaryKey(),
@@ -14,9 +7,7 @@ export const QuizTable = pgTable("quiz", {
   question: text("question").notNull(),
   explanation: text("explanation"),
   isPublished: boolean("is_published").default(true).notNull(),
-  createdAt: timestamp("created_at", { withTimezone: true })
-    .defaultNow()
-    .notNull(),
+  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow().notNull(),
 });
 
 export const SelectQuizTable = pgTable("select_quiz", {

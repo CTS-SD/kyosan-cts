@@ -13,12 +13,7 @@ export const AdminUserButton = () => {
 
   return (
     <AdminUserMenu>
-      <Button
-        className="size-8 rounded-full"
-        size="icon"
-        variant="ghost"
-        aria-label="ユーザーメニューを開く"
-      >
+      <Button className="size-8 rounded-full" size="icon" variant="ghost" aria-label="ユーザーメニューを開く">
         <UserAvatar className="size-7" user={user} />
       </Button>
     </AdminUserMenu>

@@ -46,19 +46,12 @@ export const QuizResultsView = ({ quizzes, results }: Props) => {
             }}
             transition={{ type: "spring", stiffness: 300, damping: 12 }}
           >
-            <QuizResultItem
-              index={i + 1}
-              result={result}
-              quiz={quizzes.find((q) => q.id === result.quizId)!}
-            />
+            <QuizResultItem index={i + 1} result={result} quiz={quizzes.find((q) => q.id === result.quizId)!} />
           </motion.div>
         ))}
       </motion.div>
       <div className="bg-background sticky bottom-0 mt-6 py-4">
-        <PlayfulButton
-          render={<Link href="/puratto">OK</Link>}
-          className="w-full"
-        />
+        <PlayfulButton render={<Link href="/puratto">OK</Link>} className="w-full" />
       </div>
     </div>
   );

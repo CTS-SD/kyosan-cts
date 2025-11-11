@@ -19,10 +19,7 @@ const Page = async ({ params }: Props) => {
       department: DepartmentTable,
     })
     .from(StudentTable)
-    .innerJoin(
-      DepartmentTable,
-      eq(DepartmentTable.id, StudentTable.departmentId),
-    )
+    .innerJoin(DepartmentTable, eq(DepartmentTable.id, StudentTable.departmentId))
     .where(eq(StudentTable.studentNumber, studentNumber))
     .limit(1)
     .execute();
@@ -33,9 +30,7 @@ const Page = async ({ params }: Props) => {
 
   const { student, department } = data;
 
-  return (
-    <ClientView studentName={student.name} departmentName={department.name} />
-  );
+  return <ClientView studentName={student.name} departmentName={department.name} />;
 };
 
 export default Page;

@@ -1,21 +1,8 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  Field,
-  FieldContent,
-  FieldDescription,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-} from "@/components/ui/field";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
+import { Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Spinner } from "@/components/ui/spinner";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
@@ -47,8 +34,7 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
 
   useNavigationGuard({
     enabled: isDirty && !isSubmitting,
-    confirm: () =>
-      window.confirm("保存されていない変更があります。ページを離れますか？"),
+    confirm: () => window.confirm("保存されていない変更があります。ページを離れますか？"),
   });
 
   return (
@@ -96,11 +82,7 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
               <FieldLabel>解説</FieldLabel>
-              <Textarea
-                {...field}
-                value={field.value ?? ""}
-                placeholder="解説を入力（任意）"
-              />
+              <Textarea {...field} value={field.value ?? ""} placeholder="解説を入力（任意）" />
               {fieldState.invalid && <FieldError />}
             </Field>
           )}
@@ -112,27 +94,16 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
             <Field orientation="horizontal" data-invalid={fieldState.invalid}>
               <FieldContent>
                 <FieldLabel htmlFor="publish">問題を公開する</FieldLabel>
-                <FieldDescription>
-                  非公開にした問題は出題されません
-                </FieldDescription>
+                <FieldDescription>非公開にした問題は出題されません</FieldDescription>
               </FieldContent>
-              <Switch
-                id="publish"
-                checked={field.value}
-                onCheckedChange={field.onChange}
-              />
+              <Switch id="publish" checked={field.value} onCheckedChange={field.onChange} />
               {fieldState.invalid && <FieldError />}
             </Field>
           )}
         />
       </FieldGroup>
       <div className="to-background bg-background/90 sticky bottom-0 -mb-4 flex justify-end gap-2 py-4 backdrop-blur-xs">
-        <Button
-          className="ml-auto"
-          variant="secondary"
-          disabled={isSubmitting}
-          asChild
-        >
+        <Button className="ml-auto" variant="secondary" disabled={isSubmitting} asChild>
           <Link href="/admin/puratto">キャンセル</Link>
         </Button>
         <Button type="submit" disabled={isSubmitting || !isDirty}>

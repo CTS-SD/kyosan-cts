@@ -7,9 +7,7 @@ type Props = {
 };
 
 export const DepartmentBox = ({ name, students }: Props) => {
-  const computedStudents = students.sort((a, b) =>
-    a.studentNumber.localeCompare(b.studentNumber),
-  );
+  const computedStudents = students.sort((a, b) => a.studentNumber.localeCompare(b.studentNumber));
 
   return (
     <section className="bg-muted/50 flex flex-col rounded-2xl border p-1">

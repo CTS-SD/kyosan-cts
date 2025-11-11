@@ -30,11 +30,7 @@ export const QuizSearchResults = () => {
   }
 
   return (
-    <div
-      className={
-        "grid grid-cols-1 gap-4 transition-opacity duration-300 sm:grid-cols-2 lg:grid-cols-3"
-      }
-    >
+    <div className={"grid grid-cols-1 gap-4 transition-opacity duration-300 sm:grid-cols-2 lg:grid-cols-3"}>
       {quizzes.map((quiz) => (
         <QuizItem key={quiz.id} quiz={quiz} />
       ))}

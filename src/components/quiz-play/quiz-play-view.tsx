@@ -15,12 +15,9 @@ import { QuizFormTrueFalse } from "./quiz-form-true-false";
 import { QuizPlayHeader } from "./quiz-play-header";
 import { QuizPlayResult } from "./quiz-play-result";
 
-const QuizFormSelect = dynamic(
-  () => import("@/components/quiz-play/quiz-form-select"),
-  {
-    ssr: false,
-  },
-);
+const QuizFormSelect = dynamic(() => import("@/components/quiz-play/quiz-form-select"), {
+  ssr: false,
+});
 
 type Props = React.ComponentProps<"div"> & {
   quiz: QuizData;
@@ -70,18 +67,9 @@ export const QuizPlayView = ({
   };
 
   return (
-    <QuizPlayContext.Provider
-      value={{ value: userAnswer, setValue: setUserAnswer, quiz, result }}
-    >
-      <div
-        className={cn("mx-auto flex h-full max-w-xl grow flex-col", className)}
-        {...props}
-      >
-        <QuizPlayHeader
-          startContent={headerStartContent}
-          endContent={headerEndContent}
-          progress={progress}
-        />
+    <QuizPlayContext.Provider value={{ value: userAnswer, setValue: setUserAnswer, quiz, result }}>
+      <div className={cn("mx-auto flex h-full max-w-xl grow flex-col", className)} {...props}>
+        <QuizPlayHeader startContent={headerStartContent} endContent={headerEndContent} progress={progress} />
         <form onSubmit={handleSubmit} className="flex shrink-0 grow flex-col">
           <div className="grow">
             <div className="mt-2 mb-6 space-y-4 px-6">

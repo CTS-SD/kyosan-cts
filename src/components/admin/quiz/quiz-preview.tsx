@@ -2,10 +2,7 @@ import { QuizPlayView } from "@/components/quiz-play/quiz-play-view";
 import { Badge } from "@/components/ui/badge";
 import { QuizData } from "@/lib/quiz/data";
 
-type Props = Omit<
-  React.ComponentProps<typeof QuizPlayView>,
-  "quiz" | "progress"
-> & {
+type Props = Omit<React.ComponentProps<typeof QuizPlayView>, "quiz" | "progress"> & {
   quiz: QuizData | null;
 };
 

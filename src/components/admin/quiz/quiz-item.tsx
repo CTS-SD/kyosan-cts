@@ -21,9 +21,7 @@ export const QuizItem = ({ quiz }: Props) => {
         <div className="bg-background rounded-lg border">
           <div className="flex pt-2 pr-3 pl-2">
             <Badge variant="outline">{getQuizTypeLabel(quiz.type)}</Badge>
-            <div className="text-muted-foreground ml-auto shrink-0 text-sm font-medium">
-              #{quiz.id}
-            </div>
+            <div className="text-muted-foreground ml-auto shrink-0 text-sm font-medium">#{quiz.id}</div>
           </div>
           <div className="h-[4.5lh] overflow-clip mask-b-from-60% px-3.5 py-3">
             <Markdown>{quiz.question}</Markdown>
@@ -33,10 +31,7 @@ export const QuizItem = ({ quiz }: Props) => {
       <div className="flex items-center">
         <div className="mx-3 flex h-9 items-center gap-2 truncate">
           <CornerDownRightIcon className="text-muted-foreground size-4 shrink-0" />
-          <QuizAnswerRenderer
-            className="truncate text-sm font-semibold [&_svg]:size-3.5"
-            quiz={quiz}
-          />
+          <QuizAnswerRenderer className="truncate text-sm font-semibold [&_svg]:size-3.5" quiz={quiz} />
         </div>
         {!quiz.isPublished && (
           <div className="mr-1 ml-auto">
