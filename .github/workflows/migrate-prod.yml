@@ -2,7 +2,7 @@ name: Migrate Prod DB
 
 on:
   workflow_run:
-    workflows: ["E2E Tests"]
+    workflows: ["Tests"]
     types: [completed]
 
 jobs:
