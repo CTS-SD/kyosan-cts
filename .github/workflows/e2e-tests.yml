@@ -56,13 +56,13 @@ jobs:
         run: docker compose up -d --wait db_test
 
       - name: Reset Test DB
-        run: pnpm e2e:reset
+        run: pnpm test:e2e:reset
 
       - name: Build app
         run: pnpm build # full build
 
       - name: Run E2E tests
-        run: pnpm e2e:run
+        run: pnpm test:e2e:run
 
       - name: Upload Playwright report
         if: ${{ !cancelled() }}

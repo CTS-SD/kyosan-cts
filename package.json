@@ -13,11 +13,10 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:backup": "tsx script/backup-db.ts",
-    "test": "vitest",
-    "e2e:reset": "dotenv -e .env.test -- sh -c 'pnpm db:migrate && pnpm tsx script/reset-db.ts'",
-    "e2e:build": "dotenv -e .env.test -- pnpm next build --turbo --no-mangling",
-    "e2e:run": "dotenv -e .env.test -- pnpm playwright test",
-    "e2e:studio": "dotenv -e .env.test -- pnpm drizzle-kit studio",
+    "test:unit": "vitest",
+    "test:e2e:reset": "dotenv -e .env.test -- sh -c 'pnpm db:migrate && pnpm tsx script/reset-db.ts'",
+    "test:e2e:build": "NODE_ENV=test pnpm next build --turbo --no-mangling",
+    "test:e2e:run": "playwright test",
     "prepare": "husky"
   },
   "dependencies": {
