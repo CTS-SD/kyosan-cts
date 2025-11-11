@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { Suspense } from "react";
 import { UserButton } from "./user-button";
 
 export const AppHeader = () => {
@@ -8,7 +9,9 @@ export const AppHeader = () => {
         京産キャンスタ
       </Link>
       <div className="ml-auto flex items-center gap-2">
-        <UserButton />
+        <Suspense>
+          <UserButton />
+        </Suspense>
       </div>
     </div>
   );
