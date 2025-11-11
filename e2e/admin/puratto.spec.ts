@@ -29,6 +29,7 @@ async function createQuiz(
     quiz.incorrectChoicesText,
   );
   await page.click("button[type=submit]");
+
   await expect(page.locator("text=問題を作成しました")).toBeVisible();
   await expect(page).toHaveURL(/\/admin\/puratto\/q\/\d+/);
 
@@ -38,9 +39,7 @@ async function createQuiz(
 test("should navigate to quiz page", async ({ authedPage }) => {
   await authedPage.goto("/admin/puratto");
 
-  const quizLink = authedPage.locator("[data-testid=quiz-item]").first();
-  await test.expect(quizLink).toBeVisible();
-  await quizLink.click();
+  await authedPage.locator("[data-testid=quiz-item]").first().click();
   await test.expect(authedPage).toHaveURL(/\/admin\/puratto\/q\/\d+/);
 });
 
@@ -86,12 +85,8 @@ test.describe("quiz management", () => {
       await dialog.accept();
     });
 
-    await page.locator("button[aria-label='問題メニュー']").click();
-    await page
-      .locator("[role='menuitem']", {
-        hasText: "削除",
-      })
-      .click();
+    await page.getByLabel("問題メニュー").click();
+    await page.getByRole("menuitem", { name: "削除" }).click();
     await expect(page.locator("text=問題を削除しました")).toBeVisible();
     await expect(page).toHaveURL("/admin/puratto");
   });
