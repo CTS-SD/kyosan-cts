@@ -1,33 +1,20 @@
-"use client";
-
 import { QuizList } from "@/components/admin/quiz/quiz-list";
 import { QuizListStats } from "@/components/admin/quiz/quiz-list-stats";
+import QuizListWrapper from "@/components/admin/quiz/quiz-list-wrapper";
+import { QuizSearchInput } from "@/components/admin/quiz/quiz-search-input";
 import { QuizSearchResults } from "@/components/admin/quiz/quiz-search-results";
 import { Button } from "@/components/ui/button";
-import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
-import { PlusIcon, SearchIcon } from "lucide-react";
+import { requireRole } from "@/lib/auth/actions";
+import { PlusIcon } from "lucide-react";
 import Link from "next/link";
-import { useQueryState } from "nuqs";
 
-const Page = () => {
-  const [query, setQuery] = useQueryState("q");
-  const computedQuery = query?.trim() ?? "";
+const Page = async () => {
+  await requireRole(["admin"]);
 
   return (
     <div className="mx-auto max-w-6xl p-6">
       <div className="flex gap-2">
-        <InputGroup>
-          <InputGroupAddon>
-            <SearchIcon />
-          </InputGroupAddon>
-          <InputGroupInput
-            type="search"
-            className="grow"
-            placeholder="問題を検索"
-            value={query ?? ""}
-            onChange={(e) => setQuery(e.target.value)}
-          />
-        </InputGroup>
+        <QuizSearchInput />
         <Button className="shrink-0" asChild>
           <Link href="/admin/puratto/q/new">
             新規作成
@@ -38,7 +25,9 @@ const Page = () => {
       <div className="mt-4">
         <QuizListStats />
       </div>
-      <div className="mt-4">{computedQuery.length > 0 ? <QuizSearchResults /> : <QuizList />}</div>
+      <div className="mt-4">
+        <QuizListWrapper />
+      </div>
     </div>
   );
 };

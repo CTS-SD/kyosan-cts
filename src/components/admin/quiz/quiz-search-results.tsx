@@ -1,14 +1,14 @@
+"use client";
+
 import { useQuizSearch } from "@/hooks/query/use-quiz-search";
-import { useDebounce } from "@uidotdev/usehooks";
 import { useQueryState } from "nuqs";
 import { QuizItem } from "./quiz-item";
 import { QuizListSkeleton } from "./quiz-list-skeleton";
 
 export const QuizSearchResults = () => {
   const [query] = useQueryState("q");
-  const q = useDebounce(query, 300);
   const { isPending, isFetching, isError, data } = useQuizSearch({
-    keyword: q ?? "",
+    keyword: query ?? "",
   });
 
   if (isPending) {

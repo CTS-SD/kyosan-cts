@@ -8,6 +8,7 @@ import { auth } from ".";
 import { headers } from "next/headers";
 import { cache } from "react";
 import { notFound } from "next/navigation";
+import { Role } from "./types";
 
 export const getSession = cache(async () =>
   auth.api.getSession({
@@ -60,9 +61,9 @@ export async function resetMemberPassword({ newPassword }: { newPassword: string
   await updateUserRole(result.data.user.id, "member");
 }
 
-export async function requireRole(roles: string[]) {
+export async function requireRole(roles: Role[]) {
   const session = await getSession();
-  if (!session || !roles.includes(session.user.role)) {
+  if (!session || !roles.includes(session.user.role as Role)) {
     return notFound();
   }
   return session;
