@@ -39,8 +39,8 @@ export default async function RootLayout({
   const sessionPromise = getSession();
 
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={cn("antialiased", zenMaruGothic.variable, geistSans.variable, geistMono.variable)}>
+    <html lang="ja" suppressHydrationWarning>
+      <body className={cn("antialiased font-sans", zenMaruGothic.variable, geistSans.variable, geistMono.variable)}>
         <NavigationGuardProvider>
           <NuqsAdapter>
             <SessionPromiseProvider value={sessionPromise}>

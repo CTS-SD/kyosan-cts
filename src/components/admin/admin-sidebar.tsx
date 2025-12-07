@@ -77,7 +77,7 @@ export const AdminSidebar = () => {
       <SidebarHeader className="flex flex-row items-center">
         <SidebarMenu>
           <SidebarMenuItem className="flex items-center gap-2">
-            <SidebarMenuButton className="font-zmg w-fit font-semibold" asChild>
+            <SidebarMenuButton className="font-accent w-fit font-semibold" asChild>
               <Link href="/">京産キャンスタ</Link>
             </SidebarMenuButton>
             <Badge asChild>
