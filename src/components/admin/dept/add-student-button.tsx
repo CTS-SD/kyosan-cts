@@ -4,10 +4,10 @@ import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogClose,
+  DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
-  DialogPopup,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
@@ -34,15 +34,13 @@ export const AddStudentButton = () => {
 
   return (
     <Dialog>
-      <DialogTrigger
-        render={
-          <Button>
-            学生を追加
-            <PlusIcon />
-          </Button>
-        }
-      />
-      <DialogPopup>
+      <DialogTrigger asChild>
+        <Button>
+          学生を追加
+          <PlusIcon />
+        </Button>
+      </DialogTrigger>
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>学生を追加</DialogTitle>
           <DialogDescription>配属発表ページに表示する学生を追加します</DialogDescription>
@@ -51,20 +49,18 @@ export const AddStudentButton = () => {
           onSubmit={handleAddStudent}
           footerContent={(formState) => (
             <DialogFooter>
-              <DialogClose
-                render={
-                  <Button type="button" variant="secondary">
-                    キャンセル
-                  </Button>
-                }
-              />
+              <DialogClose asChild>
+                <Button type="button" variant="secondary">
+                  キャンセル
+                </Button>
+              </DialogClose>
               <Button type="submit" disabled={!formState.isDirty}>
                 追加
               </Button>
             </DialogFooter>
           )}
         />
-      </DialogPopup>
+      </DialogContent>
     </Dialog>
   );
 };

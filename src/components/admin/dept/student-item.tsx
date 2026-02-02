@@ -6,7 +6,7 @@ import {
   DialogClose,
   DialogFooter,
   DialogHeader,
-  DialogPopup,
+  DialogContent,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
@@ -65,7 +65,7 @@ export const StudentItem = ({ student }: Props) => {
           <div>{getFacultyName(student.facultyId)}</div>
         </div>
       </DialogTrigger>
-      <DialogPopup>
+      <DialogContent>
         <DialogHeader>
           <DialogTitle>学生を編集</DialogTitle>
         </DialogHeader>
@@ -74,32 +74,24 @@ export const StudentItem = ({ student }: Props) => {
           onSubmit={handleUpdateStudent}
           footerContent={(formState) => (
             <>
-              <Button
-                type="button"
-                variant="destructive-outline"
-                size="sm"
-                className="w-fit"
-                onClick={handleDeleteStudent}
-              >
+              <Button type="button" variant="destructive" size="sm" className="w-fit" onClick={handleDeleteStudent}>
                 <Trash2Icon />
                 削除
               </Button>
-              <DialogFooter>
-                <DialogClose
-                  render={
-                    <Button type="button" variant="ghost">
-                      キャンセル
-                    </Button>
-                  }
-                />
+              <>
+                <DialogClose asChild>
+                  <Button type="button" variant="ghost">
+                    キャンセル
+                  </Button>
+                </DialogClose>
                 <Button type="submit" disabled={!formState.isDirty}>
                   保存
                 </Button>
-              </DialogFooter>
+              </>
             </>
           )}
         />
-      </DialogPopup>
+      </DialogContent>
     </Dialog>
   );
 };

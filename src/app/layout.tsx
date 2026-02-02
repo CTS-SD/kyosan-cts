@@ -40,7 +40,7 @@ export default async function RootLayout({
 
   return (
     <html lang="ja" suppressHydrationWarning>
-      <body className={cn("antialiased font-sans", zenMaruGothic.variable, geistSans.variable, geistMono.variable)}>
+      <body className={cn("font-sans antialiased", zenMaruGothic.variable, geistSans.variable, geistMono.variable)}>
         <NavigationGuardProvider>
           <NuqsAdapter>
             <SessionPromiseProvider value={sessionPromise}>

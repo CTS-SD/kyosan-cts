@@ -7,4 +7,3 @@ test("splitByLines", () => {
   const results = splitByLines(lines.join("\n"));
   expect(results).toEqual(expected);
 });
-
