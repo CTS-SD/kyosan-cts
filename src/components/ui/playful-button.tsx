@@ -1,9 +1,8 @@
-import { mergeProps } from "@base-ui-components/react/merge-props";
-import { useRender } from "@base-ui-components/react/use-render";
 import { cva, type VariantProps } from "class-variance-authority";
 import type * as React from "react";
 
 import { cn } from "@/lib/utils";
+import { Slot } from "radix-ui";
 
 const playfulButtonVariants = cva(
   "flex select-none justify-center text-balance text-center font-bold leading-tight transition-all duration-100 not-disabled:active:translate-y-0.5 not-disabled:active:shadow-none",
@@ -77,26 +76,28 @@ const playfulButtonVariants = cva(
   },
 );
 
-interface ButtonProps extends useRender.ComponentProps<"button"> {
-  variant?: VariantProps<typeof playfulButtonVariants>["variant"];
-  tint?: VariantProps<typeof playfulButtonVariants>["tint"];
-  size?: VariantProps<typeof playfulButtonVariants>["size"];
-}
+function PlayfulButton({
+  className,
+  variant = "solid",
+  tint = "green",
+  size = "md",
+  asChild = false,
+  ...props
+}: React.ComponentProps<"button"> &
+  VariantProps<typeof playfulButtonVariants> & {
+    asChild?: boolean;
+  }) {
+  const Comp = asChild ? Slot.Root : "button";
 
-function PlayfulButton({ className, variant, tint, size, render, ...props }: ButtonProps) {
-  const typeValue: React.ButtonHTMLAttributes<HTMLButtonElement>["type"] = render ? undefined : "button";
-
-  const defaultProps = {
-    "data-slot": "button",
-    className: cn(playfulButtonVariants({ tint, variant, size, className })),
-    type: typeValue,
-  };
-
-  return useRender({
-    defaultTagName: "button",
-    render,
-    props: mergeProps<"button">(defaultProps, props),
-  });
+  return (
+    <Comp
+      data-slot="button"
+      data-variant={variant}
+      data-size={size}
+      className={cn(playfulButtonVariants({ variant, tint, size, className }))}
+      {...props}
+    />
+  );
 }
 
 export { PlayfulButton, playfulButtonVariants };

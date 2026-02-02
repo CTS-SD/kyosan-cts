@@ -50,6 +50,7 @@ export const QuizPlayResult = ({ result, quiz }: Props) => {
         <div className="ml-auto">
           {hasExplanation && (
             <PlayfulButton
+              type="button"
               tint={result.isCorrect ? "green" : "red"}
               variant="outline"
               size="sm"

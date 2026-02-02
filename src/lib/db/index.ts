@@ -4,5 +4,5 @@ import { env } from "../env";
 
 export const db = drizzle(env.DATABASE_URL, {
   schema,
-  logger: process.env.NODE_ENV !== "production",
+  logger: env.NODE_ENV === "development",
 });

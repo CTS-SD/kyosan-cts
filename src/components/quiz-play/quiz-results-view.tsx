@@ -51,7 +51,9 @@ export const QuizResultsView = ({ quizzes, results }: Props) => {
         ))}
       </motion.div>
       <div className="sticky bottom-0 mt-6 bg-background py-4">
-        <PlayfulButton render={<Link href="/puratto">OK</Link>} className="w-full" />
+        <PlayfulButton asChild>
+          <Link href="/puratto">OK</Link>
+        </PlayfulButton>
       </div>
     </div>
   );
