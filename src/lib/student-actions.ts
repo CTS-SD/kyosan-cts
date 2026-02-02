@@ -1,10 +1,10 @@
 "use server";
 
+import { eq } from "drizzle-orm";
+import { requireRole } from "./auth/actions";
 import { db } from "./db";
 import { StudentTable } from "./db/schema";
-import { eq } from "drizzle-orm";
-import { StudentValues } from "./student-editor";
-import { requireRole } from "./auth/actions";
+import type { StudentValues } from "./student-editor";
 
 export async function insertStudents(values: StudentValues[]) {
   await requireRole(["admin"]);

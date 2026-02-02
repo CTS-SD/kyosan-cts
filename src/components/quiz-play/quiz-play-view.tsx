@@ -1,13 +1,13 @@
 "use client";
 
-import { QuizPlayContext } from "@/ctx/quiz-play";
-import { QuizResult } from "@/lib/quiz-form";
-import { QuizData } from "@/lib/quiz/data";
-import { judgeQuiz } from "@/lib/quiz/judge";
-import { getQuizPrompt } from "@/lib/quiz/types";
-import { cn } from "@/lib/utils";
 import dynamic from "next/dynamic";
 import { useState } from "react";
+import { QuizPlayContext } from "@/ctx/quiz-play";
+import type { QuizData } from "@/lib/quiz/data";
+import { judgeQuiz } from "@/lib/quiz/judge";
+import { getQuizPrompt } from "@/lib/quiz/types";
+import type { QuizResult } from "@/lib/quiz-form";
+import { cn } from "@/lib/utils";
 import { Markdown } from "../markdown";
 import { PlayfulButton } from "../ui/playful-button";
 import { QuizFormText } from "./quiz-form-text";
@@ -73,7 +73,7 @@ export const QuizPlayView = ({
         <form onSubmit={handleSubmit} className="flex shrink-0 grow flex-col">
           <div className="grow">
             <div className="mt-2 mb-6 space-y-4 px-6">
-              <div className="text-xl font-bold">{getQuizPrompt(quiz)}</div>
+              <div className="font-bold text-xl">{getQuizPrompt(quiz)}</div>
               <div className="">
                 <Markdown>{quiz.question}</Markdown>
               </div>
@@ -85,10 +85,10 @@ export const QuizPlayView = ({
             </div>
           </div>
           <div
-            className={cn("bg-background sticky bottom-0 backdrop-blur-lg", {
-              "dark:bg-background dark:border-border border-t-2 border-green-100 bg-green-50":
+            className={cn("sticky bottom-0 bg-background backdrop-blur-lg", {
+              "border-green-100 border-t-2 bg-green-50 dark:border-border dark:bg-background":
                 showAnswer && result.isCorrect,
-              "dark:bg-background dark:border-border border-t-2 border-red-100 bg-red-50":
+              "border-red-100 border-t-2 bg-red-50 dark:border-border dark:bg-background":
                 showAnswer && !result.isCorrect,
             })}
           >

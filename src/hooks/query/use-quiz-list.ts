@@ -1,5 +1,5 @@
-import { getQuizzes } from "@/lib/quiz/actions";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { getQuizzes } from "@/lib/quiz/actions";
 
 const PAGE_SIZE = 24;
 

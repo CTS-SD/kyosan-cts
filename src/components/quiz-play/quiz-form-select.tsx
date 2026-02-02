@@ -1,9 +1,9 @@
 "use client";
 
-import { useQuizPlay } from "@/ctx/quiz-play";
-import { SelectQuizData } from "@/lib/quiz/data";
 import { shuffle } from "es-toolkit";
 import { useMemo } from "react";
+import { useQuizPlay } from "@/ctx/quiz-play";
+import type { SelectQuizData } from "@/lib/quiz/data";
 import { PlayfulButton } from "../ui/playful-button";
 
 type Props = {

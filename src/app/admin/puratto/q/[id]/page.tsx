@@ -1,5 +1,5 @@
-import { getQuizById } from "@/lib/quiz/actions";
 import { notFound } from "next/navigation";
+import { getQuizById } from "@/lib/quiz/actions";
 import { ClientView } from "./client-view";
 
 type Props = {
@@ -10,7 +10,7 @@ const Page = async ({ params }: Props) => {
   const { id } = await params;
   const quizId = parseInt(id, 10);
 
-  if (isNaN(quizId)) return notFound();
+  if (Number.isNaN(quizId)) return notFound();
 
   const quiz = await getQuizById(quizId);
 

@@ -1,12 +1,12 @@
+import { eq } from "drizzle-orm";
+import { ImageIcon } from "lucide-react";
+import Link from "next/link";
+import { notFound } from "next/navigation";
 import { DepartmentMembers } from "@/components/members/dept/department-members";
 import { Button } from "@/components/ui/button";
 import { getConfig } from "@/lib/config/actions";
 import { db } from "@/lib/db";
 import { DepartmentTable, FacultyTable, StudentTable } from "@/lib/db/schema";
-import { eq } from "drizzle-orm";
-import { ImageIcon } from "lucide-react";
-import Link from "next/link";
-import { notFound } from "next/navigation";
 
 export const dynamic = "force-dynamic";
 

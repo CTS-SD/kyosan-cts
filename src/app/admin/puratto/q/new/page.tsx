@@ -1,11 +1,11 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { QuizView } from "@/components/admin/quiz/quiz-view";
 import { useQuizForm } from "@/hooks/use-quiz-form";
 import { insertQuiz } from "@/lib/quiz/actions";
-import { QuizValues } from "@/lib/quiz/editor";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
+import type { QuizValues } from "@/lib/quiz/editor";
 
 const Page = () => {
   const router = useRouter();

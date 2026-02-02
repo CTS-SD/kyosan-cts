@@ -1,9 +1,9 @@
 "use client";
 
-import { useQuizPlay } from "@/ctx/quiz-play";
 import { CircleIcon, XIcon } from "lucide-react";
+import { useQuizPlay } from "@/ctx/quiz-play";
+import type { TrueFalseQuizData } from "@/lib/quiz/data";
 import { PlayfulButton } from "../ui/playful-button";
-import { TrueFalseQuizData } from "@/lib/quiz/data";
 
 type Props = {
   quiz: TrueFalseQuizData;

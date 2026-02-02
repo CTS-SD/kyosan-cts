@@ -1,6 +1,6 @@
 import z from "zod";
-import { QuizData } from "./data";
 import { splitByLines } from "../utils";
+import type { QuizData } from "./data";
 
 /**
  * Split a string by lines, trim each line, and remove empty lines.

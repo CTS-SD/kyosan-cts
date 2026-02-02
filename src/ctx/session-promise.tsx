@@ -1,7 +1,7 @@
 "use client";
 
-import { GetSessionReturn } from "@/lib/auth/types";
 import { createContext, useContext } from "react";
+import type { GetSessionReturn } from "@/lib/auth/types";
 
 const SessionPromiseContext = createContext<Promise<GetSessionReturn> | null>(null);
 

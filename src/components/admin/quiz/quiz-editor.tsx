@@ -1,16 +1,16 @@
 "use client";
 
+import Link from "next/link";
+import { useNavigationGuard } from "next-navigation-guard";
+import { Controller, type UseFormReturn } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import { Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Spinner } from "@/components/ui/spinner";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
-import { QuizValues } from "@/lib/quiz/editor";
+import type { QuizValues } from "@/lib/quiz/editor";
 import { quizTypes } from "@/lib/quiz/types";
-import { useNavigationGuard } from "next-navigation-guard";
-import Link from "next/link";
-import { Controller, UseFormReturn } from "react-hook-form";
 import { QuizEditorSelect } from "./quiz-editor-select";
 import { QuizEditorText } from "./quiz-editor-text";
 import { QuizEditorTrueFalse } from "./quiz-editor-true-false";
@@ -102,7 +102,7 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
           )}
         />
       </FieldGroup>
-      <div className="to-background bg-background/90 sticky bottom-0 -mb-4 flex justify-end gap-2 py-4 backdrop-blur-xs">
+      <div className="sticky bottom-0 -mb-4 flex justify-end gap-2 bg-background/90 to-background py-4 backdrop-blur-xs">
         <Button className="ml-auto" variant="secondary" disabled={isSubmitting} asChild>
           <Link href="/admin/puratto">キャンセル</Link>
         </Button>

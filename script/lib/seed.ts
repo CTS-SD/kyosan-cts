@@ -1,3 +1,7 @@
+import { fakerJA as faker } from "@faker-js/faker";
+import { drizzle } from "drizzle-orm/node-postgres";
+import { Client } from "pg";
+import * as schema from "@/lib/db/schema";
 import {
   DepartmentTable,
   FacultyTable,
@@ -7,10 +11,6 @@ import {
   TextQuizTable,
   TrueFalseQuizTable,
 } from "@/lib/db/schema";
-import * as schema from "@/lib/db/schema";
-import { drizzle } from "drizzle-orm/node-postgres";
-import { fakerJA as faker } from "@faker-js/faker";
-import { Client } from "pg";
 
 const usedStudentNumbers = new Set<string>();
 
@@ -75,19 +75,17 @@ export async function seeding() {
 
   // Students
   await db.insert(StudentTable).values(
-    departments
-      .map((dept) =>
-        Array.from({ length: 5 }).map(() => {
-          const faculty = faker.helpers.arrayElement(faculties);
-          return {
-            name: faker.person.fullName(),
-            departmentId: dept.id,
-            facultyId: faculty.id,
-            studentNumber: generateStudentNumber(),
-          };
-        }),
-      )
-      .flat(),
+    departments.flatMap((dept) =>
+      Array.from({ length: 5 }).map(() => {
+        const faculty = faker.helpers.arrayElement(faculties);
+        return {
+          name: faker.person.fullName(),
+          departmentId: dept.id,
+          facultyId: faculty.id,
+          studentNumber: generateStudentNumber(),
+        };
+      }),
+    ),
   );
 
   // Quizzes

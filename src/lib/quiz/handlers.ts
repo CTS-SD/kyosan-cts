@@ -1,23 +1,7 @@
 import { SelectQuizTable, TextQuizTable, TrueFalseQuizTable } from "../db/schema";
 import { splitByLines } from "../utils";
-import {
-  QuizData,
-  SelectQuizData,
-  SelectQuizSchema,
-  TextQuizData,
-  TextQuizSchema,
-  TrueFalseQuizData,
-  TrueFalseQuizSchema,
-} from "./data";
-import {
-  QuizValues,
-  SelectQuizEditorSchema,
-  SelectQuizValues,
-  TextQuizEditorSchema,
-  TextQuizValues,
-  TrueFalseQuizEditorSchema,
-  TrueFalseQuizValues,
-} from "./editor";
+import { SelectQuizSchema, TextQuizSchema, TrueFalseQuizSchema } from "./data";
+import { type QuizValues, SelectQuizEditorSchema, TextQuizEditorSchema, TrueFalseQuizEditorSchema } from "./editor";
 
 export const quizTypeHandlers = {
   select: {

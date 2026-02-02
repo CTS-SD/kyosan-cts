@@ -1,23 +1,15 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogClose,
-  DialogFooter,
-  DialogHeader,
-  DialogContent,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-import { useStudentBundlePromise } from "@/ctx/student-bundle-promise";
-import { Student } from "@/lib/db/schema";
-import * as studentActions from "@/lib/student-actions";
-import { StudentValues } from "@/lib/student-editor";
 import { Trash2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { use } from "react";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogClose, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { useStudentBundlePromise } from "@/ctx/student-bundle-promise";
+import type { Student } from "@/lib/db/schema";
+import * as studentActions from "@/lib/student-actions";
+import type { StudentValues } from "@/lib/student-editor";
 import { StudentEditor } from "./student-editor";
 
 type Props = {
@@ -58,9 +50,9 @@ export const StudentItem = ({ student }: Props) => {
 
   return (
     <Dialog>
-      <DialogTrigger className="hover:bg-muted flex w-full flex-col items-start rounded-md px-3 py-1.5">
+      <DialogTrigger className="flex w-full flex-col items-start rounded-md px-3 py-1.5 hover:bg-muted">
         <div className="text-start font-medium">{student.name}</div>
-        <div className="text-foreground/60 flex gap-2 text-sm">
+        <div className="flex gap-2 text-foreground/60 text-sm">
           <div>{student.studentNumber}</div>
           <div>{getFacultyName(student.facultyId)}</div>
         </div>
@@ -78,16 +70,15 @@ export const StudentItem = ({ student }: Props) => {
                 <Trash2Icon />
                 削除
               </Button>
-              <>
-                <DialogClose asChild>
-                  <Button type="button" variant="ghost">
-                    キャンセル
-                  </Button>
-                </DialogClose>
-                <Button type="submit" disabled={!formState.isDirty}>
-                  保存
+
+              <DialogClose asChild>
+                <Button type="button" variant="ghost">
+                  キャンセル
                 </Button>
-              </>
+              </DialogClose>
+              <Button type="submit" disabled={!formState.isDirty}>
+                保存
+              </Button>
             </>
           )}
         />

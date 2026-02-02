@@ -1,11 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Field, FieldError } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { Setting } from "@/components/ui/setting";
-import { useConfigPromise } from "@/ctx/config-promise";
-import { upsertConfigValue } from "@/lib/config/actions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ExternalLinkIcon } from "lucide-react";
 import Link from "next/link";
@@ -13,6 +7,12 @@ import { use } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
+import { Button } from "@/components/ui/button";
+import { Field, FieldError } from "@/components/ui/field";
+import { Input } from "@/components/ui/input";
+import { Setting } from "@/components/ui/setting";
+import { useConfigPromise } from "@/ctx/config-promise";
+import { upsertConfigValue } from "@/lib/config/actions";
 
 const FormSchema = z.object({
   imageUrl: z.url("有効なURLを入力してください。").or(z.literal("")),

@@ -1,14 +1,14 @@
 "use client";
 
+import { EyeClosedIcon, EyeIcon } from "lucide-react";
+import { useState, useTransition } from "react";
+import { toast } from "sonner";
 import { GoogleIcon } from "@/components/icons/google-icon";
 import { Button } from "@/components/ui/button";
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@/components/ui/input-group";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
 import { signIn } from "@/lib/auth/client";
-import { EyeClosedIcon, EyeIcon } from "lucide-react";
-import { useState, useTransition } from "react";
-import { toast } from "sonner";
 
 const getErrorMessage = (message?: string) => {
   if (message?.includes("password")) {
@@ -55,7 +55,7 @@ const Page = () => {
   return (
     <div className="mx-auto flex max-w-sm flex-col px-6 py-20">
       <div className="flex flex-col gap-6">
-        <h1 className="text-center text-lg font-semibold">ログイン</h1>
+        <h1 className="text-center font-semibold text-lg">ログイン</h1>
         <form className="flex flex-col gap-2 px-6" onSubmit={staffSignIn}>
           <InputGroup className="w-full">
             <InputGroupInput
@@ -84,7 +84,7 @@ const Page = () => {
         </form>
         <div className="relative">
           <Separator />
-          <span className="bg-background text-muted-foreground absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 px-2 text-sm">
+          <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-background px-2 text-muted-foreground text-sm">
             OR
           </span>
         </div>

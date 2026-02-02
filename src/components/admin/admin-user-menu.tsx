@@ -1,5 +1,7 @@
 "use client";
 
+import { LogOutIcon } from "lucide-react";
+import { use } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,9 +11,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useSessionPromise } from "@/ctx/session-promise";
 import { signOut } from "@/lib/auth/client";
-import { HomeIcon, LogOutIcon } from "lucide-react";
-import Link from "next/link";
-import { use } from "react";
 import { ThemeSubmenu } from "../theme-submenu";
 
 export const AdminUserMenu = (props: React.ComponentProps<typeof DropdownMenuTrigger>) => {

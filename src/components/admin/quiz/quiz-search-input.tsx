@@ -1,10 +1,10 @@
 "use client";
 
-import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
 import { useDebounce } from "@uidotdev/usehooks";
 import { SearchIcon } from "lucide-react";
 import { useQueryState } from "nuqs";
 import { useEffect, useState } from "react";
+import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
 
 export const QuizSearchInput = () => {
   const [query, setQuery] = useQueryState("q");

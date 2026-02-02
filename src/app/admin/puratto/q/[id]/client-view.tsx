@@ -1,11 +1,11 @@
 "use client";
 
+import { toast } from "sonner";
 import { QuizView } from "@/components/admin/quiz/quiz-view";
 import { useQuizForm } from "@/hooks/use-quiz-form";
 import { updateQuiz } from "@/lib/quiz/actions";
-import { QuizData } from "@/lib/quiz/data";
-import { makeDefaultValues, QuizValues } from "@/lib/quiz/editor";
-import { toast } from "sonner";
+import type { QuizData } from "@/lib/quiz/data";
+import { makeDefaultValues, type QuizValues } from "@/lib/quiz/editor";
 
 type Props = {
   quiz: QuizData;
@@ -26,7 +26,7 @@ export const ClientView = ({ quiz }: Props) => {
     <QuizView
       heading={
         <div className="flex gap-1">
-          問題 <span className="text-foreground/40 font-semibold">#{quiz.id}</span>
+          問題 <span className="font-semibold text-foreground/40">#{quiz.id}</span>
         </div>
       }
       form={form}

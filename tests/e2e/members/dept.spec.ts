@@ -1,4 +1,4 @@
-import { test, expect } from "../fixtures";
+import { expect, test } from "../fixtures";
 
 test("members dept page", async ({ authedPage: page }) => {
   await page.goto("/members/dept");

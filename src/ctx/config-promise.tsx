@@ -1,7 +1,7 @@
 "use client";
 
-import { ConfigMap } from "@/lib/config/definitions";
 import { createContext, useContext } from "react";
+import type { ConfigMap } from "@/lib/config/definitions";
 
 const ConfigPromiseContext = createContext<Promise<ConfigMap> | null>(null);
 

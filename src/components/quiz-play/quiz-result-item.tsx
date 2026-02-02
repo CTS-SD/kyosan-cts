@@ -1,5 +1,5 @@
-import { QuizResult } from "@/lib/quiz-form";
-import { QuizData } from "@/lib/quiz/data";
+import type { QuizData } from "@/lib/quiz/data";
+import type { QuizResult } from "@/lib/quiz-form";
 import { Markdown } from "../markdown";
 import { QuizAnswerRenderer } from "../quiz-answer-renderer";
 import { Badge } from "../ui/badge";
@@ -13,7 +13,7 @@ type Props = {
 export const QuizResultItem = ({ result, quiz, index }: Props) => {
   return (
     <div className="">
-      <div className="bg-background shadow-border space-y-3 rounded-xl border px-3 pt-3 pb-3 shadow-[0_2px]">
+      <div className="space-y-3 rounded-xl border bg-background px-3 pt-3 pb-3 shadow-[0_2px] shadow-border">
         <div className="flex gap-2">
           <Badge variant="secondary">第{index}問</Badge>
           <Badge variant="outline">

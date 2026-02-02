@@ -1,9 +1,9 @@
-import { Button } from "@/components/ui/button";
-import { makePseudoQuiz, QuizValues } from "@/lib/quiz/editor";
 import { ArrowLeftIcon, EyeIcon, XIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { UseFormReturn } from "react-hook-form";
+import type { UseFormReturn } from "react-hook-form";
+import { Button } from "@/components/ui/button";
+import { makePseudoQuiz, type QuizValues } from "@/lib/quiz/editor";
 import { QuizEditor } from "./quiz-editor";
 import { QuizPreview } from "./quiz-preview";
 import { QuizViewMenu } from "./quiz-view-menu";
@@ -54,7 +54,7 @@ export const QuizView = ({ heading, form, onSubmit }: Props) => {
         <QuizPreview quiz={previewQuiz} />
       </div>
       {showPreviewOverlay && (
-        <div className="bg-background fixed inset-0 z-30 flex flex-col overflow-auto overscroll-contain transition-all duration-200 ease-out sm:hidden starting:scale-95 starting:opacity-0">
+        <div className="fixed inset-0 z-30 flex starting:scale-95 flex-col overflow-auto overscroll-contain bg-background starting:opacity-0 transition-all duration-200 ease-out sm:hidden">
           <div className="w-full grow">
             <QuizPreview
               quiz={previewQuiz}

@@ -1,7 +1,7 @@
+import { eq, sql } from "drizzle-orm";
 import { getConfig } from "@/lib/config/actions";
 import { QuizTable } from "@/lib/db/schema";
 import { getQuizzes } from "@/lib/quiz/actions";
-import { eq, sql } from "drizzle-orm";
 import { ClientView } from "./client-view";
 
 export const revalidate = 0;

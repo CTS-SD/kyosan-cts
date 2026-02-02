@@ -1,5 +1,5 @@
-import { test as base, expect } from "@playwright/test";
 import type { Page } from "@playwright/test";
+import { test as base, expect } from "@playwright/test";
 
 const AUTH_LOGIN_PATH = "/api/auth/test-login";
 

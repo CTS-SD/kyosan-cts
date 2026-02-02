@@ -1,5 +1,5 @@
-import { getQuizListStats } from "@/lib/quiz/actions";
 import { useQuery } from "@tanstack/react-query";
+import { getQuizListStats } from "@/lib/quiz/actions";
 
 export const useQuizListStats = () => {
   const query = useQuery({

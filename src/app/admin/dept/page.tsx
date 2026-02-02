@@ -1,12 +1,12 @@
+import { ArrowUpRightIcon } from "lucide-react";
+import Link from "next/link";
+import { Suspense } from "react";
 import { AddStudentButton } from "@/components/admin/dept/add-student-button";
 import { DepartmentBoxList } from "@/components/admin/dept/department-box-list";
 import { DepartmentBoxListFallback } from "@/components/admin/dept/department-box-list-fallback";
 import { Button } from "@/components/ui/button";
 import { StudentBundlePromiseProvider } from "@/ctx/student-bundle-promise";
 import { getStudentBundle } from "@/lib/students";
-import { ArrowUpRightIcon } from "lucide-react";
-import Link from "next/link";
-import { Suspense } from "react";
 
 const Page = () => {
   const studentBundlePromise = getStudentBundle();

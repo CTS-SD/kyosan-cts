@@ -1,9 +1,9 @@
 "use client";
 
+import { AlertCircleIcon } from "lucide-react";
 import { Alert, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { useQuizList } from "@/hooks/query/use-quiz-list";
-import { AlertCircleIcon } from "lucide-react";
 import { QuizItem } from "./quiz-item";
 import { QuizListSkeleton } from "./quiz-list-skeleton";
 

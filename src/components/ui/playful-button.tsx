@@ -1,16 +1,16 @@
 import { mergeProps } from "@base-ui-components/react/merge-props";
 import { useRender } from "@base-ui-components/react/use-render";
 import { cva, type VariantProps } from "class-variance-authority";
-import * as React from "react";
+import type * as React from "react";
 
 import { cn } from "@/lib/utils";
 
 const playfulButtonVariants = cva(
-  "select-none not-disabled:active:shadow-none flex justify-center text-balance leading-tight text-center font-bold transition-all duration-100 not-disabled:active:translate-y-0.5",
+  "flex select-none justify-center text-balance text-center font-bold leading-tight transition-all duration-100 not-disabled:active:translate-y-0.5 not-disabled:active:shadow-none",
   {
     variants: {
       variant: {
-        solid: "bg-[var(--tint)] shadow-[0_3px_0] text-white dark:text-black",
+        solid: "bg-[var(--tint)] text-white shadow-[0_3px_0] dark:text-black",
         outline: "border shadow-[0_2px_0]",
       },
       tint: {
@@ -20,8 +20,8 @@ const playfulButtonVariants = cva(
         blue: "",
       },
       size: {
-        sm: "text-sm py-1.5 px-2.5 rounded-lg",
-        md: "text-base py-2.5 px-3 rounded-lg",
+        sm: "rounded-lg px-2.5 py-1.5 text-sm",
+        md: "rounded-lg px-3 py-2.5 text-base",
       },
     },
     compoundVariants: [
@@ -33,7 +33,7 @@ const playfulButtonVariants = cva(
       {
         variant: "outline",
         tint: "default",
-        class: "border-neutral-300 shadow-neutral-300 dark:border-neutral-800 dark:shadow-neutral-800 dark:bg-muted/10",
+        class: "border-neutral-300 shadow-neutral-300 dark:border-neutral-800 dark:bg-muted/10 dark:shadow-neutral-800",
       },
       {
         variant: "solid",
@@ -44,7 +44,7 @@ const playfulButtonVariants = cva(
         variant: "outline",
         tint: "red",
         class:
-          "border-red-300 shadow-red-300 bg-red-50 text-red-500 dark:bg-red-500/10 dark:border-red-400/50 dark:shadow-red-400/50 dark:text-red-400",
+          "border-red-300 bg-red-50 text-red-500 shadow-red-300 dark:border-red-400/50 dark:bg-red-500/10 dark:text-red-400 dark:shadow-red-400/50",
       },
       {
         variant: "solid",
@@ -55,7 +55,7 @@ const playfulButtonVariants = cva(
         variant: "outline",
         tint: "green",
         class:
-          "border-green-300 shadow-green-300 bg-green-50 text-green-500 dark:bg-green-500/10 dark:border-green-400/50 dark:shadow-green-400/50 dark:text-green-400",
+          "border-green-300 bg-green-50 text-green-500 shadow-green-300 dark:border-green-400/50 dark:bg-green-500/10 dark:text-green-400 dark:shadow-green-400/50",
       },
       {
         variant: "solid",
@@ -66,7 +66,7 @@ const playfulButtonVariants = cva(
         variant: "outline",
         tint: "blue",
         class:
-          "border-blue-300 shadow-blue-300 bg-blue-50 text-blue-500 dark:bg-blue-500/10 dark:border-blue-400/50 dark:shadow-blue-400/50 dark:text-blue-400",
+          "border-blue-300 bg-blue-50 text-blue-500 shadow-blue-300 dark:border-blue-400/50 dark:bg-blue-500/10 dark:text-blue-400 dark:shadow-blue-400/50",
       },
     ],
     defaultVariants: {

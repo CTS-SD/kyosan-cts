@@ -1,5 +1,9 @@
 "use client";
 
+import { ChevronDownIcon, ChevronRightIcon, CogIcon, NotebookIcon, UsersRoundIcon } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { use } from "react";
 import {
   Sidebar,
   SidebarContent,
@@ -16,10 +20,6 @@ import {
   useSidebar,
 } from "@/components/ui/sidebar";
 import { useSessionPromise } from "@/ctx/session-promise";
-import { ChevronDownIcon, ChevronRightIcon, CogIcon, NotebookIcon, UsersRoundIcon } from "lucide-react";
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { use } from "react";
 import { Badge } from "../ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible";
 import { UserAvatar } from "../user-avatar";
@@ -77,7 +77,7 @@ export const AdminSidebar = () => {
       <SidebarHeader className="flex flex-row items-center">
         <SidebarMenu>
           <SidebarMenuItem className="flex items-center gap-2">
-            <SidebarMenuButton className="font-accent w-fit font-semibold" asChild>
+            <SidebarMenuButton className="w-fit font-accent font-semibold" asChild>
               <Link href="/">京産キャンスタ</Link>
             </SidebarMenuButton>
             <Badge asChild>
@@ -94,7 +94,7 @@ export const AdminSidebar = () => {
                 <SidebarMenuButton>
                   <UserAvatar user={user} className="size-6" />
                   <span className="truncate">{user.name}</span>
-                  <ChevronDownIcon className="text-muted-foreground ml-auto" />
+                  <ChevronDownIcon className="ml-auto text-muted-foreground" />
                 </SidebarMenuButton>
               </AdminUserMenu>
             </SidebarMenu>
@@ -111,7 +111,7 @@ export const AdminSidebar = () => {
                         <SidebarMenuButton>
                           <item.icon />
                           {item.title}
-                          <ChevronRightIcon className="text-muted-foreground ml-auto transition-transform in-data-[state=open]:rotate-90" />
+                          <ChevronRightIcon className="ml-auto in-data-[state=open]:rotate-90 text-muted-foreground transition-transform" />
                         </SidebarMenuButton>
                       </CollapsibleTrigger>
                       <CollapsibleContent>

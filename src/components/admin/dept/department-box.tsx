@@ -1,4 +1,4 @@
-import { Student } from "@/lib/db/schema";
+import type { Student } from "@/lib/db/schema";
 import { StudentItem } from "./student-item";
 
 type Props = {
@@ -10,12 +10,12 @@ export const DepartmentBox = ({ name, students }: Props) => {
   const computedStudents = students.sort((a, b) => a.studentNumber.localeCompare(b.studentNumber));
 
   return (
-    <section className="bg-muted/50 flex flex-col rounded-2xl border p-1">
+    <section className="flex flex-col rounded-2xl border bg-muted/50 p-1">
       <div className="flex items-center gap-2 px-4 pt-2 pb-2.5">
-        <h2 className="text-muted-foreground text-sm font-semibold">{name}</h2>
+        <h2 className="font-semibold text-muted-foreground text-sm">{name}</h2>
         <div className="text-muted-foreground text-sm">{students.length}名</div>
       </div>
-      <div className="bg-background grow rounded-xl border p-1">
+      <div className="grow rounded-xl border bg-background p-1">
         {computedStudents.map((student) => (
           <StudentItem key={student.id} student={student} />
         ))}

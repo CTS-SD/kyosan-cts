@@ -1,13 +1,13 @@
+import type { Metadata } from "next";
+import { Geist, Geist_Mono, Zen_Maru_Gothic } from "next/font/google";
+import { NavigationGuardProvider } from "next-navigation-guard";
+import { ThemeProvider } from "next-themes";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Toaster } from "@/components/ui/sonner";
 import { SessionPromiseProvider } from "@/ctx/session-promise";
 import { getSession } from "@/lib/auth/actions";
 import { cn } from "@/lib/utils";
 import { QueryProvider } from "@/providers/query";
-import type { Metadata } from "next";
-import { NavigationGuardProvider } from "next-navigation-guard";
-import { ThemeProvider } from "next-themes";
-import { Geist, Geist_Mono, Zen_Maru_Gothic } from "next/font/google";
-import { NuqsAdapter } from "nuqs/adapters/next/app";
 import "./globals.css";
 
 const geistSans = Geist({

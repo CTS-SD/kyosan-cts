@@ -1,5 +1,8 @@
 "use client";
 
+import { PlusIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -12,10 +15,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { insertStudents } from "@/lib/student-actions";
-import { StudentValues } from "@/lib/student-editor";
-import { PlusIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
+import type { StudentValues } from "@/lib/student-editor";
 import { StudentEditor } from "./student-editor";
 
 export const AddStudentButton = () => {

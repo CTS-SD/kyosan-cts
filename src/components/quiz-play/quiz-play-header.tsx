@@ -8,7 +8,7 @@ type Props = {
 
 export const QuizPlayHeader = ({ startContent, endContent, progress }: Props) => {
   return (
-    <div className="bg-background sticky top-0 flex h-12 shrink-0 items-center gap-2 px-4">
+    <div className="sticky top-0 flex h-12 shrink-0 items-center gap-2 bg-background px-4">
       {startContent}
       <div className="grow">
         <Progress value={progress} className="w-full" />

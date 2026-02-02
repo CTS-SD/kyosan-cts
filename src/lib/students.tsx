@@ -1,6 +1,6 @@
+import { cache } from "react";
 import { db } from "@/lib/db";
 import { DepartmentTable, FacultyTable, StudentTable } from "@/lib/db/schema";
-import { cache } from "react";
 
 export type StudentBundle = Awaited<ReturnType<typeof getStudentBundle>>;
 

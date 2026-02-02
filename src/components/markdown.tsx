@@ -1,8 +1,8 @@
-import { cn } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
 import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import remarkMath from "remark-math";
+import { cn } from "@/lib/utils";
 
 type Props = React.ComponentProps<typeof ReactMarkdown> & {
   className?: string;
@@ -10,7 +10,7 @@ type Props = React.ComponentProps<typeof ReactMarkdown> & {
 
 export const Markdown = ({ className, rehypePlugins, remarkPlugins, ...props }: Props) => {
   return (
-    <div className={cn("prose prose-blue prose-p:leading-normal markdown dark:prose-invert prose-p:my-2", className)}>
+    <div className={cn("prose prose-blue markdown dark:prose-invert prose-p:my-2 prose-p:leading-normal", className)}>
       <ReactMarkdown
         rehypePlugins={[rehypeRaw, ...(rehypePlugins || [])]}
         remarkPlugins={[remarkGfm, remarkMath, ...(remarkPlugins || [])]}

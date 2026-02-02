@@ -1,8 +1,8 @@
-import { QuizResult } from "@/lib/quiz-form";
-import { QuizData } from "@/lib/quiz/data";
-import { cn } from "@/lib/utils";
 import { motion } from "motion/react";
 import { useState } from "react";
+import type { QuizData } from "@/lib/quiz/data";
+import type { QuizResult } from "@/lib/quiz-form";
+import { cn } from "@/lib/utils";
 import { Markdown } from "../markdown";
 import { QuizAnswerRenderer } from "../quiz-answer-renderer";
 import { PlayfulButton } from "../ui/playful-button";
@@ -28,7 +28,7 @@ export const QuizPlayResult = ({ result, quiz }: Props) => {
       }}
     >
       <div className="flex items-center">
-        <div className="flex items-center gap-1.5 text-2xl font-bold transition-colors [&_svg]:size-6.5">
+        <div className="flex items-center gap-1.5 font-bold text-2xl transition-colors [&_svg]:size-6.5">
           {result.isCorrect ? (
             <>
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden>

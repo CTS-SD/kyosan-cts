@@ -1,24 +1,19 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
+import { use } from "react";
+import { Controller, type FormState, useForm } from "react-hook-form";
 import { Field, FieldError, FieldLabel, FieldSet } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useStudentBundlePromise } from "@/ctx/student-bundle-promise";
-import { Student } from "@/lib/db/schema";
-import { StudentEditorSchema, StudentValues } from "@/lib/student-editor";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { use } from "react";
-import { Controller, FormState, useForm } from "react-hook-form";
+import type { Student } from "@/lib/db/schema";
+import { StudentEditorSchema, type StudentValues } from "@/lib/student-editor";
 
 export type StudentEditorProps = {
   defaultValues?: Partial<Student>;
   footerContent?: (formState: FormState<StudentValues>) => React.ReactNode;
-  /**
-   * A function ran on the form submitted.
-   * @param values The submitted form values
-   * @returns If the form should be cleaned or not
-   */
-  onSubmit?: (values: StudentValues) => Promise<boolean | void>;
+  onSubmit?: (values: StudentValues) => void;
 };
 
 export const StudentEditor = ({ defaultValues, footerContent, onSubmit }: StudentEditorProps) => {

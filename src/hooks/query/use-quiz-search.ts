@@ -1,5 +1,5 @@
-import { searchQuizzes } from "@/lib/quiz/actions";
 import { useQuery } from "@tanstack/react-query";
+import { searchQuizzes } from "@/lib/quiz/actions";
 
 type Props = {
   keyword: string;

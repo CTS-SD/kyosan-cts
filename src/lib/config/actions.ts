@@ -1,10 +1,10 @@
 "use server";
 
 import { eq } from "drizzle-orm";
+import { cache } from "react";
 import { db } from "@/lib/db";
 import { ConfigTable } from "@/lib/db/schema";
-import { configDefinitions, ConfigKey, ConfigMap, ConfigValue } from "./definitions";
-import { cache } from "react";
+import { type ConfigKey, type ConfigMap, type ConfigValue, configDefinitions } from "./definitions";
 
 function buildDefaultConfig(): ConfigMap {
   const entries = Object.keys(configDefinitions).map((key) => {

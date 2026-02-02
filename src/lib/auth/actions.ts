@@ -1,14 +1,14 @@
 "use server";
 
 import { eq } from "drizzle-orm";
+import { headers } from "next/headers";
+import { notFound } from "next/navigation";
+import { cache } from "react";
 import { db } from "../db";
 import { account as AccountTable, user as UserTable } from "../db/schema";
-import { signUp } from "./client";
 import { auth } from ".";
-import { headers } from "next/headers";
-import { cache } from "react";
-import { notFound } from "next/navigation";
-import { Role } from "./types";
+import { signUp } from "./client";
+import type { Role } from "./types";
 
 export const getSession = cache(async () =>
   auth.api.getSession({

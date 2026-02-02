@@ -1,4 +1,4 @@
-import { QuizData } from "./data";
+import type { QuizData } from "./data";
 
 export function judgeQuiz(quiz: QuizData, userAnswer: string[]): boolean {
   if (quiz.type === "select") {

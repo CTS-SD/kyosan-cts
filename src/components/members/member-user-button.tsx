@@ -1,5 +1,7 @@
 "use client";
 
+import { LogOutIcon } from "lucide-react";
+import { use } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,8 +11,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useSessionPromise } from "@/ctx/session-promise";
 import { signOut } from "@/lib/auth/client";
-import { LogOutIcon } from "lucide-react";
-import { use } from "react";
 import { ThemeSubmenu } from "../theme-submenu";
 import { Button } from "../ui/button";
 import { UserAvatar } from "../user-avatar";

@@ -1,7 +1,7 @@
-import { db } from "@/lib/db";
-import { DepartmentTable, StudentTable } from "@/lib/db/schema";
 import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
+import { db } from "@/lib/db";
+import { DepartmentTable, StudentTable } from "@/lib/db/schema";
 import { ClientView } from "./client-view";
 
 export const dynamic = "force-dynamic";

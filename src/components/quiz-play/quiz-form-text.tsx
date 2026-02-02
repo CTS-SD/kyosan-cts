@@ -1,9 +1,9 @@
 "use client";
 
 import { useQuizPlay } from "@/ctx/quiz-play";
+import type { TextQuizData } from "@/lib/quiz/data";
 import { cn, splitByLines } from "@/lib/utils";
 import { Input } from "../ui/input";
-import { TextQuizData } from "@/lib/quiz/data";
 
 type Props = {
   quiz: TextQuizData;

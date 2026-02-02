@@ -1,7 +1,7 @@
 "use client";
 
-import { StudentBundle } from "@/lib/students";
 import { createContext, useContext } from "react";
+import type { StudentBundle } from "@/lib/students";
 
 const StudentBundlePromiseContext = createContext<Promise<StudentBundle> | null>(null);
 

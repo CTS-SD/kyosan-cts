@@ -1,13 +1,13 @@
 "use server";
 
-import { count, desc, eq, ilike, or, SQL, sql } from "drizzle-orm";
-import { db } from "../db";
-import { QuizTable, SelectQuizTable, TextQuizTable, TrueFalseQuizTable } from "../db/schema";
-import { QuizValues, SelectQuizEditorSchema, TextQuizEditorSchema, TrueFalseQuizEditorSchema } from "./editor";
-import { getQuizHandler, quizTypeHandlers } from "./handlers";
-import { QuizData, SelectQuizSchema, TextQuizSchema, TrueFalseQuizSchema } from "./data";
+import { desc, eq, ilike, or, type SQL, sql } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import { requireRole } from "../auth/actions";
+import { db } from "../db";
+import { QuizTable, SelectQuizTable, TextQuizTable, TrueFalseQuizTable } from "../db/schema";
+import { type QuizData, SelectQuizSchema, TextQuizSchema, TrueFalseQuizSchema } from "./data";
+import type { QuizValues } from "./editor";
+import { getQuizHandler } from "./handlers";
 
 export async function insertQuiz(values: QuizValues) {
   await requireRole(["admin"]);
@@ -168,7 +168,7 @@ export async function searchQuizzes(query: string) {
     limit: 1000,
     offset: 0,
     where: or(
-      eq(QuizTable.id, parseInt(query) || -1),
+      eq(QuizTable.id, parseInt(query, 10) || -1),
       ilike(QuizTable.question, likeQuery),
       ilike(QuizTable.explanation, likeQuery),
     ),

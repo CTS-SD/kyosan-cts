@@ -1,12 +1,11 @@
+import { eq } from "drizzle-orm";
+import { drizzle } from "drizzle-orm/node-postgres";
+import { reset } from "drizzle-seed";
 import { Client } from "pg";
 import { auth } from "@/lib/auth";
-import { execSync } from "child_process";
-import { eq } from "drizzle-orm";
+import * as schema from "@/lib/db/schema";
 import { user as UserTable } from "@/lib/db/schema";
 import { seeding } from "./lib/seed";
-import { reset } from "drizzle-seed";
-import * as schema from "@/lib/db/schema";
-import { drizzle } from "drizzle-orm/node-postgres";
 
 main().catch((err) => {
   console.error("Failed to reset test database:", err);

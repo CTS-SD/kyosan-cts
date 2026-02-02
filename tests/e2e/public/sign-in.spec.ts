@@ -1,4 +1,4 @@
-import { test, expect } from "../fixtures";
+import { expect, test } from "../fixtures";
 
 test("should display sign-in heading", async ({ page }) => {
   await page.goto("/sign-in");

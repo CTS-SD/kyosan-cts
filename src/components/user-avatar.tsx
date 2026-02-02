@@ -1,5 +1,5 @@
+import type { User } from "better-auth";
 import { cn } from "@/lib/utils";
-import { User } from "better-auth";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 
 type Props = React.ComponentProps<typeof Avatar> & {

@@ -1,8 +1,8 @@
 "use client";
 
-import { QuizResult } from "@/lib/quiz-form";
-import { QuizData } from "@/lib/quiz/data";
 import { createContext, useContext } from "react";
+import type { QuizData } from "@/lib/quiz/data";
+import type { QuizResult } from "@/lib/quiz-form";
 
 export const QuizPlayContext = createContext<{
   value: string[];

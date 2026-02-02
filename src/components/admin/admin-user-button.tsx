@@ -1,7 +1,7 @@
 "use client";
 
-import { useSessionPromise } from "@/ctx/session-promise";
 import { use } from "react";
+import { useSessionPromise } from "@/ctx/session-promise";
 import { Button } from "../ui/button";
 import { UserAvatar } from "../user-avatar";
 import { AdminUserMenu } from "./admin-user-menu";

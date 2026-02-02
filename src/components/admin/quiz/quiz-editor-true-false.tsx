@@ -1,8 +1,8 @@
+import { Controller, type UseFormReturn } from "react-hook-form";
+import type z from "zod";
 import { Field, FieldContent, FieldLabel, FieldSet, FieldTitle } from "@/components/ui/field";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { QuizEditorSchema } from "@/lib/quiz/editor";
-import { Controller, UseFormReturn } from "react-hook-form";
-import z from "zod";
+import type { QuizEditorSchema } from "@/lib/quiz/editor";
 
 type Props = {
   form: UseFormReturn<z.infer<typeof QuizEditorSchema>>;

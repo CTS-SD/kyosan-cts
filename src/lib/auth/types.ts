@@ -1,4 +1,4 @@
-import { auth } from ".";
+import type { auth } from ".";
 
 export type Role = "admin" | "member" | "none";
 

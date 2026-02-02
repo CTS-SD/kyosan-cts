@@ -1,11 +1,5 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Field, FieldError, FieldLabel } from "@/components/ui/field";
-import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
-import { Spinner } from "@/components/ui/spinner";
-import { existsStudentByStudentNumber } from "@/lib/student-actions";
-import { StudentNumberSchema } from "@/lib/student-editor";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
 import Image from "next/image";
@@ -14,6 +8,12 @@ import { useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
+import { Button } from "@/components/ui/button";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field";
+import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
+import { Spinner } from "@/components/ui/spinner";
+import { existsStudentByStudentNumber } from "@/lib/student-actions";
+import { StudentNumberSchema } from "@/lib/student-editor";
 
 const FormSchema = z.object({
   studentNumber: StudentNumberSchema,
@@ -50,7 +50,7 @@ const Page = () => {
     <div className="mx-auto mt-6 max-w-md p-6">
       <div className="flex flex-col items-center">
         <Image src="/people.svg" alt="people" width={240} height={182.72} loading="eager" className="drop-shadow-lg" />
-        <div className="bg-card z-10 flex w-full justify-center rounded-lg border p-6 shadow-xl">
+        <div className="z-10 flex w-full justify-center rounded-lg border bg-card p-6 shadow-xl">
           <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-2">
             <Controller
               control={form.control}

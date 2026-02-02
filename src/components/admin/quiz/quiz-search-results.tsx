@@ -1,7 +1,7 @@
 "use client";
 
-import { useQuizSearch } from "@/hooks/query/use-quiz-search";
 import { useQueryState } from "nuqs";
+import { useQuizSearch } from "@/hooks/query/use-quiz-search";
 import { QuizItem } from "./quiz-item";
 import { QuizListSkeleton } from "./quiz-list-skeleton";
 
@@ -23,7 +23,7 @@ export const QuizSearchResults = () => {
 
   if (!isFetching && quizzes.length === 0) {
     return (
-      <div className="text-muted-foreground transition-opacity starting:opacity-0">
+      <div className="text-muted-foreground starting:opacity-0 transition-opacity">
         「{query}」の検索結果が見つかりませんでした。
       </div>
     );

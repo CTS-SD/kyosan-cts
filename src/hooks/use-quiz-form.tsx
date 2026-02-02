@@ -1,6 +1,6 @@
-import { QuizEditorSchema, QuizValues } from "@/lib/quiz/editor";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { QuizEditorSchema, type QuizValues } from "@/lib/quiz/editor";
 
 type Args = {
   defaultValues: QuizValues;
