@@ -70,7 +70,7 @@ export async function seedDb() {
         facultyId: faculties[1].id,
         studentNumber: `${100001 + index * 10}`,
       },
-    ])
+    ]),
   );
 
   // Seed Quizzes

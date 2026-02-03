@@ -11,29 +11,32 @@ export type Fixtures = {
 };
 
 export const test = base.extend<Fixtures>({
-  authedPage: async ({ browser }, use) => {
-    const context = await browser.newContext();
-    const page = await context.newPage();
-
-    // Authenticate test user
-    const response = await page.goto(AUTH_LOGIN_PATH);
-    if (response?.status() !== 200) {
-      throw new Error(`Failed to authenticate test user. Status: ${response?.status()}`);
-    }
-
-    await page.goto("/");
-    await use(page);
-    await context.close();
-  },
   _db: [
-    // biome-ignore lint/correctness/noEmptyPattern:)
-    async ({}, use) => {
+    async ({ baseURL: _ }, use) => {
       await resetDb();
       await seedDb();
       await use(null);
     },
     { auto: true },
   ],
+
+  authedPage: async ({ browser, _db: _ }, use) => {
+    const context = await browser.newContext();
+    const page = await context.newPage();
+
+    try {
+      const response = await page.goto(AUTH_LOGIN_PATH);
+      if (!response) throw new Error("Failed to authenticate: no response");
+      if (response.status() !== 200) {
+        throw new Error(`Failed to authenticate test user. Status: ${response.status()}`);
+      }
+
+      await page.goto("/");
+      await use(page);
+    } finally {
+      await context.close();
+    }
+  },
 });
 
 export { expect };
