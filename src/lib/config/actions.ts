@@ -1,6 +1,7 @@
 "use server";
 
 import { eq } from "drizzle-orm";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { cache } from "react";
 import { db } from "@/lib/db";
 import { ConfigTable } from "@/lib/db/schema";
@@ -79,4 +80,6 @@ export async function upsertConfigValue<K extends ConfigKey>(key: K, value: Conf
       set: { value: parsed },
     })
     .execute();
+
+  revalidatePath("/");
 }
