@@ -8,8 +8,6 @@ import { getConfig } from "@/lib/config/actions";
 import { db } from "@/lib/db";
 import { DepartmentTable, FacultyTable, StudentTable } from "@/lib/db/schema";
 
-export const dynamic = "force-dynamic";
-
 const Page = async () => {
   const { departmentAnnouncementsImageUrl: imageUrl } = await getConfig();
   const departments = await db.select().from(DepartmentTable);

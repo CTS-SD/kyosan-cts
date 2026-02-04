@@ -1,7 +1,6 @@
 "use client";
 
 import { LogOutIcon } from "lucide-react";
-import { use } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -9,19 +8,17 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useSessionPromise } from "@/ctx/session-promise";
-import { signOut } from "@/lib/auth/client";
+import { authClient } from "@/lib/auth/client";
 import { ThemeSubmenu } from "../theme-submenu";
 import { Button } from "../ui/button";
 import { UserAvatar } from "../user-avatar";
 
 export const MemberUserButton = () => {
-  const session = use(useSessionPromise());
-  const user = session?.user;
-  if (!user) return null;
+  const { data: session } = authClient.useSession();
+  if (!session?.user) return null;
 
   const handleSignOut = async () => {
-    await signOut({
+    await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
           window.location.href = "/";
@@ -34,7 +31,7 @@ export const MemberUserButton = () => {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button className="size-8 rounded-full" size="icon" variant="ghost" aria-label="ユーザーメニューを開く">
-          <UserAvatar user={user} />
+          <UserAvatar user={session.user} />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">

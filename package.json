@@ -14,7 +14,7 @@
     "db:migrate": "drizzle-kit migrate",
     "db:backup": "tsx script/backup-db.ts",
     "test:unit": "vitest",
-    "test:e2e": "playwright test",
+    "test:e2e": "pnpm build && pnpm playwright test",
     "prepare": "husky"
   },
   "dependencies": {

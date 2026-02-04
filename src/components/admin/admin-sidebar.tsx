@@ -19,7 +19,7 @@ import {
   SidebarMenuSubItem,
   useSidebar,
 } from "@/components/ui/sidebar";
-import { useSessionPromise } from "@/ctx/session-promise";
+import { authClient } from "@/lib/auth/client";
 import { Badge } from "../ui/badge";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible";
 import { UserAvatar } from "../user-avatar";
@@ -62,7 +62,7 @@ const items = [
 ];
 
 export const AdminSidebar = () => {
-  const session = use(useSessionPromise());
+  const { data: session } = authClient.useSession();
   const user = session?.user;
 
   const pathname = usePathname();

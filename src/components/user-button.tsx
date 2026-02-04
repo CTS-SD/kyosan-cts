@@ -1,11 +1,14 @@
+import { headers } from "next/headers";
 import Link from "next/link";
-import { getSession } from "@/lib/auth/actions";
+import { auth } from "@/lib/auth/server";
 import { AdminUserButton } from "./admin/admin-user-button";
 import { MemberUserButton } from "./members/member-user-button";
 import { Button } from "./ui/button";
 
 export const UserButton = async () => {
-  const session = await getSession();
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
 
   if (!session) {
     return <LoginButton />;

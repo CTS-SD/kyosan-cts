@@ -4,8 +4,6 @@ import { NavigationGuardProvider } from "next-navigation-guard";
 import { ThemeProvider } from "next-themes";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { Toaster } from "@/components/ui/sonner";
-import { SessionPromiseProvider } from "@/ctx/session-promise";
-import { getSession } from "@/lib/auth/actions";
 import { cn } from "@/lib/utils";
 import { QueryProvider } from "@/providers/query";
 import "./globals.css";
@@ -36,19 +34,15 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const sessionPromise = getSession();
-
   return (
     <html lang="ja" suppressHydrationWarning>
       <body className={cn("font-sans antialiased", zenMaruGothic.variable, geistSans.variable, geistMono.variable)}>
         <NavigationGuardProvider>
           <NuqsAdapter>
-            <SessionPromiseProvider value={sessionPromise}>
-              <ThemeProvider attribute="class" defaultTheme="light">
-                <QueryProvider>{children}</QueryProvider>
-                <Toaster />
-              </ThemeProvider>
-            </SessionPromiseProvider>
+            <ThemeProvider attribute="class" defaultTheme="light">
+              <QueryProvider>{children}</QueryProvider>
+              <Toaster />
+            </ThemeProvider>
           </NuqsAdapter>
         </NavigationGuardProvider>
       </body>

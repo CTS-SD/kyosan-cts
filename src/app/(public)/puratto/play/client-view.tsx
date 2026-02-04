@@ -2,12 +2,11 @@
 
 import { XIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { use, useState } from "react";
+import { useState } from "react";
 import { QuizPlayAdminMenu } from "@/components/quiz-play/quiz-play-admin-menu";
 import { QuizPlayView } from "@/components/quiz-play/quiz-play-view";
 import { QuizResultsView } from "@/components/quiz-play/quiz-results-view";
 import { Button } from "@/components/ui/button";
-import { useSessionPromise } from "@/ctx/session-promise";
 import type { QuizData } from "@/lib/quiz/data";
 import type { QuizResult } from "@/lib/quiz-form";
 
@@ -17,7 +16,6 @@ type Props = {
 
 export const ClientView = ({ quizzes }: Props) => {
   const router = useRouter();
-  const session = use(useSessionPromise());
   const [quizIndex, setQuizIndex] = useState(0);
   const [results, setResults] = useState<QuizResult[]>([]);
   const quiz = quizzes[quizIndex];
@@ -48,7 +46,7 @@ export const ClientView = ({ quizzes }: Props) => {
           <XIcon />
         </Button>
       }
-      headerEndContent={session?.user.role === "admin" ? <QuizPlayAdminMenu quizId={quiz.id} /> : null}
+      headerEndContent={ <QuizPlayAdminMenu quizId={quiz.id} />}
       addResult={addResult}
       onNext={handleNext}
       className="h-dvh"

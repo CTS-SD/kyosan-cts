@@ -2,7 +2,7 @@ import { eq } from "drizzle-orm";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { reset } from "drizzle-seed";
 import { Client } from "pg";
-import { auth } from "@/lib/auth";
+import { auth } from "@/lib/auth/server";
 import * as schema from "@/lib/db/schema";
 import { user as UserTable } from "@/lib/db/schema";
 import { seeding } from "./lib/seed";

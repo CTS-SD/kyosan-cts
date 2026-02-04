@@ -4,8 +4,6 @@ import { db } from "@/lib/db";
 import { DepartmentTable, StudentTable } from "@/lib/db/schema";
 import { ClientView } from "./client-view";
 
-export const dynamic = "force-dynamic";
-
 type Props = {
   params: Promise<{ studentNumber: string }>;
 };

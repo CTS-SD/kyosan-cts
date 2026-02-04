@@ -3,18 +3,11 @@
 import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
-import { cache } from "react";
 import { db } from "../db";
 import { account as AccountTable, user as UserTable } from "../db/schema";
-import { auth } from ".";
-import { signUp } from "./client";
+import { authClient } from "./client";
+import { auth } from "./server";
 import type { Role } from "./types";
-
-export const getSession = cache(async () =>
-  auth.api.getSession({
-    headers: await headers(),
-  }),
-);
 
 export async function getUserById(userId: string) {
   await requireRole(["admin"]);
@@ -48,7 +41,7 @@ export async function resetMemberPassword({ newPassword }: { newPassword: string
     await deleteUser(member.id);
   }
 
-  const result = await signUp.email({
+  const result = await authClient.signUp.email({
     name: "スタッフ",
     email: "cts-member@example.com",
     password: newPassword,
@@ -62,7 +55,9 @@ export async function resetMemberPassword({ newPassword }: { newPassword: string
 }
 
 export async function requireRole(roles: Role[]) {
-  const session = await getSession();
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
   if (!session || !roles.includes(session.user.role as Role)) {
     return notFound();
   }

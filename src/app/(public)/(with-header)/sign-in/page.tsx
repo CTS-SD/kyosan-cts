@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@/components/ui/input-group";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
-import { signIn } from "@/lib/auth/client";
+import { authClient } from "@/lib/auth/client";
 
 const getErrorMessage = (message?: string) => {
   if (message?.includes("password")) {
@@ -32,7 +32,7 @@ const Page = () => {
   const staffSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     startStaffTransition(async () => {
-      const { error } = await signIn.email({
+      const { error } = await authClient.signIn.email({
         email: "cts-member@example.com",
         password,
         callbackURL: "/members",
@@ -46,7 +46,7 @@ const Page = () => {
 
   const adminSignIn = async () => {
     setIsAdminPending(true);
-    await signIn.social({
+    await authClient.signIn.social({
       provider: "google",
       callbackURL: "/admin",
     });
