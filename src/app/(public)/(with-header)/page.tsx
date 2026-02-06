@@ -1,14 +1,12 @@
-"use cache";
-
 import { ArrowRightIcon } from "lucide-react";
-import { cacheTag } from "next/cache";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { getConfigValue } from "@/lib/config/actions";
 
-export default async function Home() {
-  cacheTag("landing-page");
+export const dynamic = "force-static";
+export const revalidate = 0;
 
+export default async function Home() {
   const showDeptButton = await getConfigValue("departmentAnnouncementsPublished");
 
   return (
