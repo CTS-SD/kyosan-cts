@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/dialog";
 import { insertStudents } from "@/lib/student-actions";
 import type { StudentValues } from "@/lib/student-editor";
-import { StudentEditor } from "./student-editor";
+import { StudentEditor, StudentEditorCancel, StudentEditorForm, StudentEditorSubmit } from "./student-editor";
 
 export const AddStudentButton = () => {
   const router = useRouter();
@@ -29,7 +29,6 @@ export const AddStudentButton = () => {
     }
     toast.success(insertResult.message);
     router.refresh();
-    return true;
   };
 
   return (
@@ -45,21 +44,15 @@ export const AddStudentButton = () => {
           <DialogTitle>学生を追加</DialogTitle>
           <DialogDescription>配属発表ページに表示する学生を追加します</DialogDescription>
         </DialogHeader>
-        <StudentEditor
-          onSubmit={handleAddStudent}
-          footerContent={(formState) => (
-            <DialogFooter>
-              <DialogClose asChild>
-                <Button type="button" variant="secondary">
-                  キャンセル
-                </Button>
-              </DialogClose>
-              <Button type="submit" disabled={!formState.isDirty}>
-                追加
-              </Button>
-            </DialogFooter>
-          )}
-        />
+        <StudentEditor onSubmit={handleAddStudent}>
+          <StudentEditorForm />
+          <DialogFooter>
+            <DialogClose asChild>
+              <StudentEditorCancel />
+            </DialogClose>
+            <StudentEditorSubmit />
+          </DialogFooter>
+        </StudentEditor>
       </DialogContent>
     </Dialog>
   );
