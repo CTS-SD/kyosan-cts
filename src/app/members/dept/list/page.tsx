@@ -1,15 +1,15 @@
 import { eq } from "drizzle-orm";
-import { ImageIcon } from "lucide-react";
+import { DownloadIcon, View } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { DepartmentMembers } from "@/components/members/dept/department-members";
+import { ListPdfDocument } from "@/components/members/dept/list-pdf-document";
+import { PDFDownloadLink, PDFViewer } from "@/components/pdf-download-link";
 import { Button } from "@/components/ui/button";
-import { getConfig } from "@/lib/config/actions";
 import { db } from "@/lib/db";
 import { DepartmentTable, FacultyTable, StudentTable } from "@/lib/db/schema";
 
 const Page = async () => {
-  const { departmentAnnouncementsImageUrl: imageUrl } = await getConfig();
   const departments = await db.select().from(DepartmentTable);
   const students = await db
     .select({
@@ -36,16 +36,17 @@ const Page = async () => {
           />
         ))}
       </div>
-      {imageUrl && (
-        <div className="my-10 flex justify-center">
-          <Button className="rounded-full" asChild>
-            <Link href={imageUrl} target="_blank" rel="noreferrer">
-              <ImageIcon />
-              画像を保存
-            </Link>
+      <div className="my-10 flex justify-center">
+        <PDFDownloadLink
+          document={<ListPdfDocument departments={departments} students={students} />}
+          fileName="京産キャンスタ部署発表一覧"
+        >
+          <Button className="rounded-full">
+            <DownloadIcon />
+            PDFダウンロード
           </Button>
-        </div>
-      )}
+        </PDFDownloadLink>
+      </div>
     </div>
   );
 };
