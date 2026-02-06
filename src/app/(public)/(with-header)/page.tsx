@@ -1,13 +1,10 @@
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { getConfigValue } from "@/lib/config/actions";
-
-export const dynamic = "force-static";
-export const revalidate = 0;
+import { getCachedConfigValue } from "@/lib/config/actions";
 
 export default async function Home() {
-  const showDeptButton = await getConfigValue("departmentAnnouncementsPublished");
+  const showDeptButton = await getCachedConfigValue("departmentAnnouncementsPublished");
 
   return (
     <div className="flex flex-col">

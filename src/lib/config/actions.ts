@@ -1,7 +1,7 @@
 "use server";
 
 import { eq } from "drizzle-orm";
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag, unstable_cache } from "next/cache";
 import { cache } from "react";
 import { db } from "@/lib/db";
 import { ConfigTable } from "@/lib/db/schema";
@@ -37,6 +37,14 @@ export async function getConfigValue<K extends ConfigKey>(key: K): Promise<Confi
 
   return definition.defaultValue as ConfigValue<K>;
 }
+
+export const getCachedConfigValue = unstable_cache(
+  async <K extends ConfigKey>(key: K): Promise<ConfigValue<K>> => {
+    return getConfigValue(key);
+  },
+  ["getCachedConfigValue"],
+  { tags: ["config"] },
+);
 
 export const getConfig = cache(async (): Promise<ConfigMap> => {
   try {
@@ -81,5 +89,5 @@ export async function upsertConfigValue<K extends ConfigKey>(key: K, value: Conf
     })
     .execute();
 
-  revalidatePath("/");
+  revalidateTag("config", "max");
 }
