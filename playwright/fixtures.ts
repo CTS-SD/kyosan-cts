@@ -1,7 +1,6 @@
 import type { Page } from "@playwright/test";
 import { test as base, expect } from "@playwright/test";
-import { resetDb } from "./helpers/reset-db";
-import { seedDb } from "./helpers/seed-db";
+import { resetTestDb, seedTestDb } from "./helpers/db";
 
 const AUTH_LOGIN_PATH = "/api/auth/test-login";
 
@@ -13,8 +12,8 @@ export type Fixtures = {
 export const test = base.extend<Fixtures>({
   _db: [
     async ({ baseURL: _ }, use) => {
-      await resetDb();
-      await seedDb();
+      await resetTestDb();
+      await seedTestDb();
       await use(null);
     },
     { auto: true },

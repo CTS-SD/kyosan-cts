@@ -4,9 +4,9 @@ import { env } from "@/lib/env";
 export async function GET() {
   console.log("######## PLAYWRIGHT_TEST: ", process.env.PLAYWRIGHT_TEST);
 
-  // if (process.env.PLAYWRIGHT_TEST !== "1") {
-  //   return new Response("Not found", { status: 404 });
-  // }
+  if (process.env.PLAYWRIGHT_TEST !== "1") {
+    return new Response("Not found", { status: 404 });
+  }
 
   const response = await auth.api.signInEmail({
     body: {
