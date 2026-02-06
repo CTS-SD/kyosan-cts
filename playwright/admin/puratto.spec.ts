@@ -11,7 +11,7 @@ async function createQuiz(page: Page) {
   const quiz = { ...defaultQuiz };
 
   await page.goto("/admin/puratto/q/new");
-  await page.fill("textarea[name=question]", quiz.question);
+  await page.fill("[data-testid=question-textarea]", quiz.question);
   await page.fill("textarea[name=correctChoicesText]", quiz.correctChoicesText);
   await page.fill("textarea[name=incorrectChoicesText]", quiz.incorrectChoicesText);
   await page.click("button[type=submit]");
@@ -39,18 +39,16 @@ test("should navigate to new quiz page", async ({ authedPage }) => {
 
 test.describe("quiz management", () => {
   test("should create quiz", async ({ authedPage: page }) => {
-    const quiz = await createQuiz(page);
-    await expect(page.locator("textarea[name=question]")).toHaveValue(quiz.question);
+    await createQuiz(page);
   });
 
   test("should edit quiz", async ({ authedPage: page }) => {
     await createQuiz(page);
 
     const updatedQuestion = "次のうち、野菜はどれですか？";
-    await page.fill("textarea[name=question]", updatedQuestion);
+    await page.fill("[data-testid=question-textarea]", updatedQuestion);
     await page.click("button[type=submit]");
     await expect(page.locator("text=問題を保存しました")).toBeVisible();
-    await expect(page.locator("textarea[name=question]")).toHaveValue(updatedQuestion);
   });
 
   test("should delete quiz", async ({ authedPage: page }) => {

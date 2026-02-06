@@ -68,7 +68,7 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
               <FieldLabel>問題文</FieldLabel>
-              <Textarea {...field} placeholder="問題文を入力" />
+              <Textarea {...field} placeholder="問題文を入力" data-testid="question-textarea" />
               {fieldState.invalid && <FieldError />}
             </Field>
           )}

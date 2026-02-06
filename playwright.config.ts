@@ -7,6 +7,8 @@ dotenv.config({ path: path.resolve(__dirname, ".env.test") });
 const PORT = process.env.TEST_PORT ?? 3001;
 const BASE_URL = `http://localhost:${PORT}`;
 
+process.env.PLAYWRIGHT_TEST = "1";
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -74,7 +76,7 @@ export default defineConfig({
   globalSetup: "./playwright/global-setup.ts",
 
   webServer: {
-    command: `dotenv -e .env.test -- pnpm start --port=${PORT}`,
+    command: `pnpm start --port=${PORT}`,
     url: BASE_URL,
     reuseExistingServer: !process.env.CI,
     env: {

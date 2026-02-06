@@ -14,9 +14,8 @@
     "db:migrate": "drizzle-kit migrate",
     "db:studio": "dotenv -e .env.local -- drizzle-kit studio",
     "db:backup": "tsx script/backup-db.ts",
-    "test": "pnpm test:unit && pnpm test:e2e",
     "test:unit": "vitest",
-    "test:e2e": "pnpm build && pnpm playwright test",
+    "test:e2e": "playwright test",
     "prepare": "husky"
   },
   "dependencies": {

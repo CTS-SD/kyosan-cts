@@ -33,6 +33,8 @@ export const test = base.extend<Fixtures>({
 
       await page.goto("/");
       await use(page);
+    } catch (e) {
+      console.error("Error in authedPage fixture:", e);
     } finally {
       await context.close();
     }

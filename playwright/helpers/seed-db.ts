@@ -1,4 +1,5 @@
 import { eq } from "drizzle-orm";
+import { auth } from "@/lib/auth/server";
 import { db } from "@/lib/db";
 import {
   DepartmentTable,
@@ -10,13 +11,12 @@ import {
 } from "@/lib/db/schema";
 import { env } from "@/lib/env";
 import { assertTestEnv } from "./assert";
-import { authTest } from "./auth-test";
 
 export async function seedDb() {
   assertTestEnv();
 
-  // Create test user using test auth instance
-  const { user } = await authTest.api.signUpEmail({
+  // Create test user
+  const { user } = await auth.api.signUpEmail({
     body: {
       name: "Test User",
       email: env.TEST_USER_EMAIL,
