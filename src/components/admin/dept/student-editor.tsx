@@ -64,7 +64,7 @@ export const StudentEditor = ({
   );
 };
 
-export const StudentEditorForm = () => {
+export const StudentEditorFields = () => {
   const { form } = useStudentEditor();
   const { faculties, departments } = use(useStudentBundlePromise());
 

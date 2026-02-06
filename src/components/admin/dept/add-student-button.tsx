@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/dialog";
 import { insertStudents } from "@/lib/student-actions";
 import type { StudentValues } from "@/lib/student-editor";
-import { StudentEditor, StudentEditorCancel, StudentEditorForm, StudentEditorSubmit } from "./student-editor";
+import { StudentEditor, StudentEditorCancel, StudentEditorFields, StudentEditorSubmit } from "./student-editor";
 
 export const AddStudentButton = () => {
   const router = useRouter();
@@ -45,7 +45,7 @@ export const AddStudentButton = () => {
           <DialogDescription>配属発表ページに表示する学生を追加します</DialogDescription>
         </DialogHeader>
         <StudentEditor onSubmit={handleAddStudent}>
-          <StudentEditorForm />
+          <StudentEditorFields />
           <DialogFooter>
             <DialogClose asChild>
               <StudentEditorCancel />

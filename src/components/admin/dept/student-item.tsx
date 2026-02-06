@@ -18,7 +18,7 @@ import { useStudentBundlePromise } from "@/ctx/student-bundle-promise";
 import type { Student } from "@/lib/db/schema";
 import { deleteStudent, updateStudent } from "@/lib/student-actions";
 import type { StudentValues } from "@/lib/student-editor";
-import { StudentEditor, StudentEditorCancel, StudentEditorForm, StudentEditorSubmit } from "./student-editor";
+import { StudentEditor, StudentEditorCancel, StudentEditorFields, StudentEditorSubmit } from "./student-editor";
 
 type Props = {
   student: Student;
@@ -70,7 +70,7 @@ export const StudentItem = ({ student }: Props) => {
           <DialogTitle>学生を編集</DialogTitle>
         </DialogHeader>
         <StudentEditor defaultValues={student} onSubmit={handleUpdateStudent}>
-          <StudentEditorForm />
+          <StudentEditorFields />
           <DialogFooter>
             <Button type="button" variant="destructive" className="sm:mr-auto" onClick={handleDeleteStudent}>
               <Trash2Icon />
