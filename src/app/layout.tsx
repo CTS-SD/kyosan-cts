@@ -7,6 +7,7 @@ import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
 import { QueryProvider } from "@/providers/query";
 import "./globals.css";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,7 +41,9 @@ export default async function RootLayout({
         <NavigationGuardProvider>
           <NuqsAdapter>
             <ThemeProvider attribute="class" defaultTheme="light">
-              <QueryProvider>{children}</QueryProvider>
+              <QueryProvider>
+                <Suspense>{children}</Suspense>
+              </QueryProvider>
               <Toaster />
             </ThemeProvider>
           </NuqsAdapter>

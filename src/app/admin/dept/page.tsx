@@ -25,11 +25,11 @@ const Page = () => {
         </StudentBundlePromiseProvider>
       </div>
       <div className="mt-4">
-        <StudentBundlePromiseProvider value={studentBundlePromise}>
-          <Suspense fallback={<DepartmentBoxListFallback />}>
+        <Suspense fallback={<DepartmentBoxListFallback />}>
+          <StudentBundlePromiseProvider value={studentBundlePromise}>
             <DepartmentBoxList />
-          </Suspense>
-        </StudentBundlePromiseProvider>
+          </StudentBundlePromiseProvider>
+        </Suspense>
       </div>
     </div>
   );

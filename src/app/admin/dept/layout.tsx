@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { AdminPageHeader } from "@/components/admin/admin-page-header";
 
 type Props = {
@@ -8,7 +9,7 @@ const Layout = ({ children }: Props) => {
   return (
     <>
       <AdminPageHeader heading="配属発表" />
-      {children}
+      <Suspense>{children}</Suspense>
     </>
   );
 };
