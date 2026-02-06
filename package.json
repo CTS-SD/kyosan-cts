@@ -12,6 +12,7 @@
     "typecheck": "tsc --noEmit",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
+    "db:studio": "dotenv -e .env.local -- drizzle-kit studio",
     "db:backup": "tsx script/backup-db.ts",
     "test:unit": "vitest",
     "test:e2e": "pnpm build && pnpm playwright test",
