@@ -1,10 +1,9 @@
 import { eq } from "drizzle-orm";
-import { DownloadIcon, View } from "lucide-react";
-import Link from "next/link";
+import { DownloadIcon } from "lucide-react";
 import { notFound } from "next/navigation";
 import { DepartmentMembers } from "@/components/members/dept/department-members";
 import { ListPdfDocument } from "@/components/members/dept/list-pdf-document";
-import { PDFDownloadLink, PDFViewer } from "@/components/pdf-download-link";
+import { PDFDownloadLink } from "@/components/pdf-download-link";
 import { Button } from "@/components/ui/button";
 import { db } from "@/lib/db";
 import { DepartmentTable, FacultyTable, StudentTable } from "@/lib/db/schema";
