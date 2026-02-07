@@ -35,7 +35,7 @@ export const QuizResultsView = ({ quizzes, results, playTimeMs }: Props) => {
         >
           <div className="text-center font-black text-4xl tracking-tight">
             {correctCount}
-            <span className="ml-1 text-2xl font-bold text-muted-foreground">/ {totalCount} 問正解</span>
+            <span className="ml-1 font-bold text-2xl text-muted-foreground">/ {totalCount} 問正解</span>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div className="rounded-xl border bg-background px-4 py-3">
