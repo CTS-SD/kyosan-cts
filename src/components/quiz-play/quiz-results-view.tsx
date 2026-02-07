@@ -8,21 +8,45 @@ import { QuizResultItem } from "./quiz-result-item";
 type Props = {
   quizzes: QuizData[];
   results: QuizResult[];
+  playTimeMs: number;
 };
 
-export const QuizResultsView = ({ quizzes, results }: Props) => {
+const formatPlayTime = (playTimeMs: number) => {
+  const totalSeconds = Math.max(0, Math.floor(playTimeMs / 1000));
+  const minutes = Math.floor(totalSeconds / 60);
+  const seconds = totalSeconds % 60;
+  return `${minutes}分${seconds.toString().padStart(2, "0")}秒`;
+};
+
+export const QuizResultsView = ({ quizzes, results, playTimeMs }: Props) => {
+  const totalCount = quizzes.length;
   const correctCount = results.filter((r) => r.isCorrect).length;
+  const correctRate = totalCount > 0 ? (correctCount / totalCount) * 100 : 0;
+  const roundedCorrectRate = Number(correctRate.toFixed(1));
 
   return (
     <div className="mx-auto max-w-2xl p-6">
-      <div className="flex justify-center py-16">
+      <div className="py-10">
         <motion.div
-          className="font-bold text-3xl"
-          initial={{ scale: 0.5, opacity: 0, translateY: 80, rotate: -8 }}
-          animate={{ scale: 1, opacity: 1, translateY: 0, rotate: 0 }}
-          transition={{ type: "spring", stiffness: 100, damping: 12 }}
+          className="space-y-5 rounded-2xl border bg-card p-6 shadow-[0_4px] shadow-border"
+          initial={{ scale: 0.9, opacity: 0, translateY: 32 }}
+          animate={{ scale: 1, opacity: 1, translateY: 0 }}
+          transition={{ type: "spring", stiffness: 120, damping: 16 }}
         >
-          {correctCount}問正解
+          <div className="text-center font-black text-4xl tracking-tight">
+            {correctCount}
+            <span className="ml-1 text-2xl font-bold text-muted-foreground">/ {totalCount} 問正解</span>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div className="rounded-xl border bg-background px-4 py-3">
+              <div className="text-muted-foreground text-sm">正答率</div>
+              <div className="font-bold text-2xl">{roundedCorrectRate}%</div>
+            </div>
+            <div className="rounded-xl border bg-background px-4 py-3">
+              <div className="text-muted-foreground text-sm">プレイ時間</div>
+              <div className="font-bold text-2xl">{formatPlayTime(playTimeMs)}</div>
+            </div>
+          </div>
         </motion.div>
       </div>
       <motion.div
