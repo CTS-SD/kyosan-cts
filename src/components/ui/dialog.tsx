@@ -49,7 +49,7 @@ function DialogContent({
       <DialogPrimitive.Content
         data-slot="dialog-content"
         className={cn(
-          "sm:data-closed:fade-out-0 sm:data-open:fade-in-0 data-closed:slide-out-to-bottom sm:data-closed:slide-out-to-bottom-0 sm:data-open:slide-in-from-bottom-0 data-open:slide-in-from-bottom fixed bottom-2 left-1/2 z-50 grid w-full max-w-[calc(100%-1rem)] -translate-x-1/2 gap-6 rounded-2xl bg-background p-6 text-sm outline-none ring-1 ring-foreground/10 duration-320 ease-gentle data-closed:animate-out data-open:animate-in sm:top-1/2 sm:bottom-auto sm:max-w-lg sm:-translate-y-1/2",
+          "sm:data-closed:fade-out-0 sm:data-open:fade-in-0 data-closed:slide-out-to-bottom sm:data-closed:slide-out-to-bottom-0 sm:data-open:slide-in-from-bottom-0 data-open:slide-in-from-bottom fixed bottom-2 left-1/2 z-50 grid w-full max-w-[calc(100%-1rem)] -translate-x-1/2 gap-6 rounded-2xl bg-popover text-sm outline-none ring-1 ring-foreground/10 duration-320 ease-gentle data-closed:animate-out data-open:animate-in sm:top-1/2 sm:bottom-auto sm:max-w-lg sm:-translate-y-1/2",
           className,
         )}
         onOpenAutoFocus={(e) => e.preventDefault()}
@@ -70,7 +70,7 @@ function DialogContent({
 }
 
 function DialogHeader({ className, ...props }: React.ComponentProps<"div">) {
-  return <div data-slot="dialog-header" className={cn("flex flex-col gap-2", className)} {...props} />;
+  return <div data-slot="dialog-header" className={cn("flex flex-col gap-2 px-6 pt-6", className)} {...props} />;
 }
 
 function DialogFooter({
@@ -84,7 +84,10 @@ function DialogFooter({
   return (
     <div
       data-slot="dialog-footer"
-      className={cn("flex flex-col-reverse gap-2 sm:flex-row sm:justify-end", className)}
+      className={cn(
+        "flex flex-col-reverse gap-2 rounded-b-2xl border-t bg-accent/20 px-6 py-4 sm:flex-row sm:justify-end",
+        className,
+      )}
       {...props}
     >
       {children}
@@ -101,7 +104,7 @@ function DialogTitle({ className, ...props }: React.ComponentProps<typeof Dialog
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"
-      className={cn("font-semibold text-base leading-none", className)}
+      className={cn("font-semibold text-lg leading-none", className)}
       {...props}
     />
   );

@@ -69,7 +69,7 @@ export const StudentEditorFields = () => {
   const { faculties, departments } = use(useStudentBundlePromise());
 
   return (
-    <FieldSet disabled={form.formState.isSubmitting}>
+    <FieldSet disabled={form.formState.isSubmitting} className="px-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
         <Controller
           name="name"
