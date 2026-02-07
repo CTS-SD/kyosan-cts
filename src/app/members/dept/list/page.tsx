@@ -1,10 +1,7 @@
 import { eq } from "drizzle-orm";
-import { DownloadIcon } from "lucide-react";
 import { notFound } from "next/navigation";
 import { DepartmentMembers } from "@/components/members/dept/department-members";
-import { ListPdfDocument } from "@/components/members/dept/list-pdf-document";
-import { PDFDownloadLink } from "@/components/pdf-download-link";
-import { Button } from "@/components/ui/button";
+import { PdfDownloadButton } from "@/components/members/dept/pdf-download-button";
 import { db } from "@/lib/db";
 import { DepartmentTable, FacultyTable, StudentTable } from "@/lib/db/schema";
 
@@ -36,15 +33,7 @@ const Page = async () => {
         ))}
       </div>
       <div className="my-10 flex justify-center">
-        <PDFDownloadLink
-          document={<ListPdfDocument departments={departments} students={students} />}
-          fileName="京産キャンスタ部署発表一覧"
-        >
-          <Button className="rounded-full">
-            <DownloadIcon />
-            PDFダウンロード
-          </Button>
-        </PDFDownloadLink>
+        <PdfDownloadButton departments={departments} students={students} />
       </div>
     </div>
   );
