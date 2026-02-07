@@ -50,7 +50,7 @@ export const AddStudentButton = () => {
             <DialogClose asChild>
               <StudentEditorCancel />
             </DialogClose>
-            <StudentEditorSubmit />
+            <StudentEditorSubmit>追加</StudentEditorSubmit>
           </DialogFooter>
         </StudentEditor>
       </DialogContent>

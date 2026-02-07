@@ -146,13 +146,13 @@ export const StudentEditorCancel = ({ ...props }: React.ComponentProps<"button">
   const { form } = useStudentEditor();
 
   return (
-    <Button type="button" disabled={form.formState.isSubmitting} variant="secondary" {...props}>
+    <Button type="button" disabled={form.formState.isSubmitting} variant="ghost" {...props}>
       キャンセル
     </Button>
   );
 };
 
-export const StudentEditorSubmit = ({ ...props }: React.ComponentProps<"button">) => {
+export const StudentEditorSubmit = ({ children, ...props }: React.ComponentProps<"button">) => {
   const { form } = useStudentEditor();
 
   const disabled = form.formState.isSubmitting || !form.formState.isDirty;
@@ -160,7 +160,7 @@ export const StudentEditorSubmit = ({ ...props }: React.ComponentProps<"button">
   return (
     <Button type="submit" disabled={disabled} {...props}>
       {form.formState.isSubmitting && <Spinner />}
-      保存
+      {children}
     </Button>
   );
 };

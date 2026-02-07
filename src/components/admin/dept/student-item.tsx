@@ -72,14 +72,21 @@ export const StudentItem = ({ student }: Props) => {
         <StudentEditor defaultValues={student} onSubmit={handleUpdateStudent}>
           <StudentEditorFields />
           <DialogFooter>
-            <Button type="button" variant="destructive" className="sm:mr-auto" onClick={handleDeleteStudent}>
-              <Trash2Icon />
-              削除
-            </Button>
-            <DialogClose asChild>
-              <StudentEditorCancel />
-            </DialogClose>
-            <StudentEditorSubmit />
+            <div className="flex grow items-center justify-between gap-2">
+              <Button
+                type="button"
+                variant="outline"
+                className="flex-1 sm:mr-auto sm:flex-initial"
+                onClick={handleDeleteStudent}
+              >
+                <Trash2Icon />
+                削除
+              </Button>
+              <DialogClose asChild className="flex-1 sm:flex-initial">
+                <StudentEditorCancel />
+              </DialogClose>
+            </div>
+            <StudentEditorSubmit>変更を保存</StudentEditorSubmit>
           </DialogFooter>
         </StudentEditor>
       </DialogContent>
