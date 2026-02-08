@@ -1,7 +1,7 @@
 import z from "zod";
 
 export const StudentNumberSchema = z
-  .string()
+  .string("学籍番号を入力してください。")
   .trim()
   .regex(/^\d{6}$/, "6桁の数字で入力してください。")
   .refine((val) => [...val].reduce((sum, ch) => sum + Number(ch), 0) % 10 === 0, { message: "無効な学籍番号です。" });
