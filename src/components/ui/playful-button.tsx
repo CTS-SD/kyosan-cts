@@ -4,11 +4,11 @@ import type * as React from "react";
 import { cn } from "@/lib/utils";
 
 const playfulButtonVariants = cva(
-  "flex select-none justify-center text-balance text-center font-semibold leading-tight transition-all duration-100 not-disabled:active:translate-y-0.5 not-disabled:active:shadow-none",
+  "flex select-none items-center justify-center gap-1.5 text-balance text-center font-semibold leading-tight transition-all duration-100 not-disabled:active:translate-y-0.5 not-disabled:active:shadow-none *:[svg]:size-5",
   {
     variants: {
       variant: {
-        solid: "bg-[var(--tint)] text-white shadow-[0_3px_0] dark:text-black",
+        solid: "text-white shadow-[0_3px_0] dark:text-black",
         outline: "border-[1.5px] shadow-[0_2px_0]",
       },
       tint: {

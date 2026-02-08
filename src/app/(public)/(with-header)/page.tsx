@@ -1,6 +1,6 @@
-import { ArrowRightIcon } from "lucide-react";
+import { ArrowRightIcon, PenToolIcon } from "lucide-react";
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { PlayfulButton } from "@/components/ui/playful-button";
 import { getCachedConfigValue } from "@/lib/config/actions";
 
 export default async function Home() {
@@ -13,16 +13,16 @@ export default async function Home() {
         <div className="font-semibold text-sm sm:text-xl">京都産業大学 キャンパスツアースタッフ</div>
       </div>
       <div className="flex justify-center gap-4">
-        <Button className="rounded-full" size="lg" variant={showDeptButton ? "outline" : "default"} asChild>
+        <PlayfulButton className="rounded-full px-5" tint="blue" variant={showDeptButton ? "outline" : "solid"} asChild>
           <Link href="/puratto">ぷらっとテスト</Link>
-        </Button>
+        </PlayfulButton>
         {showDeptButton && (
-          <Button size="lg" className="rounded-full" asChild>
+          <PlayfulButton tint="blue" className="rounded-full px-5" asChild>
             <Link href="/members/dept">
               配属発表
               <ArrowRightIcon />
             </Link>
-          </Button>
+          </PlayfulButton>
         )}
       </div>
       <div className="absolute inset-0 -z-1 min-h-dvh bg-radial-[at_50%_30%] from-sky-100 via-sky-300 to-96% to-blue-900 dark:bg-radial-[at_50%_100%] dark:from-black dark:via-gray-900 dark:to-blue-900"></div>
