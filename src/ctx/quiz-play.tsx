@@ -5,8 +5,8 @@ import type { QuizData } from "@/lib/quiz/data";
 import type { QuizResult } from "@/lib/quiz-form";
 
 interface QuizPlayContextType<T extends QuizData> {
-  value: string[];
-  setValue: React.Dispatch<React.SetStateAction<string[]>>;
+  inputValue: string[];
+  setInputValue: React.Dispatch<React.SetStateAction<string[]>>;
   quiz: T;
   result: QuizResult | null;
 }

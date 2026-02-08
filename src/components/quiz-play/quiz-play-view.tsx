@@ -36,13 +36,13 @@ export const QuizPlayView = ({
   ...props
 }: Props) => {
   const [result, setResult] = useState<QuizResult | null>(null);
-  const [userAnswer, setUserAnswer] = useState<string[]>([]);
+  const [inputValue, setInputValue] = useState<string[]>([]);
 
   const showAnswer = !!result;
 
   const reset = () => {
     setResult(null);
-    setUserAnswer([]);
+    setInputValue([]);
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -56,15 +56,15 @@ export const QuizPlayView = ({
 
     const resultItem = {
       quizId: quiz.id,
-      userAnswer,
-      isCorrect: judgeQuiz(quiz, userAnswer),
+      userAnswer: inputValue,
+      isCorrect: judgeQuiz(quiz, inputValue),
     };
     setResult(resultItem);
     addResult?.(resultItem);
   };
 
   return (
-    <QuizPlayContext.Provider value={{ value: userAnswer, setValue: setUserAnswer, quiz, result }}>
+    <QuizPlayContext.Provider value={{ inputValue, setInputValue, quiz, result }}>
       <div className={cn("mx-auto flex h-full max-w-xl grow flex-col", className)} {...props}>
         <QuizPlayHeader startContent={headerStartContent} endContent={headerEndContent} progress={progress} />
         <form onSubmit={handleSubmit} className="flex shrink-0 grow flex-col">

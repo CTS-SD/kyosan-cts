@@ -6,26 +6,26 @@ import type { TrueFalseQuizData } from "@/lib/quiz/data";
 import { PlayfulButton } from "../ui/playful-button";
 
 export const QuizFormTrueFalse = () => {
-  const { result, value, setValue } = useQuizPlay<TrueFalseQuizData>();
+  const { result, inputValue, setInputValue } = useQuizPlay<TrueFalseQuizData>();
 
   const showAnswer = !!result;
-  const val = (() => {
-    const v = value[0];
+  const value = (() => {
+    const v = inputValue[0];
     if (v === "true") return true;
     if (v === "false") return false;
     return null;
   })();
 
-  const setVal = (v: boolean) => {
-    setValue([v ? "true" : "false"]);
+  const setValue = (v: boolean) => {
+    setInputValue([v ? "true" : "false"]);
   };
 
   return (
     <div className="flex gap-4 px-4">
-      <OXButton isSelected={val === true} onClick={() => setVal(true)} disabled={showAnswer}>
+      <OXButton isSelected={value === true} onClick={() => setValue(true)} disabled={showAnswer}>
         <CircleIcon />
       </OXButton>
-      <OXButton isSelected={val === false} onClick={() => setVal(false)} disabled={showAnswer}>
+      <OXButton isSelected={value === false} onClick={() => setValue(false)} disabled={showAnswer}>
         <XIcon />
       </OXButton>
     </div>

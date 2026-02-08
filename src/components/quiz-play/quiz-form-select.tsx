@@ -7,7 +7,7 @@ import type { SelectQuizData } from "@/lib/quiz/data";
 import { PlayfulButton } from "../ui/playful-button";
 
 export const QuizFormSelect = () => {
-  const { result, value: selections, setValue, quiz } = useQuizPlay<SelectQuizData>();
+  const { result, inputValue: selections, setInputValue: setSelections, quiz } = useQuizPlay<SelectQuizData>();
 
   const choices = useMemo(() => {
     return shuffle([...quiz.correctChoices, ...quiz.incorrectChoices].map((choice) => choice.trim()).filter(Boolean));
@@ -15,16 +15,16 @@ export const QuizFormSelect = () => {
 
   const handleChoice = (choice: string) => {
     if (selections.includes(choice)) {
-      setValue((prev) => prev.filter((c) => c !== choice));
+      setSelections((prev) => prev.filter((c) => c !== choice));
       return;
     }
 
     if (selections.length === quiz.correctChoices.length) {
-      setValue((prev) => [...prev.slice(0, -1), choice]);
+      setSelections((prev) => [...prev.slice(0, -1), choice]);
       return;
     }
 
-    setValue((prev) => [...prev, choice]);
+    setSelections((prev) => [...prev, choice]);
   };
 
   return (
