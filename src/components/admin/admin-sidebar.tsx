@@ -89,19 +89,6 @@ export const AdminSidebar = () => {
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
-              <AdminUserMenu>
-                <SidebarMenuButton>
-                  <UserAvatar user={user} className="size-6" />
-                  <span className="truncate">{user.name}</span>
-                  <ChevronDownIcon className="ml-auto text-muted-foreground" />
-                </SidebarMenuButton>
-              </AdminUserMenu>
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-        <SidebarGroup>
-          <SidebarGroupContent>
-            <SidebarMenu>
               {items.map((item) =>
                 item.subItems ? (
                   <Collapsible key={item.title} defaultOpen={item.subItems.some((sub) => sub.url === pathname)}>
@@ -145,7 +132,12 @@ export const AdminSidebar = () => {
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
-          <SidebarMenuItem></SidebarMenuItem>
+          <AdminUserMenu>
+            <SidebarMenuButton>
+              <UserAvatar user={user} className="size-6" />
+              <span className="truncate">{user.name}</span>
+            </SidebarMenuButton>
+          </AdminUserMenu>
         </SidebarMenu>
       </SidebarFooter>
     </Sidebar>
