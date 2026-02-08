@@ -23,9 +23,9 @@ export const DepartmentMembers = ({ department, students }: Props) => {
         <div className="ml-1 font-bold text-foreground/50 dark:text-foreground/80">{students.length}名</div>
       </div>
       <ul className="mt-6 flex flex-wrap justify-center gap-2">
-        {students.map((student) => (
+        {students.map((student, i) => (
           <li
-            key={student.name}
+            key={`${department.id}-${i}`}
             className={cn(
               "flex min-w-30 flex-col items-center rounded-full px-5 py-1 text-white shadow-md",
               deptAsset.styles,
