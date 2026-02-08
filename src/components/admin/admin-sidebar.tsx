@@ -3,7 +3,6 @@
 import { ChevronDownIcon, ChevronRightIcon, CogIcon, NotebookIcon, UsersRoundIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { use } from "react";
 import {
   Sidebar,
   SidebarContent,
