@@ -1,6 +1,7 @@
 "use client";
 
 import { XIcon } from "lucide-react";
+import { AnimatePresence, motion } from "motion/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { confirm } from "@/components/confirm-store";
@@ -55,14 +56,26 @@ export const ClientView = ({ quizzes }: Props) => {
   }
 
   return (
-    <QuizPlay.Root quiz={quiz} onAnswer={handleAnswer} onNext={handleNext} className="h-dvh">
+    <QuizPlay.Root quiz={quiz} onAnswer={handleAnswer} onNext={handleNext} className="relative h-dvh overflow-hidden">
       <QuizPlay.Header>
         <Button size="icon" variant="ghost" onClick={handleQuit}>
           <XIcon />
         </Button>
         <PlayfulProgress value={progress} />
       </QuizPlay.Header>
-      <QuizPlay.Content />
+      <AnimatePresence mode="popLayout" initial={false}>
+        <motion.div
+          initial={{ translateX: "100%" }}
+          animate={{ translateX: "0%" }}
+          exit={{ translateX: "-100%" }}
+          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          className="flex grow flex-col"
+          layout
+          key={quizIndex}
+        >
+          <QuizPlay.Content />
+        </motion.div>
+      </AnimatePresence>
     </QuizPlay.Root>
   );
 };
