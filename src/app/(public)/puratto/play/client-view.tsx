@@ -68,7 +68,7 @@ export const ClientView = ({ quizzes }: Props) => {
           initial={{ translateX: "100%" }}
           animate={{ translateX: "0%" }}
           exit={{ translateX: "-100%" }}
-          transition={{ type: "spring", stiffness: 300, damping: 30 }}
+          transition={{ ease: [0.25, 0.1, 0.25, 1], duration: 0.36 }}
           className="flex grow flex-col"
           layout
           key={quizIndex}
