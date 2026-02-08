@@ -2,7 +2,6 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
-import { EyeIcon } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useTransition } from "react";

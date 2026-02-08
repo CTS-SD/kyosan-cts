@@ -63,7 +63,7 @@ export const ClientView = ({ quizzes }: Props) => {
         </Button>
         <PlayfulProgress value={progress} />
       </QuizPlay.Header>
-      <AnimatePresence mode="popLayout" initial={false}>
+      <AnimatePresence mode="popLayout">
         <motion.div
           initial={{ translateX: "100%" }}
           animate={{ translateX: "0%" }}
