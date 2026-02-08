@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { QueryProvider } from "@/providers/query";
 import "./globals.css";
 import { Suspense } from "react";
+import { ConfirmDialogHost } from "@/components/confirm-dialog";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -45,6 +46,7 @@ export default async function RootLayout({
                 <Suspense>{children}</Suspense>
               </QueryProvider>
               <Toaster />
+              <ConfirmDialogHost />
             </ThemeProvider>
           </NuqsAdapter>
         </NavigationGuardProvider>

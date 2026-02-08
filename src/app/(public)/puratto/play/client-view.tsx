@@ -3,6 +3,7 @@
 import { XIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { confirm } from "@/components/confirm-store";
 import { QuizPlay } from "@/components/quiz-play/quiz-play";
 import { QuizResultsView } from "@/components/quiz-play/quiz-results-view";
 import { Button } from "@/components/ui/button";
@@ -36,9 +37,17 @@ export const ClientView = ({ quizzes }: Props) => {
     setQuizIndex((prev) => prev + 1);
   };
 
-  const handleQuit = () => {
-    if (!window.confirm("ぷらっとテストを中断しますか？")) return;
-    router.push("/puratto");
+  const handleQuit = async () => {
+    if (
+      results.length === 0 ||
+      (await confirm({
+        title: "ぷらっとテストを終了しますか？",
+        confirmText: "終了する",
+        cancelText: "まだ続ける",
+      }))
+    ) {
+      router.push("/puratto");
+    }
   };
 
   if (quizIndex >= quizzes.length) {
