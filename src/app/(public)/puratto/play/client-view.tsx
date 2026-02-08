@@ -53,7 +53,7 @@ export const ClientView = ({ quizzes }: Props) => {
           <XIcon />
         </Button>
       }
-      headerEndContent={<QuizPlayAdminMenu quizId={quiz.id} />}
+      headerEndContent={<QuizPlayAdminMenu />}
       addResult={addResult}
       onNext={handleNext}
       className="h-dvh"

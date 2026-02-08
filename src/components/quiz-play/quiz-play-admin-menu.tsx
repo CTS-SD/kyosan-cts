@@ -1,13 +1,12 @@
 import { EditIcon, EllipsisIcon } from "lucide-react";
 import Link from "next/link";
+import { useQuizPlay } from "@/ctx/quiz-play";
 import { Button } from "../ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
 
-type Props = {
-  quizId: number;
-};
+export const QuizPlayAdminMenu = () => {
+  const { quiz } = useQuizPlay();
 
-export const QuizPlayAdminMenu = ({ quizId }: Props) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -17,7 +16,7 @@ export const QuizPlayAdminMenu = ({ quizId }: Props) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem asChild>
-          <Link href={`/admin/puratto/q/${quizId}`}>
+          <Link href={`/admin/puratto/q/${quiz.id}`}>
             <EditIcon />
             問題を編集
           </Link>
