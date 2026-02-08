@@ -1,0 +1,2 @@
+- Use pnpm as package manager
+- Run `pnpm typecheck` to confirm the changes you made
