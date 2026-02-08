@@ -1,4 +1,4 @@
-import { Progress } from "../ui/progress";
+import { PlayfulProgress } from "../ui/playful-progress";
 
 type Props = {
   startContent?: React.ReactNode;
@@ -10,9 +10,7 @@ export const QuizPlayHeader = ({ startContent, endContent, progress }: Props) =>
   return (
     <div className="sticky top-0 flex h-12 shrink-0 items-center gap-2 bg-background px-4">
       {startContent}
-      <div className="grow">
-        <Progress value={progress} className="w-full" />
-      </div>
+      <PlayfulProgress value={progress} className="grow" />
       {endContent}
     </div>
   );
