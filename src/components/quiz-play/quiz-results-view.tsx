@@ -1,7 +1,6 @@
 import { motion, stagger } from "motion/react";
 import Link from "next/link";
-import type { QuizData } from "@/lib/quiz/data";
-import type { QuizResult } from "@/lib/quiz-form";
+import type { QuizData, QuizResult } from "@/lib/quiz";
 import { PlayfulButton } from "../ui/playful-button";
 import { QuizResultItem } from "./quiz-result-item";
 

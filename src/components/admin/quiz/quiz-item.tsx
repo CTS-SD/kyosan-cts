@@ -3,8 +3,8 @@ import Link from "next/link";
 import { Markdown } from "@/components/markdown";
 import { QuizAnswerRenderer } from "@/components/quiz-answer-renderer";
 import { Badge } from "@/components/ui/badge";
-import type { QuizData } from "@/lib/quiz/data";
-import { getQuizTypeLabel } from "@/lib/quiz/types";
+import type { QuizData } from "@/lib/quiz";
+import { getQuizTypeLabel } from "@/lib/quiz";
 
 type Props = {
   quiz: QuizData;

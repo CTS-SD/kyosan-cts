@@ -3,15 +3,15 @@ import Link from "next/link";
 import { useState } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import { Button } from "@/components/ui/button";
-import { makePseudoQuiz, type QuizValues } from "@/lib/quiz/editor";
+import { makePseudoQuiz, type QuizEditorValues } from "@/lib/quiz";
 import { QuizEditor } from "./quiz-editor";
 import { QuizPreview } from "./quiz-preview";
 import { QuizViewMenu } from "./quiz-view-menu";
 
 type Props = {
   heading: React.ReactNode;
-  form: UseFormReturn<QuizValues>;
-  onSubmit: (values: QuizValues) => Promise<void>;
+  form: UseFormReturn<QuizEditorValues>;
+  onSubmit: (values: QuizEditorValues) => Promise<void>;
 };
 
 export const QuizView = ({ heading, form, onSubmit }: Props) => {

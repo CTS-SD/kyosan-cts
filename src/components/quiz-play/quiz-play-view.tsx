@@ -2,10 +2,8 @@
 
 import { useState } from "react";
 import { QuizPlayContext } from "@/ctx/quiz-play";
-import type { QuizData } from "@/lib/quiz/data";
-import { judgeQuizInput, validateQuizInput } from "@/lib/quiz/judge";
-import { getQuizPrompt } from "@/lib/quiz/types";
-import type { QuizResult } from "@/lib/quiz-form";
+import type { QuizData, QuizResult } from "@/lib/quiz";
+import { getQuizPrompt, judgeQuizInput, validateQuizInput } from "@/lib/quiz";
 import { cn } from "@/lib/utils";
 import { Markdown } from "../markdown";
 import { PlayfulButton } from "../ui/playful-button";

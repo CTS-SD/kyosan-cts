@@ -49,7 +49,7 @@
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
 
-  --ease-gentle: cubic-bezier(0.165, 0.84, 0.44, 1)
+  --ease-gentle: cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
 :root {

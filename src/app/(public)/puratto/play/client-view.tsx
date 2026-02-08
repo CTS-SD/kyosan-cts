@@ -7,8 +7,7 @@ import { QuizPlayAdminMenu } from "@/components/quiz-play/quiz-play-admin-menu";
 import { QuizPlayView } from "@/components/quiz-play/quiz-play-view";
 import { QuizResultsView } from "@/components/quiz-play/quiz-results-view";
 import { Button } from "@/components/ui/button";
-import type { QuizData } from "@/lib/quiz/data";
-import type { QuizResult } from "@/lib/quiz-form";
+import type { QuizData, QuizResult } from "@/lib/quiz";
 
 type Props = {
   quizzes: QuizData[];
@@ -54,7 +53,7 @@ export const ClientView = ({ quizzes }: Props) => {
           <XIcon />
         </Button>
       }
-      headerEndContent={ <QuizPlayAdminMenu quizId={quiz.id} />}
+      headerEndContent={<QuizPlayAdminMenu quizId={quiz.id} />}
       addResult={addResult}
       onNext={handleNext}
       className="h-dvh"

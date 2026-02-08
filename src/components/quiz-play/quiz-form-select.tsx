@@ -3,7 +3,7 @@
 import { shuffle } from "es-toolkit";
 import { useMemo } from "react";
 import { useQuizPlay } from "@/ctx/quiz-play";
-import type { SelectQuizData } from "@/lib/quiz/data";
+import type { SelectQuizData } from "@/lib/quiz";
 import { PlayfulButton } from "../ui/playful-button";
 
 export const QuizFormSelect = () => {

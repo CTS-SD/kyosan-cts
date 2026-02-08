@@ -9,15 +9,14 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Spinner } from "@/components/ui/spinner";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
-import type { QuizValues } from "@/lib/quiz/editor";
-import { quizTypes } from "@/lib/quiz/types";
+import { getQuizTypes, type QuizEditorValues } from "@/lib/quiz";
 import { QuizEditorSelect } from "./quiz-editor-select";
 import { QuizEditorText } from "./quiz-editor-text";
 import { QuizEditorTrueFalse } from "./quiz-editor-true-false";
 
 type Props = {
-  form: UseFormReturn<QuizValues>;
-  onSubmit: (values: QuizValues) => void;
+  form: UseFormReturn<QuizEditorValues>;
+  onSubmit: (values: QuizEditorValues) => void;
   className?: string;
   isNew: boolean;
 };
@@ -51,7 +50,7 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  {quizTypes.map((type) => (
+                  {getQuizTypes().map((type) => (
                     <SelectItem key={type.id} value={type.id}>
                       {type.label}
                     </SelectItem>

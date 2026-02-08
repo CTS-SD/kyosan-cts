@@ -2,14 +2,14 @@
 
 import { desc, eq, ilike, or, type SQL, sql } from "drizzle-orm";
 import { notFound } from "next/navigation";
-import { requireRole } from "../auth/actions";
-import { db } from "../db";
-import { QuizTable, SelectQuizTable, TextQuizTable, TrueFalseQuizTable } from "../db/schema";
-import { type QuizData, SelectQuizSchema, TextQuizSchema, TrueFalseQuizSchema } from "./data";
-import type { QuizValues } from "./editor";
-import { getQuizHandler } from "./handlers";
+import { requireRole } from "@/lib/auth/actions";
+import { db } from "@/lib/db";
+import { QuizTable, SelectQuizTable, TextQuizTable, TrueFalseQuizTable } from "@/lib/db/schema";
+import type { QuizEditorValues } from "./domain/editor";
+import { getQuizHandler } from "./domain/handlers";
+import type { QuizData } from "./domain/types";
 
-export async function insertQuiz(values: QuizValues) {
+export async function insertQuiz(values: QuizEditorValues) {
   await requireRole(["admin"]);
 
   const [{ id: quizId }] = await db
@@ -23,13 +23,13 @@ export async function insertQuiz(values: QuizValues) {
     .returning({ id: QuizTable.id });
 
   const handler = getQuizHandler(values.type);
-  const payload = handler.buildPayload(quizId, values);
+  const payload = handler.buildDbPayload(quizId, values);
   await db.insert(handler.table).values(payload);
 
   return quizId;
 }
 
-export async function updateQuiz(quizId: number, values: QuizValues) {
+export async function updateQuiz(quizId: number, values: QuizEditorValues) {
   await requireRole(["admin"]);
 
   await db
@@ -43,7 +43,7 @@ export async function updateQuiz(quizId: number, values: QuizValues) {
     .where(eq(QuizTable.id, quizId));
 
   const handler = getQuizHandler(values.type);
-  const payload = handler.buildPayload(quizId, values);
+  const payload = handler.buildDbPayload(quizId, values);
 
   await db.insert(handler.table).values(payload).onConflictDoUpdate({
     target: handler.table.quizId,
@@ -81,6 +81,42 @@ type QuizRow = {
   true_false_answer: boolean | null;
 };
 
+/**
+ * Parse a quiz row from the database into QuizData.
+ */
+function parseQuizRow(row: QuizRow): QuizData {
+  const base = {
+    id: row.id,
+    type: row.type,
+    question: row.question,
+    explanation: row.explanation,
+    isPublished: row.isPublished,
+    createdAt: row.createdAt,
+  };
+
+  const handler = getQuizHandler(row.type);
+
+  // Build the type-specific data
+  const typeSpecificData = (() => {
+    switch (row.type) {
+      case "select":
+        return {
+          correctChoices: row.select_correctChoices,
+          incorrectChoices: row.select_incorrectChoices,
+        };
+      case "text":
+        return { answer: row.text_answer };
+      case "true_false":
+        return { answer: row.true_false_answer };
+    }
+  })();
+
+  return handler.dataSchema.parse({ ...base, ...typeSpecificData });
+}
+
+/**
+ * Get a paginated list of quizzes.
+ */
 export async function getQuizzes({
   limit,
   offset,
@@ -93,7 +129,7 @@ export async function getQuizzes({
   orderBy?: SQL;
 }) {
   const _limit = limit + 1;
-  const rows: QuizRow[] = await db
+  const rows = await db
     .select({
       id: QuizTable.id,
       type: QuizTable.type,
@@ -127,41 +163,9 @@ export async function getQuizzes({
   };
 }
 
-function parseQuizRow(row: QuizRow): QuizData {
-  const base = {
-    id: row.id,
-    type: row.type,
-    question: row.question,
-    explanation: row.explanation,
-    isPublished: row.isPublished,
-    createdAt: row.createdAt,
-  };
-
-  switch (row.type) {
-    case "select": {
-      return SelectQuizSchema.parse({
-        ...base,
-        correctChoices: row.select_correctChoices,
-        incorrectChoices: row.select_incorrectChoices,
-      });
-    }
-    case "text": {
-      return TextQuizSchema.parse({
-        ...base,
-        answer: row.text_answer,
-      });
-    }
-    case "true_false": {
-      return TrueFalseQuizSchema.parse({
-        ...base,
-        answer: row.true_false_answer,
-      });
-    }
-    default:
-      throw new Error(`Unknown quiz type: ${row.type}`);
-  }
-}
-
+/**
+ * Search quizzes by query string.
+ */
 export async function searchQuizzes(query: string) {
   const likeQuery = `%${query}%`;
   const quizzes = await getQuizzes({
@@ -176,6 +180,9 @@ export async function searchQuizzes(query: string) {
   return quizzes;
 }
 
+/**
+ * Get statistics about the quiz list.
+ */
 export async function getQuizListStats() {
   const [row] = await db
     .select({

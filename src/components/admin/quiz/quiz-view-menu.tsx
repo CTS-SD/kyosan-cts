@@ -11,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { deleteQuiz } from "@/lib/quiz/actions";
+import { deleteQuiz } from "@/lib/quiz";
 import { copyToClipboard } from "@/lib/utils";
 
 type Props = {

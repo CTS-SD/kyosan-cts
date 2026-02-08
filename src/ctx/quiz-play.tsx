@@ -1,8 +1,7 @@
 "use client";
 
 import { createContext, useContext } from "react";
-import type { QuizData } from "@/lib/quiz/data";
-import type { QuizResult } from "@/lib/quiz-form";
+import type { QuizData, QuizResult } from "@/lib/quiz";
 
 interface QuizPlayContextType<T extends QuizData> {
   inputValue: string[];

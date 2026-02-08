@@ -1,5 +1,4 @@
-import type { QuizData } from "@/lib/quiz/data";
-import type { QuizResult } from "@/lib/quiz-form";
+import type { QuizData, QuizResult } from "@/lib/quiz";
 import { Markdown } from "../markdown";
 import { QuizAnswerRenderer } from "../quiz-answer-renderer";
 import { Badge } from "../ui/badge";

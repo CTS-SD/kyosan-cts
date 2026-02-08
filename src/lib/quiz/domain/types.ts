@@ -1,5 +1,7 @@
 import z from "zod";
 
+export const QUIZ_TYPE_IDS = ["select", "text", "true_false"] as const;
+
 export const CommonQuizSchema = z.object({
   id: z.number(),
   type: z.string(),
@@ -28,4 +30,6 @@ export const TrueFalseQuizSchema = CommonQuizSchema.extend({
 export type SelectQuizData = z.infer<typeof SelectQuizSchema>;
 export type TextQuizData = z.infer<typeof TextQuizSchema>;
 export type TrueFalseQuizData = z.infer<typeof TrueFalseQuizSchema>;
+
 export type QuizData = SelectQuizData | TextQuizData | TrueFalseQuizData;
+export type QuizType = QuizData["type"];

@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuizPlay } from "@/ctx/quiz-play";
-import type { TextQuizData } from "@/lib/quiz/data";
+import type { TextQuizData } from "@/lib/quiz";
 import { cn, splitByLines } from "@/lib/utils";
 import { Input } from "../ui/input";
 

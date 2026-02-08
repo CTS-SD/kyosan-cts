@@ -3,9 +3,7 @@
 import { toast } from "sonner";
 import { QuizView } from "@/components/admin/quiz/quiz-view";
 import { useQuizForm } from "@/hooks/use-quiz-form";
-import { updateQuiz } from "@/lib/quiz/actions";
-import type { QuizData } from "@/lib/quiz/data";
-import { makeDefaultValues, type QuizValues } from "@/lib/quiz/editor";
+import { type QuizData, type QuizEditorValues, toEditorValues, updateQuiz } from "@/lib/quiz";
 
 type Props = {
   quiz: QuizData;
@@ -13,10 +11,10 @@ type Props = {
 
 export const ClientView = ({ quiz }: Props) => {
   const form = useQuizForm({
-    defaultValues: makeDefaultValues(quiz),
+    defaultValues: toEditorValues(quiz),
   });
 
-  const handleSubmit = async (values: QuizValues) => {
+  const handleSubmit = async (values: QuizEditorValues) => {
     await updateQuiz(quiz.id, values);
     toast.success("問題を保存しました");
     form.reset(values);
