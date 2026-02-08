@@ -39,16 +39,16 @@ export const QuizView = ({ heading, form, onSubmit }: Props) => {
             {heading && <h1 className="font-bold">{heading}</h1>}
             <div className="ml-auto flex items-center gap-2">
               <Dialog>
-                <DialogTrigger className="sm:hidden">
+                <DialogTrigger className="md:hidden" asChild>
                   <Button variant="outline" aria-label="プレビューを表示">
                     <EyeIcon />
                     プレビュー
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="flex h-[95dvh] w-full flex-col" showCloseButton={false}>
+                <DialogContent className="flex h-[95dvh] w-full flex-col bg-background" showCloseButton={false}>
                   <DialogTitle className="sr-only">プレビュー</DialogTitle>
-                  <QuizPlay.Root quiz={quiz} className="w-full pt-2">
-                    <QuizPlay.Header>
+                  <QuizPlay.Root quiz={quiz} className="w-full overflow-auto">
+                    <QuizPlay.Header className="pt-2">
                       <Badge variant="outline">プレビュー</Badge>
                       <PlayfulProgress value={20} />
                       <DialogClose asChild>
@@ -68,7 +68,7 @@ export const QuizView = ({ heading, form, onSubmit }: Props) => {
           <QuizEditor form={form} onSubmit={onSubmit} className="mt-6" isNew={isNew} />
         </div>
       </div>
-      <div className="sticky top-12 hidden h-[calc(100dvh-48px)] max-w-md flex-1 overflow-auto overscroll-contain sm:block">
+      <div className="sticky top-12 hidden h-[calc(100dvh-48px)] max-w-md flex-1 overflow-auto overscroll-contain md:block">
         <QuizPlay.Root quiz={quiz}>
           <QuizPlay.Header>
             <Badge variant="outline">プレビュー</Badge>
