@@ -6,12 +6,8 @@ import { useQuizPlay } from "@/ctx/quiz-play";
 import type { SelectQuizData } from "@/lib/quiz/data";
 import { PlayfulButton } from "../ui/playful-button";
 
-type Props = {
-  quiz: SelectQuizData;
-};
-
-export const QuizFormSelect = ({ quiz }: Props) => {
-  const { result, value: selections, setValue } = useQuizPlay();
+export const QuizFormSelect = () => {
+  const { result, value: selections, setValue, quiz } = useQuizPlay<SelectQuizData>();
 
   const choices = useMemo(() => {
     return shuffle([...quiz.correctChoices, ...quiz.incorrectChoices].map((choice) => choice.trim()).filter(Boolean));
@@ -34,7 +30,7 @@ export const QuizFormSelect = ({ quiz }: Props) => {
   return (
     <div className="px-4">
       <div className="flex flex-col gap-2.5">
-        {choices.map((choice, i) => {
+        {choices.map((choice) => {
           const isSelected = selections.includes(choice);
           const isHighlighted = result?.isCorrect && isSelected && quiz.correctChoices.includes(choice);
           const tint = isHighlighted ? "green" : isSelected ? "blue" : "default";
@@ -43,7 +39,7 @@ export const QuizFormSelect = ({ quiz }: Props) => {
               variant="outline"
               type="button"
               tint={tint}
-              key={`${choice}-${i}`}
+              key={`${quiz.id}-${choice}`}
               onClick={() => handleChoice(choice)}
               disabled={!!result}
             >
@@ -55,5 +51,3 @@ export const QuizFormSelect = ({ quiz }: Props) => {
     </div>
   );
 };
-
-export default QuizFormSelect;

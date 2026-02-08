@@ -5,12 +5,8 @@ import type { TextQuizData } from "@/lib/quiz/data";
 import { cn, splitByLines } from "@/lib/utils";
 import { Input } from "../ui/input";
 
-type Props = {
-  quiz: TextQuizData;
-};
-
-export const QuizFormText = ({ quiz }: Props) => {
-  const { result, value, setValue } = useQuizPlay();
+export const QuizFormText = () => {
+  const { result, value, setValue, quiz } = useQuizPlay<TextQuizData>();
 
   const val = value[0] ?? "";
   const showAnswer = !!result;

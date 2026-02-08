@@ -10,14 +10,11 @@ import type { QuizResult } from "@/lib/quiz-form";
 import { cn } from "@/lib/utils";
 import { Markdown } from "../markdown";
 import { PlayfulButton } from "../ui/playful-button";
+import { QuizFormSelect } from "./quiz-form-select";
 import { QuizFormText } from "./quiz-form-text";
 import { QuizFormTrueFalse } from "./quiz-form-true-false";
 import { QuizPlayHeader } from "./quiz-play-header";
 import { QuizPlayResult } from "./quiz-play-result";
-
-const QuizFormSelect = dynamic(() => import("@/components/quiz-play/quiz-form-select"), {
-  ssr: false,
-});
 
 type Props = React.ComponentProps<"div"> & {
   quiz: QuizData;
@@ -79,9 +76,9 @@ export const QuizPlayView = ({
               </div>
             </div>
             <div className="pb-4">
-              {quiz.type === "select" && <QuizFormSelect quiz={quiz} />}
-              {quiz.type === "text" && <QuizFormText quiz={quiz} />}
-              {quiz.type === "true_false" && <QuizFormTrueFalse quiz={quiz} />}
+              {quiz.type === "select" && <QuizFormSelect />}
+              {quiz.type === "text" && <QuizFormText />}
+              {quiz.type === "true_false" && <QuizFormTrueFalse />}
             </div>
           </div>
           <div
@@ -93,7 +90,7 @@ export const QuizPlayView = ({
             })}
           >
             <div className={cn("flex flex-col gap-3 p-4")}>
-              {result && <QuizPlayResult quiz={quiz} result={result} />}
+              {result && <QuizPlayResult />}
               <PlayfulButton
                 type="submit"
                 className="z-10 w-full"

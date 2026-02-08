@@ -5,12 +5,8 @@ import { useQuizPlay } from "@/ctx/quiz-play";
 import type { TrueFalseQuizData } from "@/lib/quiz/data";
 import { PlayfulButton } from "../ui/playful-button";
 
-type Props = {
-  quiz: TrueFalseQuizData;
-};
-
-export const QuizFormTrueFalse = ({ quiz }: Props) => {
-  const { result, value, setValue } = useQuizPlay();
+export const QuizFormTrueFalse = () => {
+  const { result, value, setValue } = useQuizPlay<TrueFalseQuizData>();
 
   const showAnswer = !!result;
   const val = (() => {

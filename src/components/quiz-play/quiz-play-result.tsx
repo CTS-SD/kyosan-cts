@@ -1,20 +1,18 @@
 import { motion } from "motion/react";
 import { useState } from "react";
-import type { QuizData } from "@/lib/quiz/data";
-import type { QuizResult } from "@/lib/quiz-form";
+import { useQuizPlay } from "@/ctx/quiz-play";
 import { cn } from "@/lib/utils";
 import { Markdown } from "../markdown";
 import { QuizAnswerRenderer } from "../quiz-answer-renderer";
 import { PlayfulButton } from "../ui/playful-button";
 
-type Props = {
-  result: QuizResult;
-  quiz: QuizData;
-};
-
-export const QuizPlayResult = ({ result, quiz }: Props) => {
+export const QuizPlayResult = () => {
+  const { result, quiz } = useQuizPlay();
   const [showExplanation, setShowExplanation] = useState(false);
+
   const hasExplanation = !!quiz.explanation;
+
+  if (!result) return null;
 
   return (
     <motion.div
