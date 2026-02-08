@@ -9,14 +9,16 @@ function PlayfulProgress({ className, value, ...props }: React.ComponentProps<ty
   return (
     <ProgressPrimitive.Root
       data-slot="progress"
-      className={cn("relative flex h-3 w-full items-center overflow-x-hidden rounded-full bg-muted", className)}
+      className={cn("relative flex h-3.75 w-full items-center overflow-x-hidden rounded-full bg-muted", className)}
       {...props}
     >
       <ProgressPrimitive.Indicator
         data-slot="progress-indicator"
-        className="size-full flex-1 rounded-full bg-green-400 transition-all"
+        className="relative size-full flex-1 rounded-full bg-blue-400 transition-all duration-300 ease-gentle"
         style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
-      />
+      >
+        <div className="absolute top-0.75 right-2 left-2 h-0.75 rounded-full bg-white/20"></div>
+      </ProgressPrimitive.Indicator>
     </ProgressPrimitive.Root>
   );
 }

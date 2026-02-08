@@ -3,10 +3,10 @@
 import { XIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { QuizPlayAdminMenu } from "@/components/quiz-play/quiz-play-admin-menu";
-import { QuizPlayView } from "@/components/quiz-play/quiz-play-view";
+import { QuizPlay } from "@/components/quiz-play/quiz-play";
 import { QuizResultsView } from "@/components/quiz-play/quiz-results-view";
 import { Button } from "@/components/ui/button";
+import { PlayfulProgress } from "@/components/ui/playful-progress";
 import type { QuizData, QuizResult } from "@/lib/quiz";
 
 type Props = {
@@ -20,6 +20,7 @@ export const ClientView = ({ quizzes }: Props) => {
   const [startedAt] = useState(() => Date.now());
   const [finishedAt, setFinishedAt] = useState<number | null>(null);
   const quiz = quizzes[quizIndex];
+  const progress = (results.length / quizzes.length) * 100;
 
   useEffect(() => {
     if (quizIndex >= quizzes.length && finishedAt === null) {
@@ -27,7 +28,7 @@ export const ClientView = ({ quizzes }: Props) => {
     }
   }, [quizIndex, quizzes.length, finishedAt]);
 
-  const addResult = (result: QuizResult) => {
+  const handleAnswer = (result: QuizResult) => {
     setResults((prev) => [...prev, result]);
   };
 
@@ -45,18 +46,14 @@ export const ClientView = ({ quizzes }: Props) => {
   }
 
   return (
-    <QuizPlayView
-      quiz={quiz}
-      progress={(results.length / quizzes.length) * 100}
-      headerStartContent={
-        <Button size="icon" onClick={handleQuit} variant="ghost">
+    <QuizPlay.Root quiz={quiz} onAnswer={handleAnswer} onNext={handleNext} className="h-dvh">
+      <QuizPlay.Header>
+        <Button size="icon" variant="ghost" onClick={handleQuit}>
           <XIcon />
         </Button>
-      }
-      headerEndContent={<QuizPlayAdminMenu />}
-      addResult={addResult}
-      onNext={handleNext}
-      className="h-dvh"
-    />
+        <PlayfulProgress value={progress} />
+      </QuizPlay.Header>
+      <QuizPlay.Content />
+    </QuizPlay.Root>
   );
 };

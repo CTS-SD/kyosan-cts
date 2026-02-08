@@ -2,10 +2,13 @@ import { ArrowLeftIcon, EyeIcon, XIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import type { UseFormReturn } from "react-hook-form";
+import { QuizPlay } from "@/components/quiz-play/quiz-play";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { PlayfulProgress } from "@/components/ui/playful-progress";
 import { makePseudoQuiz, type QuizEditorValues } from "@/lib/quiz";
 import { QuizEditor } from "./quiz-editor";
-import { QuizPreview } from "./quiz-preview";
 import { QuizViewMenu } from "./quiz-view-menu";
 
 type Props = {
@@ -15,13 +18,13 @@ type Props = {
 };
 
 export const QuizView = ({ heading, form, onSubmit }: Props) => {
-  const [showPreviewOverlay, setShowPreviewOverlay] = useState(false);
-
   const formValues = form.watch();
-  const previewQuiz = makePseudoQuiz(formValues);
+  const quiz = makePseudoQuiz(formValues);
 
   const quizId = formValues.id;
   const isNew = quizId === null;
+
+  if (!quiz) return null;
 
   return (
     <div className="mx-auto flex max-w-6xl">
@@ -35,39 +38,45 @@ export const QuizView = ({ heading, form, onSubmit }: Props) => {
             </Button>
             {heading && <h1 className="font-bold">{heading}</h1>}
             <div className="ml-auto flex items-center gap-2">
-              <Button
-                className="sm:hidden"
-                variant="outline"
-                onClick={() => setShowPreviewOverlay(true)}
-                aria-label="プレビューを表示"
-              >
-                <EyeIcon />
-                プレビュー
-              </Button>
+              <Dialog>
+                <DialogTrigger className="sm:hidden">
+                  <Button variant="outline" aria-label="プレビューを表示">
+                    <EyeIcon />
+                    プレビュー
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="flex h-[95dvh] w-full flex-col" showCloseButton={false}>
+                  <DialogTitle className="sr-only">プレビュー</DialogTitle>
+                  <QuizPlay.Root quiz={quiz} className="w-full pt-2">
+                    <QuizPlay.Header>
+                      <Badge variant="outline">プレビュー</Badge>
+                      <PlayfulProgress value={20} />
+                      <DialogClose asChild>
+                        <Button variant="outline">
+                          <XIcon />
+                          閉じる
+                        </Button>
+                      </DialogClose>
+                    </QuizPlay.Header>
+                    <QuizPlay.Content />
+                  </QuizPlay.Root>
+                </DialogContent>
+              </Dialog>
               {!isNew && <QuizViewMenu quizId={quizId} />}
             </div>
           </div>
           <QuizEditor form={form} onSubmit={onSubmit} className="mt-6" isNew={isNew} />
         </div>
       </div>
-      <div className="sticky top-12 hidden h-[calc(100dvh-48px)] flex-1 overflow-auto overscroll-contain sm:block">
-        <QuizPreview quiz={previewQuiz} />
+      <div className="sticky top-12 hidden h-[calc(100dvh-48px)] max-w-md flex-1 overflow-auto overscroll-contain sm:block">
+        <QuizPlay.Root quiz={quiz}>
+          <QuizPlay.Header>
+            <Badge variant="outline">プレビュー</Badge>
+            <PlayfulProgress value={20} />
+          </QuizPlay.Header>
+          <QuizPlay.Content />
+        </QuizPlay.Root>
       </div>
-      {showPreviewOverlay && (
-        <div className="fixed inset-0 z-30 flex starting:scale-95 flex-col overflow-auto overscroll-contain bg-background starting:opacity-0 transition-all duration-200 ease-out sm:hidden">
-          <div className="w-full grow">
-            <QuizPreview
-              quiz={previewQuiz}
-              headerEndContent={
-                <Button variant="outline" className="" onClick={() => setShowPreviewOverlay(false)}>
-                  <XIcon aria-hidden />
-                  閉じる
-                </Button>
-              }
-            />
-          </div>
-        </div>
-      )}
     </div>
   );
 };

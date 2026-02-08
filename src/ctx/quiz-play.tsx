@@ -9,6 +9,10 @@ interface QuizPlayContextType<T extends QuizData> {
   isValidInput: boolean;
   quiz: T;
   result: QuizResult | null;
+  setResult: React.Dispatch<React.SetStateAction<QuizResult | null>>;
+
+  onAnswer?: (result: QuizResult) => void;
+  onNext?: () => void;
 }
 
 export const QuizPlayContext = createContext<QuizPlayContextType<QuizData> | null>(null);
