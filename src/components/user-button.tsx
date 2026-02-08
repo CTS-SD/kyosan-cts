@@ -1,20 +1,15 @@
-import { headers } from "next/headers";
 import Link from "next/link";
-import { auth } from "@/lib/auth/server";
+import { getUser } from "@/lib/auth/actions";
 import { AdminUserButton } from "./admin/admin-user-button";
 import { MemberUserButton } from "./members/member-user-button";
 import { Button } from "./ui/button";
 
 export const UserButton = async () => {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const user = await getUser();
 
-  if (!session) {
+  if (!user) {
     return <LoginButton />;
   }
-
-  const user = session.user;
 
   if (user.role === "admin") {
     return (

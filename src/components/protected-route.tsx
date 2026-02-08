@@ -1,6 +1,5 @@
-import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { auth } from "@/lib/auth/server";
+import { getUser } from "@/lib/auth/actions";
 
 type Props = {
   children: React.ReactNode;
@@ -9,11 +8,9 @@ type Props = {
 };
 
 export const ProtectedRoute = async ({ children, roles, fallbackUrl = "/sign-in" }: Props) => {
-  const session = await auth.api.getSession({
-    headers: await headers(),
-  });
+  const user = await getUser();
 
-  if (!session || !roles.includes(session.user.role)) {
+  if (!user || !roles.includes(user.role)) {
     return redirect(fallbackUrl);
   }
 
