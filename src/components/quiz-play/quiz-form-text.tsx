@@ -6,7 +6,7 @@ import { cn, splitByLines } from "@/lib/utils";
 import { Input } from "../ui/input";
 
 export const QuizFormText = () => {
-  const { result, inputValue, setInputValue, quiz } = useQuizPlay<TextQuizData>();
+  const { result, inputValue, setInputValue, quiz, isValidInput } = useQuizPlay<TextQuizData>();
 
   const value = inputValue[0] ?? "";
   const showAnswer = !!result;

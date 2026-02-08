@@ -4,7 +4,7 @@ import type * as React from "react";
 import { cn } from "@/lib/utils";
 
 const playfulButtonVariants = cva(
-  "flex select-none justify-center text-balance text-center font-bold leading-tight transition-all duration-100 not-disabled:active:translate-y-0.5 not-disabled:active:shadow-none",
+  "flex select-none justify-center text-balance text-center font-semibold leading-tight transition-all duration-100 not-disabled:active:translate-y-0.5 not-disabled:active:shadow-none",
   {
     variants: {
       variant: {
@@ -16,6 +16,7 @@ const playfulButtonVariants = cva(
         red: "",
         green: "",
         blue: "",
+        disabled: "",
       },
       size: {
         sm: "rounded-lg px-2.5 py-1.5 text-sm",
@@ -65,6 +66,11 @@ const playfulButtonVariants = cva(
         tint: "blue",
         class:
           "border-blue-300 bg-blue-50 text-blue-500 shadow-blue-300 dark:border-blue-400/50 dark:bg-blue-500/10 dark:text-blue-400 dark:shadow-blue-400/50",
+      },
+      {
+        variant: "solid",
+        tint: "disabled",
+        class: "translate-y-0.5 bg-neutral-200 text-neutral-500 shadow-none dark:bg-neutral-800 dark:text-neutral-600",
       },
     ],
     defaultVariants: {

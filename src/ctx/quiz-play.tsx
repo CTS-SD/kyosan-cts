@@ -7,6 +7,7 @@ import type { QuizResult } from "@/lib/quiz-form";
 interface QuizPlayContextType<T extends QuizData> {
   inputValue: string[];
   setInputValue: React.Dispatch<React.SetStateAction<string[]>>;
+  isValidInput: boolean;
   quiz: T;
   result: QuizResult | null;
 }

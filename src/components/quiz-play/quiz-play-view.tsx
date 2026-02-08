@@ -1,10 +1,9 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { useState } from "react";
 import { QuizPlayContext } from "@/ctx/quiz-play";
 import type { QuizData } from "@/lib/quiz/data";
-import { judgeQuiz } from "@/lib/quiz/judge";
+import { judgeQuizInput, validateQuizInput } from "@/lib/quiz/judge";
 import { getQuizPrompt } from "@/lib/quiz/types";
 import type { QuizResult } from "@/lib/quiz-form";
 import { cn } from "@/lib/utils";
@@ -40,6 +39,8 @@ export const QuizPlayView = ({
 
   const showAnswer = !!result;
 
+  const isValidInput = validateQuizInput(quiz, inputValue);
+
   const reset = () => {
     setResult(null);
     setInputValue([]);
@@ -57,14 +58,14 @@ export const QuizPlayView = ({
     const resultItem = {
       quizId: quiz.id,
       userAnswer: inputValue,
-      isCorrect: judgeQuiz(quiz, inputValue),
+      isCorrect: judgeQuizInput(quiz, inputValue),
     };
     setResult(resultItem);
     addResult?.(resultItem);
   };
 
   return (
-    <QuizPlayContext.Provider value={{ inputValue, setInputValue, quiz, result }}>
+    <QuizPlayContext.Provider value={{ inputValue, setInputValue, quiz, result, isValidInput }}>
       <div className={cn("mx-auto flex h-full max-w-xl grow flex-col", className)} {...props}>
         <QuizPlayHeader startContent={headerStartContent} endContent={headerEndContent} progress={progress} />
         <form onSubmit={handleSubmit} className="flex shrink-0 grow flex-col">
@@ -94,7 +95,8 @@ export const QuizPlayView = ({
               <PlayfulButton
                 type="submit"
                 className="z-10 w-full"
-                tint={result ? (result.isCorrect ? "green" : "red") : "green"}
+                disabled={!isValidInput && !showAnswer}
+                tint={showAnswer ? (result.isCorrect ? "green" : "red") : isValidInput ? "green" : "disabled"}
               >
                 {result ? "次へ" : "送信する"}
               </PlayfulButton>
