@@ -20,7 +20,6 @@ export const QuizFormText = () => {
         disabled={showAnswer}
         className={cn("opacity-100!", {
           "border-green-500 bg-green-500/20": showAnswer && result.isCorrect,
-          "border-red-500 bg-red-500/20": showAnswer && !result.isCorrect,
         })}
       />
     </div>
