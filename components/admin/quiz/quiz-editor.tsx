@@ -44,7 +44,7 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
           control={form.control}
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
-              <FieldLabel className="sr-only">回答形式</FieldLabel>
+              <FieldLabel>回答形式</FieldLabel>
               <Select onValueChange={field.onChange} value={field.value}>
                 <SelectTrigger>
                   <SelectValue />
