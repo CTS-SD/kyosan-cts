@@ -28,7 +28,10 @@ export const QuizPlayRoot = ({ quiz, onAnswer, onNext, className, ...props }: Pr
     <QuizPlayContext.Provider
       value={{ inputValue, setInputValue, quiz, result, setResult, isValidInput, onAnswer, onNext }}
     >
-      <div className={cn("mx-auto flex h-full max-w-xl grow flex-col bg-background", className)} {...props}></div>
+      <div
+        className={cn("mx-auto flex h-full max-w-xl grow flex-col overflow-auto bg-background", className)}
+        {...props}
+      ></div>
     </QuizPlayContext.Provider>
   );
 };
@@ -74,18 +77,14 @@ export const QuizPlayContent = () => {
 
   return (
     <form onSubmit={handleSubmit} className="flex shrink-0 grow flex-col">
-      <div className="grow overflow-scroll">
-        <div className="mt-2 mb-6 space-y-4 px-6">
-          <div className="font-bold text-xl">{getQuizPrompt(quiz)}</div>
-          <div className="">
-            <Markdown>{quiz.question}</Markdown>
-          </div>
-        </div>
-        <div className="pb-4">
-          {quiz.type === "select" && <QuizFormSelect />}
-          {quiz.type === "text" && <QuizFormText />}
-          {quiz.type === "true_false" && <QuizFormTrueFalse />}
-        </div>
+      <div className="mt-2 mb-6 space-y-4 px-6">
+        <div className="font-bold text-xl">{getQuizPrompt(quiz)}</div>
+        <Markdown>{quiz.question}</Markdown>
+      </div>
+      <div className="grow pb-4">
+        {quiz.type === "select" && <QuizFormSelect />}
+        {quiz.type === "text" && <QuizFormText />}
+        {quiz.type === "true_false" && <QuizFormTrueFalse />}
       </div>
       <div
         className={cn("sticky bottom-0 bg-background backdrop-blur-lg", {
