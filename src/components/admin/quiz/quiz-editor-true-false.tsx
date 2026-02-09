@@ -1,3 +1,4 @@
+import { CircleIcon, XIcon } from "lucide-react";
 import { Controller, type UseFormReturn } from "react-hook-form";
 import type z from "zod";
 import { Field, FieldContent, FieldLabel, FieldSet, FieldTitle } from "@/components/ui/field";
@@ -8,10 +9,18 @@ type Props = {
   form: UseFormReturn<z.infer<typeof QuizEditorSchema>>;
 };
 
-const options = [
-  { label: "○ 正しい", value: "true" },
-  { label: "✗ 誤り", value: "false" },
-];
+const answerOptions = [
+  {
+    icon: CircleIcon,
+    label: "正しい",
+    value: "true",
+  },
+  {
+    icon: XIcon,
+    label: "誤り",
+    value: "false",
+  },
+] as const;
 
 export const QuizEditorTrueFalse = ({ form }: Props) => {
   return (
@@ -26,12 +35,16 @@ export const QuizEditorTrueFalse = ({ form }: Props) => {
             value={field.value ? "true" : "false"}
             onValueChange={(value) => field.onChange(value === "true")}
             aria-invalid={fieldState.invalid}
+            className="flex"
           >
-            {options.map((option) => (
+            {answerOptions.map((option) => (
               <FieldLabel key={option.value}>
                 <Field orientation="horizontal" data-invalid={fieldState.invalid}>
                   <FieldContent>
-                    <FieldTitle>{option.label}</FieldTitle>
+                    <FieldTitle>
+                      <option.icon className="size-4" />
+                      {option.label}
+                    </FieldTitle>
                   </FieldContent>
                   <RadioGroupItem value={option.value} aria-invalid={fieldState.invalid} />
                 </Field>

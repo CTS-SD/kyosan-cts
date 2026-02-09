@@ -36,7 +36,7 @@ export const QuizPlayRoot = ({ quiz, onAnswer, onNext, className, ...props }: Pr
 export const QuizPlayHeader = ({ className, ...props }: React.ComponentProps<"div">) => {
   return (
     <div
-      className={cn("sticky top-0 flex h-12 shrink-0 items-center gap-2 bg-background px-4", className)}
+      className={cn("sticky top-0 z-10 flex h-12 shrink-0 items-center gap-2 bg-background px-4", className)}
       {...props}
     />
   );
