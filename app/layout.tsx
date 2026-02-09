@@ -1,14 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Zen_Maru_Gothic } from "next/font/google";
-import { NavigationGuardProvider } from "next-navigation-guard";
-import { ThemeProvider } from "next-themes";
-import { NuqsAdapter } from "nuqs/adapters/next/app";
-import { Toaster } from "../components/ui/sonner";
 import { cn } from "../lib/utils";
-import { QueryProvider } from "../providers/query";
 import "./globals.css";
-import { Suspense } from "react";
-import { ConfirmDialogHost } from "../components/confirm-dialog";
+import { Providers } from "./providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,17 +33,7 @@ export default async function RootLayout({
   return (
     <html lang="ja" suppressHydrationWarning>
       <body className={cn("font-sans antialiased", zenMaruGothic.variable, geistSans.variable, geistMono.variable)}>
-        <NavigationGuardProvider>
-          <NuqsAdapter>
-            <ThemeProvider attribute="class" defaultTheme="light">
-              <QueryProvider>
-                <Suspense>{children}</Suspense>
-              </QueryProvider>
-              <Toaster />
-              <ConfirmDialogHost />
-            </ThemeProvider>
-          </NuqsAdapter>
-        </NavigationGuardProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
