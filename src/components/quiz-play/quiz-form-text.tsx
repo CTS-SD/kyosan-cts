@@ -3,10 +3,10 @@
 import { useQuizPlay } from "@/ctx/quiz-play";
 import type { TextQuizData } from "@/lib/quiz";
 import { cn, splitByLines } from "@/lib/utils";
-import { Input } from "../ui/input";
+import { PlayfulInput } from "../ui/playful-input";
 
 export const QuizFormText = () => {
-  const { result, inputValue, setInputValue, quiz, isValidInput } = useQuizPlay<TextQuizData>();
+  const { result, inputValue, setInputValue, quiz } = useQuizPlay<TextQuizData>();
 
   const value = inputValue[0] ?? "";
   const showAnswer = !!result;
@@ -15,7 +15,7 @@ export const QuizFormText = () => {
 
   return (
     <div className="px-4">
-      <Input
+      <PlayfulInput
         placeholder="回答を入力"
         value={value ?? ""}
         onChange={(e) => setInputValue([e.target.value])}
