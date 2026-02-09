@@ -1,6 +1,6 @@
 import { VisibilitySetting } from "@/components/admin/dept/visibility-setting";
 import { YearSetting } from "@/components/admin/dept/year-setting";
-import { ConfigPromiseProvider } from "@/ctx/config-promise";
+import { ConfigPromiseProvider } from "@/hooks/use-config-promise";
 import { getConfig } from "@/lib/config/actions";
 
 const Page = async () => {

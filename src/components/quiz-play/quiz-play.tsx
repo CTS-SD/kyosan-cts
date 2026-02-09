@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { QuizPlayContext, useQuizPlay } from "@/ctx/quiz-play";
+import { QuizPlayContext, useQuizPlay } from "@/hooks/use-quiz-play";
 import type { QuizData, QuizResult } from "@/lib/quiz";
 import { getQuizPrompt, judgeQuizInput, validateQuizInput } from "@/lib/quiz";
 import { cn } from "@/lib/utils";

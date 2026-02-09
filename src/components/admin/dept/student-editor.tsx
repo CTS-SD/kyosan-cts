@@ -8,7 +8,7 @@ import { Field, FieldError, FieldLabel, FieldSet } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Spinner } from "@/components/ui/spinner";
-import { useStudentBundlePromise } from "@/ctx/student-bundle-promise";
+import { useStudentBundlePromise } from "@/hooks/use-student-bundle-promise";
 import type { Student } from "@/lib/db/schema";
 import { StudentEditorSchema, type StudentValues } from "@/lib/student-editor";
 

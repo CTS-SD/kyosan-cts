@@ -14,7 +14,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useStudentBundlePromise } from "@/ctx/student-bundle-promise";
+import { useStudentBundlePromise } from "@/hooks/use-student-bundle-promise";
 import type { Student } from "@/lib/db/schema";
 import { deleteStudent, updateStudent } from "@/lib/student-actions";
 import type { StudentValues } from "@/lib/student-editor";

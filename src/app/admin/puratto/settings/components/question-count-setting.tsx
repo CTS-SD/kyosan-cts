@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Setting } from "@/components/ui/setting";
-import { useConfigPromise } from "@/ctx/config-promise";
+import { useConfigPromise } from "@/hooks/use-config-promise";
 import { upsertConfigValue } from "@/lib/config/actions";
 
 const FormSchema = z.object({

@@ -1,7 +1,7 @@
 "use client";
 
 import { use } from "react";
-import { useStudentBundlePromise } from "@/ctx/student-bundle-promise";
+import { useStudentBundlePromise } from "@/hooks/use-student-bundle-promise";
 import { DepartmentBox } from "./department-box";
 
 export const DepartmentBoxList = () => {

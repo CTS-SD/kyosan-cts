@@ -1,6 +1,6 @@
 "use client";
 
-import { useQuizPlay } from "@/ctx/quiz-play";
+import { useQuizPlay } from "@/hooks/use-quiz-play";
 import type { TextQuizData } from "@/lib/quiz";
 import { cn, splitByLines } from "@/lib/utils";
 import { PlayfulInput } from "../ui/playful-input";

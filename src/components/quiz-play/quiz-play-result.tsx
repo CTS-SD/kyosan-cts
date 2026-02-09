@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 import { useState } from "react";
-import { useQuizPlay } from "@/ctx/quiz-play";
+import { useQuizPlay } from "@/hooks/use-quiz-play";
 import { cn } from "@/lib/utils";
 import { Markdown } from "../markdown";
 import { QuizAnswerRenderer } from "../quiz-answer-renderer";
