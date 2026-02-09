@@ -8,7 +8,7 @@ const Layout = ({ children }: Props) => {
   return (
     <>
       <AppHeader />
-      <div className="mx-auto max-w-5xl px-6">{children}</div>
+      <div className="min-h-dvh bg-sky-100 pt-16 dark:bg-background">{children}</div>
     </>
   );
 };

@@ -32,7 +32,8 @@ const playfulButtonVariants = cva(
       {
         variant: "outline",
         tint: "default",
-        class: "border-neutral-300 shadow-neutral-300 dark:border-neutral-800 dark:bg-muted/10 dark:shadow-neutral-800",
+        class:
+          "border-neutral-300 bg-background shadow-neutral-300 dark:border-neutral-800 dark:bg-muted/10 dark:shadow-neutral-800",
       },
       {
         variant: "solid",

@@ -18,7 +18,7 @@ const Layout = async ({ children }: Props) => {
   return (
     <>
       <AppHeader />
-      {children}
+      <div className="pt-16">{children}</div>
     </>
   );
 };
