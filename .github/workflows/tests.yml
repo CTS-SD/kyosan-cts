@@ -80,8 +80,11 @@ jobs:
       - name: Start Test DB
         run: docker compose up -d --wait db_test
 
+      - name: Run migrations
+        run: pnpm drizzle-kit migrate
+
       - name: Build app
-        run: pnpm build # full build
+        run: pnpm build
 
       - name: Run E2E tests
         run: pnpm test:e2e
