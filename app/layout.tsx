@@ -22,7 +22,7 @@ const zenMaruGothic = Zen_Maru_Gothic({
 
 export const metadata: Metadata = {
   title: "京産キャンスタ",
-  description: "京都産業大学キャンパススタッフ",
+  description: "京都産業大学キャンパスツアースタッフ",
 };
 
 export default async function RootLayout({
