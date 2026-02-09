@@ -130,7 +130,7 @@ async function ensureDirectories(paths: string[]) {
 async function createDatabaseDump() {
   const timestamp = format(new Date(), "yyyy-MM-dd-HHmmss");
   const backupPath = path.join(BACKUP_DIR, `${timestamp}.sql`);
-  await $`pnpm dlx supabase@latest db dump -f ${backupPath}`;
+  await $`pnpm dlx supabase@latest db dump --use-copy --data-only -f ${backupPath}`;
   return backupPath;
 }
 
