@@ -81,7 +81,7 @@ jobs:
         run: docker compose up -d --wait db_test
 
       - name: Run migrations
-        run: pnpm drizzle-kit migrate
+        run: pnpm db:migrate
 
       - name: Build app
         run: pnpm build
