@@ -1,11 +1,11 @@
 #! /usr/bin/env zx
 
 import "zx/globals";
+import { randomBytes } from "node:crypto";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { randomBytes } from "node:crypto";
-import { format } from "date-fns";
 import { xchacha20poly1305 } from "@noble/ciphers/chacha.js";
+import { format } from "date-fns";
 import dotenv from "dotenv";
 
 dotenv.config({ path: path.resolve(__dirname, "../.env.local") });
@@ -130,7 +130,7 @@ async function ensureDirectories(paths: string[]) {
 async function createDatabaseDump() {
   const timestamp = format(new Date(), "yyyy-MM-dd-HHmmss");
   const backupPath = path.join(BACKUP_DIR, `${timestamp}.sql`);
-  await $`pnpm dlx supabase@latest db dump -f ${backupPath}`;
+  await $`pnpm dlx supabase@latest db dump --use-copy --data-only -f ${backupPath}`;
   return backupPath;
 }
 

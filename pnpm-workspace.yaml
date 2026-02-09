@@ -2,9 +2,10 @@ packages:
   - .
 
 onlyBuiltDependencies:
-  - "@parcel/watcher"
-  - "@tailwindcss/oxide"
+  - '@parcel/watcher'
+  - '@tailwindcss/oxide'
   - esbuild
+  - msw
   - sharp
   - supabase
   - unrs-resolver

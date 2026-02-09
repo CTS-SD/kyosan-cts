@@ -1,4 +1,4 @@
-pnpm test:unit
-# pnpm test:e2e:reset
-# pnpm test:e2e:build
-# pnpm test:e2e:run
+pnpm lint
+pnpm typecheck
+pnpm build
+pnpm test:e2e
