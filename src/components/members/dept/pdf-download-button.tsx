@@ -4,6 +4,7 @@ import { PDFDownloadLink } from "@react-pdf/renderer";
 import { DownloadIcon } from "lucide-react";
 import { ListPdfDocument } from "@/components/members/dept/list-pdf-document";
 import { Button } from "@/components/ui/button";
+import { PlayfulButton } from "@/components/ui/playful-button";
 import type { DepartmentTable } from "@/lib/db/schema";
 
 type Student = {
@@ -25,10 +26,10 @@ export function PdfDownloadButton({ departments, students }: PdfDownloadButtonPr
       document={<ListPdfDocument departments={departments} students={students} />}
       fileName="京産キャンスタ部署発表一覧"
     >
-      <Button className="rounded-full">
+      <PlayfulButton variant="outline" tint="blue" className="rounded-full">
         <DownloadIcon />
         PDFダウンロード
-      </Button>
+      </PlayfulButton>
     </PDFDownloadLink>
   );
 }
