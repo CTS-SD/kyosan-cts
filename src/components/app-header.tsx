@@ -10,7 +10,9 @@ export const AppHeader = () => {
       </Link>
       <div className="ml-auto flex items-center gap-2">
         <Suspense>
-          <UserButton />
+          <div className="starting:opacity-0 transition-opacity">
+            <UserButton />
+          </div>
         </Suspense>
       </div>
     </div>
