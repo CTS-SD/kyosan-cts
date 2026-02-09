@@ -1,6 +1,6 @@
 import { execSync } from "node:child_process";
 import { sql } from "drizzle-orm";
-import { db } from "@/lib/db";
+import { db } from "../lib/db";
 
 export default async function globalSetup() {
   const DATABASE_URL = process.env.DATABASE_URL;

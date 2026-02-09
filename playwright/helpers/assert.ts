@@ -1,4 +1,4 @@
-import { env } from "@/lib/env";
+import { env } from "../../lib/env";
 
 export function assertTestEnv() {
   if (env.NODE_ENV !== "test") {

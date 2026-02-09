@@ -1,0 +1,145 @@
+"use client";
+
+import { ChevronDownIcon, ChevronRightIcon, CogIcon, NotebookIcon, UsersRoundIcon } from "lucide-react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { authClient } from "../../lib/auth/client";
+import { Badge } from "../ui/badge";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible";
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarFooter,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
+  useSidebar,
+} from "../ui/sidebar";
+import { UserAvatar } from "../user-avatar";
+import { AdminUserMenu } from "./admin-user-menu";
+
+const items = [
+  {
+    title: "ぷらっとテスト",
+    icon: NotebookIcon,
+    subItems: [
+      {
+        title: "問題リスト",
+        url: "/admin/puratto",
+      },
+      {
+        title: "出題設定",
+        url: "/admin/puratto/settings",
+      },
+    ],
+  },
+  {
+    title: "配属発表",
+    icon: UsersRoundIcon,
+    subItems: [
+      {
+        title: "メンバー管理",
+        url: "/admin/dept",
+      },
+      {
+        title: "表示設定",
+        url: "/admin/dept/settings",
+      },
+    ],
+  },
+  {
+    title: "設定",
+    url: "/admin/settings",
+    icon: CogIcon,
+  },
+];
+
+export const AdminSidebar = () => {
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
+
+  const pathname = usePathname();
+  const { setOpenMobile } = useSidebar();
+
+  if (!user) return null;
+
+  const handleClickItem = () => setOpenMobile(false);
+
+  return (
+    <Sidebar>
+      <SidebarHeader className="flex flex-row items-center">
+        <SidebarMenu>
+          <SidebarMenuItem className="flex items-center gap-2">
+            <SidebarMenuButton className="w-fit font-accent font-semibold" asChild>
+              <Link href="/">京産キャンスタ</Link>
+            </SidebarMenuButton>
+            <Badge asChild>
+              <Link href="/admin/puratto">管理者</Link>
+            </Badge>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarHeader>
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {items.map((item) =>
+                item.subItems ? (
+                  <Collapsible key={item.title} defaultOpen={item.subItems.some((sub) => sub.url === pathname)}>
+                    <SidebarMenuItem>
+                      <CollapsibleTrigger asChild>
+                        <SidebarMenuButton>
+                          <item.icon />
+                          {item.title}
+                          <ChevronRightIcon className="ml-auto in-data-[state=open]:rotate-90 text-muted-foreground transition-transform" />
+                        </SidebarMenuButton>
+                      </CollapsibleTrigger>
+                      <CollapsibleContent>
+                        <SidebarMenuSub>
+                          {item.subItems.map((subItem) => (
+                            <SidebarMenuSubItem key={subItem.title}>
+                              <SidebarMenuSubButton asChild isActive={pathname === subItem.url}>
+                                <Link href={subItem.url} onClick={handleClickItem}>
+                                  {subItem.title}
+                                </Link>
+                              </SidebarMenuSubButton>
+                            </SidebarMenuSubItem>
+                          ))}
+                        </SidebarMenuSub>
+                      </CollapsibleContent>
+                    </SidebarMenuItem>
+                  </Collapsible>
+                ) : (
+                  <SidebarMenuItem key={item.title}>
+                    <SidebarMenuButton asChild isActive={pathname === item.url}>
+                      <Link href={item.url} onClick={handleClickItem}>
+                        <item.icon />
+                        {item.title}
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ),
+              )}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+      <SidebarFooter>
+        <SidebarMenu>
+          <AdminUserMenu>
+            <SidebarMenuButton>
+              <UserAvatar user={user} className="size-6" />
+              <span className="truncate">{user.name}</span>
+            </SidebarMenuButton>
+          </AdminUserMenu>
+        </SidebarMenu>
+      </SidebarFooter>
+    </Sidebar>
+  );
+};
