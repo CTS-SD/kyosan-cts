@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { confirm } from "@/components/confirm-store";
 import { QuizPlay } from "@/components/quiz-play/quiz-play";
+import { QuizPlayAdminMenu } from "@/components/quiz-play/quiz-play-admin-menu";
 import { QuizResultsView } from "@/components/quiz-play/quiz-results-view";
 import { Button } from "@/components/ui/button";
 import { PlayfulProgress } from "@/components/ui/playful-progress";
@@ -13,9 +14,10 @@ import type { QuizData, QuizResult } from "@/lib/quiz";
 
 type Props = {
   quizzes: QuizData[];
+  isAdmin: boolean;
 };
 
-export const ClientView = ({ quizzes }: Props) => {
+export const ClientView = ({ quizzes, isAdmin }: Props) => {
   const router = useRouter();
   const [quizIndex, setQuizIndex] = useState(0);
   const [results, setResults] = useState<QuizResult[]>([]);
@@ -62,6 +64,7 @@ export const ClientView = ({ quizzes }: Props) => {
           <XIcon />
         </Button>
         <PlayfulProgress value={progress} />
+        {isAdmin && <QuizPlayAdminMenu />}
       </QuizPlay.Header>
       <AnimatePresence mode="popLayout">
         <motion.div

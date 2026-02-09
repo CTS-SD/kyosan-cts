@@ -3,6 +3,7 @@ import { getConfig } from "@/lib/config/actions";
 import { QuizTable } from "@/lib/db/schema";
 import { getQuizzes } from "@/lib/quiz";
 import { ClientView } from "./client-view";
+import { getUser } from "@/lib/auth/actions";
 
 const Page = async () => {
   const config = await getConfig();
@@ -14,7 +15,9 @@ const Page = async () => {
     where: eq(QuizTable.isPublished, true),
   });
 
-  return <ClientView quizzes={quizzes} />;
+  const user = await getUser();
+
+  return <ClientView quizzes={quizzes} isAdmin={user?.role === "admin"} />;
 };
 
 export default Page;
