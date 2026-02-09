@@ -7,7 +7,7 @@ function PlayfulInput({ className, type, ...props }: React.ComponentProps<"input
     <input
       type={type}
       data-slot="input"
-      className={cn("w-full rounded-lg border-[1.5px] bg-input/20 px-3 py-2 font-semibold text-base", className)}
+      className={cn("w-full rounded-full border-[1.5px] bg-input/20 px-4 py-2 font-semibold text-base", className)}
       {...props}
     />
   );
