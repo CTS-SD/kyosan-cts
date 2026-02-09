@@ -65,7 +65,7 @@ export const QuizPlayResult = () => {
           <QuizAnswerRenderer className="font-bold" quiz={quiz} />
         </div>
       )}
-      {hasExplanation && (
+      {quiz.explanation && (
         <motion.div
           className="h-0 overflow-hidden opacity-0"
           animate={{

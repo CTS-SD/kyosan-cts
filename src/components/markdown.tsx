@@ -1,22 +1,17 @@
-import ReactMarkdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
-import remarkGfm from "remark-gfm";
-import remarkMath from "remark-math";
-import { cn } from "@/lib/utils";
+import { Streamdown } from "streamdown";
 
-type Props = React.ComponentProps<typeof ReactMarkdown> & {
-  className?: string;
-};
+type Props = React.ComponentProps<typeof Streamdown>;
 
-export const Markdown = ({ className, rehypePlugins, remarkPlugins, ...props }: Props) => {
+export const Markdown = ({ children }: Props) => {
   return (
-    <div className={cn("prose prose-blue markdown dark:prose-invert prose-p:my-2 prose-p:leading-normal", className)}>
-      <ReactMarkdown
-        rehypePlugins={[rehypeRaw, ...(rehypePlugins || [])]}
-        remarkPlugins={[remarkGfm, remarkMath, ...(remarkPlugins || [])]}
-        disallowedElements={["style", "script", "iframe"]}
-        {...props}
-      />
-    </div>
+    <Streamdown
+      mode="static"
+      controls={{
+        code: false,
+        table: false,
+      }}
+    >
+      {children}
+    </Streamdown>
   );
 };
