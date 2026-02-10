@@ -1,18 +1,9 @@
 "use client";
 
-import {
-  BookUserIcon,
-  CogIcon,
-  DotIcon,
-  EllipsisIcon,
-  MessageCircleQuestionIcon,
-  NotebookPenIcon,
-  Settings2Icon,
-  SettingsIcon,
-  SquareUserIcon,
-  User2Icon,
-} from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import { NotebookPenIcon, Settings2Icon, SettingsIcon, SquareUserIcon, User2Icon } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Dialog } from "radix-ui";
 import { useEffect } from "react";
 import {
@@ -30,7 +21,42 @@ import { useAdminSidebar } from "../../hooks/use-admin-sidebar";
 import { cn } from "../../lib/utils";
 import { AdminUserMenu } from "./admin-user-menu";
 
+type NavItem = {
+  icon: LucideIcon;
+  title: string;
+  url: string;
+};
+
+type NavGroup = {
+  label: string;
+  items: NavItem[];
+};
+
+const navGroups: NavGroup[] = [
+  {
+    label: "ぷらっとテスト",
+    items: [
+      { icon: NotebookPenIcon, title: "問題管理", url: "/admin/puratto" },
+      { icon: Settings2Icon, title: "出題設定", url: "/admin/puratto/settings" },
+    ],
+  },
+  {
+    label: "配属発表",
+    items: [
+      { icon: SquareUserIcon, title: "メンバー管理", url: "/admin/dept" },
+      { icon: Settings2Icon, title: "表示設定", url: "/admin/dept/settings" },
+    ],
+  },
+  {
+    label: "その他",
+    items: [{ icon: SettingsIcon, title: "設定", url: "/admin/settings" }],
+  },
+];
+
 export const AdminSidebarContent = ({ className, ...props }: React.ComponentProps<"div">) => {
+  const { setOpen } = useAdminSidebar();
+  const pathname = usePathname();
+
   return (
     <div className={cn("flex w-full flex-col", className)} {...props}>
       <SidebarHeader>
@@ -46,67 +72,25 @@ export const AdminSidebarContent = ({ className, ...props }: React.ComponentProp
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupLabel>ぷらっとテスト</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <Link href="/admin/puratto">
-                    <NotebookPenIcon />
-                    問題管理
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <Link href="/admin/puratto/settings">
-                    <Settings2Icon />
-                    出題設定
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-        <SidebarGroup>
-          <SidebarGroupLabel>配属発表</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <Link href="/admin/dept">
-                    <SquareUserIcon />
-                    メンバー管理
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <Link href="/admin/dept/settings">
-                    <Settings2Icon />
-                    表示設定
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
-        <SidebarGroup>
-          <SidebarGroupLabel>その他</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild>
-                  <Link href="/admin/settings">
-                    <SettingsIcon />
-                    設定
-                  </Link>
-                </SidebarMenuButton>
-              </SidebarMenuItem>
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+        {navGroups.map((group) => (
+          <SidebarGroup key={group.label}>
+            <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {group.items.map((item) => (
+                  <SidebarMenuItem key={item.url} onClick={() => setOpen(false)}>
+                    <SidebarMenuButton isActive={item.url === pathname} asChild>
+                      <Link href={item.url}>
+                        <item.icon />
+                        {item.title}
+                      </Link>
+                    </SidebarMenuButton>
+                  </SidebarMenuItem>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        ))}
       </SidebarContent>
       <SidebarFooter>
         <SidebarMenu>
