@@ -19,6 +19,7 @@ import {
 } from "@/src/components/ui/sidebar";
 import { useAdminSidebar } from "../../hooks/use-admin-sidebar";
 import { cn } from "../../lib/utils";
+import { LogoText } from "../logo-text";
 import { AdminUserMenu } from "./admin-user-menu";
 
 type NavItem = {
@@ -63,9 +64,9 @@ export const AdminSidebarContent = ({ className, ...props }: React.ComponentProp
         <SidebarMenu>
           <SidebarMenuItem className="flex items-center gap-2 p-2">
             <Link href="/" className="font-accent font-semibold text-sm">
-              京産キャンスタ
+              <LogoText />
             </Link>
-            <Link href="/admin/puratto" className="font-medium text-sky-600 text-sm">
+            <Link href="/admin/puratto" className="font-accent font-semibold text-muted-foreground text-xs">
               管理者
             </Link>
           </SidebarMenuItem>

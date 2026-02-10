@@ -3,6 +3,7 @@
 import { MenuIcon } from "lucide-react";
 import Link from "next/link";
 import { useAdminSidebar } from "../../hooks/use-admin-sidebar";
+import { LogoText } from "../logo-text";
 import { Button } from "../ui/button";
 
 export const AdminHeader = () => {
@@ -19,8 +20,8 @@ export const AdminHeader = () => {
         >
           <MenuIcon strokeWidth={2.6} className="size-5" />
         </Button>
-        <Link href="/" className="font-accent font-semibold text-xs">
-          京産キャンスタ
+        <Link href="/" className="">
+          <LogoText />
         </Link>
       </div>
     </div>
