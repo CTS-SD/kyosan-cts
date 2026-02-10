@@ -3,6 +3,8 @@
 import {
   BookUserIcon,
   CogIcon,
+  DotIcon,
+  EllipsisIcon,
   MessageCircleQuestionIcon,
   NotebookPenIcon,
   Settings2Icon,
