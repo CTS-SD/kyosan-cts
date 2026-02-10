@@ -12,7 +12,7 @@ export const QuizItem = ({ quiz }: Props) => {
   return (
     <Link
       href={`/admin/puratto/q/${quiz.id}`}
-      className="relative overflow-clip rounded-3xl border bg-background shadow-xs"
+      className="group/quiz-item relative overflow-clip rounded-3xl border bg-background shadow-xs"
       data-testid="quiz-item"
     >
       <div className="px-1 pt-1">
@@ -31,9 +31,9 @@ export const QuizItem = ({ quiz }: Props) => {
         </div>
       </div>
       {!quiz.isPublished && (
-        <div className="absolute inset-1 grid place-content-center rounded-2xl border bg-black/10 transition-all duration-160 hover:scale-95 hover:opacity-0">
-          <div className="flex items-center gap-2 rounded-full bg-black/60 px-3 py-1 text-white backdrop-blur-md">
-            <LockIcon className="size-4" />
+        <div className="absolute inset-1 grid place-content-center rounded-2xl border bg-black/10 transition-all duration-160 group-hover/quiz-item:scale-95 group-hover/quiz-item:opacity-0">
+          <div className="flex items-center gap-1.5 rounded-full bg-black/60 py-1 ps-2.5 pe-3 text-white backdrop-blur-md">
+            <LockIcon className="size-4" strokeWidth={2.6} />
             <span className="font-semibold text-sm">非公開</span>
           </div>
         </div>
