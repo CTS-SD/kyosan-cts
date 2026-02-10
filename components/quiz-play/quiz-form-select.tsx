@@ -30,7 +30,7 @@ export const QuizFormSelect = () => {
   return (
     <div className="px-4">
       <div className="flex flex-col gap-2.5">
-        {choices.map((choice) => {
+        {choices.map((choice, i) => {
           const isSelected = selections.includes(choice);
           const isHighlighted = result?.isCorrect && isSelected && quiz.correctChoices.includes(choice);
           const tint = isHighlighted ? "green" : isSelected ? "blue" : "default";
@@ -39,7 +39,7 @@ export const QuizFormSelect = () => {
               variant="outline"
               type="button"
               tint={tint}
-              key={`${quiz.id}-${choice}`}
+              key={`${quiz.id}-${i}`}
               onClick={() => handleChoice(choice)}
               disabled={!!result}
             >
