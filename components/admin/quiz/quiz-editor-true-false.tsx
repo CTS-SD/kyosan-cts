@@ -38,7 +38,7 @@ export const QuizEditorTrueFalse = ({ form }: Props) => {
             className="flex"
           >
             {answerOptions.map((option) => (
-              <FieldLabel key={option.value}>
+              <FieldLabel key={option.value} className="bg-background">
                 <Field orientation="horizontal" data-invalid={fieldState.invalid}>
                   <FieldContent>
                     <FieldTitle>

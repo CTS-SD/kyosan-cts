@@ -46,7 +46,7 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
             <Field data-invalid={fieldState.invalid}>
               <FieldLabel>回答形式</FieldLabel>
               <Select onValueChange={field.onChange} value={field.value}>
-                <SelectTrigger>
+                <SelectTrigger className="bg-background">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -67,7 +67,7 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
               <FieldLabel>問題文</FieldLabel>
-              <Textarea {...field} placeholder="問題文を入力" data-testid="question-textarea" />
+              <Textarea {...field} placeholder="問題文を入力" data-testid="question-textarea" className="bg-background" />
               {fieldState.invalid && <FieldError />}
             </Field>
           )}
@@ -81,7 +81,7 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
               <FieldLabel>解説</FieldLabel>
-              <Textarea {...field} value={field.value ?? ""} placeholder="解説を入力（任意）" />
+              <Textarea {...field} value={field.value ?? ""} placeholder="解説を入力（任意）" className="bg-background" />
               {fieldState.invalid && <FieldError />}
             </Field>
           )}
@@ -101,7 +101,7 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
           )}
         />
       </FieldGroup>
-      <div className="sticky bottom-0 -mb-4 flex justify-end gap-2 bg-background/90 to-background py-4 backdrop-blur-xs">
+      <div className="sticky bottom-0 -mb-4 flex justify-end gap-2 bg-inherit to-background py-4 backdrop-blur-xs">
         <Button className="ml-auto" variant="secondary" disabled={isSubmitting} asChild>
           <Link href="/admin/puratto">キャンセル</Link>
         </Button>

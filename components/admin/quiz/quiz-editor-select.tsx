@@ -17,7 +17,7 @@ export const QuizEditorSelect = ({ form }: Props) => {
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
             <FieldLabel>正解の選択肢</FieldLabel>
-            <Textarea {...field} placeholder={"選択肢1\n選択肢2\n..."} />
+            <Textarea {...field} placeholder={"選択肢1\n選択肢2\n..."} className="bg-background" />
             <FieldDescription>改行区切りで複数の正解選択肢を入力できます。</FieldDescription>
             {fieldState.invalid && <FieldError />}
           </Field>
@@ -29,7 +29,7 @@ export const QuizEditorSelect = ({ form }: Props) => {
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
             <FieldLabel>不正解の選択肢</FieldLabel>
-            <Textarea {...field} placeholder={"選択肢1\n選択肢2\n..."} />
+            <Textarea {...field} placeholder={"選択肢1\n選択肢2\n..."} className="bg-background" />
             <FieldDescription>改行区切りで複数の不正解選択肢を入力できます。</FieldDescription>
             {fieldState.invalid && <FieldError />}
           </Field>

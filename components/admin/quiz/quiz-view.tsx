@@ -68,14 +68,16 @@ export const QuizView = ({ heading, form, onSubmit }: Props) => {
           <QuizEditor form={form} onSubmit={onSubmit} className="mt-6" isNew={isNew} />
         </div>
       </div>
-      <div className="sticky top-12 hidden h-[calc(100dvh-48px)] max-w-md flex-1 overflow-auto overscroll-contain md:block">
-        <QuizPlay.Root quiz={quiz}>
-          <QuizPlay.Header>
-            <Badge variant="outline">プレビュー</Badge>
-            <PlayfulProgress value={20} />
-          </QuizPlay.Header>
-          <QuizPlay.Content />
-        </QuizPlay.Root>
+      <div className="sticky top-0 hidden h-dvh max-w-lg flex-1 flex-col overflow-auto overscroll-contain p-4 md:flex">
+        <div className="grow overflow-auto rounded-3xl shadow-sm">
+          <QuizPlay.Root quiz={quiz}>
+            <QuizPlay.Header>
+              <Badge variant="outline">プレビュー</Badge>
+              <PlayfulProgress value={20} />
+            </QuizPlay.Header>
+            <QuizPlay.Content />
+          </QuizPlay.Root>
+        </div>
       </div>
     </div>
   );
