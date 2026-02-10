@@ -58,7 +58,7 @@ export const StudentItem = ({ student }: Props) => {
 
   return (
     <Dialog>
-      <DialogTrigger className="flex w-full flex-col items-start rounded-md px-3 py-1.5 hover:bg-muted">
+      <DialogTrigger className="flex w-full flex-col items-start rounded-2xl px-4 py-2 hover:bg-accent">
         <div className="text-start font-medium">{student.name}</div>
         <div className="flex gap-2 text-foreground/60 text-sm">
           <div>{student.studentNumber}</div>
