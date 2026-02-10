@@ -123,8 +123,8 @@ export const AdminSidebarContent = ({ className, ...props }: React.ComponentProp
 
 export const FixedAdminSidebar = () => {
   return (
-    <div className="sticky top-0 hidden h-dvh w-64 shrink-0 p-2 lg:flex">
-      <AdminSidebarContent className="rounded-3xl border bg-background shadow-xs" />
+    <div className="sticky top-0 hidden h-dvh w-64 shrink-0 border-e bg-background px-1.5 lg:flex">
+      <AdminSidebarContent />
     </div>
   );
 };
