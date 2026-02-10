@@ -57,7 +57,7 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
                   ))}
                 </SelectContent>
               </Select>
-              {fieldState.invalid && <FieldError />}
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}
         />
@@ -73,7 +73,7 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
                 data-testid="question-textarea"
                 className="bg-background"
               />
-              {fieldState.invalid && <FieldError />}
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}
         />
@@ -92,7 +92,7 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
                 placeholder="解説を入力（任意）"
                 className="bg-background"
               />
-              {fieldState.invalid && <FieldError />}
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}
         />
@@ -106,7 +106,7 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
                 <FieldDescription>非公開にした問題は出題されません</FieldDescription>
               </FieldContent>
               <Switch id="publish" checked={field.value} onCheckedChange={field.onChange} />
-              {fieldState.invalid && <FieldError />}
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}
         />
