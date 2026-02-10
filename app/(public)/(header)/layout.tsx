@@ -8,7 +8,7 @@ const Layout = ({ children }: Props) => {
   return (
     <>
       <AppHeader />
-      <div className="min-h-dvh bg-brand-50 pt-16 dark:bg-background">{children}</div>
+      <div className="min-h-dvh bg-surface pt-16 dark:bg-background">{children}</div>
     </>
   );
 };

@@ -1,6 +1,5 @@
 import { ArrowLeftIcon, EyeIcon, XIcon } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import { makePseudoQuiz, type QuizEditorValues } from "../../../lib/quiz";
 import { QuizPlay } from "../../quiz-play/quiz-play";
