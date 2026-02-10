@@ -31,7 +31,7 @@ export const QuizView = ({ heading, form, onSubmit }: Props) => {
       <div className="flex-1">
         <div className="p-6">
           <div className="flex items-center gap-4">
-            <Button variant="secondary" size="icon" asChild>
+            <Button variant="outline" size="icon" asChild>
               <Link href="/admin/puratto" aria-label="戻る">
                 <ArrowLeftIcon />
               </Link>
