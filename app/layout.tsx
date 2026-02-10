@@ -1,18 +1,8 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Zen_Maru_Gothic } from "next/font/google";
+import { Zen_Maru_Gothic } from "next/font/google";
 import { cn } from "../lib/utils";
 import "./globals.css";
 import { Providers } from "./providers";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 const zenMaruGothic = Zen_Maru_Gothic({
   variable: "--font-zen-maru-gothic",
@@ -32,7 +22,7 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="ja" suppressHydrationWarning>
-      <body className={cn("font-sans antialiased", zenMaruGothic.variable, geistSans.variable, geistMono.variable)}>
+      <body className={cn("antialiased", zenMaruGothic.variable)}>
         <Providers>{children}</Providers>
       </body>
     </html>

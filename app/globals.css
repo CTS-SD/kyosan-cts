@@ -50,6 +50,9 @@
   --radius-3xl: calc(var(--radius) + 12px);
   --radius-4xl: calc(var(--radius) + 16px);
 
+  --text-sm: 0.95rem;
+  --text-xs: 0.91rem;
+
   --ease-gentle: cubic-bezier(0.165, 0.84, 0.44, 1);
 }
 
