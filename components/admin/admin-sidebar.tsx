@@ -82,7 +82,7 @@ export const AdminSidebarContent = ({ className, ...props }: React.ComponentProp
                   <SidebarMenuItem key={item.url} onClick={() => setOpen(false)}>
                     <SidebarMenuButton isActive={item.url === pathname} asChild>
                       <Link href={item.url}>
-                        <item.icon />
+                        <item.icon strokeWidth={2.2} />
                         {item.title}
                       </Link>
                     </SidebarMenuButton>
