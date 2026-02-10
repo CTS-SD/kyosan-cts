@@ -20,7 +20,7 @@ export const QuizItem = ({ quiz }: Props) => {
           <Markdown>{quiz.question}</Markdown>
         </div>
       </div>
-      <div className="p-2">
+      <div className="p-1.5">
         <div className="flex items-center gap-3 rounded-2xl bg-accent px-3">
           <div className="flex h-10 items-center gap-2 truncate">
             <CornerDownRightIcon className="size-4 shrink-0 text-sky-500" strokeWidth={2.8} />
