@@ -67,7 +67,12 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
               <FieldLabel>問題文</FieldLabel>
-              <Textarea {...field} placeholder="問題文を入力" data-testid="question-textarea" className="bg-background" />
+              <Textarea
+                {...field}
+                placeholder="問題文を入力"
+                data-testid="question-textarea"
+                className="bg-background"
+              />
               {fieldState.invalid && <FieldError />}
             </Field>
           )}
@@ -81,7 +86,12 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid}>
               <FieldLabel>解説</FieldLabel>
-              <Textarea {...field} value={field.value ?? ""} placeholder="解説を入力（任意）" className="bg-background" />
+              <Textarea
+                {...field}
+                value={field.value ?? ""}
+                placeholder="解説を入力（任意）"
+                className="bg-background"
+              />
               {fieldState.invalid && <FieldError />}
             </Field>
           )}
@@ -101,8 +111,8 @@ export const QuizEditor = ({ form, onSubmit, className, isNew }: Props) => {
           )}
         />
       </FieldGroup>
-      <div className="sticky bottom-0 -mb-4 flex justify-end gap-2 bg-inherit to-background py-4 backdrop-blur-xs">
-        <Button className="ml-auto" variant="secondary" disabled={isSubmitting} asChild>
+      <div className="sticky bottom-2 -mx-2 ml-auto flex w-fit gap-2 rounded-3xl bg-inherit p-2 backdrop-blur-md">
+        <Button className="ml-auto" variant="outline" disabled={isSubmitting} asChild>
           <Link href="/admin/puratto">キャンセル</Link>
         </Button>
         <Button type="submit" disabled={isSubmitting || !isDirty}>
