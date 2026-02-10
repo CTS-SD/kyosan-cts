@@ -66,9 +66,7 @@ export const StudentItem = ({ student }: Props) => {
         </div>
       </DialogTrigger>
       <DialogContent>
-        <DialogHeader>
-          <DialogTitle>学生を編集</DialogTitle>
-        </DialogHeader>
+        <DialogTitle className="sr-only">学生を編集</DialogTitle>
         <StudentEditor defaultValues={student} onSubmit={handleUpdateStudent}>
           <StudentEditorFields />
           <DialogFooter>
