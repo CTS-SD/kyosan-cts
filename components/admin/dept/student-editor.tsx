@@ -88,7 +88,7 @@ export const StudentEditorFields = () => {
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid} className="flex-1">
               <FieldLabel>学籍番号（6桁）</FieldLabel>
-              <Input {...field} placeholder="123456" />
+              <Input {...field} type="number" placeholder="123456" />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}
