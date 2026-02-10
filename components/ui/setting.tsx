@@ -31,7 +31,7 @@ function SettingFooter({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div className="p-1.5">
       <div
-        className={cn("flex flex-col items-center gap-4 rounded-2xl bg-accent px-6 py-4 sm:flex-row", className)}
+        className={cn("flex flex-col items-center gap-4 rounded-b-2xl bg-surface px-6 py-4 sm:flex-row", className)}
         {...props}
       ></div>
     </div>
