@@ -1,22 +1,16 @@
 "use client";
 
-import { Trash2Icon } from "lucide-react";
+import { Trash2Icon, User2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { use } from "react";
 import { toast } from "sonner";
+import { UserIcon } from "@/components/icons/user-icon";
 import { useStudentBundlePromise } from "../../../hooks/use-student-bundle-promise";
 import type { Student } from "../../../lib/db/schema";
 import { deleteStudent, updateStudent } from "../../../lib/student-actions";
 import type { StudentValues } from "../../../lib/student-editor";
 import { Button } from "../../ui/button";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogFooter,
-  DialogTitle,
-  DialogTrigger,
-} from "../../ui/dialog";
+import { Dialog, DialogClose, DialogContent, DialogFooter, DialogTitle, DialogTrigger } from "../../ui/dialog";
 import { StudentEditor, StudentEditorCancel, StudentEditorFields, StudentEditorSubmit } from "./student-editor";
 
 type Props = {
@@ -57,11 +51,16 @@ export const StudentItem = ({ student }: Props) => {
 
   return (
     <Dialog>
-      <DialogTrigger className="flex w-full flex-col items-start rounded-xl px-3 py-2 hover:bg-accent">
-        <div className="text-start font-medium">{student.name}</div>
-        <div className="flex gap-2 text-foreground/60 text-sm">
-          <div>{student.studentNumber}</div>
-          <div>{getFacultyName(student.facultyId)}</div>
+      <DialogTrigger className="flex w-full items-center gap-3 rounded-xl px-3 py-2 hover:bg-accent">
+        <div className="grid size-10 shrink-0 place-content-center overflow-clip rounded-full bg-accent">
+          <UserIcon className="size-10" />
+        </div>
+        <div className="min-w-0">
+          <div className="text-start font-medium">{student.name}</div>
+          <div className="flex min-w-0 gap-2 text-foreground/60 text-sm">
+            <div>{student.studentNumber}</div>
+            <div className="truncate">{getFacultyName(student.facultyId)}</div>
+          </div>
         </div>
       </DialogTrigger>
       <DialogContent>
