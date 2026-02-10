@@ -1,5 +1,5 @@
 import React from "react";
-import type { Student } from "../../../lib/db/schema";
+import type { Student } from "@/lib/db/schema";
 import { StudentItem } from "./student-item";
 
 type Props = {

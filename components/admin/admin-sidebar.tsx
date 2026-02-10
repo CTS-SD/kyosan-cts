@@ -63,7 +63,7 @@ export const AdminSidebarContent = ({ className, ...props }: React.ComponentProp
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem className="flex items-center gap-2 p-2">
-            <Link href="/" className="font-accent font-semibold text-sm">
+            <Link href="/">
               <LogoText />
             </Link>
             <Link href="/admin/puratto" className="font-accent font-semibold text-muted-foreground text-xs">
