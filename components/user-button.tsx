@@ -13,9 +13,7 @@ export const UserButton = async () => {
   }
 
   if (user.role === "admin") {
-    return (
-      <AdminUserButton />
-    );
+    return <AdminUserButton />;
   } else if (user.role === "member") {
     return <MemberUserButton />;
   }
