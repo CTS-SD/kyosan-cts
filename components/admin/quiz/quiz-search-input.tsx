@@ -16,7 +16,7 @@ export const QuizSearchInput = () => {
   }, [debouncedValue, setQuery]);
 
   return (
-    <InputGroup>
+    <InputGroup className="bg-background">
       <InputGroupAddon>
         <SearchIcon />
       </InputGroupAddon>

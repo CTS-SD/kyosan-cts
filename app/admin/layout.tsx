@@ -11,7 +11,7 @@ const Layout = async ({ children }: Props) => {
     <ProtectedRoute roles={["admin"]} fallbackUrl="/sign-in">
       <SidebarProvider>
         <AdminSidebar />
-        <div className="grow">{children}</div>
+        <div className="grow bg-accent/50">{children}</div>
       </SidebarProvider>
     </ProtectedRoute>
   );
