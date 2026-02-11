@@ -9,9 +9,13 @@ import { PlayfulButton } from "../ui/playful-button";
 export const QuizFormSelect = () => {
   const { result, inputValue: selections, setInputValue: setSelections, quiz } = useQuizPlay<SelectQuizData>();
 
+  const correctKey = quiz.correctChoices.join("\n");
+  const incorrectKey = quiz.incorrectChoices.join("\n");
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: The dependencies are correct.
   const choices = useMemo(() => {
     return shuffle([...quiz.correctChoices, ...quiz.incorrectChoices].map((choice) => choice.trim()).filter(Boolean));
-  }, [quiz.correctChoices, quiz.incorrectChoices]);
+  }, [correctKey, incorrectKey]);
 
   const handleChoice = (choice: string) => {
     if (selections.includes(choice)) {
