@@ -1,6 +1,6 @@
 export const UserIcon = ({ fill = "#a7cbdb", ...props }: React.ComponentProps<"svg">) => {
   return (
-    <svg width="24" height="24" viewBox="0 0 373 373" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+    <svg width="40" height="40" viewBox="0 0 373 373" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
       <g>
         <path
           d="M340 382C95.0875 382 216.896 382 29 382C29 318.616 103.759 240 189.998 240C276.238 240 340 318.616 340 382Z"

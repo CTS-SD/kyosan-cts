@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { createContext, use, useContext } from "react";
 import { Controller, type FormState, useForm } from "react-hook-form";
+import { UserIcon } from "@/components/icons/user-icon";
 import { useStudentBundlePromise } from "../../../hooks/use-student-bundle-promise";
 import type { Student } from "../../../lib/db/schema";
 import { StudentEditorSchema, type StudentValues } from "../../../lib/student-editor";
@@ -70,30 +71,33 @@ export const StudentEditorFields = () => {
 
   return (
     <FieldSet disabled={form.formState.isSubmitting} className="px-6 pt-8 pb-2">
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-start">
+      <div className="flex items-center gap-4">
+        <div className="size-16 overflow-clip rounded-full bg-accent">
+          <UserIcon className="size-full" />
+        </div>
         <Controller
           name="name"
           control={form.control}
           render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid} className="flex-1">
-              <FieldLabel>氏名</FieldLabel>
-              <Input {...field} placeholder="京産 花子" />
-              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-            </Field>
-          )}
-        />
-        <Controller
-          name="studentNumber"
-          control={form.control}
-          render={({ field, fieldState }) => (
-            <Field data-invalid={fieldState.invalid} className="flex-1">
-              <FieldLabel>学籍番号（6桁）</FieldLabel>
-              <Input {...field} type="number" placeholder="123456" />
+            <Field data-invalid={fieldState.invalid} className="flex-1 gap-0">
+              <FieldLabel className="sr-only">氏名</FieldLabel>
+              <Input className="-ms-3 grow border-none font-semibold text-2xl!" {...field} placeholder="京産 花子" />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}
         />
       </div>
+      <Controller
+        name="studentNumber"
+        control={form.control}
+        render={({ field, fieldState }) => (
+          <Field data-invalid={fieldState.invalid} className="flex-1">
+            <FieldLabel>学籍番号（6桁）</FieldLabel>
+            <Input {...field} type="number" placeholder="123456" />
+            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+          </Field>
+        )}
+      />
       <Controller
         name="facultyId"
         control={form.control}
