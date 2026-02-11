@@ -5,8 +5,8 @@ import { UserButton } from "./user-button";
 
 export const AppHeader = () => {
   return (
-    <div className="fixed top-0 right-0 left-0 mx-auto max-w-xl p-2">
-      <div className="mx-auto flex h-12 items-center rounded-full bg-background ps-5 pe-2 shadow-sm">
+    <div className="fixed top-0 right-0 left-0 z-50 px-6 pt-2">
+      <div className="mx-auto flex h-12 max-w-lg items-center gap-2 rounded-full border bg-background ps-4 pe-1.25 shadow-xs">
         <Link href="/">
           <LogoText />
         </Link>

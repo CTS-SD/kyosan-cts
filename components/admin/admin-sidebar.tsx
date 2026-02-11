@@ -21,6 +21,7 @@ import { useAdminSidebar } from "../../hooks/use-admin-sidebar";
 import { cn } from "../../lib/utils";
 import { LogoText } from "../logo-text";
 import { AdminUserMenu } from "./admin-user-menu";
+import { UserAvatar } from "../user-avatar";
 
 type NavItem = {
   icon: LucideIcon;
@@ -94,15 +95,11 @@ export const AdminSidebarContent = ({ className, ...props }: React.ComponentProp
         ))}
       </SidebarContent>
       <SidebarFooter>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <AdminUserMenu>
-              <SidebarMenuButton>
-                <User2Icon />
-              </SidebarMenuButton>
-            </AdminUserMenu>
-          </SidebarMenuItem>
-        </SidebarMenu>
+        <div>
+          <AdminUserMenu>
+            <UserAvatar className="size-10" />
+          </AdminUserMenu>
+        </div>
       </SidebarFooter>
     </div>
   );

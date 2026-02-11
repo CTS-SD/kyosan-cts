@@ -3,7 +3,6 @@
 import { LogOutIcon } from "lucide-react";
 import { authClient } from "../../lib/auth/client";
 import { ThemeSubmenu } from "../theme-submenu";
-import { Button } from "../ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -30,9 +29,7 @@ export const MemberUserButton = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button className="size-8 rounded-full" size="icon" variant="ghost" aria-label="ユーザーメニューを開く">
-          <UserAvatar user={session.user} />
-        </Button>
+        <UserAvatar className="size-9" />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <ThemeSubmenu />
