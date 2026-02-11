@@ -274,7 +274,7 @@ export const QuizEditorSubmit = ({ children, ...props }: React.ComponentProps<ty
 
 export const QuizEditorMobilePreviewButton = () => {
   const { form } = useQuizEditor();
-  const quiz = makePseudoQuiz(form.getValues());
+  const quiz = makePseudoQuiz(form.watch());
 
   if (!quiz) return null;
 
@@ -308,7 +308,7 @@ export const QuizEditorMobilePreviewButton = () => {
 
 export const QuizEditorPreview = () => {
   const { form } = useQuizEditor();
-  const quiz = makePseudoQuiz(form.getValues());
+  const quiz = makePseudoQuiz(form.watch());
 
   if (!quiz) return null;
 
