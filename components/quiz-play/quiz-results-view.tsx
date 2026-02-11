@@ -28,7 +28,7 @@ export const QuizResultsView = ({ quizzes, results, playTimeMs }: Props) => {
   return (
     <div className="mx-auto max-w-2xl p-6">
       <motion.div
-        className="flex gap-3 *:flex-1"
+        className="flex gap-1.5 *:flex-1 sm:gap-3"
         initial="hidden"
         animate="show"
         variants={{ show: { transition: { delayChildren: stagger(0.7) } } }}
