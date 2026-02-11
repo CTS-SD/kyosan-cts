@@ -17,7 +17,7 @@ type Props = {
   isAdmin: boolean;
 };
 
-export const ClientView = ({ quizzes, isAdmin }: Props) => {
+export const QuizPlaySession = ({ quizzes, isAdmin }: Props) => {
   const router = useRouter();
   const [quizIndex, setQuizIndex] = useState(0);
   const [results, setResults] = useState<QuizResult[]>([]);

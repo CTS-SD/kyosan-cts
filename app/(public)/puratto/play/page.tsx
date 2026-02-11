@@ -3,7 +3,7 @@ import { getUser } from "../../../../lib/auth/actions";
 import { getConfig } from "../../../../lib/config/actions";
 import { QuizTable } from "../../../../lib/db/schema";
 import { getQuizzes } from "../../../../lib/quiz";
-import { ClientView } from "./client-view";
+import { QuizPlaySession } from "./quiz-play-session";
 
 const Page = async () => {
   const config = await getConfig();
@@ -17,7 +17,7 @@ const Page = async () => {
 
   const user = await getUser();
 
-  return <ClientView quizzes={quizzes} isAdmin={user?.role === "admin"} />;
+  return <QuizPlaySession quizzes={quizzes} isAdmin={user?.role === "admin"} />;
 };
 
 export default Page;
