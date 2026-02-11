@@ -1,8 +1,9 @@
-import { Clock3Icon, LightbulbIcon, ZapIcon } from "lucide-react";
+import { Clock3Icon, LightbulbIcon, SlashIcon, ZapIcon } from "lucide-react";
 import { motion, stagger } from "motion/react";
 import Link from "next/link";
 import type { QuizData, QuizResult } from "../../lib/quiz";
 import { PlayfulButton } from "../ui/playful-button";
+import { SpeechBubble } from "../ui/speech-bubble";
 import { UserAvatar } from "../user-avatar";
 import { QuizResultItem } from "./quiz-result-item";
 import { ScoreBox } from "./score-box";
@@ -17,7 +18,7 @@ const formatPlayTime = (playTimeMs: number) => {
   const totalSeconds = Math.max(0, Math.floor(playTimeMs / 1000));
   const minutes = Math.floor(totalSeconds / 60);
   const seconds = totalSeconds % 60;
-  return `${minutes}分${seconds.toString().padStart(2, "0")}秒`;
+  return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
 };
 
 export const QuizResultsView = ({ quizzes, results, playTimeMs }: Props) => {
@@ -28,9 +29,9 @@ export const QuizResultsView = ({ quizzes, results, playTimeMs }: Props) => {
 
   return (
     <div className="mx-auto max-w-2xl grow p-6">
-      <div className="flex items-center gap-2 py-10">
-        <UserAvatar />
-        <div className="font-accent font-medium">スバラシイ...</div>
+      <div className="mb-6 flex justify-center gap-2 py-6">
+        <UserAvatar className="mt-4" />
+        <SpeechBubble className="font-accent font-medium">いいね！</SpeechBubble>
       </div>
       <motion.div
         className="flex gap-1.5 *:flex-1 sm:gap-3"
@@ -38,9 +39,35 @@ export const QuizResultsView = ({ quizzes, results, playTimeMs }: Props) => {
         animate="show"
         variants={{ show: { transition: { delayChildren: stagger(0.7) } } }}
       >
-        <ScoreBox icon={ZapIcon} label="正解数" value={`${correctCount}/${totalCount}問`} />
-        <ScoreBox icon={LightbulbIcon} label="正答率" value={`${roundedCorrectRate}%`} />
-        <ScoreBox icon={Clock3Icon} label="プレイ時間" value={`${formatPlayTime(playTimeMs)}`} />
+        <ScoreBox
+          icon={ZapIcon}
+          label="正解数"
+          value={
+            <div className="mx-auto flex w-fit items-baseline text-muted-foreground sm:gap-1">
+              <span className="text-3xl text-primary">{correctCount}</span>
+              <SlashIcon className="size-4 -rotate-16" strokeWidth={2.8} />
+              <div className="">
+                <span className="mr-0.5">{totalCount}</span>
+                <span className="text-lg">問</span>
+              </div>
+            </div>
+          }
+        />
+        <ScoreBox
+          icon={LightbulbIcon}
+          label="正答率"
+          value={
+            <div className="mx-auto flex w-fit items-baseline gap-1">
+              <span className="text-3xl">{roundedCorrectRate}</span>
+              <span className="text-lg">%</span>
+            </div>
+          }
+        />
+        <ScoreBox
+          icon={Clock3Icon}
+          label="プレイ時間"
+          value={<span className="text-3xl">{formatPlayTime(playTimeMs)}</span>}
+        />
       </motion.div>
       {/* <div className="mt-6">
         <motion.div

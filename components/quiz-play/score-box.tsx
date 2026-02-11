@@ -21,10 +21,8 @@ export const ScoreBox = ({ icon: Icon, label, value }: Props) => {
         <Icon className="size-4 sm:size-5" />
         <span className="font-semibold text-sm sm:text-lg">{label}</span>
       </motion.div>
-      <div className="w-full p-1 pt-0">
-        <div className="w-full rounded-xl bg-accent py-4 text-center">
-          <div className="font-bold text-xl">{value}</div>
-        </div>
+      <div className="w-full grow p-1 pt-0">
+        <div className="h-full w-full rounded-xl bg-accent py-4 text-center font-bold">{value}</div>
       </div>
     </motion.div>
   );
