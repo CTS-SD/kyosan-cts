@@ -1,10 +1,12 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useDebounce } from "@uidotdev/usehooks";
 import { ArrowLeftIcon, CopyIcon, EllipsisIcon, EyeIcon, ShareIcon, Trash2Icon, XIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useNavigationGuard } from "next-navigation-guard";
+import { useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { QuizPlay } from "@/components/quiz-play/quiz-play";
@@ -272,14 +274,33 @@ export const QuizEditorSubmit = ({ children, ...props }: React.ComponentProps<ty
   );
 };
 
-export const QuizEditorMobilePreviewButton = () => {
-  const { form } = useQuizEditor();
-  const quiz = makePseudoQuiz(form.watch());
+const MobilePreviewContent = () => {
+  const quiz = usePreviewQuiz();
 
   if (!quiz) return null;
 
   return (
-    <Dialog>
+    <QuizPlay.Root quiz={quiz} className="w-full overflow-auto">
+      <QuizPlay.Header className="pt-2">
+        <Badge variant="outline">プレビュー</Badge>
+        <PlayfulProgress value={20} />
+        <DialogClose asChild>
+          <Button variant="outline">
+            <XIcon />
+            閉じる
+          </Button>
+        </DialogClose>
+      </QuizPlay.Header>
+      <QuizPlay.Content />
+    </QuizPlay.Root>
+  );
+};
+
+export const QuizEditorMobilePreviewButton = () => {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="md:hidden" asChild>
         <Button variant="outline" aria-label="プレビューを表示">
           <EyeIcon />
@@ -288,27 +309,14 @@ export const QuizEditorMobilePreviewButton = () => {
       </DialogTrigger>
       <DialogContent className="flex h-[95dvh] w-full flex-col bg-background" showCloseButton={false}>
         <DialogTitle className="sr-only">プレビュー</DialogTitle>
-        <QuizPlay.Root quiz={quiz} className="w-full overflow-auto">
-          <QuizPlay.Header className="pt-2">
-            <Badge variant="outline">プレビュー</Badge>
-            <PlayfulProgress value={20} />
-            <DialogClose asChild>
-              <Button variant="outline">
-                <XIcon />
-                閉じる
-              </Button>
-            </DialogClose>
-          </QuizPlay.Header>
-          <QuizPlay.Content />
-        </QuizPlay.Root>
+        {open && <MobilePreviewContent />}
       </DialogContent>
     </Dialog>
   );
 };
 
 export const QuizEditorPreview = () => {
-  const { form } = useQuizEditor();
-  const quiz = makePseudoQuiz(form.watch());
+  const quiz = usePreviewQuiz();
 
   if (!quiz) return null;
 
@@ -325,6 +333,12 @@ export const QuizEditorPreview = () => {
       </div>
     </div>
   );
+};
+
+const usePreviewQuiz = () => {
+  const { form } = useQuizEditor();
+  const debouncedValues = useDebounce(form.watch(), 300);
+  return useMemo(() => makePseudoQuiz(debouncedValues), [debouncedValues]);
 };
 
 export const QuizEditor = {
