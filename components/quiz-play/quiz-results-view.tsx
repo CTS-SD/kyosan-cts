@@ -43,10 +43,10 @@ export const QuizResultsView = ({ quizzes, results, playTimeMs }: Props) => {
           icon={ZapIcon}
           label="正解数"
           value={
-            <div className="mx-auto flex w-fit items-baseline text-muted-foreground sm:gap-1">
-              <span className="text-3xl text-primary">{correctCount}</span>
-              <SlashIcon className="size-4 -rotate-16" strokeWidth={2.8} />
-              <div className="">
+            <div className="mx-auto flex w-fit items-baseline sm:gap-1">
+              <span className="text-3xl">{correctCount}</span>
+              <SlashIcon className="size-4 -rotate-16 text-muted-foreground" strokeWidth={2.8} />
+              <div className="text-muted-foreground">
                 <span className="mr-0.5">{totalCount}</span>
                 <span className="text-lg">問</span>
               </div>
@@ -69,29 +69,22 @@ export const QuizResultsView = ({ quizzes, results, playTimeMs }: Props) => {
           value={<span className="text-3xl">{formatPlayTime(playTimeMs)}</span>}
         />
       </motion.div>
-      {/* <div className="mt-6">
-        <motion.div
-          className="space-y-6"
-          variants={{ show: { transition: { delayChildren: stagger(0.1) } } }}
-          initial="hidden"
-          animate="show"
-        >
+      <div className="mt-6">
+        <div className="space-y-6">
           {results.map((result, i) => (
             <motion.div
               key={result.quizId}
-              variants={{
-                hidden: { opacity: 0, y: 10, scale: 0.9 },
-                show: { opacity: 1, y: 0, scale: 1 },
-              }}
-              transition={{ type: "spring", stiffness: 300, damping: 12 }}
+              initial={{ opacity: 0, y: 10, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ type: "spring", stiffness: 300, damping: 12, delay: 2.1 }}
             >
               <QuizResultItem index={i + 1} result={result} quiz={quizzes.find((q) => q.id === result.quizId)!} />
             </motion.div>
           ))}
-        </motion.div>
-      </div> */}
+        </div>
+      </div>
       <div className="sticky bottom-0 mt-6 bg-background py-4">
-        <PlayfulButton asChild>
+        <PlayfulButton tint="blue" asChild>
           <Link href="/puratto">OK</Link>
         </PlayfulButton>
       </div>
