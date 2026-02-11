@@ -78,7 +78,10 @@ export const QuizEditorMain = ({ className, ...props }: React.ComponentProps<"fo
     confirm: () => window.confirm("保存されていない変更があります。ページを離れますか？"),
   });
 
-  const handleSubmit = form.handleSubmit(onSubmit);
+  const handleSubmit = form.handleSubmit((values) => {
+    onSubmit(values);
+    form.reset(values);
+  });
 
   return <form className={cn("flex-1", className)} onSubmit={handleSubmit} {...props} />;
 };
