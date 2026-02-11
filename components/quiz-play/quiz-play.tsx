@@ -59,6 +59,7 @@ export const QuizPlayContent = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    e.stopPropagation();
 
     if (showAnswer) {
       reset();
