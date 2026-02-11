@@ -3,6 +3,7 @@ import { motion, stagger } from "motion/react";
 import Link from "next/link";
 import type { QuizData, QuizResult } from "../../lib/quiz";
 import { PlayfulButton } from "../ui/playful-button";
+import { UserAvatar } from "../user-avatar";
 import { QuizResultItem } from "./quiz-result-item";
 import { ScoreBox } from "./score-box";
 
@@ -26,7 +27,11 @@ export const QuizResultsView = ({ quizzes, results, playTimeMs }: Props) => {
   const roundedCorrectRate = Number(correctRate.toFixed(1));
 
   return (
-    <div className="mx-auto max-w-2xl p-6">
+    <div className="mx-auto max-w-2xl grow p-6">
+      <div className="flex items-center gap-2 py-10">
+        <UserAvatar />
+        <div className="font-accent font-medium">スバラシイ...</div>
+      </div>
       <motion.div
         className="flex gap-1.5 *:flex-1 sm:gap-3"
         initial="hidden"
@@ -37,7 +42,7 @@ export const QuizResultsView = ({ quizzes, results, playTimeMs }: Props) => {
         <ScoreBox icon={LightbulbIcon} label="正答率" value={`${roundedCorrectRate}%`} />
         <ScoreBox icon={Clock3Icon} label="プレイ時間" value={`${formatPlayTime(playTimeMs)}`} />
       </motion.div>
-      <div className="mt-6">
+      {/* <div className="mt-6">
         <motion.div
           className="space-y-6"
           variants={{ show: { transition: { delayChildren: stagger(0.1) } } }}
@@ -57,7 +62,7 @@ export const QuizResultsView = ({ quizzes, results, playTimeMs }: Props) => {
             </motion.div>
           ))}
         </motion.div>
-      </div>
+      </div> */}
       <div className="sticky bottom-0 mt-6 bg-background py-4">
         <PlayfulButton asChild>
           <Link href="/puratto">OK</Link>
