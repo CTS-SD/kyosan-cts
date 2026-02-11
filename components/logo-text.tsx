@@ -22,7 +22,7 @@ export const LogoText = () => {
 
   return (
     <div className="flex items-center gap-0.5 font-semibold text-xs">
-      <div className="rounded-sm rounded-br-none bg-sky-500 px-1 py-0.5 text-white">
+      <div className="rounded-lg rounded-br-none bg-sky-500 px-1.5 py-0.75 text-white">
         KS
         <AnimatePresence mode="popLayout" initial={false}>
           {showU ? (
