@@ -30,7 +30,7 @@ const Page = () => {
           <QuizEditor.Fields />
           <QuizEditor.Footer>
             <QuizEditor.Cancel />
-            <QuizEditor.Submit>保存</QuizEditor.Submit>
+            <QuizEditor.Submit>作成</QuizEditor.Submit>
           </QuizEditor.Footer>
         </QuizEditor.Main>
         <QuizEditor.Preview />
