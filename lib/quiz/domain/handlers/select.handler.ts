@@ -93,7 +93,7 @@ export const selectQuizHandler: QuizTypeHandler<SelectQuizData, SelectQuizEditor
 
   // Validation & Judging
   validate: (quiz, inputValue) => {
-    return quiz.correctChoices.length === inputValue.length;
+    return quiz.correctChoices.length > 0 && quiz.correctChoices.length === inputValue.length;
   },
   judge: (quiz, inputValue) => {
     return (
