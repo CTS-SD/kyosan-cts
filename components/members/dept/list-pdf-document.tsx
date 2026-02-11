@@ -1,7 +1,6 @@
 "use client";
 
-import { Document, Font, Page, PDFViewer, Svg, Text, View } from "@react-pdf/renderer";
-import { SparklesIcon } from "lucide-react";
+import { Document, Font, Page, Text, View } from "@react-pdf/renderer";
 import { createTw } from "react-pdf-tailwind";
 
 Font.register({

@@ -6,7 +6,7 @@ import * as React from "react";
 import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Tooltip, type TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import type { TooltipContent } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
 
 function SidebarInput({ className, ...props }: React.ComponentProps<typeof Input>) {

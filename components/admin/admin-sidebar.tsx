@@ -1,7 +1,7 @@
 "use client";
 
 import type { LucideIcon } from "lucide-react";
-import { NotebookPenIcon, Settings2Icon, SettingsIcon, SquareUserIcon, User2Icon } from "lucide-react";
+import { NotebookPenIcon, Settings2Icon, SettingsIcon, SquareUserIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Dialog } from "radix-ui";
@@ -20,8 +20,8 @@ import {
 import { useAdminSidebar } from "../../hooks/use-admin-sidebar";
 import { cn } from "../../lib/utils";
 import { LogoText } from "../logo-text";
-import { AdminUserMenu } from "./admin-user-menu";
 import { UserAvatar } from "../user-avatar";
+import { AdminUserMenu } from "./admin-user-menu";
 
 type NavItem = {
   icon: LucideIcon;

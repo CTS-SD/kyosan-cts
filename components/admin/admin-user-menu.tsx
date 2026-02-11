@@ -1,6 +1,6 @@
 "use client";
 
-import { HomeIcon, LayoutGridIcon, LogOutIcon, SchoolIcon } from "lucide-react";
+import { HomeIcon, LayoutGridIcon, LogOutIcon } from "lucide-react";
 import Link from "next/link";
 import { authClient } from "../../lib/auth/client";
 import { ThemeSubmenu } from "../theme-submenu";

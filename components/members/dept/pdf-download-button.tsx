@@ -3,7 +3,6 @@
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { DownloadIcon } from "lucide-react";
 import type { DepartmentTable } from "../../../lib/db/schema";
-import { Button } from "../../ui/button";
 import { PlayfulButton } from "../../ui/playful-button";
 import { ListPdfDocument } from "./list-pdf-document";
 

@@ -1,4 +1,4 @@
-import { ArrowRightIcon, PenToolIcon } from "lucide-react";
+import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
 import { PlayfulButton } from "../../../components/ui/playful-button";
 import { getCachedConfigValue } from "../../../lib/config/actions";

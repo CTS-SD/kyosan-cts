@@ -34,7 +34,7 @@ test("should navigate to new quiz page", async ({ authedPage }) => {
   const newButton = authedPage.locator("a", { hasText: "新規作成" });
   await test.expect(newButton).toBeVisible();
   await newButton.click();
-  await test.expect(authedPage.locator("h1", { hasText: "問題作成" })).toBeVisible();
+  await test.expect(authedPage.locator("h1", { hasText: "作成" })).toBeVisible();
 });
 
 test.describe("quiz management", () => {

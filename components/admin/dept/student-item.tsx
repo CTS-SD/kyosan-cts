@@ -1,6 +1,6 @@
 "use client";
 
-import { Trash2Icon, User2Icon } from "lucide-react";
+import { Trash2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { use } from "react";
 import { toast } from "sonner";

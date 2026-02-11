@@ -1,6 +1,6 @@
 "use client";
 
-import { MoonIcon, PaintbrushIcon, PaletteIcon, ShellIcon, SunIcon, TabletSmartphoneIcon } from "lucide-react";
+import { MoonIcon, PaintbrushIcon, SunIcon, TabletSmartphoneIcon } from "lucide-react";
 import { useTheme } from "next-themes";
 import {
   DropdownMenuRadioGroup,
