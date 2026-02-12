@@ -1,13 +1,13 @@
 "use client";
 
-import { EyeClosedIcon, EyeIcon } from "lucide-react";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
 import { GoogleIcon } from "@/components/icons/google-icon";
-import { Button } from "@/components/ui/button";
-import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@/components/ui/input-group";
+import { PlayfulButton } from "@/components/ui/playful-button";
+import { PlayfulInput } from "@/components/ui/playful-input";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
+import { UserAvatar } from "@/components/user-avatar";
 import { authClient } from "@/lib/auth/client";
 
 const getErrorMessage = (message?: string) => {
@@ -18,16 +18,11 @@ const getErrorMessage = (message?: string) => {
 };
 
 const Page = () => {
-  const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [isStaffPending, startStaffTransition] = useTransition();
   const [isAdminPending, setIsAdminPending] = useState(false);
 
   const isPending = isStaffPending || isAdminPending;
-
-  const toggleShowPassword = () => {
-    setShowPassword((prev) => !prev);
-  };
 
   const staffSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -53,46 +48,48 @@ const Page = () => {
   };
 
   return (
-    <div className="mx-auto flex max-w-sm flex-col px-6 py-20">
-      <div className="flex flex-col gap-6">
-        <h1 className="text-center font-semibold text-lg">ログイン</h1>
-        <form className="flex flex-col gap-2 px-6" onSubmit={staffSignIn}>
-          <InputGroup className="w-full">
-            <InputGroupInput
-              type={showPassword ? "text" : "password"}
-              placeholder="パスワード"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              disabled={isPending}
-            />
-            <InputGroupAddon align="inline-end">
-              <InputGroupButton
-                type="button"
-                onClick={toggleShowPassword}
-                variant="ghost"
-                disabled={isPending}
-                size="icon-sm"
-              >
-                {showPassword ? <EyeIcon /> : <EyeClosedIcon />}
-              </InputGroupButton>
-            </InputGroupAddon>
-          </InputGroup>
-          <Button type="submit" disabled={isPending}>
-            {isStaffPending && <Spinner />}
-            スタッフとしてログイン
-          </Button>
-        </form>
-        <div className="relative">
-          <Separator />
-          <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-background px-2 text-muted-foreground text-sm">
-            OR
-          </span>
-        </div>
-        <div className="flex justify-center px-6">
-          <Button variant="outline" disabled={isPending} onClick={adminSignIn}>
-            {isAdminPending ? <Spinner /> : <GoogleIcon />}
-            管理者としてログイン
-          </Button>
+    <div className="px-4">
+      <div className="mx-auto flex max-w-sm flex-col py-20">
+        <div className="rounded-4xl bg-surface shadow-lg ring-4 ring-background">
+          <div className="flex flex-col items-center gap-2 py-6">
+            <UserAvatar className="size-12 bg-background" />
+            <h1 className="font-semibold">ｷｬﾝﾊﾟｽﾂｱｰｽﾀｯﾌ専用 ﾛｸﾞｲﾝ</h1>
+          </div>
+          <div className="p-1.5">
+            <div className="flex flex-col gap-6 rounded-3xl bg-card p-6 shadow-xs">
+              <form className="flex flex-col gap-2 px-6" onSubmit={staffSignIn}>
+                <PlayfulInput
+                  type="password"
+                  placeholder="パスワード"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  disabled={isPending}
+                />
+                <PlayfulButton tint="blue" type="submit" disabled={isPending} className="rounded-full">
+                  {isStaffPending && <Spinner />}
+                  ログイン
+                </PlayfulButton>
+              </form>
+              <div className="relative">
+                <Separator />
+                <span className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-background px-4 font-medium text-muted-foreground text-xs">
+                  または
+                </span>
+              </div>
+              <div className="flex justify-center px-6">
+                <PlayfulButton
+                  variant="outline"
+                  tint="default"
+                  disabled={isPending}
+                  onClick={adminSignIn}
+                  className="rounded-full"
+                >
+                  {isAdminPending ? <Spinner /> : <GoogleIcon />}
+                  管理者としてログイン
+                </PlayfulButton>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
