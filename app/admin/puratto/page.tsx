@@ -2,6 +2,7 @@ import { PlusIcon } from "lucide-react";
 import Link from "next/link";
 import { QuizListStats } from "@/components/admin/quiz/quiz-list-stats";
 import QuizListWrapper from "@/components/admin/quiz/quiz-list-wrapper";
+import { QuizRefreshButton } from "@/components/admin/quiz/quiz-refresh-button";
 import { QuizSearchInput } from "@/components/admin/quiz/quiz-search-input";
 import { Button } from "@/components/ui/button";
 import { requireRole } from "@/lib/auth/actions";
@@ -12,6 +13,7 @@ const Page = async () => {
   return (
     <div className="mx-auto max-w-6xl p-6">
       <div className="flex gap-2">
+        <QuizRefreshButton />
         <QuizSearchInput />
         <Button className="shrink-0" asChild>
           <Link href="/admin/puratto/q/new">
