@@ -21,8 +21,8 @@ export const QuizRefreshButton = () => {
     <Button variant="outline" className="shrink-0" size="icon" onClick={handleClick} disabled={isAnimating}>
       <motion.div
         key={key}
-        initial={{ rotate: 0 }}
-        animate={{ rotate: 360 }}
+        initial={{ rotate: 0, }}
+        animate={{ rotate: key === 0 ? 0 : 360 }}
         transition={{
           type: "spring",
           stiffness: 300,
