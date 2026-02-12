@@ -74,7 +74,7 @@ export const QuizPlayContent = () => {
         {quiz.type === "true_false" && <QuizFormTrueFalse />}
       </div>
       <div
-        className={cn("sticky bottom-0 bg-background backdrop-blur-lg", {
+        className={cn("sticky bottom-0 rounded-b-2xl bg-background backdrop-blur-lg", {
           "border-green-100 border-t-2 bg-green-50 dark:border-border dark:bg-background":
             showAnswer && result.isCorrect,
           "border-red-100 border-t-2 bg-red-50 dark:border-border dark:bg-background": showAnswer && !result.isCorrect,
