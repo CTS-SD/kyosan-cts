@@ -8,8 +8,8 @@ const playfulButtonVariants = cva(
   {
     variants: {
       variant: {
-        solid: "text-white shadow-[0_3.5px_0] not-disabled:active:translate-y-[3.5px] dark:text-black",
-        outline: "border-[1.5px] shadow-[0_2px_0] not-disabled:active:translate-y-[2px]",
+        solid: "text-white shadow-[0_3px_0] not-disabled:active:translate-y-[3px] dark:text-black",
+        outline: "border-[1.5px] shadow-[0_3px_0] not-disabled:active:translate-y-[3px]",
       },
       tint: {
         default: "",
