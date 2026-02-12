@@ -42,11 +42,11 @@ export const ListPdfDocument = ({ departments, students, year }: Props) => {
 
   return (
     <Document>
-      <Page size="A4" style={tw("p-12 font-sans")}>
-        <View>
+      <Page size="A4" style={tw("p-10 font-sans")}>
+        <View style={tw("px-4")}>
           <Text style={tw("font-medium text-[12pt]")}>京産キャンスタ 配属部署発表{year}</Text>
         </View>
-        <View style={tw("mt-12 flex-row flex-wrap gap-12")}>
+        <View style={tw("mt-10 flex-row flex-wrap gap-10")}>
           {departments.map((department) => (
             <View key={department.id} style={tw("")}>
               <Text
