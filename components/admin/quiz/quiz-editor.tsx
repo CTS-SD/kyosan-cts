@@ -22,7 +22,14 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { PlayfulProgress } from "@/components/ui/playful-progress";
 import { QuizEditorContext, useQuizEditor } from "@/hooks/use-quiz-editor";
-import { deleteQuiz, getQuizTypes, makePseudoQuiz, QuizEditorSchema, type QuizEditorValues } from "@/lib/quiz";
+import {
+  deleteQuiz,
+  getQuizTypes,
+  makePseudoQuiz,
+  type QuizData,
+  QuizEditorSchema,
+  type QuizEditorValues,
+} from "@/lib/quiz";
 import { cn, copyToClipboard } from "@/lib/utils";
 import { Button } from "../../ui/button";
 import { Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel } from "../../ui/field";
@@ -292,9 +299,7 @@ const MobilePreviewContent = () => {
           </Button>
         </DialogClose>
       </QuizSessionHeader>
-      <QuizPlay.Provider quiz={quiz}>
-        <QuizPlay.Content />
-      </QuizPlay.Provider>
+      <PreviewQuizPlay quiz={quiz} />
     </QuizSessionMain>
   );
 };
@@ -331,12 +336,19 @@ export const QuizEditorPreview = () => {
             <Badge variant="outline">プレビュー</Badge>
             <PlayfulProgress value={20} />
           </QuizSessionHeader>
-          <QuizPlay.Provider quiz={quiz}>
-            <QuizPlay.Content />
-          </QuizPlay.Provider>
+          <PreviewQuizPlay quiz={quiz} />
         </QuizSessionMain>
       </div>
     </div>
+  );
+};
+
+const PreviewQuizPlay = ({ quiz }: { quiz: QuizData }) => {
+  const [key, setKey] = useState(0);
+  return (
+    <QuizPlay.Provider key={key} quiz={quiz} onNext={() => setKey((k) => k + 1)}>
+      <QuizPlay.Content />
+    </QuizPlay.Provider>
   );
 };
 
