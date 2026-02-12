@@ -32,7 +32,7 @@ export const QuizPlayView = () => {
             className="flex grow flex-col overflow-auto"
             layout
           >
-            <QuizPlay.Provider key={quiz.id} quiz={quiz} onAnswer={handleAnswer} onNext={handleNext}>
+            <QuizPlay.Provider key={quiz.id} quiz={quiz} onAnswer={handleAnswer} onNext={handleNext} enableKeyboard>
               <QuizPlay.Content />
             </QuizPlay.Provider>
           </motion.div>

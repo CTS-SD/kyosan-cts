@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { CornerDownLeftIcon } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { QuizPlayContext, useQuizPlay } from "@/hooks/use-quiz-play";
 import type { QuizData, QuizResult } from "@/lib/quiz";
 import { getQuizPrompt, judgeQuizInput, validateQuizInput } from "@/lib/quiz";
@@ -17,20 +18,34 @@ export const QuizPlayProvider = ({
   quiz,
   onAnswer,
   onNext,
+  enableKeyboard = false,
 }: {
   children: React.ReactNode;
   quiz: QuizData;
   onAnswer?: (result: QuizResult) => void;
   onNext?: () => void;
+  enableKeyboard?: boolean;
 }) => {
   const [result, setResult] = useState<QuizResult | null>(null);
   const [inputValue, setInputValue] = useState<string[]>([]);
+  const choicesRef = useRef<string[]>([]);
 
   const isValidInput = validateQuizInput(quiz, inputValue);
 
   return (
     <QuizPlayContext.Provider
-      value={{ inputValue, setInputValue, quiz, result, setResult, isValidInput, onAnswer, onNext }}
+      value={{
+        inputValue,
+        setInputValue,
+        quiz,
+        result,
+        setResult,
+        isValidInput,
+        onAnswer,
+        onNext,
+        enableKeyboard,
+        choicesRef,
+      }}
     >
       {children}
     </QuizPlayContext.Provider>
@@ -38,11 +53,20 @@ export const QuizPlayProvider = ({
 };
 
 export const QuizPlayContent = () => {
-  const { quiz, setResult, result, inputValue, onNext, onAnswer } = useQuizPlay();
+  const { quiz, setResult, result, inputValue, setInputValue, onNext, onAnswer, enableKeyboard, choicesRef } =
+    useQuizPlay();
 
+  const formRef = useRef<HTMLFormElement>(null);
   const showAnswer = !!result;
 
   const isValidInput = validateQuizInput(quiz, inputValue);
+
+  // Auto-focus form when keyboard shortcuts are enabled
+  useEffect(() => {
+    if (enableKeyboard) {
+      formRef.current?.focus();
+    }
+  }, [enableKeyboard]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -62,8 +86,67 @@ export const QuizPlayContent = () => {
     onAnswer?.(resultItem);
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLFormElement>) => {
+    if (!enableKeyboard) return;
+
+    // Enter: submit form (skip if target is an input element — it submits naturally)
+    if (e.key === "Enter") {
+      const target = e.target as HTMLElement;
+      if (target.tagName === "INPUT") return;
+
+      // Don't submit if input is invalid and no result shown
+      if (!isValidInput && !showAnswer) return;
+
+      e.preventDefault();
+      formRef.current?.requestSubmit();
+      return;
+    }
+
+    // Number keys 1-9: toggle select choices
+    if (quiz.type === "select" && !showAnswer) {
+      const num = Number.parseInt(e.key, 10);
+      if (num >= 1 && num <= 9) {
+        const choices = choicesRef.current;
+        const choice = choices[num - 1];
+        if (!choice) return;
+
+        e.preventDefault();
+        setInputValue((prev) => {
+          if (prev.includes(choice)) {
+            return prev.filter((c) => c !== choice);
+          }
+          if (prev.length === (quiz as { correctChoices: string[] }).correctChoices.length) {
+            return [...prev.slice(0, -1), choice];
+          }
+          return [...prev, choice];
+        });
+        return;
+      }
+    }
+
+    // Arrow keys: toggle true/false
+    if (quiz.type === "true_false" && !showAnswer) {
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        setInputValue(["true"]);
+        return;
+      }
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        setInputValue(["false"]);
+        return;
+      }
+    }
+  };
+
   return (
-    <form onSubmit={handleSubmit} className="flex shrink-0 grow flex-col">
+    <form
+      ref={formRef}
+      onSubmit={handleSubmit}
+      onKeyDown={handleKeyDown}
+      tabIndex={enableKeyboard ? -1 : undefined}
+      className={cn("flex shrink-0 grow flex-col outline-0")}
+    >
       <div className="mt-2 mb-6 space-y-4 px-6">
         <div className="font-bold text-xl">{getQuizPrompt(quiz)}</div>
         <Markdown>{quiz.question}</Markdown>
@@ -84,11 +167,14 @@ export const QuizPlayContent = () => {
           {result && <QuizPlayResult />}
           <PlayfulButton
             type="submit"
-            className="z-10 w-full"
+            className="relative z-10 w-full"
             disabled={!isValidInput && !showAnswer}
             tint={showAnswer ? (result.isCorrect ? "green" : "red") : isValidInput ? "green" : "disabled"}
           >
             {result ? "次へ" : "送信する"}
+            {enableKeyboard && (
+              <CornerDownLeftIcon strokeWidth={2.6} className="absolute right-4 pointer-fine::hidden opacity-60" />
+            )}
           </PlayfulButton>
         </div>
       </div>

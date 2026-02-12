@@ -346,7 +346,7 @@ export const QuizEditorPreview = () => {
 const PreviewQuizPlay = ({ quiz }: { quiz: QuizData }) => {
   const [key, setKey] = useState(0);
   return (
-    <QuizPlay.Provider key={key} quiz={quiz} onNext={() => setKey((k) => k + 1)}>
+    <QuizPlay.Provider key={key} quiz={quiz} onNext={() => setKey((k) => k + 1)} enableKeyboard>
       <QuizPlay.Content />
     </QuizPlay.Provider>
   );

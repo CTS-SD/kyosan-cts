@@ -1,13 +1,20 @@
 "use client";
 
 import { shuffle } from "es-toolkit";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { useQuizPlay } from "@/hooks/use-quiz-play";
 import type { SelectQuizData } from "@/lib/quiz";
 import { PlayfulButton } from "../ui/playful-button";
 
 export const QuizFormSelect = () => {
-  const { result, inputValue: selections, setInputValue: setSelections, quiz } = useQuizPlay<SelectQuizData>();
+  const {
+    result,
+    inputValue: selections,
+    setInputValue: setSelections,
+    quiz,
+    choicesRef,
+    enableKeyboard,
+  } = useQuizPlay<SelectQuizData>();
 
   const correctKey = quiz.correctChoices.join("\n");
   const incorrectKey = quiz.incorrectChoices.join("\n");
@@ -16,6 +23,10 @@ export const QuizFormSelect = () => {
   const choices = useMemo(() => {
     return shuffle([...quiz.correctChoices, ...quiz.incorrectChoices].map((choice) => choice.trim()).filter(Boolean));
   }, [correctKey, incorrectKey]);
+
+  useEffect(() => {
+    choicesRef.current = choices;
+  }, [choices, choicesRef]);
 
   const handleChoice = (choice: string) => {
     if (selections.includes(choice)) {
@@ -33,8 +44,8 @@ export const QuizFormSelect = () => {
 
   return (
     <div className="px-4">
-      <div className="flex flex-col gap-2.5">
-        {choices.map((choice, i) => {
+      <div className="relative flex flex-col gap-2.5">
+        {choices.map((choice, index) => {
           const isSelected = selections.includes(choice);
           const isHighlighted = result?.isCorrect && isSelected && quiz.correctChoices.includes(choice);
           const tint = isHighlighted ? "green" : isSelected ? "blue" : "default";
@@ -43,10 +54,16 @@ export const QuizFormSelect = () => {
               variant="outline"
               type="button"
               tint={tint}
-              key={`${quiz.id}-${i}`}
+              key={`${quiz.id}-${index}`}
               onClick={() => handleChoice(choice)}
+              className="relative"
               disabled={!!result}
             >
+              {enableKeyboard && (
+                <div className="absolute left-2.5 grid pointer-coarse:hidden size-7 place-content-center rounded-md bg-current/10 text-sm! opacity-40">
+                  {index + 1}
+                </div>
+              )}
               {choice}
             </PlayfulButton>
           );
