@@ -4,6 +4,7 @@ import { XIcon } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { QuizSession } from "@/components/quiz-play/quiz-session";
 import { confirm } from "../../../../components/confirm-store";
 import { QuizPlay } from "../../../../components/quiz-play/quiz-play";
 import { QuizPlayAdminMenu } from "../../../../components/quiz-play/quiz-play-admin-menu";
@@ -23,7 +24,6 @@ export const QuizPlaySession = ({ quizzes, isAdmin }: Props) => {
   const [results, setResults] = useState<QuizResult[]>([]);
   const [startedAt] = useState(() => Date.now());
   const [finishedAt, setFinishedAt] = useState<number | null>(null);
-  const quiz = quizzes[quizIndex];
   const progress = (results.length / quizzes.length) * 100;
 
   useEffect(() => {
@@ -31,14 +31,6 @@ export const QuizPlaySession = ({ quizzes, isAdmin }: Props) => {
       setFinishedAt(Date.now());
     }
   }, [quizIndex, quizzes.length, finishedAt]);
-
-  const handleAnswer = (result: QuizResult) => {
-    setResults((prev) => [...prev, result]);
-  };
-
-  const handleNext = () => {
-    setQuizIndex((prev) => prev + 1);
-  };
 
   const handleQuit = async () => {
     if (
@@ -58,27 +50,44 @@ export const QuizPlaySession = ({ quizzes, isAdmin }: Props) => {
   }
 
   return (
-    <QuizPlay.Root quiz={quiz} onAnswer={handleAnswer} onNext={handleNext} className="relative h-dvh overflow-hidden">
-      <QuizPlay.Header>
+    <QuizSession.Root className="relative h-dvh overflow-hidden">
+      <QuizSession.Header>
         <Button size="icon" variant="ghost" onClick={handleQuit}>
           <XIcon />
         </Button>
         <PlayfulProgress value={progress} />
         {isAdmin && <QuizPlayAdminMenu />}
-      </QuizPlay.Header>
+      </QuizSession.Header>
       <AnimatePresence mode="popLayout">
-        <motion.div
-          initial={{ translateX: "100%" }}
-          animate={{ translateX: "0%" }}
-          exit={{ translateX: "-100%" }}
-          transition={{ ease: [0.25, 0.1, 0.25, 1], duration: 0.34 }}
-          className="flex grow flex-col overflow-auto"
-          layout
-          key={quizIndex}
-        >
-          <QuizPlay.Content />
-        </motion.div>
+        {quizzes.map((quiz) => {
+          const handleAnswer = (result: QuizResult) => {
+            setResults((prev) => [...prev, result]);
+          };
+          const handleNext = () => {
+            setQuizIndex((prev) => prev + 1);
+          };
+
+          if (quiz.id !== quizzes[quizIndex].id) {
+            return null;
+          }
+
+          return (
+            <motion.div
+              key={quiz.id}
+              initial={{ translateX: "100%" }}
+              animate={{ translateX: "0%" }}
+              exit={{ translateX: "-100%" }}
+              transition={{ ease: [0.25, 0.1, 0.25, 1], duration: 0.34 }}
+              className="flex grow flex-col overflow-auto"
+              layout
+            >
+              <QuizPlay.Provider key={quiz.id} quiz={quiz} onAnswer={handleAnswer} onNext={handleNext}>
+                <QuizPlay.Content />
+              </QuizPlay.Provider>
+            </motion.div>
+          );
+        })}
       </AnimatePresence>
-    </QuizPlay.Root>
+    </QuizSession.Root>
   );
 };

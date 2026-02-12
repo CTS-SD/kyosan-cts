@@ -10,6 +10,7 @@ import { useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { QuizPlay } from "@/components/quiz-play/quiz-play";
+import { QuizSession } from "@/components/quiz-play/quiz-session";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import {
@@ -280,8 +281,8 @@ const MobilePreviewContent = () => {
   if (!quiz) return null;
 
   return (
-    <QuizPlay.Root quiz={quiz} className="w-full overflow-auto">
-      <QuizPlay.Header className="pt-2">
+    <QuizSession.Root className="w-full overflow-auto">
+      <QuizSession.Header className="pt-2">
         <Badge variant="outline">プレビュー</Badge>
         <PlayfulProgress value={20} />
         <DialogClose asChild>
@@ -290,9 +291,11 @@ const MobilePreviewContent = () => {
             閉じる
           </Button>
         </DialogClose>
-      </QuizPlay.Header>
-      <QuizPlay.Content />
-    </QuizPlay.Root>
+      </QuizSession.Header>
+      <QuizPlay.Provider quiz={quiz}>
+        <QuizPlay.Content />
+      </QuizPlay.Provider>
+    </QuizSession.Root>
   );
 };
 
@@ -323,13 +326,15 @@ export const QuizEditorPreview = () => {
   return (
     <div className="sticky top-0 hidden h-dvh max-w-lg flex-1 flex-col overflow-y-auto overscroll-contain p-4 md:flex">
       <div className="flex w-full grow flex-col overflow-y-auto rounded-3xl bg-accent p-1.5">
-        <QuizPlay.Root quiz={quiz} className="w-full rounded-2xl">
-          <QuizPlay.Header>
+        <QuizSession.Root className="w-full rounded-2xl">
+          <QuizSession.Header>
             <Badge variant="outline">プレビュー</Badge>
             <PlayfulProgress value={20} />
-          </QuizPlay.Header>
-          <QuizPlay.Content />
-        </QuizPlay.Root>
+          </QuizSession.Header>
+          <QuizPlay.Provider quiz={quiz}>
+            <QuizPlay.Content />
+          </QuizPlay.Provider>
+        </QuizSession.Root>
       </div>
     </div>
   );

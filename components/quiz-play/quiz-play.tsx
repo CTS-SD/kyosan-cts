@@ -12,13 +12,17 @@ import { QuizFormText } from "./quiz-form-text";
 import { QuizFormTrueFalse } from "./quiz-form-true-false";
 import { QuizPlayResult } from "./quiz-play-result";
 
-type Props = React.ComponentProps<"div"> & {
+export const QuizPlayProvider = ({
+  children,
+  quiz,
+  onAnswer,
+  onNext,
+}: {
+  children: React.ReactNode;
   quiz: QuizData;
   onAnswer?: (result: QuizResult) => void;
   onNext?: () => void;
-};
-
-export const QuizPlayRoot = ({ quiz, onAnswer, onNext, className, ...props }: Props) => {
+}) => {
   const [result, setResult] = useState<QuizResult | null>(null);
   const [inputValue, setInputValue] = useState<string[]>([]);
 
@@ -28,41 +32,23 @@ export const QuizPlayRoot = ({ quiz, onAnswer, onNext, className, ...props }: Pr
     <QuizPlayContext.Provider
       value={{ inputValue, setInputValue, quiz, result, setResult, isValidInput, onAnswer, onNext }}
     >
-      <div
-        className={cn("mx-auto flex h-full max-w-xl grow flex-col overflow-auto bg-background", className)}
-        {...props}
-      ></div>
+      {children}
     </QuizPlayContext.Provider>
   );
 };
 
-export const QuizPlayHeader = ({ className, ...props }: React.ComponentProps<"div">) => {
-  return (
-    <div
-      className={cn("sticky top-0 z-10 flex h-12 shrink-0 items-center gap-2 bg-background px-4", className)}
-      {...props}
-    />
-  );
-};
-
 export const QuizPlayContent = () => {
-  const { quiz, setInputValue, setResult, result, inputValue, onNext, onAnswer } = useQuizPlay();
+  const { quiz, setResult, result, inputValue, onNext, onAnswer } = useQuizPlay();
 
   const showAnswer = !!result;
 
   const isValidInput = validateQuizInput(quiz, inputValue);
-
-  const reset = () => {
-    setResult(null);
-    setInputValue([]);
-  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     e.stopPropagation();
 
     if (showAnswer) {
-      reset();
       onNext?.();
       return;
     }
@@ -111,7 +97,6 @@ export const QuizPlayContent = () => {
 };
 
 export const QuizPlay = {
-  Root: QuizPlayRoot,
-  Header: QuizPlayHeader,
+  Provider: QuizPlayProvider,
   Content: QuizPlayContent,
 };

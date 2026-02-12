@@ -12,7 +12,7 @@ import {
 } from "../ui/dropdown-menu";
 
 export const QuizPlayAdminMenu = () => {
-  const { quiz } = useQuizPlay();
+  // const { quiz } = useQuizPlay();
 
   return (
     <DropdownMenu>
@@ -25,7 +25,7 @@ export const QuizPlayAdminMenu = () => {
         <DropdownMenuGroup>
           <DropdownMenuLabel>管理者メニュー</DropdownMenuLabel>
           <DropdownMenuItem asChild>
-            <Link href={`/admin/puratto/q/${quiz.id}`} target="_blank" rel="noopener noreferrer">
+            <Link href={`/admin/puratto/q/${0}`} target="_blank" rel="noopener noreferrer">
               <EditIcon />
               問題を編集
             </Link>
