@@ -1,6 +1,6 @@
 import { Controller, type UseFormReturn } from "react-hook-form";
 import type z from "zod";
-import type { QuizEditorSchema } from "../../../lib/quiz";
+import type { QuizEditorSchema } from "@/lib/quiz";
 import { Field, FieldDescription, FieldError, FieldLabel } from "../../ui/field";
 import { Textarea } from "../../ui/textarea";
 
@@ -16,7 +16,7 @@ export const QuizEditorText = ({ form }: Props) => {
       render={({ field, fieldState }) => (
         <Field data-invalid={fieldState.invalid}>
           <FieldLabel>解答</FieldLabel>
-          <Textarea {...field} placeholder={"荒木俊馬\nあらきとしま\n..."} />
+          <Textarea {...field} placeholder={"荒木俊馬\nあらきとしま\n..."} className="bg-background" />
           <FieldDescription>
             改行区切りで複数パターンの解答を入力でき、いずれか一つに一致すると正解となります。空白は無視されます。
           </FieldDescription>

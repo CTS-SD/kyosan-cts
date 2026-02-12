@@ -1,9 +1,9 @@
 import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
-import { DepartmentMembers } from "../../../../components/members/dept/department-members";
-import { PdfDownloadButtonWrapper } from "../../../../components/members/dept/pdf-download-button-wrapper";
-import { db } from "../../../../lib/db";
-import { DepartmentTable, FacultyTable, StudentTable } from "../../../../lib/db/schema";
+import { DepartmentMembers } from "@/components/members/dept/department-members";
+import { PdfDownloadButtonWrapper } from "@/components/members/dept/pdf-download-button-wrapper";
+import { db } from "@/lib/db";
+import { DepartmentTable, FacultyTable, StudentTable } from "@/lib/db/schema";
 
 const Page = async () => {
   const departments = await db.select().from(DepartmentTable);

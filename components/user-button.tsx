@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { getUser } from "../lib/auth/actions";
+import { getUser } from "@/lib/auth/actions";
 import { AdminUserButton } from "./admin/admin-user-button";
 import { MemberUserButton } from "./members/member-user-button";
-import { Button } from "./ui/button";
+import { PlayfulButton } from "./ui/playful-button";
 
 export const UserButton = async () => {
   const user = await getUser();
@@ -12,14 +12,7 @@ export const UserButton = async () => {
   }
 
   if (user.role === "admin") {
-    return (
-      <div className="flex items-center gap-2">
-        <Button size="sm" variant="link" asChild>
-          <Link href="/admin/puratto">管理者</Link>
-        </Button>
-        <AdminUserButton />
-      </div>
-    );
+    return <AdminUserButton />;
   } else if (user.role === "member") {
     return <MemberUserButton />;
   }
@@ -29,8 +22,8 @@ export const UserButton = async () => {
 
 const LoginButton = () => {
   return (
-    <Button className="rounded-full" size="sm" asChild>
+    <PlayfulButton tint="blue" variant="outline" className="rounded-full" size="sm" asChild>
       <Link href="/sign-in">ログイン</Link>
-    </Button>
+    </PlayfulButton>
   );
 };

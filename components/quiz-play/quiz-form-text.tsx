@@ -1,8 +1,8 @@
 "use client";
 
-import { useQuizPlay } from "../../hooks/use-quiz-play";
-import type { TextQuizData } from "../../lib/quiz";
-import { cn } from "../../lib/utils";
+import { useQuizPlay } from "@/hooks/use-quiz-play";
+import type { TextQuizData } from "@/lib/quiz";
+import { cn } from "@/lib/utils";
 import { PlayfulInput } from "../ui/playful-input";
 
 export const QuizFormText = () => {
@@ -17,10 +17,11 @@ export const QuizFormText = () => {
         placeholder="回答を入力"
         value={value ?? ""}
         onChange={(e) => setInputValue([e.target.value])}
-        disabled={showAnswer}
+        readOnly={showAnswer}
         className={cn("opacity-100!", {
           "border-green-500 bg-green-500/20": showAnswer && result.isCorrect,
         })}
+        autoFocus
       />
     </div>
   );

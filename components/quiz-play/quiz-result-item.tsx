@@ -1,7 +1,7 @@
-import type { QuizData, QuizResult } from "../../lib/quiz";
+import { CircleIcon, XIcon } from "lucide-react";
+import { getQuizPrompt, type QuizData, type QuizResult } from "@/lib/quiz";
 import { Markdown } from "../markdown";
 import { QuizAnswerRenderer } from "../quiz-answer-renderer";
-import { Badge } from "../ui/badge";
 
 type Props = {
   result: QuizResult;
@@ -11,20 +11,28 @@ type Props = {
 
 export const QuizResultItem = ({ result, quiz, index }: Props) => {
   return (
-    <div className="">
-      <div className="space-y-3 rounded-xl border bg-background px-3 pt-3 pb-3 shadow-[0_2px] shadow-border">
-        <div className="flex gap-2">
-          <Badge variant="secondary">第{index}問</Badge>
-          <Badge variant="outline">
-            {result.isCorrect ? (
-              <span className="text-green-500">正解</span>
-            ) : (
-              <span className="text-rose-500">不正解</span>
-            )}
-          </Badge>
+    <div className="rounded-3xl border shadow-xs">
+      <div className="p-4">
+        <div className="space-y-3">
+          <div className="flex items-center">
+            <div className="font-semibold text-lg">{getQuizPrompt(quiz)}</div>
+            <div className="ml-auto flex items-center gap-1 pr-1 font-bold text-muted-foreground">
+              {result.isCorrect ? (
+                <span className="contents text-green-500">
+                  <CircleIcon strokeWidth={3} className="size-5" />
+                  正解
+                </span>
+              ) : (
+                <>
+                  <XIcon strokeWidth={3} className="size-5" />
+                  不正解
+                </>
+              )}
+            </div>
+          </div>
+          <Markdown className="">{quiz.question}</Markdown>
         </div>
-        <Markdown className="">{quiz.question}</Markdown>
-        <div className="flex">
+        <div className="flex items-center gap-1 pt-4">
           <span className="text-muted-foreground">答え：</span>
           <QuizAnswerRenderer quiz={quiz} className="font-semibold" />
         </div>

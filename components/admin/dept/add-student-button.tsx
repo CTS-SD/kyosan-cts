@@ -1,34 +1,28 @@
 "use client";
 
 import { PlusIcon } from "lucide-react";
-import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { insertStudents } from "../../../lib/student-actions";
-import type { StudentValues } from "../../../lib/student-editor";
+import type { Department, Faculty } from "@/lib/db/schema";
+import { insertStudents } from "@/lib/student-actions";
+import type { StudentValues } from "@/lib/student-editor";
 import { Button } from "../../ui/button";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "../../ui/dialog";
+import { Dialog, DialogClose, DialogContent, DialogFooter, DialogTitle, DialogTrigger } from "../../ui/dialog";
 import { StudentEditor, StudentEditorCancel, StudentEditorFields, StudentEditorSubmit } from "./student-editor";
 
-export const AddStudentButton = () => {
-  const router = useRouter();
+type Props = {
+  faculties: Faculty[];
+  departments: Department[];
+};
 
+export const AddStudentButton = ({ faculties, departments }: Props) => {
   const handleAddStudent = async (studentData: StudentValues) => {
     const insertResult = await insertStudents([studentData]);
     if (!insertResult.success) {
       toast.error(insertResult.message);
-      return;
+      return false;
     }
     toast.success(insertResult.message);
-    router.refresh();
+    return true;
   };
 
   return (
@@ -40,12 +34,9 @@ export const AddStudentButton = () => {
         </Button>
       </DialogTrigger>
       <DialogContent>
-        <DialogHeader>
-          <DialogTitle>学生を追加</DialogTitle>
-          <DialogDescription>配属発表ページに表示する学生を追加します</DialogDescription>
-        </DialogHeader>
+        <DialogTitle className="sr-only">学生を追加</DialogTitle>
         <StudentEditor onSubmit={handleAddStudent}>
-          <StudentEditorFields />
+          <StudentEditorFields faculties={faculties} departments={departments} />
           <DialogFooter>
             <DialogClose asChild>
               <StudentEditorCancel />

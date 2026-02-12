@@ -2,13 +2,11 @@
 
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { QuizView } from "../../../../../components/admin/quiz/quiz-view";
-import { useQuizForm } from "../../../../../hooks/use-quiz-form";
-import { insertQuiz, type QuizEditorValues } from "../../../../../lib/quiz";
+import { QuizEditor } from "@/components/admin/quiz/quiz-editor";
+import { insertQuiz, type QuizEditorValues } from "@/lib/quiz";
 
 const Page = () => {
   const router = useRouter();
-  const form = useQuizForm();
 
   const handleSubmit = async (values: QuizEditorValues) => {
     const newQuizId = await insertQuiz(values);
@@ -16,7 +14,29 @@ const Page = () => {
     router.push(`/admin/puratto/q/${newQuizId}`);
   };
 
-  return <QuizView heading="問題作成" form={form} onSubmit={handleSubmit} />;
+  return (
+    <QuizEditor.Provider onSubmit={handleSubmit}>
+      <QuizEditor.Wrapper>
+        <QuizEditor.Main>
+          <QuizEditor.Header>
+            <QuizEditor.Back />
+            <QuizEditor.Title className="mr-auto">
+              <span className="hidden sm:block">ぷらっとテスト</span>
+              <span className="text-muted-foreground">新規作成</span>
+            </QuizEditor.Title>
+            <QuizEditor.MobilePreviewButton />
+            <QuizEditor.Menu />
+          </QuizEditor.Header>
+          <QuizEditor.Fields />
+          <QuizEditor.Footer>
+            <QuizEditor.Cancel />
+            <QuizEditor.Submit>作成</QuizEditor.Submit>
+          </QuizEditor.Footer>
+        </QuizEditor.Main>
+        <QuizEditor.Preview />
+      </QuizEditor.Wrapper>
+    </QuizEditor.Provider>
+  );
 };
 
 export default Page;

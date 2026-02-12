@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext } from "react";
-import type { QuizData, QuizResult } from "../lib/quiz";
+import type { QuizData, QuizResult } from "@/lib/quiz";
 
 interface QuizPlayContextType<T extends QuizData> {
   inputValue: string[];
@@ -13,6 +13,9 @@ interface QuizPlayContextType<T extends QuizData> {
 
   onAnswer?: (result: QuizResult) => void;
   onNext?: () => void;
+
+  enableKeyboard: boolean;
+  choicesRef: React.RefObject<string[]>;
 }
 
 export const QuizPlayContext = createContext<QuizPlayContextType<QuizData> | null>(null);

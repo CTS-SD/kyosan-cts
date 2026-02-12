@@ -1,5 +1,5 @@
 import { expect, test } from "vitest";
-import { splitByLines } from "../../lib/utils";
+import { splitByLines } from "@/lib/utils";
 
 test("splitByLines", () => {
   const lines = ["Hello World", " Hello  World  ", "Hello World\n\n", "\nHello　World　\n", "", null, undefined, "\n"];

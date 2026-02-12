@@ -1,15 +1,15 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { Slot } from "radix-ui";
 import type * as React from "react";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 const playfulButtonVariants = cva(
-  "flex select-none items-center justify-center gap-1.5 text-balance text-center font-semibold leading-tight transition-all duration-100 not-disabled:active:translate-y-0.5 not-disabled:active:shadow-none *:[svg]:size-5",
+  "flex select-none items-center justify-center gap-1.5 text-balance text-center font-semibold leading-tight transition-all duration-100 not-disabled:active:shadow-none *:[svg]:size-5",
   {
     variants: {
       variant: {
-        solid: "text-white shadow-[0_3px_0] dark:text-black",
-        outline: "border-[1.5px] shadow-[0_2px_0]",
+        solid: "text-white dark:text-black",
+        outline: "border-[1.5px]",
       },
       tint: {
         default: "",
@@ -19,8 +19,8 @@ const playfulButtonVariants = cva(
         disabled: "",
       },
       size: {
-        sm: "rounded-lg px-2.5 py-1.5 text-sm",
-        md: "rounded-lg px-3 py-2.5 text-base",
+        sm: "mb-[2px] rounded-xl px-2.5 py-1.5 text-sm shadow-[0_2px_0] not-disabled:active:translate-y-[2px]",
+        md: "mb-[3px] rounded-xl px-3 py-2.5 text-base shadow-[0_3px_0] not-disabled:active:translate-y-[3px]",
       },
     },
     compoundVariants: [
@@ -32,7 +32,8 @@ const playfulButtonVariants = cva(
       {
         variant: "outline",
         tint: "default",
-        class: "border-neutral-300 shadow-neutral-300 dark:border-neutral-800 dark:bg-muted/10 dark:shadow-neutral-800",
+        class:
+          "border-neutral-300 bg-background shadow-neutral-300 dark:border-neutral-800 dark:bg-muted/10 dark:shadow-neutral-800",
       },
       {
         variant: "solid",

@@ -1,14 +1,13 @@
-import { cache } from "react";
+import { unstable_cache } from "next/cache";
 import { db } from "./db";
 import { DepartmentTable, FacultyTable, StudentTable } from "./db/schema";
 
-export type StudentBundle = Awaited<ReturnType<typeof getStudentBundle>>;
+export const getStudents = unstable_cache(() => db.select().from(StudentTable), ["students"], { tags: ["students"] });
 
-export const getStudentBundle = cache(async () => {
-  const [students, departments, faculties] = await Promise.all([
-    db.select().from(StudentTable),
-    db.select().from(DepartmentTable),
-    db.select().from(FacultyTable),
-  ]);
-  return { students, departments, faculties };
+export const getDepartments = unstable_cache(() => db.select().from(DepartmentTable), ["departments"], {
+  tags: ["departments"],
+});
+
+export const getFaculties = unstable_cache(() => db.select().from(FacultyTable), ["faculties"], {
+  tags: ["faculties"],
 });

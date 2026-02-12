@@ -1,145 +1,157 @@
 "use client";
 
-import { ChevronDownIcon, ChevronRightIcon, CogIcon, NotebookIcon, UsersRoundIcon } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
+import { NotebookPenIcon, Settings2Icon, SettingsIcon, SquareUserIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { authClient } from "../../lib/auth/client";
-import { Badge } from "../ui/badge";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "../ui/collapsible";
+import { Dialog } from "radix-ui";
+import { useEffect } from "react";
 import {
-  Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarMenuSub,
-  SidebarMenuSubButton,
-  SidebarMenuSubItem,
-  useSidebar,
-} from "../ui/sidebar";
+} from "@/components/ui/sidebar";
+import { useAdminSidebar } from "@/hooks/use-admin-sidebar";
+import { cn } from "@/lib/utils";
+import { LogoText } from "../logo-text";
 import { UserAvatar } from "../user-avatar";
 import { AdminUserMenu } from "./admin-user-menu";
 
-const items = [
+type NavItem = {
+  icon: LucideIcon;
+  title: string;
+  url: string;
+};
+
+type NavGroup = {
+  label: string;
+  items: NavItem[];
+};
+
+const navGroups: NavGroup[] = [
   {
-    title: "ぷらっとテスト",
-    icon: NotebookIcon,
-    subItems: [
-      {
-        title: "問題リスト",
-        url: "/admin/puratto",
-      },
-      {
-        title: "出題設定",
-        url: "/admin/puratto/settings",
-      },
+    label: "ぷらっとテスト",
+    items: [
+      { icon: NotebookPenIcon, title: "問題管理", url: "/admin/puratto" },
+      { icon: Settings2Icon, title: "出題設定", url: "/admin/puratto/settings" },
     ],
   },
   {
-    title: "配属発表",
-    icon: UsersRoundIcon,
-    subItems: [
-      {
-        title: "メンバー管理",
-        url: "/admin/dept",
-      },
-      {
-        title: "表示設定",
-        url: "/admin/dept/settings",
-      },
+    label: "配属発表",
+    items: [
+      { icon: SquareUserIcon, title: "メンバー管理", url: "/admin/dept" },
+      { icon: Settings2Icon, title: "表示設定", url: "/admin/dept/settings" },
     ],
   },
   {
-    title: "設定",
-    url: "/admin/settings",
-    icon: CogIcon,
+    label: "その他",
+    items: [{ icon: SettingsIcon, title: "設定", url: "/admin/settings" }],
   },
 ];
 
-export const AdminSidebar = () => {
-  const { data: session } = authClient.useSession();
-  const user = session?.user;
-
+export const AdminSidebarContent = ({ className, ...props }: React.ComponentProps<"div">) => {
+  const { setOpen } = useAdminSidebar();
   const pathname = usePathname();
-  const { setOpenMobile } = useSidebar();
-
-  if (!user) return null;
-
-  const handleClickItem = () => setOpenMobile(false);
 
   return (
-    <Sidebar>
-      <SidebarHeader className="flex flex-row items-center">
+    <div className={cn("flex w-full flex-col", className)} {...props}>
+      <SidebarHeader>
         <SidebarMenu>
-          <SidebarMenuItem className="flex items-center gap-2">
-            <SidebarMenuButton className="w-fit font-accent font-semibold" asChild>
-              <Link href="/">京産キャンスタ</Link>
-            </SidebarMenuButton>
-            <Badge asChild>
-              <Link href="/admin/puratto">管理者</Link>
-            </Badge>
+          <SidebarMenuItem className="flex items-center gap-2 p-2">
+            <Link href="/">
+              <LogoText />
+            </Link>
+            <Link href="/admin/puratto" className="font-accent font-semibold text-muted-foreground text-xs">
+              管理者
+            </Link>
           </SidebarMenuItem>
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <SidebarGroup>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {items.map((item) =>
-                item.subItems ? (
-                  <Collapsible key={item.title} defaultOpen={item.subItems.some((sub) => sub.url === pathname)}>
-                    <SidebarMenuItem>
-                      <CollapsibleTrigger asChild>
-                        <SidebarMenuButton>
-                          <item.icon />
-                          {item.title}
-                          <ChevronRightIcon className="ml-auto in-data-[state=open]:rotate-90 text-muted-foreground transition-transform" />
-                        </SidebarMenuButton>
-                      </CollapsibleTrigger>
-                      <CollapsibleContent>
-                        <SidebarMenuSub>
-                          {item.subItems.map((subItem) => (
-                            <SidebarMenuSubItem key={subItem.title}>
-                              <SidebarMenuSubButton asChild isActive={pathname === subItem.url}>
-                                <Link href={subItem.url} onClick={handleClickItem}>
-                                  {subItem.title}
-                                </Link>
-                              </SidebarMenuSubButton>
-                            </SidebarMenuSubItem>
-                          ))}
-                        </SidebarMenuSub>
-                      </CollapsibleContent>
-                    </SidebarMenuItem>
-                  </Collapsible>
-                ) : (
-                  <SidebarMenuItem key={item.title}>
-                    <SidebarMenuButton asChild isActive={pathname === item.url}>
-                      <Link href={item.url} onClick={handleClickItem}>
-                        <item.icon />
+        {navGroups.map((group) => (
+          <SidebarGroup key={group.label}>
+            <SidebarGroupLabel>{group.label}</SidebarGroupLabel>
+            <SidebarGroupContent>
+              <SidebarMenu>
+                {group.items.map((item) => (
+                  <SidebarMenuItem key={item.url} onClick={() => setOpen(false)}>
+                    <SidebarMenuButton isActive={item.url === pathname} asChild>
+                      <Link href={item.url}>
+                        <item.icon strokeWidth={2.2} />
                         {item.title}
                       </Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
-                ),
-              )}
-            </SidebarMenu>
-          </SidebarGroupContent>
-        </SidebarGroup>
+                ))}
+              </SidebarMenu>
+            </SidebarGroupContent>
+          </SidebarGroup>
+        ))}
       </SidebarContent>
       <SidebarFooter>
-        <SidebarMenu>
+        <div>
           <AdminUserMenu>
-            <SidebarMenuButton>
-              <UserAvatar user={user} className="size-6" />
-              <span className="truncate">{user.name}</span>
-            </SidebarMenuButton>
+            <UserAvatar className="size-10" />
           </AdminUserMenu>
-        </SidebarMenu>
+        </div>
       </SidebarFooter>
-    </Sidebar>
+    </div>
+  );
+};
+
+export const FixedAdminSidebar = () => {
+  return (
+    <div className="sticky top-0 hidden h-dvh w-64 shrink-0 border-e bg-background px-1.5 lg:flex">
+      <AdminSidebarContent />
+    </div>
+  );
+};
+
+export const FloatingAdminSidebar = () => {
+  const { open, setOpen } = useAdminSidebar();
+
+  useEffect(() => {
+    if (!open) return;
+
+    const handleResize = () => {
+      if (window.innerWidth >= 1024) {
+        setOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [open, setOpen]);
+
+  return (
+    <Dialog.Root open={open} onOpenChange={setOpen}>
+      <Dialog.Portal>
+        <Dialog.Overlay className="data-[state=open]:fade-in data-[state=closed]:fade-out fixed inset-0 z-50 bg-black/20 backdrop-blur-xs duration-300 data-[state=closed]:animate-out data-[state=open]:animate-in" />
+        <Dialog.Content asChild>
+          <div className="data-[state=open]:slide-in-from-left data-[state=closed]:slide-out-to-left fixed top-0 left-0 z-50 flex h-dvh w-70 shrink-0 flex-col p-2 duration-300 ease-gentle data-[state=closed]:animate-out data-[state=open]:animate-in">
+            <Dialog.Title className="sr-only">Sidebar</Dialog.Title>
+            <AdminSidebarContent className="grow rounded-2xl border bg-background shadow-xl" />
+          </div>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
+  );
+};
+
+export const AdminSidebar = () => {
+  return (
+    <>
+      <FixedAdminSidebar />
+      <FloatingAdminSidebar />
+    </>
   );
 };

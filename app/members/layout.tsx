@@ -1,6 +1,6 @@
-import { AppHeader } from "../../components/app-header";
-import { requireRole } from "../../lib/auth/actions";
-import { getConfigValue } from "../../lib/config/actions";
+import { AppHeader } from "@/components/app-header";
+import { requireRole } from "@/lib/auth/actions";
+import { getConfigValue } from "@/lib/config/actions";
 
 type Props = {
   children: React.ReactNode;
@@ -18,7 +18,7 @@ const Layout = async ({ children }: Props) => {
   return (
     <>
       <AppHeader />
-      {children}
+      <div className="pt-16">{children}</div>
     </>
   );
 };

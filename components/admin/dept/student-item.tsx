@@ -1,33 +1,22 @@
 "use client";
 
 import { Trash2Icon } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { use } from "react";
 import { toast } from "sonner";
-import { useStudentBundlePromise } from "../../../hooks/use-student-bundle-promise";
-import type { Student } from "../../../lib/db/schema";
-import { deleteStudent, updateStudent } from "../../../lib/student-actions";
-import type { StudentValues } from "../../../lib/student-editor";
+import { UserIcon } from "@/components/icons/user-icon";
+import type { Department, Faculty, Student } from "@/lib/db/schema";
+import { deleteStudent, updateStudent } from "@/lib/student-actions";
+import type { StudentValues } from "@/lib/student-editor";
 import { Button } from "../../ui/button";
-import {
-  Dialog,
-  DialogClose,
-  DialogContent,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "../../ui/dialog";
+import { Dialog, DialogClose, DialogContent, DialogFooter, DialogTitle, DialogTrigger } from "../../ui/dialog";
 import { StudentEditor, StudentEditorCancel, StudentEditorFields, StudentEditorSubmit } from "./student-editor";
 
 type Props = {
   student: Student;
+  faculties: Faculty[];
+  departments: Department[];
 };
 
-export const StudentItem = ({ student }: Props) => {
-  const { faculties } = use(useStudentBundlePromise());
-  const router = useRouter();
-
+export const StudentItem = ({ student, faculties, departments }: Props) => {
   const getFacultyName = (facultyId: number) => {
     const faculty = faculties.find((f) => f.id === facultyId);
     return faculty?.name;
@@ -37,11 +26,10 @@ export const StudentItem = ({ student }: Props) => {
     const updateResult = await updateStudent(student.id, values);
     if (!updateResult.success) {
       toast.error(updateResult.message);
-      return;
+    } else {
+      toast.success(updateResult.message);
     }
-    toast.success(updateResult.message);
-    router.refresh();
-    return;
+    return false; // false means; Do not reset the form
   };
 
   const handleDeleteStudent = async () => {
@@ -52,25 +40,26 @@ export const StudentItem = ({ student }: Props) => {
       return;
     }
     toast.success(deleteResult.message);
-    router.refresh();
-    return;
   };
 
   return (
     <Dialog>
-      <DialogTrigger className="flex w-full flex-col items-start rounded-md px-3 py-1.5 hover:bg-muted">
-        <div className="text-start font-medium">{student.name}</div>
-        <div className="flex gap-2 text-foreground/60 text-sm">
-          <div>{student.studentNumber}</div>
-          <div>{getFacultyName(student.facultyId)}</div>
+      <DialogTrigger className="flex w-full items-center gap-3 rounded-xl px-3 py-2 hover:bg-accent">
+        <div className="grid size-10 shrink-0 place-content-center overflow-clip rounded-full bg-accent">
+          <UserIcon className="size-10" />
+        </div>
+        <div className="min-w-0">
+          <div className="text-start font-medium">{student.name}</div>
+          <div className="flex min-w-0 gap-2 text-foreground/60 text-sm">
+            <div>{student.studentNumber}</div>
+            <div className="truncate">{getFacultyName(student.facultyId)}</div>
+          </div>
         </div>
       </DialogTrigger>
       <DialogContent>
-        <DialogHeader>
-          <DialogTitle>学生を編集</DialogTitle>
-        </DialogHeader>
+        <DialogTitle className="sr-only">学生を編集</DialogTitle>
         <StudentEditor defaultValues={student} onSubmit={handleUpdateStudent}>
-          <StudentEditorFields />
+          <StudentEditorFields faculties={faculties} departments={departments} />
           <DialogFooter>
             <div className="flex grow items-center justify-between gap-2">
               <Button

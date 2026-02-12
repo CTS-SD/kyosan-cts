@@ -1,16 +1,10 @@
-import type { User } from "better-auth";
-import { cn } from "../lib/utils";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { cn } from "@/lib/utils";
+import { UserIcon } from "./icons/user-icon";
 
-type Props = React.ComponentProps<typeof Avatar> & {
-  user: User;
-};
-
-export const UserAvatar = ({ user, className, ...props }: Props) => {
+export const UserAvatar = ({ className, ...props }: React.ComponentProps<"div">) => {
   return (
-    <Avatar className={cn("select-none", className)} {...props}>
-      <AvatarImage src={user.image ?? ""} />
-      <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
-    </Avatar>
+    <div className={cn("size-10 overflow-clip rounded-full bg-accent", className)} {...props}>
+      <UserIcon className="size-full" />
+    </div>
   );
 };

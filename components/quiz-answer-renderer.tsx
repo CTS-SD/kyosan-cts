@@ -1,6 +1,6 @@
 import { CircleIcon, XIcon } from "lucide-react";
-import type { QuizData } from "../lib/quiz";
-import { cn } from "../lib/utils";
+import type { QuizData } from "@/lib/quiz";
+import { cn } from "@/lib/utils";
 
 type Props = React.ComponentProps<"div"> & {
   quiz: QuizData;
