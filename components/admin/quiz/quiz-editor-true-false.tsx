@@ -1,7 +1,7 @@
 import { CircleIcon, XIcon } from "lucide-react";
 import { Controller, type UseFormReturn } from "react-hook-form";
 import type z from "zod";
-import type { QuizEditorSchema } from "../../../lib/quiz";
+import type { QuizEditorSchema } from "@/lib/quiz";
 import { Field, FieldContent, FieldLabel, FieldSet, FieldTitle } from "../../ui/field";
 import { RadioGroup, RadioGroupItem } from "../../ui/radio-group";
 

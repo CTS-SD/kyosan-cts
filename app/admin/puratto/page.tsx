@@ -1,10 +1,10 @@
 import { PlusIcon } from "lucide-react";
 import Link from "next/link";
-import { QuizListStats } from "../../../components/admin/quiz/quiz-list-stats";
-import QuizListWrapper from "../../../components/admin/quiz/quiz-list-wrapper";
-import { QuizSearchInput } from "../../../components/admin/quiz/quiz-search-input";
-import { Button } from "../../../components/ui/button";
-import { requireRole } from "../../../lib/auth/actions";
+import { QuizListStats } from "@/components/admin/quiz/quiz-list-stats";
+import QuizListWrapper from "@/components/admin/quiz/quiz-list-wrapper";
+import { QuizSearchInput } from "@/components/admin/quiz/quiz-search-input";
+import { Button } from "@/components/ui/button";
+import { requireRole } from "@/lib/auth/actions";
 
 const Page = async () => {
   await requireRole(["admin"]);

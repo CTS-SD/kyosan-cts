@@ -1,5 +1,5 @@
-import { ConfigPromiseProvider } from "../../../../hooks/use-config-promise";
-import { getConfig } from "../../../../lib/config/actions";
+import { ConfigPromiseProvider } from "@/hooks/use-config-promise";
+import { getConfig } from "@/lib/config/actions";
 import { QuestionCountSetting } from "./components/question-count-setting";
 
 const Page = () => {

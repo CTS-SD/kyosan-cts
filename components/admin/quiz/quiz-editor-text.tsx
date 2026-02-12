@@ -1,6 +1,6 @@
 import { Controller, type UseFormReturn } from "react-hook-form";
 import type z from "zod";
-import type { QuizEditorSchema } from "../../../lib/quiz";
+import type { QuizEditorSchema } from "@/lib/quiz";
 import { Field, FieldDescription, FieldError, FieldLabel } from "../../ui/field";
 import { Textarea } from "../../ui/textarea";
 

@@ -1,6 +1,6 @@
-import { AdminHeader } from "../../components/admin/admin-header";
-import { AdminSidebar } from "../../components/admin/admin-sidebar";
-import { ProtectedRoute } from "../../components/protected-route";
+import { AdminHeader } from "@/components/admin/admin-header";
+import { AdminSidebar } from "@/components/admin/admin-sidebar";
+import { ProtectedRoute } from "@/components/protected-route";
 
 type Props = {
   children: React.ReactNode;

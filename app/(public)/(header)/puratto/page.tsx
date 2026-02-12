@@ -1,7 +1,7 @@
 import { ArrowLeftIcon, InfinityIcon } from "lucide-react";
 import Link from "next/link";
-import { PlayfulButton } from "../../../../components/ui/playful-button";
-import { getCachedConfigValue } from "../../../../lib/config/actions";
+import { PlayfulButton } from "@/components/ui/playful-button";
+import { getCachedConfigValue } from "@/lib/config/actions";
 
 const Page = async () => {
   const count = await getCachedConfigValue("purattoTestQuestionCount");

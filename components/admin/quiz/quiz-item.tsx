@@ -1,6 +1,6 @@
 import { CornerDownRightIcon, LockIcon } from "lucide-react";
 import Link from "next/link";
-import type { QuizData } from "../../../lib/quiz";
+import type { QuizData } from "@/lib/quiz";
 import { Markdown } from "../../markdown";
 import { QuizAnswerRenderer } from "../../quiz-answer-renderer";
 

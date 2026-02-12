@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Zen_Maru_Gothic } from "next/font/google";
-import { cn } from "../lib/utils";
+import { cn } from "@/lib/utils";
 import "./globals.css";
 import { Providers } from "./providers";
 

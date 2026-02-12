@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getConfigValue } from "../../../lib/config/actions";
+import { getConfigValue } from "@/lib/config/actions";
 
 type Props = {
   children: React.ReactNode;

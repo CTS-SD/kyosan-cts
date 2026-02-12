@@ -3,12 +3,12 @@
 import { EyeClosedIcon, EyeIcon } from "lucide-react";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
-import { GoogleIcon } from "../../../../components/icons/google-icon";
-import { Button } from "../../../../components/ui/button";
-import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "../../../../components/ui/input-group";
-import { Separator } from "../../../../components/ui/separator";
-import { Spinner } from "../../../../components/ui/spinner";
-import { authClient } from "../../../../lib/auth/client";
+import { GoogleIcon } from "@/components/icons/google-icon";
+import { Button } from "@/components/ui/button";
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@/components/ui/input-group";
+import { Separator } from "@/components/ui/separator";
+import { Spinner } from "@/components/ui/spinner";
+import { authClient } from "@/lib/auth/client";
 
 const getErrorMessage = (message?: string) => {
   if (message?.includes("password")) {

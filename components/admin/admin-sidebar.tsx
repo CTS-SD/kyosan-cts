@@ -6,6 +6,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Dialog } from "radix-ui";
 import { useEffect } from "react";
+import { useAdminSidebar } from "@/hooks/use-admin-sidebar";
+import { cn } from "@/lib/utils";
 import {
   SidebarContent,
   SidebarFooter,
@@ -17,8 +19,6 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/src/components/ui/sidebar";
-import { useAdminSidebar } from "../../hooks/use-admin-sidebar";
-import { cn } from "../../lib/utils";
 import { LogoText } from "../logo-text";
 import { UserAvatar } from "../user-avatar";
 import { AdminUserMenu } from "./admin-user-menu";

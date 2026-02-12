@@ -4,14 +4,14 @@ import { XIcon } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { confirm } from "@/components/confirm-store";
+import { QuizPlay } from "@/components/quiz-play/quiz-play";
+import { QuizPlayAdminMenu } from "@/components/quiz-play/quiz-play-admin-menu";
+import { QuizResultsView } from "@/components/quiz-play/quiz-results-view";
 import { QuizSession } from "@/components/quiz-play/quiz-session";
-import { confirm } from "../../../../components/confirm-store";
-import { QuizPlay } from "../../../../components/quiz-play/quiz-play";
-import { QuizPlayAdminMenu } from "../../../../components/quiz-play/quiz-play-admin-menu";
-import { QuizResultsView } from "../../../../components/quiz-play/quiz-results-view";
-import { Button } from "../../../../components/ui/button";
-import { PlayfulProgress } from "../../../../components/ui/playful-progress";
-import type { QuizData, QuizResult } from "../../../../lib/quiz";
+import { Button } from "@/components/ui/button";
+import { PlayfulProgress } from "@/components/ui/playful-progress";
+import type { QuizData, QuizResult } from "@/lib/quiz";
 
 type Props = {
   quizzes: QuizData[];

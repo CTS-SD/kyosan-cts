@@ -1,8 +1,8 @@
 import { eq, sql } from "drizzle-orm";
-import { getUser } from "../../../../lib/auth/actions";
-import { getConfig } from "../../../../lib/config/actions";
-import { QuizTable } from "../../../../lib/db/schema";
-import { getQuizzes } from "../../../../lib/quiz";
+import { getUser } from "@/lib/auth/actions";
+import { getConfig } from "@/lib/config/actions";
+import { QuizTable } from "@/lib/db/schema";
+import { getQuizzes } from "@/lib/quiz";
 import { QuizPlaySession } from "./quiz-play-session";
 
 const Page = async () => {

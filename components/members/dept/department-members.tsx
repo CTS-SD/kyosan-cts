@@ -1,6 +1,6 @@
-import type { Department } from "../../../lib/db/schema";
-import { getDepartmentAsset } from "../../../lib/department";
-import { cn } from "../../../lib/utils";
+import type { Department } from "@/lib/db/schema";
+import { getDepartmentAsset } from "@/lib/department";
+import { cn } from "@/lib/utils";
 
 type Props = {
   department: Department;

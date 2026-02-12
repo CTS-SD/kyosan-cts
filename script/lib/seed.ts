@@ -1,5 +1,5 @@
-import { db } from "../../lib/db";
-import { DepartmentTable, FacultyTable, QuizTable, SelectQuizTable, StudentTable } from "../../lib/db/schema";
+import { db } from "@/lib/db";
+import { DepartmentTable, FacultyTable, QuizTable, SelectQuizTable, StudentTable } from "@/lib/db/schema";
 
 export async function seedDb() {
   // Seed Faculties

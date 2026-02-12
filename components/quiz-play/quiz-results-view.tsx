@@ -1,7 +1,7 @@
 import { Clock3Icon, LightbulbIcon, SlashIcon, ZapIcon } from "lucide-react";
 import { motion, stagger } from "motion/react";
 import Link from "next/link";
-import type { QuizData, QuizResult } from "../../lib/quiz";
+import type { QuizData, QuizResult } from "@/lib/quiz";
 import { PlayfulButton } from "../ui/playful-button";
 import { SpeechBubble } from "../ui/speech-bubble";
 import { UserAvatar } from "../user-avatar";

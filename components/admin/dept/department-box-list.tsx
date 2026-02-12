@@ -1,4 +1,4 @@
-import { getDepartments, getFaculties, getStudents } from "../../../lib/students";
+import { getDepartments, getFaculties, getStudents } from "@/lib/students";
 import { DepartmentBox } from "./department-box";
 
 export const DepartmentBoxList = async () => {

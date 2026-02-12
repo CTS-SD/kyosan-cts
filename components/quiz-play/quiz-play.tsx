@@ -1,10 +1,10 @@
 "use client";
 
 import { useState } from "react";
-import { QuizPlayContext, useQuizPlay } from "../../hooks/use-quiz-play";
-import type { QuizData, QuizResult } from "../../lib/quiz";
-import { getQuizPrompt, judgeQuizInput, validateQuizInput } from "../../lib/quiz";
-import { cn } from "../../lib/utils";
+import { QuizPlayContext, useQuizPlay } from "@/hooks/use-quiz-play";
+import type { QuizData, QuizResult } from "@/lib/quiz";
+import { getQuizPrompt, judgeQuizInput, validateQuizInput } from "@/lib/quiz";
+import { cn } from "@/lib/utils";
 import { Markdown } from "../markdown";
 import { PlayfulButton } from "../ui/playful-button";
 import { QuizFormSelect } from "./quiz-form-select";

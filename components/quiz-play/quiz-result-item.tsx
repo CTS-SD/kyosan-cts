@@ -1,5 +1,5 @@
 import { CircleIcon, XIcon } from "lucide-react";
-import { getQuizPrompt, type QuizData, type QuizResult } from "../../lib/quiz";
+import { getQuizPrompt, type QuizData, type QuizResult } from "@/lib/quiz";
 import { Markdown } from "../markdown";
 import { QuizAnswerRenderer } from "../quiz-answer-renderer";
 

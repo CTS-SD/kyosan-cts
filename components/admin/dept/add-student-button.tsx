@@ -2,9 +2,9 @@
 
 import { PlusIcon } from "lucide-react";
 import { toast } from "sonner";
-import type { Department, Faculty } from "../../../lib/db/schema";
-import { insertStudents } from "../../../lib/student-actions";
-import type { StudentValues } from "../../../lib/student-editor";
+import type { Department, Faculty } from "@/lib/db/schema";
+import { insertStudents } from "@/lib/student-actions";
+import type { StudentValues } from "@/lib/student-editor";
 import { Button } from "../../ui/button";
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogTitle, DialogTrigger } from "../../ui/dialog";
 import { StudentEditor, StudentEditorCancel, StudentEditorFields, StudentEditorSubmit } from "./student-editor";

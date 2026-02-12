@@ -2,7 +2,7 @@
 
 import { MenuIcon } from "lucide-react";
 import Link from "next/link";
-import { useAdminSidebar } from "../../hooks/use-admin-sidebar";
+import { useAdminSidebar } from "@/hooks/use-admin-sidebar";
 import { LogoText } from "../logo-text";
 import { Button } from "../ui/button";
 import { UserAvatar } from "../user-avatar";

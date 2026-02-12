@@ -3,9 +3,9 @@
 import { Trash2Icon } from "lucide-react";
 import { toast } from "sonner";
 import { UserIcon } from "@/components/icons/user-icon";
-import type { Department, Faculty, Student } from "../../../lib/db/schema";
-import { deleteStudent, updateStudent } from "../../../lib/student-actions";
-import type { StudentValues } from "../../../lib/student-editor";
+import type { Department, Faculty, Student } from "@/lib/db/schema";
+import { deleteStudent, updateStudent } from "@/lib/student-actions";
+import type { StudentValues } from "@/lib/student-editor";
 import { Button } from "../../ui/button";
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogTitle, DialogTrigger } from "../../ui/dialog";
 import { StudentEditor, StudentEditorCancel, StudentEditorFields, StudentEditorSubmit } from "./student-editor";

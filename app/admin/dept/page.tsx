@@ -1,9 +1,9 @@
 import { ArrowUpRightIcon } from "lucide-react";
 import Link from "next/link";
-import { AddStudentButton } from "../../../components/admin/dept/add-student-button";
-import { DepartmentBoxList } from "../../../components/admin/dept/department-box-list";
-import { Button } from "../../../components/ui/button";
-import { getDepartments, getFaculties } from "../../../lib/students";
+import { AddStudentButton } from "@/components/admin/dept/add-student-button";
+import { DepartmentBoxList } from "@/components/admin/dept/department-box-list";
+import { Button } from "@/components/ui/button";
+import { getDepartments, getFaculties } from "@/lib/students";
 
 const Page = async () => {
   const [faculties, departments] = await Promise.all([getFaculties(), getDepartments()]);

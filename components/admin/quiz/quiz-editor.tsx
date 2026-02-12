@@ -22,8 +22,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { PlayfulProgress } from "@/components/ui/playful-progress";
 import { QuizEditorContext, useQuizEditor } from "@/hooks/use-quiz-editor";
+import { deleteQuiz, getQuizTypes, makePseudoQuiz, QuizEditorSchema, type QuizEditorValues } from "@/lib/quiz";
 import { cn, copyToClipboard } from "@/lib/utils";
-import { deleteQuiz, getQuizTypes, makePseudoQuiz, QuizEditorSchema, type QuizEditorValues } from "../../../lib/quiz";
 import { Button } from "../../ui/button";
 import { Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel } from "../../ui/field";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../ui/select";

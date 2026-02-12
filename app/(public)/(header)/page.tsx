@@ -1,7 +1,7 @@
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
-import { PlayfulButton } from "../../../components/ui/playful-button";
-import { getCachedConfigValue } from "../../../lib/config/actions";
+import { PlayfulButton } from "@/components/ui/playful-button";
+import { getCachedConfigValue } from "@/lib/config/actions";
 
 export default async function Home() {
   const showDeptButton = await getCachedConfigValue("departmentAnnouncementsPublished");

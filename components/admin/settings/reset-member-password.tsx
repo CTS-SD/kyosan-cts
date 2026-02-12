@@ -4,7 +4,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
-import { resetMemberPassword } from "../../../lib/auth/actions";
+import { resetMemberPassword } from "@/lib/auth/actions";
 import { Button } from "../../ui/button";
 import { Field, FieldError } from "../../ui/field";
 import { Input } from "../../ui/input";

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getUser } from "../lib/auth/actions";
+import { getUser } from "@/lib/auth/actions";
 import { AdminUserButton } from "./admin/admin-user-button";
 import { MemberUserButton } from "./members/member-user-button";
 import { PlayfulButton } from "./ui/playful-button";

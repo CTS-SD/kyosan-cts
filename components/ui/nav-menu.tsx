@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 function NavMenu({ className, ...props }: React.ComponentProps<"nav">) {
   return <nav className={cn("flex items-center gap-1", className)} {...props} />;

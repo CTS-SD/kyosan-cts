@@ -1,7 +1,7 @@
 "use client";
 
 import { EyeIcon, LockIcon } from "lucide-react";
-import { useQuizListStats } from "../../../hooks/query/use-quiz-list-stats";
+import { useQuizListStats } from "@/hooks/query/use-quiz-list-stats";
 import { Badge } from "../../ui/badge";
 import { Skeleton } from "../../ui/skeleton";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../../ui/tooltip";

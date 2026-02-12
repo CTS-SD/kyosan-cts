@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { Slot } from "radix-ui";
 import type * as React from "react";
-import { cn } from "../../lib/utils";
+import { cn } from "@/lib/utils";
 
 const playfulButtonVariants = cva(
   "flex select-none items-center justify-center gap-1.5 text-balance text-center font-semibold leading-tight transition-all duration-100 not-disabled:active:translate-y-0.5 not-disabled:active:shadow-none *:[svg]:size-5",

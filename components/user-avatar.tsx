@@ -1,4 +1,4 @@
-import { cn } from "../lib/utils";
+import { cn } from "@/lib/utils";
 import { UserIcon } from "./icons/user-icon";
 
 export const UserAvatar = ({ className, ...props }: React.ComponentProps<"div">) => {
