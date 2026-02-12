@@ -26,9 +26,10 @@ export const StudentItem = ({ student, faculties, departments }: Props) => {
     const updateResult = await updateStudent(student.id, values);
     if (!updateResult.success) {
       toast.error(updateResult.message);
-      return;
+    } else {
+      toast.success(updateResult.message);
     }
-    toast.success(updateResult.message);
+    return false; // false means; Do not reset the form
   };
 
   const handleDeleteStudent = async () => {

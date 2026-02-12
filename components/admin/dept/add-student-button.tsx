@@ -19,9 +19,10 @@ export const AddStudentButton = ({ faculties, departments }: Props) => {
     const insertResult = await insertStudents([studentData]);
     if (!insertResult.success) {
       toast.error(insertResult.message);
-      return;
+      return false;
     }
     toast.success(insertResult.message);
+    return true;
   };
 
   return (

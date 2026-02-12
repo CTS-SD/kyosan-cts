@@ -28,7 +28,7 @@ export const StudentEditor = ({
   children,
 }: {
   defaultValues?: Partial<Student>;
-  onSubmit?: (values: StudentValues) => Promise<void>;
+  onSubmit?: (values: StudentValues) => Promise<boolean>;
   children: React.ReactNode;
 }) => {
   const form = useForm<StudentValues>({
@@ -48,6 +48,8 @@ export const StudentEditor = ({
         name: "",
         studentNumber: "",
       });
+    } else {
+      form.reset(values);
     }
   });
 
