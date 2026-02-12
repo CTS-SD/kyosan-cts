@@ -1,18 +1,14 @@
+"use client";
+
 import { Clock3Icon, LightbulbIcon, SlashIcon, ZapIcon } from "lucide-react";
 import { motion, stagger } from "motion/react";
 import Link from "next/link";
-import type { QuizData, QuizResult } from "@/lib/quiz";
-import { PlayfulButton } from "../ui/playful-button";
-import { SpeechBubble } from "../ui/speech-bubble";
-import { UserAvatar } from "../user-avatar";
-import { QuizResultItem } from "./quiz-result-item";
-import { ScoreBox } from "./score-box";
-
-type Props = {
-  quizzes: QuizData[];
-  results: QuizResult[];
-  playTimeMs: number;
-};
+import { QuizResultItem } from "@/components/quiz-play/quiz-result-item";
+import { useQuizSession } from "@/components/quiz-play/quiz-session";
+import { ScoreBox } from "@/components/quiz-play/score-box";
+import { PlayfulButton } from "@/components/ui/playful-button";
+import { SpeechBubble } from "@/components/ui/speech-bubble";
+import { UserAvatar } from "@/components/user-avatar";
 
 const formatPlayTime = (playTimeMs: number) => {
   const totalSeconds = Math.max(0, Math.floor(playTimeMs / 1000));
@@ -21,7 +17,10 @@ const formatPlayTime = (playTimeMs: number) => {
   return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`;
 };
 
-export const QuizResultsView = ({ quizzes, results, playTimeMs }: Props) => {
+export const QuizResultsView = () => {
+  const { quizzes, results, startedAt, finishedAt } = useQuizSession();
+
+  const playTimeMs = (finishedAt ?? Date.now()) - startedAt;
   const totalCount = quizzes.length;
   const correctCount = results.filter((r) => r.isCorrect).length;
   const correctRate = totalCount > 0 ? (correctCount / totalCount) * 100 : 0;

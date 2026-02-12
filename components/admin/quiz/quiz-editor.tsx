@@ -10,7 +10,7 @@ import { useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { QuizPlay } from "@/components/quiz-play/quiz-play";
-import { QuizSession } from "@/components/quiz-play/quiz-session";
+import { QuizSessionHeader, QuizSessionMain, QuizSessionProvider } from "@/components/quiz-play/quiz-session";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import {
@@ -281,8 +281,8 @@ const MobilePreviewContent = () => {
   if (!quiz) return null;
 
   return (
-    <QuizSession.Root className="w-full overflow-auto">
-      <QuizSession.Header className="pt-2">
+    <QuizSessionMain className="w-full overflow-auto">
+      <QuizSessionHeader className="pt-2">
         <Badge variant="outline">プレビュー</Badge>
         <PlayfulProgress value={20} />
         <DialogClose asChild>
@@ -291,11 +291,11 @@ const MobilePreviewContent = () => {
             閉じる
           </Button>
         </DialogClose>
-      </QuizSession.Header>
+      </QuizSessionHeader>
       <QuizPlay.Provider quiz={quiz}>
         <QuizPlay.Content />
       </QuizPlay.Provider>
-    </QuizSession.Root>
+    </QuizSessionMain>
   );
 };
 
@@ -326,15 +326,15 @@ export const QuizEditorPreview = () => {
   return (
     <div className="sticky top-0 hidden h-dvh max-w-lg flex-1 flex-col overflow-y-auto overscroll-contain p-4 md:flex">
       <div className="flex w-full grow flex-col overflow-y-auto rounded-3xl bg-accent p-1.5">
-        <QuizSession.Root className="w-full rounded-2xl">
-          <QuizSession.Header>
+        <QuizSessionMain className="w-full rounded-2xl">
+          <QuizSessionHeader>
             <Badge variant="outline">プレビュー</Badge>
             <PlayfulProgress value={20} />
-          </QuizSession.Header>
+          </QuizSessionHeader>
           <QuizPlay.Provider quiz={quiz}>
             <QuizPlay.Content />
           </QuizPlay.Provider>
-        </QuizSession.Root>
+        </QuizSessionMain>
       </div>
     </div>
   );
