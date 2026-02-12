@@ -21,7 +21,7 @@ const Page = () => {
           <QuizEditor.Header>
             <QuizEditor.Back />
             <QuizEditor.Title className="mr-auto">
-              ぷらっとテスト
+              <span className="hidden sm:block">ぷらっとテスト</span>
               <span className="text-muted-foreground">新規作成</span>
             </QuizEditor.Title>
             <QuizEditor.MobilePreviewButton />
