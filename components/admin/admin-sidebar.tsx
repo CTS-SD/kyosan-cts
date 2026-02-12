@@ -137,7 +137,7 @@ export const FloatingAdminSidebar = () => {
       <Dialog.Portal>
         <Dialog.Overlay className="data-[state=open]:fade-in data-[state=closed]:fade-out fixed inset-0 z-50 bg-black/20 backdrop-blur-xs duration-300 data-[state=closed]:animate-out data-[state=open]:animate-in" />
         <Dialog.Content asChild>
-          <div className="data-[state=open]:slide-in-from-left data-[state=closed]:slide-out-to-left fixed top-0 left-0 z-50 flex h-dvh w-70 shrink-0 flex-col p-2 duration-300 ease-gentle ease-out data-[state=closed]:animate-out data-[state=open]:animate-in">
+          <div className="data-[state=open]:slide-in-from-left data-[state=closed]:slide-out-to-left fixed top-0 left-0 z-50 flex h-dvh w-70 shrink-0 flex-col p-2 duration-300 ease-gentle data-[state=closed]:animate-out data-[state=open]:animate-in">
             <Dialog.Title className="sr-only">Sidebar</Dialog.Title>
             <AdminSidebarContent className="grow rounded-2xl border bg-background shadow-xl" />
           </div>
