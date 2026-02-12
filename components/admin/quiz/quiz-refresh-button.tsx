@@ -8,21 +8,21 @@ import { useQuizList } from "@/hooks/query/use-quiz-list";
 
 export const QuizRefreshButton = () => {
   const { refetch } = useQuizList();
-  const [key, setKey] = useState(0);
+  const [key, setKey] = useState(-1);
   const [isAnimating, setIsAnimating] = useState(false);
 
   const handleClick = () => {
     refetch();
     setIsAnimating(true);
-    setKey((p) => p + 1);
+    setKey((p) => (p + 1) % 2);
   };
 
   return (
     <Button variant="outline" className="shrink-0" size="icon" onClick={handleClick} disabled={isAnimating}>
       <motion.div
         key={key}
-        initial={{ rotate: 0, }}
-        animate={{ rotate: key === 0 ? 0 : 360 }}
+        initial={{ rotate: 0 }}
+        animate={{ rotate: key >= 0 ? 360 : 0 }}
         transition={{
           type: "spring",
           stiffness: 300,
