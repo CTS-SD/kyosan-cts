@@ -76,7 +76,7 @@ export const StudentEditorFields = ({
   const { form } = useStudentEditor();
 
   return (
-    <FieldSet disabled={form.formState.isSubmitting} className="px-6 pt-8 pb-2">
+    <FieldSet disabled={form.formState.isSubmitting} className="px-6 pt-6 pb-2">
       <div className="flex items-center gap-4">
         <div className="size-16 overflow-clip rounded-full bg-accent">
           <UserIcon className="size-full" />
