@@ -59,7 +59,7 @@ export const QuizFormSelect = () => {
               className="relative"
               disabled={!!result}
             >
-              {enableKeyboard && (
+              {enableKeyboard && index < 9 && (
                 <div className="absolute left-2.5 grid pointer-coarse:hidden size-7 place-content-center rounded-md bg-current/10 text-sm! opacity-40">
                   {index + 1}
                 </div>
