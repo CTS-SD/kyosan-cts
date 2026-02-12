@@ -1,12 +1,9 @@
 "use client";
 
 import { Trash2Icon } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { use } from "react";
 import { toast } from "sonner";
 import { UserIcon } from "@/components/icons/user-icon";
-import { useStudentBundlePromise } from "../../../hooks/use-student-bundle-promise";
-import type { Student } from "../../../lib/db/schema";
+import type { Department, Faculty, Student } from "../../../lib/db/schema";
 import { deleteStudent, updateStudent } from "../../../lib/student-actions";
 import type { StudentValues } from "../../../lib/student-editor";
 import { Button } from "../../ui/button";
@@ -15,12 +12,11 @@ import { StudentEditor, StudentEditorCancel, StudentEditorFields, StudentEditorS
 
 type Props = {
   student: Student;
+  faculties: Faculty[];
+  departments: Department[];
 };
 
-export const StudentItem = ({ student }: Props) => {
-  const { faculties } = use(useStudentBundlePromise());
-  const router = useRouter();
-
+export const StudentItem = ({ student, faculties, departments }: Props) => {
   const getFacultyName = (facultyId: number) => {
     const faculty = faculties.find((f) => f.id === facultyId);
     return faculty?.name;
@@ -33,8 +29,6 @@ export const StudentItem = ({ student }: Props) => {
       return;
     }
     toast.success(updateResult.message);
-    router.refresh();
-    return;
   };
 
   const handleDeleteStudent = async () => {
@@ -45,8 +39,6 @@ export const StudentItem = ({ student }: Props) => {
       return;
     }
     toast.success(deleteResult.message);
-    router.refresh();
-    return;
   };
 
   return (
@@ -66,7 +58,7 @@ export const StudentItem = ({ student }: Props) => {
       <DialogContent>
         <DialogTitle className="sr-only">学生を編集</DialogTitle>
         <StudentEditor defaultValues={student} onSubmit={handleUpdateStudent}>
-          <StudentEditorFields />
+          <StudentEditorFields faculties={faculties} departments={departments} />
           <DialogFooter>
             <div className="flex grow items-center justify-between gap-2">
               <Button

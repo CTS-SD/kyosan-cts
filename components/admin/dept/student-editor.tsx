@@ -1,11 +1,10 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createContext, use, useContext } from "react";
+import { createContext, useContext } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { UserIcon } from "@/components/icons/user-icon";
-import { useStudentBundlePromise } from "../../../hooks/use-student-bundle-promise";
-import type { Student } from "../../../lib/db/schema";
+import type { Department, Faculty, Student } from "../../../lib/db/schema";
 import { StudentEditorSchema, type StudentValues } from "../../../lib/student-editor";
 import { Button } from "../../ui/button";
 import { Field, FieldError, FieldLabel, FieldSet } from "../../ui/field";
@@ -65,9 +64,14 @@ export const StudentEditor = ({
   );
 };
 
-export const StudentEditorFields = () => {
+export const StudentEditorFields = ({
+  faculties,
+  departments,
+}: {
+  faculties: Faculty[];
+  departments: Department[];
+}) => {
   const { form } = useStudentEditor();
-  const { faculties, departments } = use(useStudentBundlePromise());
 
   return (
     <FieldSet disabled={form.formState.isSubmitting} className="px-6 pt-8 pb-2">

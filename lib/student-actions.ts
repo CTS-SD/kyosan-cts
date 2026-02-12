@@ -1,6 +1,7 @@
 "use server";
 
 import { eq } from "drizzle-orm";
+import { updateTag } from "next/cache";
 import { requireRole } from "./auth/actions";
 import { db } from "./db";
 import { StudentTable } from "./db/schema";
@@ -10,6 +11,7 @@ export async function insertStudents(values: StudentValues[]) {
   await requireRole(["admin"]);
   try {
     const students = await db.insert(StudentTable).values(values).returning().execute();
+    updateTag("students");
 
     return {
       success: true as const,
@@ -28,6 +30,7 @@ export async function updateStudent(id: number, values: StudentValues) {
   await requireRole(["admin"]);
   try {
     const [student] = await db.update(StudentTable).set(values).where(eq(StudentTable.id, id)).returning().execute();
+    updateTag("students");
     return {
       success: true as const,
       data: student,
@@ -45,6 +48,7 @@ export async function deleteStudent(id: number) {
   await requireRole(["admin"]);
   try {
     await db.delete(StudentTable).where(eq(StudentTable.id, id)).execute();
+    updateTag("students");
     return {
       success: true as const,
       message: "学生を削除しました",

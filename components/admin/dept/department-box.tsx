@@ -1,13 +1,15 @@
 import React from "react";
-import type { Student } from "@/lib/db/schema";
+import type { Department, Faculty, Student } from "@/lib/db/schema";
 import { StudentItem } from "./student-item";
 
 type Props = {
   name: string;
   students: Student[];
+  faculties: Faculty[];
+  departments: Department[];
 };
 
-export const DepartmentBox = ({ name, students }: Props) => {
+export const DepartmentBox = ({ name, students, faculties, departments }: Props) => {
   const computedStudents = students.sort((a, b) => a.studentNumber.localeCompare(b.studentNumber));
 
   return (
@@ -19,7 +21,7 @@ export const DepartmentBox = ({ name, students }: Props) => {
       <div className="flex grow flex-col gap-0.5 rounded-2xl border bg-background p-1">
         {computedStudents.map((student) => (
           <React.Fragment key={student.id}>
-            <StudentItem student={student} />
+            <StudentItem student={student} faculties={faculties} departments={departments} />
             <div className="mx-3 h-px rounded-full bg-border/60 last:hidden" />
           </React.Fragment>
         ))}

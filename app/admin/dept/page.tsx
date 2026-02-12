@@ -1,15 +1,12 @@
 import { ArrowUpRightIcon } from "lucide-react";
 import Link from "next/link";
-import { Suspense } from "react";
 import { AddStudentButton } from "../../../components/admin/dept/add-student-button";
 import { DepartmentBoxList } from "../../../components/admin/dept/department-box-list";
-import { DepartmentBoxListFallback } from "../../../components/admin/dept/department-box-list-fallback";
 import { Button } from "../../../components/ui/button";
-import { StudentBundlePromiseProvider } from "../../../hooks/use-student-bundle-promise";
-import { getStudentBundle } from "../../../lib/students";
+import { getDepartments, getFaculties } from "../../../lib/students";
 
-const Page = () => {
-  const studentBundlePromise = getStudentBundle();
+const Page = async () => {
+  const [faculties, departments] = await Promise.all([getFaculties(), getDepartments()]);
 
   return (
     <div className="mx-auto max-w-6xl p-6">
@@ -20,16 +17,10 @@ const Page = () => {
             <ArrowUpRightIcon />
           </Link>
         </Button>
-        <StudentBundlePromiseProvider value={studentBundlePromise}>
-          <AddStudentButton />
-        </StudentBundlePromiseProvider>
+        <AddStudentButton faculties={faculties} departments={departments} />
       </div>
       <div className="mt-4">
-        <Suspense fallback={<DepartmentBoxListFallback />}>
-          <StudentBundlePromiseProvider value={studentBundlePromise}>
-            <DepartmentBoxList />
-          </StudentBundlePromiseProvider>
-        </Suspense>
+        <DepartmentBoxList />
       </div>
     </div>
   );
