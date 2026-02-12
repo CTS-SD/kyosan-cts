@@ -1,6 +1,6 @@
 "use client";
 
-import { HomeIcon, LayoutGridIcon, LogOutIcon } from "lucide-react";
+import { BadgeCheckIcon, HomeIcon, LayoutGridIcon, LogOutIcon } from "lucide-react";
 import Link from "next/link";
 import { authClient } from "@/lib/auth/client";
 import { ThemeSubmenu } from "../theme-submenu";
@@ -8,6 +8,7 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
@@ -27,12 +28,10 @@ export const AdminUserMenu = (props: React.ComponentProps<typeof DropdownMenuTri
     <DropdownMenu>
       <DropdownMenuTrigger asChild {...props} />
       <DropdownMenuContent align="end" className="min-w-40">
-        <DropdownMenuItem asChild>
-          <Link href="/">
-            <HomeIcon />
-            ホーム
-          </Link>
-        </DropdownMenuItem>
+        <DropdownMenuLabel className="flex items-center gap-1">
+          管理者
+          <BadgeCheckIcon className="size-4" />
+        </DropdownMenuLabel>
         <DropdownMenuItem asChild>
           <Link href="/admin/puratto">
             <LayoutGridIcon />
