@@ -4,6 +4,7 @@ import { shuffle } from "es-toolkit";
 import { useEffect, useMemo } from "react";
 import { useQuizPlay } from "@/hooks/use-quiz-play";
 import type { SelectQuizData } from "@/lib/quiz";
+import { cn } from "@/lib/utils";
 import { PlayfulButton } from "../ui/playful-button";
 
 export const QuizFormSelect = () => {
@@ -56,7 +57,7 @@ export const QuizFormSelect = () => {
               tint={tint}
               key={`${quiz.id}-${index}`}
               onClick={() => handleChoice(choice)}
-              className="relative"
+              className={cn("relative", enableKeyboard && index < 9 && "pointer-fine:pl-12")}
               disabled={!!result}
             >
               {enableKeyboard && index < 9 && (
