@@ -38,15 +38,15 @@ const navGroups: NavGroup[] = [
   {
     label: "ぷらっとテスト",
     items: [
-      { icon: LayoutDashboardIcon, title: "結果統計", url: "/admin" },
-      { icon: NotebookPenIcon, title: "問題管理", url: "/admin/puratto" },
+      { icon: LayoutDashboardIcon, title: "結果の統計", url: "/admin" },
+      { icon: NotebookPenIcon, title: "クイズを管理", url: "/admin/puratto" },
       { icon: Settings2Icon, title: "出題設定", url: "/admin/puratto/settings" },
     ],
   },
   {
     label: "配属発表",
     items: [
-      { icon: SquareUserIcon, title: "メンバー管理", url: "/admin/dept" },
+      { icon: SquareUserIcon, title: "メンバーを管理", url: "/admin/dept" },
       { icon: Settings2Icon, title: "表示設定", url: "/admin/dept/settings" },
     ],
   },
