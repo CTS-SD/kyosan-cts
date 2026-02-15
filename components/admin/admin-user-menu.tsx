@@ -33,7 +33,7 @@ export const AdminUserMenu = (props: React.ComponentProps<typeof DropdownMenuTri
           <BadgeCheckIcon className="size-4" />
         </DropdownMenuLabel>
         <DropdownMenuItem asChild>
-          <Link href="/admin/puratto">
+          <Link href="/admin">
             <LayoutGridIcon />
             ダッシュボード
           </Link>

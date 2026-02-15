@@ -71,3 +71,9 @@ export function makePseudoQuiz(values: QuizEditorValues): QuizData | null {
 
 export type { QuizResult } from "../quiz-form";
 export { saveQuizSession } from "./session-actions";
+export type { DailySessionTrend, PerQuizAccuracy, SessionSummary } from "./session-stats-actions";
+export {
+  getDailySessionTrend,
+  getPerQuizAccuracy,
+  getSessionSummary,
+} from "./session-stats-actions";

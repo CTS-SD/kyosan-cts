@@ -1,7 +1,7 @@
 "use client";
 
 import type { LucideIcon } from "lucide-react";
-import { NotebookPenIcon, Settings2Icon, SettingsIcon, SquareUserIcon } from "lucide-react";
+import { LayoutDashboardIcon, NotebookPenIcon, Settings2Icon, SettingsIcon, SquareUserIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Dialog } from "radix-ui";
@@ -38,6 +38,7 @@ const navGroups: NavGroup[] = [
   {
     label: "ぷらっとテスト",
     items: [
+      { icon: LayoutDashboardIcon, title: "ダッシュボード", url: "/admin" },
       { icon: NotebookPenIcon, title: "問題管理", url: "/admin/puratto" },
       { icon: Settings2Icon, title: "出題設定", url: "/admin/puratto/settings" },
     ],
@@ -67,7 +68,7 @@ export const AdminSidebarContent = ({ className, ...props }: React.ComponentProp
             <Link href="/">
               <LogoText />
             </Link>
-            <Link href="/admin/puratto" className="font-accent font-semibold text-muted-foreground text-xs">
+            <Link href="/admin" className="font-accent font-semibold text-muted-foreground text-xs">
               管理者
             </Link>
           </SidebarMenuItem>
