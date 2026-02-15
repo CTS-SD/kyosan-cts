@@ -5,11 +5,8 @@ import QuizListWrapper from "@/components/admin/quiz/quiz-list-wrapper";
 import { QuizRefreshButton } from "@/components/admin/quiz/quiz-refresh-button";
 import { QuizSearchInput } from "@/components/admin/quiz/quiz-search-input";
 import { Button } from "@/components/ui/button";
-import { requireRole } from "@/lib/auth/actions";
 
 const Page = async () => {
-  await requireRole(["admin"]);
-
   return (
     <div className="mx-auto max-w-6xl p-6">
       <div className="flex gap-2">

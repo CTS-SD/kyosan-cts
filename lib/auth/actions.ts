@@ -62,9 +62,11 @@ export async function resetMemberPassword({ newPassword }: { newPassword: string
   await updateUserRole(result.data.user.id, "member");
 }
 
-export async function requireRole(roles: Role[]) {
+export async function requireRole(roles: Role[], onReject = () => notFound()) {
   const user = await getUser();
   if (!user || !roles.includes(user.role as Role)) {
-    return notFound();
+    return onReject();
   }
 }
+
+

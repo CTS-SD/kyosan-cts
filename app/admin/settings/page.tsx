@@ -1,6 +1,6 @@
 import { ResetMemberPassword } from "@/components/admin/settings/reset-member-password";
 
-const Page = () => {
+const Page = async () => {
   return (
     <div className="mx-auto max-w-2xl p-6">
       <ResetMemberPassword />
