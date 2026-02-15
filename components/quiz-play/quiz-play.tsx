@@ -165,7 +165,7 @@ export const QuizPlayContent = () => {
           "border-red-100 border-t-2 bg-red-50 dark:border-border dark:bg-background": showAnswer && !result.isCorrect,
         })}
       >
-        <div className={cn("flex flex-col gap-3 p-4")}>
+        <div className={cn("flex flex-col p-4")}>
           {result && <QuizPlayResult />}
           <PlayfulButton
             type="submit"
