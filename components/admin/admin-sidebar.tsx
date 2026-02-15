@@ -38,7 +38,7 @@ const navGroups: NavGroup[] = [
   {
     label: "ぷらっとテスト",
     items: [
-      { icon: LayoutDashboardIcon, title: "ダッシュボード", url: "/admin" },
+      { icon: LayoutDashboardIcon, title: "結果統計", url: "/admin" },
       { icon: NotebookPenIcon, title: "問題管理", url: "/admin/puratto" },
       { icon: Settings2Icon, title: "出題設定", url: "/admin/puratto/settings" },
     ],
