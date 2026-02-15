@@ -1,13 +1,9 @@
 import { CircleIcon, XIcon } from "lucide-react";
-import { useState } from "react";
 import { getQuizPrompt, type QuizData, type QuizResult } from "@/lib/quiz";
 import { Markdown } from "../markdown";
 import { QuizAnswerRenderer } from "../quiz-answer-renderer";
-import { PlayfulButton } from "../ui/playful-button";
 
 export const QuizResultItem = ({ result, quiz }: { result: QuizResult; quiz?: QuizData }) => {
-  const [showExplanation, setShowExplanation] = useState(false);
-
   if (!quiz) return null;
 
   return (
@@ -40,21 +36,10 @@ export const QuizResultItem = ({ result, quiz }: { result: QuizResult; quiz?: Qu
               <QuizAnswerRenderer quiz={quiz} />
             </div>
           </div>
-          {quiz.explanation && showExplanation && (
+          {quiz.explanation && (
             <div className="mt-3 text-sky-600">
               <Markdown>{quiz.explanation}</Markdown>
             </div>
-          )}
-          {quiz.explanation && (
-            <PlayfulButton
-              variant="outline"
-              tint="blue"
-              size="sm"
-              className="mt-4 w-full"
-              onClick={() => setShowExplanation((prev) => !prev)}
-            >
-              {showExplanation ? "閉じる" : "解説を表示"}
-            </PlayfulButton>
           )}
         </div>
       </div>
