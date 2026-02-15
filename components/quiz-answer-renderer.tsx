@@ -1,18 +1,19 @@
 import { CircleIcon, XIcon } from "lucide-react";
 import type { QuizData } from "@/lib/quiz";
-import { cn } from "@/lib/utils";
 
-type Props = React.ComponentProps<"div"> & {
+export const QuizAnswerRenderer = ({
+  quiz,
+  includeAlternatives = false,
+}: {
   quiz: QuizData;
-};
-
-export const QuizAnswerRenderer = ({ quiz, className, ...props }: Props) => {
+  includeAlternatives?: boolean;
+}) => {
   return (
-    <div className={cn("[&_svg]:h-lh", className)} {...props}>
+    <>
       {quiz.type === "select" && quiz.correctChoices.join(", ")}
-      {quiz.type === "text" && quiz.answer.replace(/\n/g, ", ")}
-      {quiz.type === "true_false" && quiz.answer && <CircleIcon />}
-      {quiz.type === "true_false" && !quiz.answer && <XIcon />}
-    </div>
+      {quiz.type === "text" && (includeAlternatives ? quiz.answer.replace(/\n/g, ", ") : quiz.answer.split("\n")[0])}
+      {quiz.type === "true_false" && quiz.answer && <CircleIcon size={16} strokeWidth={2.6} />}
+      {quiz.type === "true_false" && !quiz.answer && <XIcon size={16} strokeWidth={2.6} />}
+    </>
   );
 };

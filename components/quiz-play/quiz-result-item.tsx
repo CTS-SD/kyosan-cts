@@ -34,7 +34,9 @@ export const QuizResultItem = ({ result, quiz, index }: Props) => {
         </div>
         <div className="flex items-center gap-1 pt-4">
           <span className="text-muted-foreground">答え：</span>
-          <QuizAnswerRenderer quiz={quiz} className="font-semibold" />
+          <div className="font-bold">
+            <QuizAnswerRenderer quiz={quiz} />
+          </div>
         </div>
       </div>
     </div>

@@ -61,8 +61,10 @@ export const QuizPlayResult = () => {
       </div>
       {!result.isCorrect && (
         <div className="flex gap-2">
-          <div className="shrink-0 font-semibold">正解:</div>
-          <QuizAnswerRenderer className="font-bold" quiz={quiz} />
+          <div className="shrink-0 font-semibold">正解：</div>
+          <div className="font-bold">
+            <QuizAnswerRenderer quiz={quiz} />
+          </div>
         </div>
       )}
       {quiz.explanation && (
