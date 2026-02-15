@@ -1,6 +1,14 @@
 "use client";
 
-import { Clock3Icon, LightbulbIcon, SlashIcon, ZapIcon } from "lucide-react";
+import {
+  ClipboardList,
+  ClipboardListIcon,
+  Clock3Icon,
+  LightbulbIcon,
+  ListCheckIcon,
+  SlashIcon,
+  ZapIcon,
+} from "lucide-react";
 import { motion, stagger } from "motion/react";
 import Link from "next/link";
 import { useEffect, useRef } from "react";
@@ -81,8 +89,12 @@ export const QuizResultsView = () => {
           value={<span className="text-3xl">{formatPlayTime(playTimeMs)}</span>}
         />
       </motion.div>
-      <div className="mt-6">
-        <div className="space-y-6">
+      <div className="mt-12">
+        <div className="flex items-center gap-2 px-4 font-semibold text-muted-foreground starting:opacity-0 transition delay-2100">
+          <ListCheckIcon className="size-5" />
+          今回出題された問題
+        </div>
+        <div className="mt-4 space-y-4">
           {results.map((result) => (
             <motion.div
               key={result.quizId}
