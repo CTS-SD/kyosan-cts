@@ -1,4 +1,5 @@
 import { AppHeader } from "@/components/app-header";
+import { SessionHeartbeat } from "@/components/session-heartbeat";
 import { requireRole } from "@/lib/auth/actions";
 import { getConfigValue } from "@/lib/config/actions";
 
@@ -17,6 +18,7 @@ const Layout = async ({ children }: Props) => {
 
   return (
     <>
+      <SessionHeartbeat />
       <AppHeader />
       <div className="pt-16">{children}</div>
     </>
