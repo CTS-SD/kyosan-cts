@@ -45,19 +45,7 @@ export const QuizPlayResult = () => {
             </>
           )}
         </div>
-        <div className="ml-auto">
-          {hasExplanation && (
-            <PlayfulButton
-              type="button"
-              tint={result.isCorrect ? "green" : "red"}
-              variant="outline"
-              size="sm"
-              onClick={() => setShowExplanation((prev) => !prev)}
-            >
-              {showExplanation ? "閉じる" : "解説を表示"}
-            </PlayfulButton>
-          )}
-        </div>
+        <div className="ml-auto"></div>
       </div>
       {!result.isCorrect && (
         <div className="flex gap-2">
@@ -69,7 +57,7 @@ export const QuizPlayResult = () => {
       )}
       {quiz.explanation && (
         <motion.div
-          className="h-0 overflow-hidden opacity-0"
+          className="h-0 max-h-[30dvh] overflow-scroll opacity-0"
           animate={{
             height: showExplanation ? "auto" : 0,
             opacity: showExplanation ? 1 : 0,
@@ -79,8 +67,18 @@ export const QuizPlayResult = () => {
             ease: [0, 0, 0.2, 1],
           }}
         >
-          <Markdown className="py-2 text-inherit">{quiz.explanation}</Markdown>
+          <Markdown className="py-3 text-inherit">{quiz.explanation}</Markdown>
         </motion.div>
+      )}
+      {hasExplanation && (
+        <PlayfulButton
+          type="button"
+          tint={result.isCorrect ? "green" : "red"}
+          variant="outline"
+          onClick={() => setShowExplanation((prev) => !prev)}
+        >
+          {showExplanation ? "閉じる" : "解説を表示"}
+        </PlayfulButton>
       )}
     </motion.div>
   );

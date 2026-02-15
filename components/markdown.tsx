@@ -1,8 +1,6 @@
 import { Streamdown } from "streamdown";
 
-type Props = React.ComponentProps<typeof Streamdown>;
-
-export const Markdown = ({ children }: Props) => {
+export const Markdown = ({ ...props }: React.ComponentProps<typeof Streamdown>) => {
   return (
     <Streamdown
       mode="static"
@@ -10,8 +8,7 @@ export const Markdown = ({ children }: Props) => {
         code: false,
         table: false,
       }}
-    >
-      {children}
-    </Streamdown>
+      {...props}
+    />
   );
 };
