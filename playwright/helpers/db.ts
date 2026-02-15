@@ -11,6 +11,10 @@ export async function seedTestDb() {
 
   await seedDb();
 
+  if (!env.TEST_USER_EMAIL || !env.TEST_USER_PASSWORD) {
+    throw new Error("Test user credentials are not set");
+  }
+
   // Create test user
   const { user } = await auth.api.signUpEmail({
     body: {

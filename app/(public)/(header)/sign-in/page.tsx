@@ -9,6 +9,7 @@ import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
 import { UserAvatar } from "@/components/user-avatar";
 import { authClient } from "@/lib/auth/client";
+import { env } from "@/lib/env";
 
 const getErrorMessage = (message?: string) => {
   if (message?.includes("password")) {
@@ -28,7 +29,7 @@ const Page = () => {
     e.preventDefault();
     startStaffTransition(async () => {
       const { error } = await authClient.signIn.email({
-        email: "cts-member@example.com",
+        email: env.NEXT_PUBLIC_MEMBER_EMAIL,
         password,
         callbackURL: "/members",
       });

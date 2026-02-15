@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import { cache } from "react";
 import { db } from "../db";
 import { account as AccountTable, user as UserTable } from "../db/schema";
+import { env } from "../env";
 import { authClient } from "./client";
 import { auth } from "./server";
 import type { Role } from "./types";
@@ -43,23 +44,21 @@ export async function deleteUser(userId: string) {
 export async function resetMemberPassword({ newPassword }: { newPassword: string }) {
   await requireRole(["admin"]);
 
-  const member = await getUserByEmail("cts-member@example.com");
+  const member = await getUserByEmail(env.NEXT_PUBLIC_MEMBER_EMAIL);
 
   if (member) {
     await deleteUser(member.id);
   }
 
-  const result = await authClient.signUp.email({
-    name: "スタッフ",
-    email: "cts-member@example.com",
-    password: newPassword,
+  const result = await auth.api.signUpEmail({
+    body: {
+      name: "ｷｬﾝﾊﾟｽﾂｱｰｽﾀｯﾌ",
+      email: env.NEXT_PUBLIC_MEMBER_EMAIL,
+      password: newPassword,
+    },
   });
 
-  if (result.error) {
-    throw new Error(result.error.message);
-  }
-
-  await updateUserRole(result.data.user.id, "member");
+  await updateUserRole(result.user.id, "member");
 }
 
 export async function requireRole(roles: Role[], onReject = () => notFound()) {
@@ -68,5 +67,3 @@ export async function requireRole(roles: Role[], onReject = () => notFound()) {
     return onReject();
   }
 }
-
-
