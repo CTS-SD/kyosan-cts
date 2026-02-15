@@ -3,12 +3,14 @@
 import { Clock3Icon, LightbulbIcon, SlashIcon, ZapIcon } from "lucide-react";
 import { motion, stagger } from "motion/react";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 import { QuizResultItem } from "@/components/quiz-play/quiz-result-item";
 import { useQuizSession } from "@/components/quiz-play/quiz-session";
 import { ScoreBox } from "@/components/quiz-play/score-box";
 import { PlayfulButton } from "@/components/ui/playful-button";
 import { SpeechBubble } from "@/components/ui/speech-bubble";
 import { UserAvatar } from "@/components/user-avatar";
+import { saveQuizSession } from "@/lib/quiz";
 
 const formatPlayTime = (playTimeMs: number) => {
   const totalSeconds = Math.max(0, Math.floor(playTimeMs / 1000));
@@ -19,6 +21,17 @@ const formatPlayTime = (playTimeMs: number) => {
 
 export const QuizResultsView = () => {
   const { quizzes, results, startedAt, finishedAt } = useQuizSession();
+
+  const savedRef = useRef(false);
+  useEffect(() => {
+    if (savedRef.current || !finishedAt) return;
+    savedRef.current = true;
+    saveQuizSession({
+      results: results.map(({ quizId, isCorrect }) => ({ quizId, isCorrect })),
+      startedAt,
+      finishedAt,
+    });
+  }, [results, startedAt, finishedAt]);
 
   const playTimeMs = (finishedAt ?? Date.now()) - startedAt;
   const totalCount = quizzes.length;

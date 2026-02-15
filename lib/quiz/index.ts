@@ -70,3 +70,4 @@ export function makePseudoQuiz(values: QuizEditorValues): QuizData | null {
 }
 
 export type { QuizResult } from "../quiz-form";
+export { saveQuizSession } from "./session-actions";
