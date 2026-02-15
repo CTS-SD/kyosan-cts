@@ -83,14 +83,14 @@ export const QuizResultsView = () => {
       </motion.div>
       <div className="mt-6">
         <div className="space-y-6">
-          {results.map((result, i) => (
+          {results.map((result) => (
             <motion.div
               key={result.quizId}
               initial={{ opacity: 0, y: 10, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               transition={{ type: "spring", stiffness: 300, damping: 12, delay: 2.1 }}
             >
-              <QuizResultItem index={i + 1} result={result} quiz={quizzes.find((q) => q.id === result.quizId)!} />
+              <QuizResultItem result={result} quiz={quizzes.find((q) => q.id === result.quizId)} />
             </motion.div>
           ))}
         </div>

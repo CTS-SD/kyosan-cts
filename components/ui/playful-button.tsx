@@ -19,7 +19,7 @@ const playfulButtonVariants = cva(
         disabled: "",
       },
       size: {
-        sm: "mb-[2px] rounded-xl px-2.5 py-1.5 text-sm shadow-[0_2px_0] not-disabled:active:translate-y-[2px]",
+        sm: "mb-[2px] rounded-xl px-2.5 py-1.5 text-sm shadow-[0_2px_0] not-disabled:active:translate-y-[2px] *:[svg]:size-4",
         md: "mb-[3px] rounded-xl px-3 py-2.5 text-base shadow-[0_3px_0] not-disabled:active:translate-y-[3px]",
       },
     },
