@@ -1,5 +1,5 @@
+import { addMinutes, addSeconds, setHours, startOfDay, subDays } from "date-fns";
 import { eq } from "drizzle-orm";
-import { addDays, addMinutes, addSeconds, subDays, startOfDay, setHours } from "date-fns";
 import { db } from "@/lib/db";
 import { QuizSessionResultTable, QuizSessionTable, QuizTable } from "@/lib/db/schema";
 
@@ -20,10 +20,7 @@ export async function seedSessions() {
   await db.delete(QuizSessionResultTable).execute();
   await db.delete(QuizSessionTable).execute();
 
-  const quizzes = await db
-    .select({ id: QuizTable.id })
-    .from(QuizTable)
-    .where(eq(QuizTable.isPublished, true));
+  const quizzes = await db.select({ id: QuizTable.id }).from(QuizTable).where(eq(QuizTable.isPublished, true));
 
   const quizIds = quizzes.map((q) => q.id);
 

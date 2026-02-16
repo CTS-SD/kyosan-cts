@@ -1,14 +1,6 @@
 "use client";
 
-import {
-  ClipboardList,
-  ClipboardListIcon,
-  Clock3Icon,
-  LightbulbIcon,
-  ListCheckIcon,
-  SlashIcon,
-  ZapIcon,
-} from "lucide-react";
+import { Clock3Icon, LightbulbIcon, ListCheckIcon, SlashIcon, ZapIcon } from "lucide-react";
 import { motion, stagger } from "motion/react";
 import Link from "next/link";
 import { useEffect, useRef } from "react";

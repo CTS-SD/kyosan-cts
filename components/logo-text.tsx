@@ -21,8 +21,8 @@ export const LogoText = () => {
   }, []);
 
   return (
-    <div className="flex items-center gap-0.5 font-semibold text-xs">
-      <div className="rounded-lg rounded-br-none bg-sky-500 px-1.5 py-0.75 text-white">
+    <div className="flex items-center gap-1 font-semibold text-xs">
+      <div className="rounded-lg rounded-br-none bg-sky-500 px-1.75 py-0.5 font-bold text-white">
         KS
         <AnimatePresence mode="popLayout" initial={false}>
           {showU ? (
@@ -36,7 +36,7 @@ export const LogoText = () => {
           )}
         </AnimatePresence>
       </div>
-      <div className="font-accent">キャンスタ</div>
+      <div className="font-accent tracking-tighter">キャンスタ</div>
     </div>
   );
 };
