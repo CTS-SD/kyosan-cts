@@ -89,7 +89,7 @@ export function Dashboard({ summary, perQuiz, trend }: DashboardProps) {
       </div>
 
       {/* Daily Trend Chart */}
-      <Card>
+      <Card className="max-sm:-mx-6 max-sm:rounded-none">
         <CardHeader>
           <CardTitle>日別プレイ推移（過去30日）</CardTitle>
           <CardDescription>プレイ数と平均正答率の推移</CardDescription>
@@ -154,14 +154,14 @@ export function Dashboard({ summary, perQuiz, trend }: DashboardProps) {
       </Card>
 
       {/* Per-Quiz Accuracy Table */}
-      <Card>
+      <Card className="max-sm:-mx-6 max-sm:rounded-none">
         <CardHeader>
           <CardTitle>問題別正答率</CardTitle>
           <CardDescription>正答率が低い順</CardDescription>
         </CardHeader>
-        <CardContent>
+        <CardContent className="px-0">
           {perQuiz.length > 0 ? (
-            <Table>
+            <Table className="mx-6">
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-12">#</TableHead>
