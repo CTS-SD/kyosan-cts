@@ -14,6 +14,7 @@ export const env = createEnv({
   },
   client: {
     NEXT_PUBLIC_MEMBER_EMAIL: z.string(),
+    NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: z.string().optional(),
   },
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
@@ -26,5 +27,6 @@ export const env = createEnv({
     TEST_USER_PASSWORD: process.env.TEST_USER_PASSWORD,
 
     NEXT_PUBLIC_MEMBER_EMAIL: process.env.NEXT_PUBLIC_MEMBER_EMAIL,
+    NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID,
   },
 });

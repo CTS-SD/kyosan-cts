@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Zen_Maru_Gothic } from "next/font/google";
 import { cn } from "@/lib/utils";
 import "./globals.css";
+import { GoogleAnalytics } from "@next/third-parties/google";
+import { env } from "@/lib/env";
 import { Providers } from "./providers";
 
 const zenMaruGothic = Zen_Maru_Gothic({
@@ -20,10 +22,13 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const gaId = env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID;
+
   return (
     <html lang="ja" suppressHydrationWarning>
       <body className={cn("antialiased", zenMaruGothic.variable)}>
         <Providers>{children}</Providers>
+        {gaId && <GoogleAnalytics gaId={gaId} />}
       </body>
     </html>
   );
