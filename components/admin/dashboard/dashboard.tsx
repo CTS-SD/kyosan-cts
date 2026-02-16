@@ -161,37 +161,41 @@ export function Dashboard({ summary, perQuiz, trend }: DashboardProps) {
         </CardHeader>
         <CardContent className="px-0">
           {perQuiz.length > 0 ? (
-            <Table className="mx-6">
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-12">#</TableHead>
-                  <TableHead>問題文</TableHead>
-                  <TableHead className="w-24">回答形式</TableHead>
-                  <TableHead className="w-20 text-right">回答数</TableHead>
-                  <TableHead className="w-48">正答率</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {perQuiz.map((quiz) => (
-                  <TableRow key={quiz.quizId}>
-                    <TableCell className="text-muted-foreground">{quiz.quizId}</TableCell>
-                    <TableCell className="max-w-xs truncate">
-                      <Link href={`/admin/puratto/q/${quiz.quizId}`} className="hover:underline" target="_blank">
-                        {quiz.question}
-                      </Link>
-                    </TableCell>
-                    <TableCell>{getQuizTypeLabel(quiz.type as QuizType)}</TableCell>
-                    <TableCell className="text-right">{quiz.totalAttempts}</TableCell>
-                    <TableCell>
-                      <div className="flex items-center gap-2">
-                        <Progress value={quiz.accuracyRate} className="h-2 w-30" />
-                        <span className="w-12 text-right text-muted-foreground text-xs">{quiz.accuracyRate}%</span>
-                      </div>
-                    </TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+            <div className="flex overflow-x-auto">
+              <div className="grow px-6">
+                <Table>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHead className="w-12">#</TableHead>
+                      <TableHead>問題文</TableHead>
+                      <TableHead className="w-24">回答形式</TableHead>
+                      <TableHead className="w-20 text-right">回答数</TableHead>
+                      <TableHead className="w-48">正答率</TableHead>
+                    </TableRow>
+                  </TableHeader>
+                  <TableBody>
+                    {perQuiz.map((quiz) => (
+                      <TableRow key={quiz.quizId}>
+                        <TableCell className="text-muted-foreground">{quiz.quizId}</TableCell>
+                        <TableCell className="max-w-xs truncate">
+                          <Link href={`/admin/puratto/q/${quiz.quizId}`} className="hover:underline" target="_blank">
+                            {quiz.question}
+                          </Link>
+                        </TableCell>
+                        <TableCell>{getQuizTypeLabel(quiz.type as QuizType)}</TableCell>
+                        <TableCell className="text-right">{quiz.totalAttempts}</TableCell>
+                        <TableCell>
+                          <div className="flex items-center gap-2">
+                            <Progress value={quiz.accuracyRate} className="h-2 w-30" />
+                            <span className="w-12 text-right text-muted-foreground text-xs">{quiz.accuracyRate}%</span>
+                          </div>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </div>
+            </div>
           ) : (
             <p className="py-12 text-center text-muted-foreground">データがありません</p>
           )}
