@@ -9,6 +9,7 @@ export const CommonQuizSchema = z.object({
   explanation: z.string().nullable(),
   isPublished: z.boolean(),
   createdAt: z.date(),
+  tags: z.array(z.string()).default([]),
 });
 
 export const SelectQuizSchema = CommonQuizSchema.extend({

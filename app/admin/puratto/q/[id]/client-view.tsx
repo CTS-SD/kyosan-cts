@@ -1,5 +1,6 @@
 "use client";
 
+import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { QuizEditor } from "@/components/admin/quiz/quiz-editor";
 import { type QuizData, type QuizEditorValues, toEditorValues, updateQuiz } from "@/lib/quiz";
@@ -9,8 +10,11 @@ type Props = {
 };
 
 export const ClientView = ({ quiz }: Props) => {
+  const queryClient = useQueryClient();
+
   const handleSubmit = async (values: QuizEditorValues) => {
     await updateQuiz(quiz.id, values);
+    queryClient.invalidateQueries({ queryKey: ["quiz-tags"] });
     toast.success("問題を保存しました");
   };
 

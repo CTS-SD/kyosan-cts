@@ -24,6 +24,7 @@ export const SelectQuizEditorSchema = z
     question: z.string().min(1, "問題文を入力してください。").max(1000, "問題文は1000文字以内で入力してください。"),
     explanation: z.string().nullable(),
     isPublished: z.boolean(),
+    tags: z.array(z.string()),
     correctChoicesText: z
       .string("正解の選択肢を入力してください。")
       .refine((val) => splitByLines(val).length > 0, {
@@ -109,6 +110,7 @@ export const selectQuizHandler: QuizTypeHandler<SelectQuizData, SelectQuizEditor
     question: quiz.question,
     explanation: quiz.explanation,
     isPublished: quiz.isPublished,
+    tags: quiz.tags,
     correctChoicesText: quiz.correctChoices.join("\n"),
     incorrectChoicesText: quiz.incorrectChoices.join("\n"),
   }),

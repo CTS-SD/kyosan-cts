@@ -9,6 +9,7 @@ export const TrueFalseQuizEditorSchema = z.object({
   question: z.string().min(1, "問題文を入力してください。").max(1000, "問題文は1000文字以内で入力してください。"),
   explanation: z.string().nullable(),
   isPublished: z.boolean(),
+  tags: z.array(z.string()),
   trueFalseAnswer: z.boolean("解答を選択してください。"),
 });
 
@@ -46,6 +47,7 @@ export const trueFalseQuizHandler: QuizTypeHandler<TrueFalseQuizData, TrueFalseQ
     question: quiz.question,
     explanation: quiz.explanation,
     isPublished: quiz.isPublished,
+    tags: quiz.tags,
     trueFalseAnswer: quiz.answer,
   }),
   fromEditorValues: (values) => ({

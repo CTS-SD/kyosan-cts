@@ -3,6 +3,7 @@ export {
   getQuizById,
   getQuizListStats,
   getQuizzes,
+  getTags,
   insertQuiz,
   searchQuizzes,
   updateQuiz,
@@ -61,6 +62,7 @@ export function makePseudoQuiz(values: QuizEditorValues): QuizData | null {
     explanation: values.explanation ?? null,
     createdAt: new Date(),
     isPublished: values.isPublished,
+    tags: values.tags ?? [],
   };
 
   const handler = getQuizHandler(values.type);

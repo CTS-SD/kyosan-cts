@@ -2,16 +2,39 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDebounce } from "@uidotdev/usehooks";
-import { ArrowLeftIcon, CopyIcon, EllipsisIcon, EyeIcon, ShareIcon, Trash2Icon, XIcon } from "lucide-react";
+import {
+  ArrowLeftIcon,
+  CopyIcon,
+  EllipsisIcon,
+  EyeIcon,
+  PlusCircleIcon,
+  PlusIcon,
+  ShareIcon,
+  Trash2Icon,
+  XIcon,
+} from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useNavigationGuard } from "next-navigation-guard";
-import { useMemo, useState } from "react";
+import React, { useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { QuizPlay } from "@/components/quiz-play/quiz-play";
 import { QuizSessionHeader, QuizSessionMain, QuizSessionProvider } from "@/components/quiz-play/quiz-session";
 import { Badge } from "@/components/ui/badge";
+import {
+  Combobox,
+  ComboboxChip,
+  ComboboxChips,
+  ComboboxChipsInput,
+  ComboboxContent,
+  ComboboxEmpty,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxList,
+  ComboboxValue,
+  useComboboxAnchor,
+} from "@/components/ui/combobox";
 import { Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import {
   DropdownMenu,
@@ -21,6 +44,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { PlayfulProgress } from "@/components/ui/playful-progress";
+import { useQuizTags } from "@/hooks/query/use-quiz-tags";
 import { QuizEditorContext, useQuizEditor } from "@/hooks/use-quiz-editor";
 import {
   deleteQuiz,
@@ -49,6 +73,7 @@ export const QuizEditorProvider = ({
     question: "",
     explanation: "",
     isPublished: true,
+    tags: [],
     correctChoicesText: "",
     incorrectChoicesText: "",
   },
@@ -183,7 +208,7 @@ export const QuizEditorFields = () => {
   const quizType = form.watch("type");
 
   return (
-    <FieldGroup className="px-6">
+    <FieldGroup className="px-6 pb-12">
       <Controller
         name="type"
         control={form.control}
@@ -232,6 +257,18 @@ export const QuizEditorFields = () => {
         )}
       />
       <Controller
+        name="tags"
+        control={form.control}
+        render={({ field, fieldState }) => (
+          <TagField
+            value={field.value ?? []}
+            onChange={field.onChange}
+            invalid={fieldState.invalid}
+            error={fieldState.error}
+          />
+        )}
+      />
+      <Controller
         name="isPublished"
         control={form.control}
         render={({ field, fieldState }) => (
@@ -246,6 +283,84 @@ export const QuizEditorFields = () => {
         )}
       />
     </FieldGroup>
+  );
+};
+
+const TagField = ({
+  value,
+  onChange,
+  invalid,
+  error,
+}: {
+  value: string[];
+  onChange: (tags: string[]) => void;
+  invalid: boolean;
+  error?: { message?: string };
+}) => {
+  const { data: allTags = [] } = useQuizTags();
+  const [inputValue, setInputValue] = useState("");
+
+  const anchor = useComboboxAnchor();
+
+  const trimmed = inputValue.trim();
+  const lowered = trimmed.toLocaleLowerCase();
+  const selectedSet = new Set(value);
+
+  const suggestions = allTags
+    .filter((t) => !selectedSet.has(t))
+    .filter((t) => !lowered || t.toLocaleLowerCase().includes(lowered));
+
+  const exactExists = allTags.some((t) => t.toLocaleLowerCase() === lowered) || selectedSet.has(trimmed);
+  const showCreate = trimmed !== "" && !exactExists;
+
+  const handleValueChange = (selected: string[]) => {
+    onChange(selected);
+  };
+
+  return (
+    <Field data-invalid={invalid}>
+      <FieldLabel>管理用タグ</FieldLabel>
+      <Combobox
+        inputValue={inputValue}
+        onInputValueChange={setInputValue}
+        value={value}
+        onValueChange={handleValueChange}
+        multiple
+        autoHighlight
+      >
+        <ComboboxChips ref={anchor} className="w-full bg-background">
+          <ComboboxValue>
+            {(values) => (
+              <React.Fragment>
+                {values.map((value: string) => (
+                  <ComboboxChip key={value}>{value}</ComboboxChip>
+                ))}
+                <ComboboxChipsInput />
+              </React.Fragment>
+            )}
+          </ComboboxValue>
+        </ComboboxChips>
+        <ComboboxContent>
+          <ComboboxList className="p-1!">
+            {suggestions.map((tag) => (
+              <ComboboxItem key={tag} value={tag}>
+                {tag}
+              </ComboboxItem>
+            ))}
+            {showCreate && (
+              <ComboboxItem value={trimmed}>
+                <PlusCircleIcon className="text-muted-foreground" />
+                {trimmed}
+              </ComboboxItem>
+            )}
+          </ComboboxList>
+        </ComboboxContent>
+      </Combobox>
+      <FieldDescription>
+        管理用タグを追加すると一覧ページでタグごとに絞り込みが可能になります。
+      </FieldDescription>
+      {invalid && <FieldError errors={[error]} />}
+    </Field>
   );
 };
 

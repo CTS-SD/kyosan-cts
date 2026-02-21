@@ -1,53 +1,84 @@
 "use server";
 
-import { desc, eq, ilike, or, type SQL, sql } from "drizzle-orm";
+import { desc, eq, ilike, inArray, or, type SQL, sql } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import { requireRole } from "../auth/actions";
 import { db } from "../db";
-import { QuizTable, SelectQuizTable, TextQuizTable, TrueFalseQuizTable } from "../db/schema";
+import {
+  QuizTable,
+  QuizTagMapTable,
+  QuizTagTable,
+  SelectQuizTable,
+  TextQuizTable,
+  TrueFalseQuizTable,
+} from "../db/schema";
 import type { QuizEditorValues } from "./domain/editor";
 import { getQuizHandler } from "./domain/handlers";
 import type { QuizData } from "./domain/types";
 
+/**
+ * Sync quiz tags: upsert tag names and re-create quiz_tag_map entries.
+ */
+async function syncQuizTags(tx: Parameters<Parameters<typeof db.transaction>[0]>[0], quizId: number, tags: string[]) {
+  await tx.delete(QuizTagMapTable).where(eq(QuizTagMapTable.quizId, quizId));
+
+  if (tags.length === 0) return;
+
+  await tx
+    .insert(QuizTagTable)
+    .values(tags.map((name) => ({ name })))
+    .onConflictDoNothing();
+
+  await tx.insert(QuizTagMapTable).values(tags.map((tagName) => ({ quizId, tagName })));
+}
+
 export async function insertQuiz(values: QuizEditorValues) {
   await requireRole(["admin"]);
 
-  const [{ id: quizId }] = await db
-    .insert(QuizTable)
-    .values({
-      type: values.type,
-      question: values.question,
-      explanation: values.explanation,
-      isPublished: values.isPublished,
-    })
-    .returning({ id: QuizTable.id });
+  return await db.transaction(async (tx) => {
+    const [{ id: quizId }] = await tx
+      .insert(QuizTable)
+      .values({
+        type: values.type,
+        question: values.question,
+        explanation: values.explanation,
+        isPublished: values.isPublished,
+      })
+      .returning({ id: QuizTable.id });
 
-  const handler = getQuizHandler(values.type);
-  const payload = handler.buildDbPayload(quizId, values);
-  await db.insert(handler.table).values(payload);
+    const handler = getQuizHandler(values.type);
+    const payload = handler.buildDbPayload(quizId, values);
+    await tx.insert(handler.table).values(payload);
 
-  return quizId;
+    await syncQuizTags(tx, quizId, values.tags ?? []);
+
+    return quizId;
+  });
 }
 
 export async function updateQuiz(quizId: number, values: QuizEditorValues) {
   await requireRole(["admin"]);
 
-  await db
-    .update(QuizTable)
-    .set({
-      type: values.type,
-      question: values.question,
-      explanation: values.explanation,
-      isPublished: values.isPublished,
-    })
-    .where(eq(QuizTable.id, quizId));
+  await db.transaction(async (tx) => {
+    await tx
+      .update(QuizTable)
+      .set({
+        type: values.type,
+        question: values.question,
+        explanation: values.explanation,
+        isPublished: values.isPublished,
+      })
+      .where(eq(QuizTable.id, quizId));
 
-  const handler = getQuizHandler(values.type);
-  const payload = handler.buildDbPayload(quizId, values);
+    const handler = getQuizHandler(values.type);
+    const payload = handler.buildDbPayload(quizId, values);
 
-  await db.insert(handler.table).values(payload).onConflictDoUpdate({
-    target: handler.table.quizId,
-    set: payload,
+    await tx.insert(handler.table).values(payload).onConflictDoUpdate({
+      target: handler.table.quizId,
+      set: payload,
+    });
+
+    await syncQuizTags(tx, quizId, values.tags ?? []);
   });
 }
 
@@ -65,7 +96,13 @@ export async function getQuizById(id: number) {
   const handler = getQuizHandler(quiz.type);
   const [extra] = await db.select().from(handler.table).where(eq(handler.table.quizId, quiz.id));
 
-  return handler.dataSchema.parse({ ...quiz, ...extra });
+  const tagRows = await db
+    .select({ tagName: QuizTagMapTable.tagName })
+    .from(QuizTagMapTable)
+    .where(eq(QuizTagMapTable.quizId, quiz.id));
+  const tags = tagRows.map((r) => r.tagName);
+
+  return handler.dataSchema.parse({ ...quiz, ...extra, tags });
 }
 
 type QuizRow = {
@@ -84,7 +121,7 @@ type QuizRow = {
 /**
  * Parse a quiz row from the database into QuizData.
  */
-function parseQuizRow(row: QuizRow): QuizData {
+function parseQuizRow(row: QuizRow, tags: string[] = []): QuizData {
   const base = {
     id: row.id,
     type: row.type,
@@ -92,6 +129,7 @@ function parseQuizRow(row: QuizRow): QuizData {
     explanation: row.explanation,
     isPublished: row.isPublished,
     createdAt: row.createdAt,
+    tags,
   };
 
   const handler = getQuizHandler(row.type);
@@ -152,7 +190,23 @@ export async function getQuizzes({
     .offset(offset ?? 0)
     .limit(_limit);
 
-  const quizzes = rows.map((row) => parseQuizRow(row));
+  // Batch-fetch tags for all quiz IDs
+  const quizIds = rows.map((r) => r.id);
+  const tagRows =
+    quizIds.length > 0
+      ? await db
+          .select({ quizId: QuizTagMapTable.quizId, tagName: QuizTagMapTable.tagName })
+          .from(QuizTagMapTable)
+          .where(inArray(QuizTagMapTable.quizId, quizIds))
+      : [];
+  const tagsByQuizId = new Map<number, string[]>();
+  for (const row of tagRows) {
+    const tags = tagsByQuizId.get(row.quizId) ?? [];
+    tags.push(row.tagName);
+    tagsByQuizId.set(row.quizId, tags);
+  }
+
+  const quizzes = rows.map((row) => parseQuizRow(row, tagsByQuizId.get(row.id) ?? []));
   const hasMore = rows.length === _limit;
   const nextCursor = hasMore ? offset + limit : null;
 
@@ -199,4 +253,12 @@ export async function getQuizListStats() {
     publicCount,
     privateCount,
   };
+}
+
+/**
+ * Get all tag names.
+ */
+export async function getTags() {
+  const rows = await db.select({ name: QuizTagTable.name }).from(QuizTagTable).orderBy(QuizTagTable.name);
+  return rows.map((r) => r.name);
 }

@@ -1,5 +1,5 @@
 import { type InferSelectModel, sql } from "drizzle-orm";
-import { boolean, integer, pgTable, serial, text, timestamp } from "drizzle-orm/pg-core";
+import { boolean, integer, pgTable, primaryKey, serial, text, timestamp } from "drizzle-orm/pg-core";
 
 export const QuizTable = pgTable("quiz", {
   id: serial("id").primaryKey(),
@@ -31,5 +31,22 @@ export const TrueFalseQuizTable = pgTable("true_false_quiz", {
     .references(() => QuizTable.id, { onDelete: "cascade" }),
   answer: boolean("answer").notNull(),
 });
+
+export const QuizTagTable = pgTable("quiz_tag", {
+  name: text("name").primaryKey(),
+});
+
+export const QuizTagMapTable = pgTable(
+  "quiz_tag_map",
+  {
+    quizId: integer("quiz_id")
+      .notNull()
+      .references(() => QuizTable.id, { onDelete: "cascade" }),
+    tagName: text("tag_name")
+      .notNull()
+      .references(() => QuizTagTable.name, { onDelete: "cascade" }),
+  },
+  (t) => [primaryKey({ columns: [t.quizId, t.tagName] })],
+);
 
 export type Quiz = InferSelectModel<typeof QuizTable>;

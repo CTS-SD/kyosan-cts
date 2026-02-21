@@ -1,5 +1,6 @@
 "use client";
 
+import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { QuizEditor } from "@/components/admin/quiz/quiz-editor";
@@ -7,9 +8,11 @@ import { insertQuiz, type QuizEditorValues } from "@/lib/quiz";
 
 const Page = () => {
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   const handleSubmit = async (values: QuizEditorValues) => {
     const newQuizId = await insertQuiz(values);
+    queryClient.invalidateQueries({ queryKey: ["quiz-tags"] });
     toast.success("問題を作成しました");
     router.push(`/admin/puratto/q/${newQuizId}`);
   };
