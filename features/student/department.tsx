@@ -10,23 +10,23 @@ enum DeptEnum {
 
 const departmentAssets = {
   [DeptEnum.general]: {
-    icon: <SparklesIcon />,
+    icon: SparklesIcon,
     styles: "bg-gradient-to-br from-blue-600 to-cyan-500",
   },
   [DeptEnum.recreation]: {
-    icon: <PartyPopperIcon />,
+    icon: PartyPopperIcon,
     styles: "bg-gradient-to-br from-green-600 to-lime-500",
   },
   [DeptEnum.sd]: {
-    icon: <HeartHandshakeIcon />,
+    icon: HeartHandshakeIcon,
     styles: "bg-gradient-to-br from-orange-600 to-amber-500",
   },
   [DeptEnum.development]: {
-    icon: <LightbulbIcon />,
+    icon: LightbulbIcon,
     styles: "bg-gradient-to-br from-pink-600 to-rose-400",
   },
   [DeptEnum.pr]: {
-    icon: <MessageSquareHeartIcon />,
+    icon: MessageSquareHeartIcon,
     styles: "bg-gradient-to-br from-purple-600 to-fuchsia-400",
   },
 } as const;
