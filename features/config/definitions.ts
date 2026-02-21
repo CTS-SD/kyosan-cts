@@ -15,7 +15,6 @@ function createDefinition<TSchema extends z.ZodTypeAny>(
 export const configDefinitions = {
   departmentAnnouncementsPublished: createDefinition(z.boolean(), false),
   departmentAnnouncementsYear: createDefinition(z.number(), 2000),
-  departmentAnnouncementsImageUrl: createDefinition(z.string(), ""),
   purattoTestQuestionCount: createDefinition(z.number(), 5),
 };
 
