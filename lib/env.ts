@@ -13,7 +13,7 @@ export const env = createEnv({
     TEST_USER_PASSWORD: z.string().optional(),
   },
   client: {
-    NEXT_PUBLIC_MEMBER_EMAIL: z.string(),
+    NEXT_PUBLIC_MEMBER_EMAIL: z.string().min(1),
     NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: z.string().optional(),
   },
   runtimeEnv: {
