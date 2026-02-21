@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { use, useId } from "react";
+import { useId } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
@@ -10,19 +10,16 @@ import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Setting } from "@/components/ui/setting";
 import { Switch } from "@/components/ui/switch";
 import { upsertConfigValue } from "@/features/config/actions";
-import { useConfigPromise } from "@/features/config/hooks/use-config-promise";
 
 const FormSchema = z.object({
   published: z.boolean(),
 });
 
-export const VisibilitySetting = () => {
-  const config = use(useConfigPromise());
-
+export const VisibilitySetting = ({ initialPublished }: { initialPublished: boolean }) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      published: config.departmentAnnouncementsPublished,
+      published: initialPublished,
     },
   });
 

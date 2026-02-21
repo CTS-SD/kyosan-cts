@@ -1,7 +1,6 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { use } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
@@ -10,7 +9,6 @@ import { Field, FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Setting } from "@/components/ui/setting";
 import { upsertConfigValue } from "@/features/config/actions";
-import { useConfigPromise } from "@/features/config/hooks/use-config-promise";
 
 const FormSchema = z.object({
   year: z
@@ -20,13 +18,11 @@ const FormSchema = z.object({
     .max(3000, { message: "3000以下の値を入力してください。" }),
 });
 
-export const YearSetting = () => {
-  const config = use(useConfigPromise());
-
+export const YearSetting = ({ initialYear }: { initialYear: number }) => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      year: config.departmentAnnouncementsYear,
+      year: initialYear,
     },
   });
 

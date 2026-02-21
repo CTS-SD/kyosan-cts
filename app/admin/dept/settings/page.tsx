@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { getConfig } from "@/features/config/actions";
-import { ConfigPromiseProvider } from "@/features/config/hooks/use-config-promise";
+import { getConfigValue } from "@/features/config/actions";
 import { VisibilitySetting } from "./_components/visibility-setting";
 import { YearSetting } from "./_components/year-setting";
 
@@ -9,15 +8,16 @@ export const metadata: Metadata = {
 };
 
 const Page = async () => {
-  const configPromise = getConfig();
+  const [year, published] = await Promise.all([
+    getConfigValue("departmentAnnouncementsYear"),
+    getConfigValue("departmentAnnouncementsPublished"),
+  ]);
 
   return (
     <div className="mx-auto max-w-2xl p-6">
       <div className="space-y-6">
-        <ConfigPromiseProvider value={configPromise}>
-          <YearSetting />
-          <VisibilitySetting />
-        </ConfigPromiseProvider>
+        <YearSetting initialYear={year} />
+        <VisibilitySetting initialPublished={published} />
       </div>
     </div>
   );
