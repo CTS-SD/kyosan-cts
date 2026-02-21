@@ -1,5 +1,5 @@
 import { config } from "dotenv";
-import { seedSessions } from "../lib/seed-sessions";
+import { seedSessions } from "../seed-sessions";
 
 config({ path: ".env.local" });
 

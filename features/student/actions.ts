@@ -2,8 +2,8 @@
 
 import { eq } from "drizzle-orm";
 import { unstable_cache, updateTag } from "next/cache";
-import { db } from "../../lib/db";
-import { DepartmentTable, FacultyTable, StudentTable } from "../../lib/db/schema";
+import { db } from "@/lib/db";
+import { DepartmentTable, FacultyTable, StudentTable } from "@/lib/db/schema";
 import { requireRole } from "../auth/actions";
 import type { StudentValues } from "./editor";
 

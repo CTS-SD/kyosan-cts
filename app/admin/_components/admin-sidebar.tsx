@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { Dialog } from "radix-ui";
 import { useEffect } from "react";
 import { create } from "zustand";
+import { LogoText } from "@/components/blocks/logo-text";
 import {
   SidebarContent,
   SidebarFooter,
@@ -18,10 +19,9 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { AdminUserMenu } from "@/features/auth/components/admin-user-menu";
+import { UserAvatar } from "@/features/auth/components/user-avatar";
 import { cn } from "@/lib/utils";
-import { LogoText } from "../../../components/blocks/logo-text";
-import { AdminUserMenu } from "../../../features/auth/components/admin-user-menu";
-import { UserAvatar } from "../../../features/auth/components/user-avatar";
 
 type AdminSidebarStore = {
   open: boolean;

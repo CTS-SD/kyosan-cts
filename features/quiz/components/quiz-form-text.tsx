@@ -1,8 +1,8 @@
 "use client";
 
+import { PlayfulInput } from "@/components/ui/playful-input";
 import type { TextQuizData } from "@/features/quiz";
 import { cn } from "@/lib/utils";
-import { PlayfulInput } from "../../../components/ui/playful-input";
 import { useQuizPlay } from "./quiz-play";
 
 export const QuizFormText = () => {

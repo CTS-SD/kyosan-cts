@@ -8,7 +8,7 @@ import {
   DropdownMenuSub,
   DropdownMenuSubContent,
   DropdownMenuSubTrigger,
-} from "../../../components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 
 const themes = [
   { id: "light", label: "ライト", icon: SunIcon },

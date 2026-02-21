@@ -1,5 +1,5 @@
 import { config } from "dotenv";
-import { seedDb } from "../lib/seed";
+import { seedDb } from "../seed";
 
 config({ path: ".env.local" });
 

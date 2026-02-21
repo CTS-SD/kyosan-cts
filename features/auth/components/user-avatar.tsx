@@ -1,5 +1,5 @@
+import { UserIcon } from "@/components/icons/user-icon";
 import { cn } from "@/lib/utils";
-import { UserIcon } from "../../../components/icons/user-icon";
 
 export const UserAvatar = ({ className, ...props }: React.ComponentProps<"div">) => {
   return (

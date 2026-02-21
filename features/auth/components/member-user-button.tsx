@@ -1,14 +1,14 @@
 "use client";
 
 import { LogOutIcon } from "lucide-react";
-import { authClient } from "@/lib/auth/client";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../../../components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
+import { authClient } from "@/lib/auth/client";
 import { ThemeSubmenu } from "./theme-submenu";
 import { UserAvatar } from "./user-avatar";
 

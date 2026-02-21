@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Suspense } from "react";
-import { LogoText } from "../../../../components/blocks/logo-text";
-import { UserButton } from "../../../../features/auth/components/user-button";
+import { LogoText } from "@/components/blocks/logo-text";
+import { UserButton } from "@/features/auth/components/user-button";
 
 export const AppHeader = () => {
   return (

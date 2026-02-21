@@ -2,8 +2,8 @@
 
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { DownloadIcon } from "lucide-react";
+import { PlayfulButton } from "@/components/ui/playful-button";
 import type { DepartmentTable } from "@/lib/db/schema";
-import { PlayfulButton } from "../../../../components/ui/playful-button";
 import { ListPdfDocument } from "./list-pdf-document";
 
 type Student = {

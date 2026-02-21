@@ -2,14 +2,14 @@
 
 import { LayoutGridIcon, LogOutIcon } from "lucide-react";
 import Link from "next/link";
-import { authClient } from "@/lib/auth/client";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "../../../components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
+import { authClient } from "@/lib/auth/client";
 import { ThemeSubmenu } from "./theme-submenu";
 
 export const AdminUserMenu = (props: React.ComponentProps<typeof DropdownMenuTrigger>) => {

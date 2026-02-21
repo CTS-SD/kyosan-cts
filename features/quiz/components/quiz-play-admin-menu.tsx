@@ -1,13 +1,13 @@
 import { EllipsisIcon, ExternalLinkIcon } from "lucide-react";
 import Link from "next/link";
-import { Button } from "../../../components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from "../../../components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import { useQuizSession } from "./quiz-session";
 
 export const QuizPlayAdminMenu = () => {

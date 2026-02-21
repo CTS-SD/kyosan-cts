@@ -2,8 +2,8 @@
 
 import { shuffle } from "es-toolkit";
 import { useEffect, useMemo } from "react";
+import { PlayfulButton } from "@/components/ui/playful-button";
 import { cn } from "@/lib/utils";
-import { PlayfulButton } from "../../../components/ui/playful-button";
 import type { SelectQuizData } from "../domain/types";
 import { useQuizPlay } from "./quiz-play";
 

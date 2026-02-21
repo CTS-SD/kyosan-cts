@@ -3,7 +3,7 @@ import { auth } from "@/lib/auth/server";
 import { db } from "@/lib/db";
 import { user as UserTable } from "@/lib/db/schema";
 import { env } from "@/lib/env";
-import { seedDb } from "@/scripts/lib/seed";
+import { seedDb } from "@/scripts/seed";
 import { assertTestEnv } from "./assert";
 
 export async function seedTestDb() {

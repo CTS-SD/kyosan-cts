@@ -2,10 +2,10 @@
 
 import { MenuIcon } from "lucide-react";
 import Link from "next/link";
-import { LogoText } from "../../../components/blocks/logo-text";
-import { Button } from "../../../components/ui/button";
-import { AdminUserMenu } from "../../../features/auth/components/admin-user-menu";
-import { UserAvatar } from "../../../features/auth/components/user-avatar";
+import { LogoText } from "@/components/blocks/logo-text";
+import { Button } from "@/components/ui/button";
+import { AdminUserMenu } from "@/features/auth/components/admin-user-menu";
+import { UserAvatar } from "@/features/auth/components/user-avatar";
 import { useAdminSidebar } from "./admin-sidebar";
 
 export const AdminHeader = () => {

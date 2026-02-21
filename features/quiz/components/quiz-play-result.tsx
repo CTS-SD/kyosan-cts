@@ -1,7 +1,7 @@
 import { motion } from "motion/react";
 import { useState } from "react";
+import { PlayfulButton } from "@/components/ui/playful-button";
 import { cn } from "@/lib/utils";
-import { PlayfulButton } from "../../../components/ui/playful-button";
 import { Markdown } from "./markdown";
 import { QuizAnswerRenderer } from "./quiz-answer-renderer";
 import { useQuizPlay } from "./quiz-play";

@@ -1,8 +1,8 @@
 "use client";
 
 import { CircleIcon, XIcon } from "lucide-react";
+import { PlayfulButton } from "@/components/ui/playful-button";
 import type { TrueFalseQuizData } from "@/features/quiz";
-import { PlayfulButton } from "../../../components/ui/playful-button";
 import { useQuizPlay } from "./quiz-play";
 
 export const QuizFormTrueFalse = () => {

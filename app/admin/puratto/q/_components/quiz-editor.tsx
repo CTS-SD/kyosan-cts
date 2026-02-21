@@ -21,6 +21,7 @@ import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useQuizTags } from "@/app/admin/puratto/_components/use-quiz-tags";
 import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 import {
   Combobox,
   ComboboxChip,
@@ -40,7 +41,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { PlayfulProgress } from "@/components/ui/playful-progress";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Spinner } from "@/components/ui/spinner";
+import { Switch } from "@/components/ui/switch";
+import { Textarea } from "@/components/ui/textarea";
 import {
   deleteQuiz,
   getQuizTypes,
@@ -52,19 +58,6 @@ import {
 import { QuizPlay } from "@/features/quiz/components/quiz-play";
 import { QuizSessionHeader, QuizSessionMain } from "@/features/quiz/components/quiz-session";
 import { cn, copyToClipboard } from "@/lib/utils";
-import { Button } from "../../../../../components/ui/button";
-import {
-  Field,
-  FieldContent,
-  FieldDescription,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-} from "../../../../../components/ui/field";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../../../../../components/ui/select";
-import { Spinner } from "../../../../../components/ui/spinner";
-import { Switch } from "../../../../../components/ui/switch";
-import { Textarea } from "../../../../../components/ui/textarea";
 import { QuizEditorSelect } from "./quiz-editor-select";
 import { QuizEditorText } from "./quiz-editor-text";
 import { QuizEditorTrueFalse } from "./quiz-editor-true-false";

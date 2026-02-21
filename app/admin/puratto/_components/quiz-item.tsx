@@ -1,8 +1,8 @@
 import { LockIcon } from "lucide-react";
 import Link from "next/link";
 import { getQuizPrompt, type QuizData } from "@/features/quiz";
-import { Markdown } from "../../../../features/quiz/components/markdown";
-import { QuizAnswerRenderer } from "../../../../features/quiz/components/quiz-answer-renderer";
+import { Markdown } from "@/features/quiz/components/markdown";
+import { QuizAnswerRenderer } from "@/features/quiz/components/quiz-answer-renderer";
 
 type Props = {
   quiz: QuizData;

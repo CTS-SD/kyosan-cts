@@ -5,10 +5,10 @@ import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { cache } from "react";
 import type { Role } from "@/features/auth/types";
-import { auth } from "../../lib/auth/server";
-import { db } from "../../lib/db";
-import { account as AccountTable, user as UserTable } from "../../lib/db/schema";
-import { env } from "../../lib/env";
+import { auth } from "@/lib/auth/server";
+import { db } from "@/lib/db";
+import { account as AccountTable, user as UserTable } from "@/lib/db/schema";
+import { env } from "@/lib/env";
 
 export const getUser = cache(async () => {
   const session = await auth.api.getSession({

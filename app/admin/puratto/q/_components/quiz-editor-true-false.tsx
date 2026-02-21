@@ -1,9 +1,9 @@
 import { CircleIcon, XIcon } from "lucide-react";
 import { Controller, type UseFormReturn } from "react-hook-form";
 import type z from "zod";
+import { Field, FieldContent, FieldLabel, FieldSet, FieldTitle } from "@/components/ui/field";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import type { QuizEditorSchema } from "@/features/quiz";
-import { Field, FieldContent, FieldLabel, FieldSet, FieldTitle } from "../../../../../components/ui/field";
-import { RadioGroup, RadioGroupItem } from "../../../../../components/ui/radio-group";
 
 type Props = {
   form: UseFormReturn<z.infer<typeof QuizEditorSchema>>;

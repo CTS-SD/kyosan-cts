@@ -1,6 +1,6 @@
 import Link from "next/link";
+import { PlayfulButton } from "@/components/ui/playful-button";
 import { getUser } from "@/features/auth/actions";
-import { PlayfulButton } from "../../../components/ui/playful-button";
 import { AdminUserButton } from "./admin-user-button";
 import { MemberUserButton } from "./member-user-button";
 

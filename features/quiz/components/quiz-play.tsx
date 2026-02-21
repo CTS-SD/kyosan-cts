@@ -2,10 +2,10 @@
 
 import { CornerDownLeftIcon } from "lucide-react";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { PlayfulButton } from "@/components/ui/playful-button";
 import type { QuizData, QuizResult } from "@/features/quiz";
 import { getQuizPrompt, judgeQuizInput, validateQuizInput } from "@/features/quiz";
 import { cn } from "@/lib/utils";
-import { PlayfulButton } from "../../../components/ui/playful-button";
 import { Markdown } from "./markdown";
 import { QuizFormSelect } from "./quiz-form-select";
 import { QuizFormText } from "./quiz-form-text";
