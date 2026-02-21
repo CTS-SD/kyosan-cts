@@ -5,10 +5,11 @@ import { useQuizSearch } from "@/hooks/query/use-quiz-search";
 import { QuizItem } from "./quiz-item";
 import { QuizListSkeleton } from "./quiz-list-skeleton";
 
-export const QuizSearchResults = () => {
+export const QuizSearchResults = ({ tags }: { tags?: string[] }) => {
   const [query] = useQueryState("q");
   const { isPending, isFetching, isError, data } = useQuizSearch({
     keyword: query ?? "",
+    tags,
   });
 
   if (isPending) {

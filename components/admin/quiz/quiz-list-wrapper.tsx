@@ -1,6 +1,6 @@
 "use client";
 
-import { useQueryState } from "nuqs";
+import { parseAsArrayOf, parseAsString, useQueryState } from "nuqs";
 import { Suspense } from "react";
 import { QuizList } from "./quiz-list";
 import { QuizListSkeleton } from "./quiz-list-skeleton";
@@ -10,10 +10,11 @@ const QuizListWrapper = () => {
   const [query] = useQueryState("q", {
     defaultValue: "",
   });
+  const [tags] = useQueryState("tags", parseAsArrayOf(parseAsString).withDefault([]));
 
   return (
-    <Suspense key={query} fallback={<QuizListSkeleton />}>
-      {query.length > 0 ? <QuizSearchResults /> : <QuizList />}
+    <Suspense key={`${query}-${tags.join(",")}`} fallback={<QuizListSkeleton />}>
+      {query.length > 0 ? <QuizSearchResults tags={tags} /> : <QuizList tags={tags} />}
     </Suspense>
   );
 };

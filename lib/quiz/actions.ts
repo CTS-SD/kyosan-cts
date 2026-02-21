@@ -1,6 +1,6 @@
 "use server";
 
-import { desc, eq, ilike, inArray, or, type SQL, sql } from "drizzle-orm";
+import { and, desc, eq, ilike, inArray, or, type SQL, sql } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import { requireRole } from "../auth/actions";
 import { db } from "../db";
@@ -160,12 +160,28 @@ export async function getQuizzes({
   offset,
   where,
   orderBy,
+  tags,
 }: {
   limit: number;
   offset: number;
   where?: SQL;
   orderBy?: SQL;
+  tags?: string[];
 }) {
+  const tagConditions = (tags ?? []).map((tag) =>
+    inArray(
+      QuizTable.id,
+      db
+        .select({ quizId: QuizTagMapTable.quizId })
+        .from(QuizTagMapTable)
+        .where(eq(QuizTagMapTable.tagName, tag)),
+    ),
+  );
+  const combinedWhere =
+    tagConditions.length > 0
+      ? and(where ?? sql`1 = 1`, ...tagConditions)
+      : (where ?? sql`1 = 1`);
+
   const _limit = limit + 1;
   const rows = await db
     .select({
@@ -185,7 +201,7 @@ export async function getQuizzes({
     .leftJoin(SelectQuizTable, eq(QuizTable.id, SelectQuizTable.quizId))
     .leftJoin(TextQuizTable, eq(QuizTable.id, TextQuizTable.quizId))
     .leftJoin(TrueFalseQuizTable, eq(QuizTable.id, TrueFalseQuizTable.quizId))
-    .where(where ?? sql`1 = 1`)
+    .where(combinedWhere)
     .orderBy(orderBy ?? desc(QuizTable.id))
     .offset(offset ?? 0)
     .limit(_limit);
@@ -220,11 +236,12 @@ export async function getQuizzes({
 /**
  * Search quizzes by query string.
  */
-export async function searchQuizzes(query: string) {
+export async function searchQuizzes(query: string, tags?: string[]) {
   const likeQuery = `%${query}%`;
   const quizzes = await getQuizzes({
     limit: 1000,
     offset: 0,
+    tags,
     where: or(
       eq(QuizTable.id, parseInt(query, 10) || -1),
       ilike(QuizTable.question, likeQuery),

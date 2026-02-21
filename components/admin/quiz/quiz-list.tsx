@@ -7,8 +7,8 @@ import { Button } from "../../ui/button";
 import { QuizItem } from "./quiz-item";
 import { QuizListSkeleton } from "./quiz-list-skeleton";
 
-export const QuizList = () => {
-  const { quizzes, isLoading, isFetchingNextPage, isError, hasNextPage, fetchNextPage } = useQuizList();
+export const QuizList = ({ tags }: { tags?: string[] }) => {
+  const { quizzes, isLoading, isFetchingNextPage, isError, hasNextPage, fetchNextPage } = useQuizList({ tags });
 
   if (isLoading) return <QuizListSkeleton />;
   if (isError)

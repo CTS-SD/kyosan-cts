@@ -17,14 +17,14 @@ export const QuizListStats = () => {
       <Badge variant="outline" className="bg-card">
         計{data.totalCount}問
       </Badge>
-      <Tooltip>
+      <Tooltip delayDuration={300} >
         <TooltipTrigger>
           <Badge variant="secondary" className="bg-accent">
             <LockIcon strokeWidth={2.4} />
             {data.privateCount}問
           </Badge>
         </TooltipTrigger>
-        <TooltipContent>非公開</TooltipContent>
+        <TooltipContent side="bottom">非公開</TooltipContent>
       </Tooltip>
     </div>
   );

@@ -3,12 +3,13 @@ import { searchQuizzes } from "@/lib/quiz";
 
 type Props = {
   keyword: string;
+  tags?: string[];
 };
 
-export const useQuizSearch = ({ keyword }: Props) => {
+export const useQuizSearch = ({ keyword, tags }: Props) => {
   const query = useQuery({
-    queryKey: ["quiz-search", keyword],
-    queryFn: () => searchQuizzes(keyword),
+    queryKey: ["quiz-search", keyword, tags ?? []],
+    queryFn: () => searchQuizzes(keyword, tags),
     enabled: keyword.length > 0,
     staleTime: 1000 * 60 * 5,
     placeholderData: (prev) => prev,
