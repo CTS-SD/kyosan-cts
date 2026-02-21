@@ -1,4 +1,4 @@
-import { CornerDownRightIcon, LockIcon } from "lucide-react";
+import { LockIcon } from "lucide-react";
 import Link from "next/link";
 import { getQuizPrompt, type QuizData } from "@/lib/quiz";
 import { Markdown } from "../../markdown";

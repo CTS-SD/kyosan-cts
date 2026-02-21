@@ -17,7 +17,7 @@ export const QuizListStats = () => {
       <Badge variant="outline" className="bg-card">
         計{data.totalCount}問
       </Badge>
-      <Tooltip delayDuration={300} >
+      <Tooltip delayDuration={300}>
         <TooltipTrigger>
           <Badge variant="secondary" className="bg-accent">
             <LockIcon strokeWidth={2.4} />

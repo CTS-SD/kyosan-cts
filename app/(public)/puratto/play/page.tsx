@@ -23,7 +23,7 @@ const Page = async () => {
     where: eq(QuizTable.isPublished, true),
   });
 
-  const user = await getUser();
+  const _user = await getUser();
 
   return (
     <QuizSessionProvider quizzes={quizzes}>

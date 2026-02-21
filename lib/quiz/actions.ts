@@ -171,16 +171,10 @@ export async function getQuizzes({
   const tagConditions = (tags ?? []).map((tag) =>
     inArray(
       QuizTable.id,
-      db
-        .select({ quizId: QuizTagMapTable.quizId })
-        .from(QuizTagMapTable)
-        .where(eq(QuizTagMapTable.tagName, tag)),
+      db.select({ quizId: QuizTagMapTable.quizId }).from(QuizTagMapTable).where(eq(QuizTagMapTable.tagName, tag)),
     ),
   );
-  const combinedWhere =
-    tagConditions.length > 0
-      ? and(where ?? sql`1 = 1`, ...tagConditions)
-      : (where ?? sql`1 = 1`);
+  const combinedWhere = tagConditions.length > 0 ? and(where ?? sql`1 = 1`, ...tagConditions) : (where ?? sql`1 = 1`);
 
   const _limit = limit + 1;
   const rows = await db
