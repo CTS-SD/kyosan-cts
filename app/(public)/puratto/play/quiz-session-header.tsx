@@ -3,13 +3,18 @@
 import { XIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { confirm } from "@/components/confirm-store";
+import { QuizPlayAdminMenu } from "@/components/quiz-play/quiz-play-admin-menu";
 import { QuizSessionHeader as QuizSessionHeaderRoot, useQuizSession } from "@/components/quiz-play/quiz-session";
 import { Button } from "@/components/ui/button";
 import { PlayfulProgress } from "@/components/ui/playful-progress";
+import { authClient } from "@/lib/auth/client";
 
 export const QuizSessionHeader = () => {
+  const { data: session } = authClient.useSession();
   const { quizzes, results } = useQuizSession();
   const router = useRouter();
+
+  const isAdmin = session?.user.role === "admin";
 
   const handleQuit = async () => {
     if (
@@ -32,7 +37,7 @@ export const QuizSessionHeader = () => {
         <XIcon />
       </Button>
       <PlayfulProgress value={progress} />
-      {/* {isAdmin && <QuizPlayAdminMenu />} */}
+      {isAdmin && <QuizPlayAdminMenu />}
     </QuizSessionHeaderRoot>
   );
 };

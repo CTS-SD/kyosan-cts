@@ -1,4 +1,4 @@
-import { EditIcon, EllipsisIcon } from "lucide-react";
+import { EllipsisIcon, ExternalLinkIcon } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../ui/button";
 import {
@@ -6,11 +6,16 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuTrigger,
 } from "../ui/dropdown-menu";
+import { useQuizSession } from "./quiz-session";
 
 export const QuizPlayAdminMenu = () => {
+  const { quizzes, currentQuizIndex } = useQuizSession();
+  const quiz = quizzes.at(currentQuizIndex);
+
+  if (!quiz) return null;
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -20,10 +25,9 @@ export const QuizPlayAdminMenu = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuGroup>
-          <DropdownMenuLabel>管理者メニュー</DropdownMenuLabel>
           <DropdownMenuItem asChild>
-            <Link href={`/admin/puratto/q/${0}`} target="_blank" rel="noopener noreferrer">
-              <EditIcon />
+            <Link href={`/admin/puratto/q/${quiz.id}`} target="_blank" rel="noopener noreferrer">
+              <ExternalLinkIcon />
               問題を編集
             </Link>
           </DropdownMenuItem>
