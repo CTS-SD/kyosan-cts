@@ -235,6 +235,12 @@ export const QuizEditorFields = () => {
           <Field data-invalid={fieldState.invalid}>
             <FieldLabel>問題文</FieldLabel>
             <Textarea {...field} placeholder="問題文を入力" data-testid="question-textarea" className="bg-background" />
+            <FieldDescription>
+              <Link href="/admin/docs/markdown" target="_blank">
+                マークダウン記法
+              </Link>
+              を使用できます。
+            </FieldDescription>
             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
           </Field>
         )}
@@ -249,6 +255,12 @@ export const QuizEditorFields = () => {
           <Field data-invalid={fieldState.invalid}>
             <FieldLabel>解説</FieldLabel>
             <Textarea {...field} value={field.value ?? ""} placeholder="解説を入力（任意）" className="bg-background" />
+            <FieldDescription>
+              <Link href="/admin/docs/markdown" target="_blank">
+                マークダウン記法
+              </Link>
+              を使用できます。
+            </FieldDescription>
             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
           </Field>
         )}
