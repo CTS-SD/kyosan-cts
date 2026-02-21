@@ -9,7 +9,6 @@ export function splitByLines(text?: string | null): string[] {
   if (typeof text !== "string") {
     return [];
   }
-
   return text
     .split(/\r?\n/)
     .map((line) => line.trim())
@@ -21,6 +20,5 @@ export async function copyToClipboard(text: string) {
     await navigator.clipboard.writeText(text);
     return true;
   }
-
   return false;
 }
