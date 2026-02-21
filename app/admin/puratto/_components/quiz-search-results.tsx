@@ -1,7 +1,7 @@
 "use client";
 
 import { useQueryState } from "nuqs";
-import { useQuizSearch } from "@/hooks/query/use-quiz-search";
+import { useQuizSearch } from "@/app/admin/puratto/_components/use-quiz-search";
 import { QuizItem } from "./quiz-item";
 import { QuizListSkeleton } from "./quiz-list-skeleton";
 

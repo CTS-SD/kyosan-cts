@@ -2,10 +2,10 @@
 
 import { shuffle } from "es-toolkit";
 import { useEffect, useMemo } from "react";
-import { useQuizPlay } from "@/hooks/use-quiz-play";
 import { cn } from "@/lib/utils";
 import { PlayfulButton } from "../../../components/ui/playful-button";
 import type { SelectQuizData } from "../domain/types";
+import { useQuizPlay } from "./quiz-play";
 
 export const QuizFormSelect = () => {
   const {

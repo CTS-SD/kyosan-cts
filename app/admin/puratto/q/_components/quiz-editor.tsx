@@ -19,6 +19,7 @@ import React, { createContext, useContext, useMemo, useState } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { useQuizTags } from "@/app/admin/puratto/_components/use-quiz-tags";
 import { Badge } from "@/components/ui/badge";
 import {
   Combobox,
@@ -50,7 +51,6 @@ import {
 } from "@/features/quiz";
 import { QuizPlay } from "@/features/quiz/components/quiz-play";
 import { QuizSessionHeader, QuizSessionMain } from "@/features/quiz/components/quiz-session";
-import { useQuizTags } from "@/hooks/query/use-quiz-tags";
 import { cn, copyToClipboard } from "@/lib/utils";
 import { Button } from "../../../../../components/ui/button";
 import {

@@ -3,8 +3,8 @@
 import { RefreshCwIcon } from "lucide-react";
 import { motion } from "motion/react";
 import { useState } from "react";
+import { useQuizList } from "@/app/admin/puratto/_components/use-quiz-list";
 import { Button } from "@/components/ui/button";
-import { useQuizList } from "@/hooks/query/use-quiz-list";
 
 export const QuizRefreshButton = () => {
   const { refetch } = useQuizList();

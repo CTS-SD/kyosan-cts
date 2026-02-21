@@ -10,7 +10,7 @@ import { Field, FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Setting } from "@/components/ui/setting";
 import { upsertConfigValue } from "@/features/config/actions";
-import { useConfigPromise } from "@/hooks/use-config-promise";
+import { useConfigPromise } from "@/features/config/hooks/use-config-promise";
 
 const FormSchema = z.object({
   year: z

@@ -2,8 +2,8 @@
 
 import { CircleIcon, XIcon } from "lucide-react";
 import type { TrueFalseQuizData } from "@/features/quiz";
-import { useQuizPlay } from "@/hooks/use-quiz-play";
 import { PlayfulButton } from "../../../components/ui/playful-button";
+import { useQuizPlay } from "./quiz-play";
 
 export const QuizFormTrueFalse = () => {
   const { result, inputValue, setInputValue } = useQuizPlay<TrueFalseQuizData>();

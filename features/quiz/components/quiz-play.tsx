@@ -1,10 +1,9 @@
 "use client";
 
 import { CornerDownLeftIcon } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { createContext, useContext, useEffect, useRef, useState } from "react";
 import type { QuizData, QuizResult } from "@/features/quiz";
 import { getQuizPrompt, judgeQuizInput, validateQuizInput } from "@/features/quiz";
-import { QuizPlayContext, useQuizPlay } from "@/hooks/use-quiz-play";
 import { cn } from "@/lib/utils";
 import { PlayfulButton } from "../../../components/ui/playful-button";
 import { Markdown } from "./markdown";
@@ -12,6 +11,29 @@ import { QuizFormSelect } from "./quiz-form-select";
 import { QuizFormText } from "./quiz-form-text";
 import { QuizFormTrueFalse } from "./quiz-form-true-false";
 import { QuizPlayResult } from "./quiz-play-result";
+
+interface QuizPlayState<T extends QuizData> {
+  inputValue: string[];
+  setInputValue: React.Dispatch<React.SetStateAction<string[]>>;
+  isValidInput: boolean;
+  quiz: T;
+  result: QuizResult | null;
+  setResult: React.Dispatch<React.SetStateAction<QuizResult | null>>;
+
+  onAnswer?: (result: QuizResult) => void;
+  onNext?: () => void;
+
+  enableKeyboard: boolean;
+  choicesRef: React.RefObject<string[]>;
+}
+
+export const QuizPlayContext = createContext<QuizPlayState<QuizData> | null>(null);
+
+export const useQuizPlay = <T extends QuizData>() => {
+  const value = useContext(QuizPlayContext);
+  if (!value) throw new Error("useQuizPlay must be used within a QuizPlayContext.Provider");
+  return value as QuizPlayState<T>;
+};
 
 export const QuizPlayProvider = ({
   children,

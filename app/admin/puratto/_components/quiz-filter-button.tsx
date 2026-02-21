@@ -2,6 +2,7 @@
 
 import { FilterIcon } from "lucide-react";
 import { parseAsArrayOf, parseAsString, useQueryState } from "nuqs";
+import { useQuizTags } from "@/app/admin/puratto/_components/use-quiz-tags";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -14,7 +15,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useQuizTags } from "@/hooks/query/use-quiz-tags";
 
 export const QuizFilterButton = () => {
   const { data: tags } = useQuizTags();

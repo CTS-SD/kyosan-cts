@@ -1,7 +1,7 @@
 "use client";
 
 import { LockIcon } from "lucide-react";
-import { useQuizListStats } from "@/hooks/query/use-quiz-list-stats";
+import { useQuizListStats } from "@/app/admin/puratto/_components/use-quiz-list-stats";
 import { Badge } from "../../../../components/ui/badge";
 import { Skeleton } from "../../../../components/ui/skeleton";
 import { Tooltip, TooltipContent, TooltipTrigger } from "../../../../components/ui/tooltip";

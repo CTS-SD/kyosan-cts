@@ -6,6 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Dialog } from "radix-ui";
 import { useEffect } from "react";
+import { create } from "zustand";
 import {
   SidebarContent,
   SidebarFooter,
@@ -17,11 +18,25 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { useAdminSidebar } from "@/hooks/use-admin-sidebar";
 import { cn } from "@/lib/utils";
 import { LogoText } from "../../../components/blocks/logo-text";
 import { AdminUserMenu } from "../../../features/auth/components/admin-user-menu";
 import { UserAvatar } from "../../../features/auth/components/user-avatar";
+
+type AdminSidebarStore = {
+  open: boolean;
+  setOpen: (open: boolean | ((prev: boolean) => boolean)) => void;
+  toggle: () => void;
+};
+
+export const useAdminSidebar = create<AdminSidebarStore>((set) => ({
+  open: false,
+  setOpen: (next) =>
+    set((state) => ({
+      open: typeof next === "function" ? next(state.open) : next,
+    })),
+  toggle: () => set((state) => ({ open: !state.open })),
+}));
 
 type NavItem = {
   icon: LucideIcon;

@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getConfig } from "@/features/config/actions";
-import { ConfigPromiseProvider } from "@/hooks/use-config-promise";
+import { ConfigPromiseProvider } from "@/features/config/hooks/use-config-promise";
 import { VisibilitySetting } from "../_components/visibility-setting";
 import { YearSetting } from "../_components/year-setting";
 

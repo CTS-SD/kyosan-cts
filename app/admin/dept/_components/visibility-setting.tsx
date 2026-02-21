@@ -10,7 +10,7 @@ import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Setting } from "@/components/ui/setting";
 import { Switch } from "@/components/ui/switch";
 import { upsertConfigValue } from "@/features/config/actions";
-import { useConfigPromise } from "@/hooks/use-config-promise";
+import { useConfigPromise } from "@/features/config/hooks/use-config-promise";
 
 const FormSchema = z.object({
   published: z.boolean(),

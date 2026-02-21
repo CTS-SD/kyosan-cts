@@ -1,8 +1,8 @@
 "use client";
 
 import { AlertCircleIcon } from "lucide-react";
+import { useQuizList } from "@/app/admin/puratto/_components/use-quiz-list";
 import { Alert, AlertTitle } from "@/components/ui/alert";
-import { useQuizList } from "@/hooks/query/use-quiz-list";
 import { Button } from "../../../../components/ui/button";
 import { QuizItem } from "./quiz-item";
 import { QuizListSkeleton } from "./quiz-list-skeleton";
