@@ -4,7 +4,7 @@ import type * as React from "react";
 import { cn } from "@/lib/utils";
 
 const playfulButtonVariants = cva(
-  "flex select-none items-center justify-center gap-1.5 text-balance text-center font-semibold leading-tight transition-all duration-100 not-disabled:active:shadow-none *:[svg]:size-5",
+  "flex select-none items-center justify-center gap-1.5 text-balance text-center font-semibold leading-tight not-disabled:active:shadow-none *:[svg]:size-5",
   {
     variants: {
       variant: {
