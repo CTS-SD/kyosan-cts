@@ -2,7 +2,7 @@
 
 import { AlertCircleIcon } from "lucide-react";
 import { useQuizList } from "@/hooks/query/use-quiz-list";
-import { Alert, AlertTitle } from "../../ui/alert";
+import { Alert, AlertTitle } from "@/components/ui/alert";
 import { Button } from "../../ui/button";
 import { QuizItem } from "./quiz-item";
 import { QuizListSkeleton } from "./quiz-list-skeleton";
