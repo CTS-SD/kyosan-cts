@@ -6,6 +6,6 @@ const PdfDownloadButton = dynamic(() => import("./pdf-download-button").then((mo
   ssr: false,
 });
 
-export function PdfDownloadButtonWrapper({ departments, students }: React.ComponentProps<typeof PdfDownloadButton>) {
-  return <PdfDownloadButton departments={departments} students={students} />;
+export function PdfDownloadButtonWrapper({ departments, students, year }: React.ComponentProps<typeof PdfDownloadButton>) {
+  return <PdfDownloadButton departments={departments} students={students} year={year} />;
 }

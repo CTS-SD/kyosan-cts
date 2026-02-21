@@ -2,6 +2,7 @@ import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
 import { DepartmentMembers } from "@/components/members/dept/department-members";
 import { PdfDownloadButtonWrapper } from "@/components/members/dept/pdf-download-button-wrapper";
+import { getConfigValue } from "@/lib/config/actions";
 import { db } from "@/lib/db";
 import { DepartmentTable, FacultyTable, StudentTable } from "@/lib/db/schema";
 
@@ -16,6 +17,7 @@ const Page = async () => {
     .from(StudentTable)
     .innerJoin(FacultyTable, eq(FacultyTable.id, StudentTable.facultyId))
     .execute();
+  const year = await getConfigValue("departmentAnnouncementsYear");
 
   if (departments.length === 0 || students.length === 0) {
     return notFound();
@@ -33,7 +35,7 @@ const Page = async () => {
         ))}
       </div>
       <div className="my-10 flex justify-center">
-        <PdfDownloadButtonWrapper departments={departments} students={students} />
+        <PdfDownloadButtonWrapper departments={departments} students={students} year={year} />
       </div>
     </div>
   );

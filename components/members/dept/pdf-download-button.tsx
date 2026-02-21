@@ -17,13 +17,14 @@ type Department = typeof DepartmentTable.$inferSelect;
 interface PdfDownloadButtonProps {
   departments: Department[];
   students: Student[];
+  year: number;
 }
 
-export function PdfDownloadButton({ departments, students }: PdfDownloadButtonProps) {
+export function PdfDownloadButton({ departments, students, year }: PdfDownloadButtonProps) {
   return (
     <PDFDownloadLink
-      document={<ListPdfDocument departments={departments} students={students} />}
-      fileName="京産キャンスタ部署発表一覧"
+      document={<ListPdfDocument departments={departments} students={students} year={year} />}
+      fileName={`京産キャンスタ部署発表${year}`}
     >
       <PlayfulButton variant="outline" tint="blue" className="rounded-full">
         <DownloadIcon />
