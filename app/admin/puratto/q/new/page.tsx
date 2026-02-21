@@ -3,8 +3,8 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { QuizEditor } from "@/components/admin/quiz/quiz-editor";
-import { insertQuiz, type QuizEditorValues } from "@/lib/quiz";
+import { QuizEditor } from "@/app/admin/puratto/q/_components/quiz-editor";
+import { insertQuiz, type QuizEditorValues } from "@/features/quiz";
 
 const Page = () => {
   const router = useRouter();

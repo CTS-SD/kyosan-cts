@@ -7,7 +7,7 @@ import { PlayfulButton } from "@/components/ui/playful-button";
 import { PlayfulInput } from "@/components/ui/playful-input";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
-import { UserAvatar } from "@/components/user-avatar";
+import { UserAvatar } from "@/features/auth/components/user-avatar";
 import { authClient } from "@/lib/auth/client";
 import { env } from "@/lib/env";
 

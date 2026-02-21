@@ -2,8 +2,8 @@
 
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
-import { QuizEditor } from "@/components/admin/quiz/quiz-editor";
-import { type QuizData, type QuizEditorValues, toEditorValues, updateQuiz } from "@/lib/quiz";
+import { QuizEditor } from "@/app/admin/puratto/q/_components/quiz-editor";
+import { type QuizData, type QuizEditorValues, toEditorValues, updateQuiz } from "@/features/quiz";
 
 type Props = {
   quiz: QuizData;

@@ -1,11 +1,11 @@
 import { PlusIcon } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { QuizFilterButton } from "@/components/admin/quiz/quiz-filter-button";
-import { QuizListStats } from "@/components/admin/quiz/quiz-list-stats";
-import QuizListWrapper from "@/components/admin/quiz/quiz-list-wrapper";
-import { QuizRefreshButton } from "@/components/admin/quiz/quiz-refresh-button";
-import { QuizSearchInput } from "@/components/admin/quiz/quiz-search-input";
+import { QuizFilterButton } from "@/app/admin/puratto/_components/quiz-filter-button";
+import { QuizListStats } from "@/app/admin/puratto/_components/quiz-list-stats";
+import QuizListWrapper from "@/app/admin/puratto/_components/quiz-list-wrapper";
+import { QuizRefreshButton } from "@/app/admin/puratto/_components/quiz-refresh-button";
+import { QuizSearchInput } from "@/app/admin/puratto/_components/quiz-search-input";
 import { Button } from "@/components/ui/button";
 
 export const metadata: Metadata = {

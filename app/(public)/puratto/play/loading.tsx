@@ -1,5 +1,5 @@
 import { SpeechBubble } from "@/components/ui/speech-bubble";
-import { UserAvatar } from "@/components/user-avatar";
+import { UserAvatar } from "@/features/auth/components/user-avatar";
 
 const Loading = () => {
   return (

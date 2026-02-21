@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { VisibilitySetting } from "@/components/admin/dept/visibility-setting";
-import { YearSetting } from "@/components/admin/dept/year-setting";
+import { getConfig } from "@/features/config/actions";
 import { ConfigPromiseProvider } from "@/hooks/use-config-promise";
-import { getConfig } from "@/lib/config/actions";
+import { VisibilitySetting } from "../_components/visibility-setting";
+import { YearSetting } from "../_components/year-setting";
 
 export const metadata: Metadata = {
   title: "表示設定 - 配属発表",

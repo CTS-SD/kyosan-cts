@@ -4,7 +4,7 @@ import { cn } from "@/lib/utils";
 import "./globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { env } from "@/lib/env";
-import { Providers } from "./providers";
+import { Providers } from "./_components/providers";
 
 const zenMaruGothic = Zen_Maru_Gothic({
   variable: "--font-zen-maru-gothic",

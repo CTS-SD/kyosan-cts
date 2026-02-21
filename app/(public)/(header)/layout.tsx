@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { AppHeader } from "@/components/app-header";
+import { AppHeader } from "@/app/(public)/(header)/_components/app-header";
 
 export const metadata: Metadata = {
   title: {

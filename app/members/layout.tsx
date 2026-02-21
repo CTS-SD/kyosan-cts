@@ -1,8 +1,8 @@
-import { AppHeader } from "@/components/app-header";
-import { SessionHeartbeat } from "@/components/session-heartbeat";
-import { requireRole } from "@/lib/auth/actions";
-import { redirectToSignIn } from "@/lib/auth/utils";
-import { getConfigValue } from "@/lib/config/actions";
+import { AppHeader } from "@/app/(public)/(header)/_components/app-header";
+import { requireRole } from "@/features/auth/actions";
+import { SessionHeartbeat } from "@/features/auth/components/session-heartbeat";
+import { redirectToSignIn } from "@/features/auth/utils";
+import { getConfigValue } from "@/features/config/actions";
 
 type Props = {
   children: React.ReactNode;

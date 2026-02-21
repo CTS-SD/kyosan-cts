@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import { Dashboard } from "@/components/admin/dashboard/dashboard";
-import { getDailySessionTrend, getPerQuizAccuracy, getSessionSummary } from "@/lib/quiz";
+import { Dashboard } from "@/app/admin/_components/dashboard";
+import { getDailySessionTrend, getPerQuizAccuracy, getSessionSummary } from "@/features/quiz";
 
 export const metadata: Metadata = {
   title: "結果の統計 - ぷらっとテスト | 京産キャンスタ 管理者",

@@ -9,8 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Setting } from "@/components/ui/setting";
+import { upsertConfigValue } from "@/features/config/actions";
 import { useConfigPromise } from "@/hooks/use-config-promise";
-import { upsertConfigValue } from "@/lib/config/actions";
 
 const FormSchema = z.object({
   count: z

@@ -5,7 +5,7 @@ import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { getDepartmentAsset } from "@/lib/department";
+import { getDepartmentAsset } from "@/features/student/department";
 import { cn } from "@/lib/utils";
 
 type Props = {

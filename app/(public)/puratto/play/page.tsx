@@ -1,18 +1,17 @@
 import { eq, sql } from "drizzle-orm";
 import type { Metadata } from "next";
+import { getConfig } from "@/features/config/actions";
+import { getQuizzes } from "@/features/quiz";
 import {
   QuizSessionMain,
   QuizSessionMainBoundary,
   QuizSessionProvider,
   QuizSessionResultBoundary,
-} from "@/components/quiz-play/quiz-session";
-import { getUser } from "@/lib/auth/actions";
-import { getConfig } from "@/lib/config/actions";
+} from "@/features/quiz/components/quiz-session";
 import { QuizTable } from "@/lib/db/schema";
-import { getQuizzes } from "@/lib/quiz";
-import { QuizPlayView } from "./quiz-play-view";
-import { QuizResultsView } from "./quiz-results-view";
-import { QuizSessionHeader } from "./quiz-session-header";
+import { QuizPlayView } from "./_components/quiz-play-view";
+import { QuizResultsView } from "./_components/quiz-results-view";
+import { QuizSessionHeader } from "./_components/quiz-session-header";
 
 export const metadata: Metadata = {
   title: "ぷらっとテスト | 京産キャンスタ",
@@ -27,8 +26,6 @@ const Page = async () => {
     orderBy: sql`random()`,
     where: eq(QuizTable.isPublished, true),
   });
-
-  const _user = await getUser();
 
   return (
     <QuizSessionProvider quizzes={quizzes}>

@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
-import { AdminHeader } from "@/components/admin/admin-header";
-import { AdminSidebar } from "@/components/admin/admin-sidebar";
-import { SessionHeartbeat } from "@/components/session-heartbeat";
-import { requireRole } from "@/lib/auth/actions";
-import { redirectToSignIn } from "@/lib/auth/utils";
+import { AdminHeader } from "@/app/admin/_components/admin-header";
+import { AdminSidebar } from "@/app/admin/_components/admin-sidebar";
+import { requireRole } from "@/features/auth/actions";
+import { SessionHeartbeat } from "@/features/auth/components/session-heartbeat";
+import { redirectToSignIn } from "@/features/auth/utils";
 
 export const metadata: Metadata = {
   title: {

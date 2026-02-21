@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { getConfigValue } from "@/lib/config/actions";
+import { getConfigValue } from "@/features/config/actions";
 
 export const metadata: Metadata = {
   title: "配属発表 | 京産キャンスタ",

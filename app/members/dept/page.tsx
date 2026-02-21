@@ -12,8 +12,8 @@ import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp";
 import { PlayfulButton } from "@/components/ui/playful-button";
 import { Spinner } from "@/components/ui/spinner";
-import { existsStudentByStudentNumber } from "@/lib/student-actions";
-import { StudentNumberSchema } from "@/lib/student-editor";
+import { existsStudentByStudentNumber } from "@/features/student/actions";
+import { StudentNumberSchema } from "@/features/student/editor";
 
 const FormSchema = z.object({
   studentNumber: StudentNumberSchema,

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { ResetMemberPassword } from "@/components/admin/settings/reset-member-password";
+import { ResetMemberPassword } from "@/app/admin/settings/_components/reset-member-password";
 
 export const metadata: Metadata = {
   title: "設定",

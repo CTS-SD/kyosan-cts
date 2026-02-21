@@ -1,8 +1,8 @@
 import { eq } from "drizzle-orm";
 import { notFound } from "next/navigation";
-import { DepartmentMembers } from "@/components/members/dept/department-members";
-import { PdfDownloadButtonWrapper } from "@/components/members/dept/pdf-download-button-wrapper";
-import { getConfigValue } from "@/lib/config/actions";
+import { DepartmentMembers } from "@/app/members/dept/_components/department-members";
+import { PdfDownloadButtonWrapper } from "@/app/members/dept/_components/pdf-download-button-wrapper";
+import { getConfigValue } from "@/features/config/actions";
 import { db } from "@/lib/db";
 import { DepartmentTable, FacultyTable, StudentTable } from "@/lib/db/schema";
 

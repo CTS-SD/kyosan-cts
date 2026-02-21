@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getTags } from "@/lib/quiz";
+import { getTags } from "@/features/quiz";
 
 export const useQuizTags = () => {
   return useQuery({
