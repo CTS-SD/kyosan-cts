@@ -11,10 +11,10 @@ import {
   TextQuizTable,
   TrueFalseQuizTable,
 } from "@/lib/db/schema";
-import { requireRole } from "../auth/actions";
-import type { QuizEditorValues } from "./domain/editor";
-import { getQuizHandler } from "./domain/handlers";
-import type { QuizData } from "./domain/types";
+import { requireRole } from "../../auth/actions";
+import type { QuizEditorValues } from "../domain/editor";
+import { getQuizHandler } from "../domain/handlers";
+import type { Quiz, QuizType } from "../domain/types";
 
 /**
  * Sync quiz tags: upsert tag names and re-create quiz_tag_map entries.
@@ -107,7 +107,7 @@ export async function getQuizById(id: number) {
 
 type QuizRow = {
   id: number;
-  type: QuizData["type"];
+  type: QuizType;
   question: string;
   explanation: string | null;
   isPublished: boolean;
@@ -119,9 +119,9 @@ type QuizRow = {
 };
 
 /**
- * Parse a quiz row from the database into QuizData.
+ * Parse a quiz row from the database into Quiz
  */
-function parseQuizRow(row: QuizRow, tags: string[] = []): QuizData {
+function parseQuizRow(row: QuizRow, tags: string[] = []): Quiz {
   const base = {
     id: row.id,
     type: row.type,

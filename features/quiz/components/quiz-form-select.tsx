@@ -4,7 +4,7 @@ import { shuffle } from "es-toolkit";
 import { useEffect, useMemo } from "react";
 import { PlayfulButton } from "@/components/ui/playful-button";
 import { cn } from "@/lib/utils";
-import type { SelectQuizData } from "../domain/types";
+import type { SelectQuiz } from "../domain/types";
 import { useQuizPlay } from "./quiz-play";
 
 export const QuizFormSelect = () => {
@@ -15,7 +15,7 @@ export const QuizFormSelect = () => {
     quiz,
     choicesRef,
     enableKeyboard,
-  } = useQuizPlay<SelectQuizData>();
+  } = useQuizPlay<SelectQuiz>();
 
   const correctKey = quiz.correctChoices.join("\n");
   const incorrectKey = quiz.incorrectChoices.join("\n");

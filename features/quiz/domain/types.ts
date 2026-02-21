@@ -28,9 +28,9 @@ export const TrueFalseQuizSchema = CommonQuizSchema.extend({
   answer: z.boolean(),
 });
 
-export type SelectQuizData = z.infer<typeof SelectQuizSchema>;
-export type TextQuizData = z.infer<typeof TextQuizSchema>;
-export type TrueFalseQuizData = z.infer<typeof TrueFalseQuizSchema>;
+export type SelectQuiz = z.infer<typeof SelectQuizSchema>;
+export type TextQuiz = z.infer<typeof TextQuizSchema>;
+export type TrueFalseQuiz = z.infer<typeof TrueFalseQuizSchema>;
 
-export type QuizData = SelectQuizData | TextQuizData | TrueFalseQuizData;
-export type QuizType = QuizData["type"];
+export type Quiz = SelectQuiz | TextQuiz | TrueFalseQuiz;
+export type QuizType = Quiz["type"];

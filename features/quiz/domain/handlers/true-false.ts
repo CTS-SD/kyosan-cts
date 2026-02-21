@@ -1,6 +1,6 @@
 import z from "zod";
 import { TrueFalseQuizTable } from "@/lib/db/schema";
-import { type TrueFalseQuizData, TrueFalseQuizSchema } from "../types";
+import { type TrueFalseQuiz, TrueFalseQuizSchema } from "../types";
 import type { QuizTypeHandler } from "./index";
 
 export const TrueFalseQuizEditorSchema = z.object({
@@ -20,7 +20,7 @@ export type TrueFalseQuizDbRow = {
   answer: boolean;
 };
 
-export const trueFalseQuizHandler: QuizTypeHandler<TrueFalseQuizData, TrueFalseQuizEditorValues, TrueFalseQuizDbRow> = {
+export const trueFalseQuizHandler: QuizTypeHandler<TrueFalseQuiz, TrueFalseQuizEditorValues, TrueFalseQuizDbRow> = {
   // Identity
   type: "true_false",
 

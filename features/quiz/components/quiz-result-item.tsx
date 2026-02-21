@@ -1,9 +1,9 @@
 import { CircleIcon, XIcon } from "lucide-react";
-import { getQuizPrompt, type QuizData, type QuizResult } from "@/features/quiz";
+import { getQuizPrompt, type Quiz, type QuizResult } from "@/features/quiz";
 import { Markdown } from "./markdown";
 import { QuizAnswerRenderer } from "./quiz-answer-renderer";
 
-export const QuizResultItem = ({ result, quiz }: { result: QuizResult; quiz?: QuizData }) => {
+export const QuizResultItem = ({ result, quiz }: { result: QuizResult; quiz?: Quiz }) => {
   if (!quiz) return null;
 
   return (

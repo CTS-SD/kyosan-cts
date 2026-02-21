@@ -3,10 +3,10 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { QuizEditor } from "@/app/admin/puratto/q/_components/quiz-editor";
-import { type QuizData, type QuizEditorValues, toEditorValues, updateQuiz } from "@/features/quiz";
+import { type Quiz, type QuizEditorValues, toEditorValues, updateQuiz } from "@/features/quiz";
 
 type Props = {
-  quiz: QuizData;
+  quiz: Quiz;
 };
 
 export const ClientView = ({ quiz }: Props) => {

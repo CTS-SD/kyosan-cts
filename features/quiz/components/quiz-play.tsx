@@ -3,7 +3,7 @@
 import { CornerDownLeftIcon } from "lucide-react";
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import { PlayfulButton } from "@/components/ui/playful-button";
-import type { QuizData, QuizResult } from "@/features/quiz";
+import type { Quiz, QuizResult } from "@/features/quiz";
 import { getQuizPrompt, judgeQuizInput, validateQuizInput } from "@/features/quiz";
 import { cn } from "@/lib/utils";
 import { Markdown } from "./markdown";
@@ -12,7 +12,7 @@ import { QuizFormText } from "./quiz-form-text";
 import { QuizFormTrueFalse } from "./quiz-form-true-false";
 import { QuizPlayResult } from "./quiz-play-result";
 
-interface QuizPlayState<T extends QuizData> {
+interface QuizPlayState<T extends Quiz> {
   inputValue: string[];
   setInputValue: React.Dispatch<React.SetStateAction<string[]>>;
   isValidInput: boolean;
@@ -27,9 +27,9 @@ interface QuizPlayState<T extends QuizData> {
   choicesRef: React.RefObject<string[]>;
 }
 
-export const QuizPlayContext = createContext<QuizPlayState<QuizData> | null>(null);
+export const QuizPlayContext = createContext<QuizPlayState<Quiz> | null>(null);
 
-export const useQuizPlay = <T extends QuizData>() => {
+export const useQuizPlay = <T extends Quiz>() => {
   const value = useContext(QuizPlayContext);
   if (!value) throw new Error("useQuizPlay must be used within a QuizPlayContext.Provider");
   return value as QuizPlayState<T>;
@@ -43,7 +43,7 @@ export const QuizPlayProvider = ({
   enableKeyboard = false,
 }: {
   children: React.ReactNode;
-  quiz: QuizData;
+  quiz: Quiz;
   onAnswer?: (result: QuizResult) => void;
   onNext?: () => void;
   enableKeyboard?: boolean;

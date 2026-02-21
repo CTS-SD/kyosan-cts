@@ -1,7 +1,7 @@
 import z from "zod";
 import { TextQuizTable } from "@/lib/db/schema";
 import { splitByLines } from "@/lib/utils";
-import { type TextQuizData, TextQuizSchema } from "../types";
+import { type TextQuiz, TextQuizSchema } from "../types";
 import type { QuizTypeHandler } from "./index";
 
 /**
@@ -52,7 +52,7 @@ export type TextQuizDbRow = {
   answer: string;
 };
 
-export const textQuizHandler: QuizTypeHandler<TextQuizData, TextQuizEditorValues, TextQuizDbRow> = {
+export const textQuizHandler: QuizTypeHandler<TextQuiz, TextQuizEditorValues, TextQuizDbRow> = {
   // Identity
   type: "text",
 

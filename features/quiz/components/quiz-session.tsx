@@ -1,11 +1,11 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState } from "react";
-import type { QuizData, QuizResult } from "@/features/quiz";
+import type { Quiz, QuizResult } from "@/features/quiz";
 import { cn } from "@/lib/utils";
 
 type QuizSessionState = {
-  quizzes: QuizData[];
+  quizzes: Quiz[];
   currentQuizIndex: number;
   setCurrentQuizIndex: React.Dispatch<React.SetStateAction<number>>;
 
@@ -26,7 +26,7 @@ export const useQuizSession = () => {
   return value as QuizSessionState;
 };
 
-export const QuizSessionProvider = ({ quizzes, children }: { quizzes: QuizData[]; children: React.ReactNode }) => {
+export const QuizSessionProvider = ({ quizzes, children }: { quizzes: Quiz[]; children: React.ReactNode }) => {
   const [currentQuizIndex, setCurrentQuizIndex] = useState(0);
   const [results, setResults] = useState<QuizResult[]>([]);
   const [startedAt] = useState(() => Date.now());

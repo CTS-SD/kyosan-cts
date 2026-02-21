@@ -8,6 +8,13 @@ export {
   searchQuizzes,
   updateQuiz,
 } from "./actions";
+export { saveQuizSession } from "./actions/session";
+export type { DailySessionTrend, PerQuizAccuracy, SessionSummary } from "./actions/stats";
+export {
+  getDailySessionTrend,
+  getPerQuizAccuracy,
+  getSessionSummary,
+} from "./actions/stats";
 export type { QuizEditorValues } from "./domain/editor";
 export {
   CommonQuizEditorSchema,
@@ -24,15 +31,15 @@ export {
   judgeQuizInput,
   validateQuizInput,
 } from "./domain/handlers";
-export type { SelectQuizEditorValues } from "./domain/handlers/select.handler";
-export type { TextQuizEditorValues } from "./domain/handlers/text.handler";
-export type { TrueFalseQuizEditorValues } from "./domain/handlers/true-false.handler";
+export type { SelectQuizEditorValues } from "./domain/handlers/select";
+export type { TextQuizEditorValues } from "./domain/handlers/text";
+export type { TrueFalseQuizEditorValues } from "./domain/handlers/true-false";
 export type {
-  QuizData,
+  Quiz,
   QuizType,
-  SelectQuizData,
-  TextQuizData,
-  TrueFalseQuizData,
+  SelectQuiz,
+  TextQuiz,
+  TrueFalseQuiz,
 } from "./domain/types";
 export {
   CommonQuizSchema,
@@ -40,29 +47,22 @@ export {
   TextQuizSchema,
   TrueFalseQuizSchema,
 } from "./domain/types";
-export { saveQuizSession } from "./session-actions";
-export type { DailySessionTrend, PerQuizAccuracy, SessionSummary } from "./session-stats-actions";
-export {
-  getDailySessionTrend,
-  getPerQuizAccuracy,
-  getSessionSummary,
-} from "./session-stats-actions";
 
 import type { QuizEditorValues } from "./domain/editor";
 import { getQuizHandler } from "./domain/handlers";
-import type { QuizData } from "./domain/types";
+import type { Quiz } from "./domain/types";
 
-export function toEditorValues(quiz: QuizData): QuizEditorValues {
+export function toEditorValues(quiz: Quiz): QuizEditorValues {
   const handler = getQuizHandler(quiz.type);
   return handler.toEditorValues(quiz as never);
 }
 
-export function fromEditorValues(values: QuizEditorValues): Partial<QuizData> {
+export function fromEditorValues(values: QuizEditorValues): Partial<Quiz> {
   const handler = getQuizHandler(values.type);
   return handler.fromEditorValues(values as never);
 }
 
-export function makePseudoQuiz(values: QuizEditorValues): QuizData | null {
+export function makePseudoQuiz(values: QuizEditorValues): Quiz | null {
   const commonData = {
     id: -1,
     question: values.question,
@@ -75,7 +75,7 @@ export function makePseudoQuiz(values: QuizEditorValues): QuizData | null {
   const handler = getQuizHandler(values.type);
   const typeSpecificData = handler.fromEditorValues(values as never);
 
-  return { ...commonData, ...typeSpecificData } as QuizData;
+  return { ...commonData, ...typeSpecificData } as Quiz;
 }
 
 export type QuizResult = {

@@ -1,12 +1,12 @@
 "use client";
 
 import { PlayfulInput } from "@/components/ui/playful-input";
-import type { TextQuizData } from "@/features/quiz";
+import type { TextQuiz } from "@/features/quiz";
 import { cn } from "@/lib/utils";
 import { useQuizPlay } from "./quiz-play";
 
 export const QuizFormText = () => {
-  const { result, inputValue, setInputValue } = useQuizPlay<TextQuizData>();
+  const { result, inputValue, setInputValue } = useQuizPlay<TextQuiz>();
 
   const value = inputValue[0] ?? "";
   const showAnswer = !!result;

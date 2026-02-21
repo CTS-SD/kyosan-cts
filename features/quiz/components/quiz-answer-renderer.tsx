@@ -1,11 +1,11 @@
 import { CircleIcon, XIcon } from "lucide-react";
-import type { QuizData } from "@/features/quiz";
+import type { Quiz } from "@/features/quiz";
 
 export const QuizAnswerRenderer = ({
   quiz,
   includeAlternatives = false,
 }: {
-  quiz: QuizData;
+  quiz: Quiz;
   includeAlternatives?: boolean;
 }) => {
   return (

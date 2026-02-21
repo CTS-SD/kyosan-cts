@@ -3,7 +3,7 @@
 import { count, eq, sql } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { QuizSessionResultTable, QuizSessionTable, QuizTable } from "@/lib/db/schema";
-import { requireRole } from "../auth/actions";
+import { requireRole } from "../../auth/actions";
 
 export type SessionSummary = {
   totalSessions: number;

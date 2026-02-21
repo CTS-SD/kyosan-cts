@@ -1,11 +1,8 @@
 import z from "zod";
-import { SelectQuizEditorSchema } from "./handlers/select.handler";
-import { TextQuizEditorSchema } from "./handlers/text.handler";
-import { TrueFalseQuizEditorSchema } from "./handlers/true-false.handler";
+import { SelectQuizEditorSchema } from "./handlers/select";
+import { TextQuizEditorSchema } from "./handlers/text";
+import { TrueFalseQuizEditorSchema } from "./handlers/true-false";
 
-/**
- * Common fields for all quiz editor schemas.
- */
 export const CommonQuizEditorSchema = z.object({
   id: z.number().nullable(),
   question: z.string().min(1, "問題文を入力してください。").max(1000, "問題文は1000文字以内で入力してください。"),
@@ -14,9 +11,6 @@ export const CommonQuizEditorSchema = z.object({
   tags: z.array(z.string()),
 });
 
-/**
- * Discriminated union of all quiz editor schemas.
- */
 export const QuizEditorSchema = z.discriminatedUnion("type", [
   SelectQuizEditorSchema,
   TextQuizEditorSchema,
@@ -25,7 +19,4 @@ export const QuizEditorSchema = z.discriminatedUnion("type", [
 
 export type QuizEditorValues = z.infer<typeof QuizEditorSchema>;
 
-/**
- * Helper to create default editor values from quiz data.
- */
 export { SelectQuizEditorSchema, TextQuizEditorSchema, TrueFalseQuizEditorSchema };

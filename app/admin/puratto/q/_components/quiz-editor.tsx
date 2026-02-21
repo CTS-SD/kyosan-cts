@@ -51,7 +51,7 @@ import {
   deleteQuiz,
   getQuizTypes,
   makePseudoQuiz,
-  type QuizData,
+  type Quiz,
   QuizEditorSchema,
   type QuizEditorValues,
 } from "@/features/quiz";
@@ -479,7 +479,7 @@ export const QuizEditorPreview = () => {
   );
 };
 
-const PreviewQuizPlay = ({ quiz }: { quiz: QuizData }) => {
+const PreviewQuizPlay = ({ quiz }: { quiz: Quiz }) => {
   const [key, setKey] = useState(0);
   return (
     <QuizPlay.Provider key={key} quiz={quiz} onNext={() => setKey((k) => k + 1)} enableKeyboard>

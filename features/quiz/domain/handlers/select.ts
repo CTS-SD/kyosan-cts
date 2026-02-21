@@ -1,7 +1,7 @@
 import z from "zod";
 import { SelectQuizTable } from "@/lib/db/schema";
 import { splitByLines } from "@/lib/utils";
-import { type SelectQuizData, SelectQuizSchema } from "../types";
+import { type SelectQuiz, SelectQuizSchema } from "../types";
 import type { QuizTypeHandler } from "./index";
 
 /**
@@ -84,7 +84,7 @@ export type SelectQuizDbRow = {
   incorrectChoices: string[];
 };
 
-export const selectQuizHandler: QuizTypeHandler<SelectQuizData, SelectQuizEditorValues, SelectQuizDbRow> = {
+export const selectQuizHandler: QuizTypeHandler<SelectQuiz, SelectQuizEditorValues, SelectQuizDbRow> = {
   // Identity
   type: "select",
 
