@@ -7,7 +7,6 @@ import { cache } from "react";
 import { db } from "../db";
 import { account as AccountTable, user as UserTable } from "../db/schema";
 import { env } from "../env";
-import { authClient } from "./client";
 import { auth } from "./server";
 import type { Role } from "./types";
 

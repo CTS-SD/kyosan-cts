@@ -1,6 +1,5 @@
 import { EditIcon, EllipsisIcon } from "lucide-react";
 import Link from "next/link";
-import { useQuizPlay } from "@/hooks/use-quiz-play";
 import { Button } from "../ui/button";
 import {
   DropdownMenu,
@@ -12,8 +11,6 @@ import {
 } from "../ui/dropdown-menu";
 
 export const QuizPlayAdminMenu = () => {
-  // const { quiz } = useQuizPlay();
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>

@@ -8,7 +8,6 @@ import {
   EllipsisIcon,
   EyeIcon,
   PlusCircleIcon,
-  PlusIcon,
   ShareIcon,
   Trash2Icon,
   XIcon,
@@ -20,7 +19,7 @@ import React, { useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { QuizPlay } from "@/components/quiz-play/quiz-play";
-import { QuizSessionHeader, QuizSessionMain, QuizSessionProvider } from "@/components/quiz-play/quiz-session";
+import { QuizSessionHeader, QuizSessionMain } from "@/components/quiz-play/quiz-session";
 import { Badge } from "@/components/ui/badge";
 import {
   Combobox,
@@ -28,8 +27,6 @@ import {
   ComboboxChips,
   ComboboxChipsInput,
   ComboboxContent,
-  ComboboxEmpty,
-  ComboboxInput,
   ComboboxItem,
   ComboboxList,
   ComboboxValue,
@@ -356,9 +353,7 @@ const TagField = ({
           </ComboboxList>
         </ComboboxContent>
       </Combobox>
-      <FieldDescription>
-        管理用タグを追加すると一覧ページでタグごとに絞り込みが可能になります。
-      </FieldDescription>
+      <FieldDescription>管理用タグを追加すると一覧ページでタグごとに絞り込みが可能になります。</FieldDescription>
       {invalid && <FieldError errors={[error]} />}
     </Field>
   );

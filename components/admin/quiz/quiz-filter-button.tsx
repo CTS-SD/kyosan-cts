@@ -1,6 +1,6 @@
 "use client";
 
-import { FilterIcon, FilterXIcon, XCircleIcon, XIcon } from "lucide-react";
+import { FilterIcon } from "lucide-react";
 import { parseAsArrayOf, parseAsString, useQueryState } from "nuqs";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
