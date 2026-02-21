@@ -144,6 +144,7 @@ export function Dashboard({ summary, perQuiz, trend }: DashboardProps) {
                   strokeWidth={2}
                   dot={false}
                   type="monotone"
+                  connectNulls={true}
                 />
               </ComposedChart>
             </ChartContainer>

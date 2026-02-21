@@ -87,7 +87,7 @@ export async function getPerQuizAccuracy(): Promise<PerQuizAccuracy[]> {
 export type DailySessionTrend = {
   date: string;
   sessionCount: number;
-  avgAccuracyRate: number;
+  avgAccuracyRate: number | null;
 };
 
 export async function getDailySessionTrend(days = 30): Promise<DailySessionTrend[]> {
@@ -107,9 +107,25 @@ export async function getDailySessionTrend(days = 30): Promise<DailySessionTrend
     .groupBy(sql`date_trunc('day', ${QuizSessionTable.createdAt})::date`)
     .orderBy(sql`date_trunc('day', ${QuizSessionTable.createdAt})::date asc`);
 
-  return rows.map((row) => ({
-    date: String(row.date),
-    sessionCount: Number(row.sessionCount),
-    avgAccuracyRate: Number(Number(row.avgAccuracyRate).toFixed(1)),
-  }));
+  // Normalize to "YYYY-MM-DD" regardless of what node-postgres returns (string or Date)
+  const toDateStr = (v: unknown) => {
+    const s = String(v);
+    return /^\d{4}-\d{2}-\d{2}$/.test(s) ? s : new Date(s).toISOString().split("T")[0];
+  };
+
+  const dataMap = new Map(rows.map((row) => [toDateStr(row.date), row]));
+
+  // Fill in all days in the range, including days with 0 sessions
+  const today = new Date();
+  today.setUTCHours(0, 0, 0, 0);
+
+  return Array.from({ length: days }, (_, i) => {
+    const dateStr = new Date(today.getTime() - (days - 1 - i) * 86400000).toISOString().split("T")[0];
+    const row = dataMap.get(dateStr);
+    return {
+      date: dateStr,
+      sessionCount: row ? Number(row.sessionCount) : 0,
+      avgAccuracyRate: row ? Number(Number(row.avgAccuracyRate).toFixed(1)) : null,
+    };
+  });
 }
