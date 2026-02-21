@@ -8,6 +8,9 @@ export const Markdown = ({ ...props }: React.ComponentProps<typeof Streamdown>) 
         code: false,
         table: false,
       }}
+      linkSafety={{
+        enabled: false,
+      }}
       {...props}
     />
   );
