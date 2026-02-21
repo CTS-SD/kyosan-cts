@@ -1,14 +1,18 @@
+import type { Metadata } from "next";
 import { AdminHeader } from "@/components/admin/admin-header";
 import { AdminSidebar } from "@/components/admin/admin-sidebar";
 import { SessionHeartbeat } from "@/components/session-heartbeat";
 import { requireRole } from "@/lib/auth/actions";
 import { redirectToSignIn } from "@/lib/auth/utils";
 
-type Props = {
-  children: React.ReactNode;
+export const metadata: Metadata = {
+  title: {
+    default: "京産キャンスタ 管理者",
+    template: "%s | 京産キャンスタ 管理者",
+  },
 };
 
-const Layout = async ({ children }: Props) => {
+const Layout = async ({ children }: { children: React.ReactNode }) => {
   await requireRole(["admin"], redirectToSignIn);
 
   return (

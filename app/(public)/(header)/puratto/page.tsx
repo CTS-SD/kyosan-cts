@@ -1,7 +1,12 @@
 import { ArrowLeftIcon, InfinityIcon } from "lucide-react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { PlayfulButton } from "@/components/ui/playful-button";
 import { getCachedConfigValue } from "@/lib/config/actions";
+
+export const metadata: Metadata = {
+  title: "ぷらっとテスト",
+};
 
 const Page = async () => {
   const count = await getCachedConfigValue("purattoTestQuestionCount");

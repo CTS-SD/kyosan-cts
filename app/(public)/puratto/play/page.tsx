@@ -1,4 +1,5 @@
 import { eq, sql } from "drizzle-orm";
+import type { Metadata } from "next";
 import {
   QuizSessionMain,
   QuizSessionMainBoundary,
@@ -12,6 +13,10 @@ import { getQuizzes } from "@/lib/quiz";
 import { QuizPlayView } from "./quiz-play-view";
 import { QuizResultsView } from "./quiz-results-view";
 import { QuizSessionHeader } from "./quiz-session-header";
+
+export const metadata: Metadata = {
+  title: "ぷらっとテスト | 京産キャンスタ",
+};
 
 const Page = async () => {
   const config = await getConfig();

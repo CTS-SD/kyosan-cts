@@ -1,9 +1,14 @@
 import { ArrowUpRightIcon } from "lucide-react";
+import type { Metadata } from "next";
 import Link from "next/link";
 import { AddStudentButton } from "@/components/admin/dept/add-student-button";
 import { DepartmentBoxList } from "@/components/admin/dept/department-box-list";
 import { Button } from "@/components/ui/button";
 import { getDepartments, getFaculties } from "@/lib/students";
+
+export const metadata: Metadata = {
+  title: "メンバーを管理 - 配属発表",
+};
 
 const Page = async () => {
   const [faculties, departments] = await Promise.all([getFaculties(), getDepartments()]);

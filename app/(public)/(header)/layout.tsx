@@ -1,10 +1,14 @@
+import type { Metadata } from "next";
 import { AppHeader } from "@/components/app-header";
 
-type Props = {
-  children: React.ReactNode;
+export const metadata: Metadata = {
+  title: {
+    default: "京産キャンスタ",
+    template: "%s | 京産キャンスタ",
+  },
 };
 
-const Layout = ({ children }: Props) => {
+const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
       <AppHeader />

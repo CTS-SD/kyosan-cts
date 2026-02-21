@@ -1,4 +1,9 @@
+import type { Metadata } from "next";
 import { ResetMemberPassword } from "@/components/admin/settings/reset-member-password";
+
+export const metadata: Metadata = {
+  title: "設定",
+};
 
 const Page = async () => {
   return (
