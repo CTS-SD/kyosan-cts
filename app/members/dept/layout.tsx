@@ -1,11 +1,12 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { getConfigValue } from "@/lib/config/actions";
 
-type Props = {
-  children: React.ReactNode;
+export const metadata: Metadata = {
+  title: "配属発表 | 京産キャンスタ",
 };
 
-const Layout = async ({ children }: Props) => {
+const Layout = async ({ children }: { children: React.ReactNode }) => {
   const year = await getConfigValue("departmentAnnouncementsYear");
 
   return (
