@@ -47,7 +47,7 @@ export async function insertQuiz(values: QuizEditorValues) {
       .returning({ id: QuizTable.id });
 
     const handler = getQuizHandler(values.type);
-    const payload = handler.buildDbPayload(quizId, values);
+    const payload = handler.buildDbPayload(quizId, values as never);
     await tx.insert(handler.table).values(payload);
 
     await syncQuizTags(tx, quizId, values.tags ?? []);
@@ -71,7 +71,7 @@ export async function updateQuiz(quizId: number, values: QuizEditorValues) {
       .where(eq(QuizTable.id, quizId));
 
     const handler = getQuizHandler(values.type);
-    const payload = handler.buildDbPayload(quizId, values);
+    const payload = handler.buildDbPayload(quizId, values as never);
 
     await tx.insert(handler.table).values(payload).onConflictDoUpdate({
       target: handler.table.quizId,

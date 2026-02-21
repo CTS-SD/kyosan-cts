@@ -1,8 +1,11 @@
 import type { ZodSchema } from "zod";
+import type { SelectQuizTable, TextQuizTable, TrueFalseQuizTable } from "../../../db/schema";
 import type { QuizData, QuizType } from "../types";
 import { selectQuizHandler } from "./select.handler";
 import { textQuizHandler } from "./text.handler";
 import { trueFalseQuizHandler } from "./true-false.handler";
+
+type QuizSubTable = typeof SelectQuizTable | typeof TextQuizTable | typeof TrueFalseQuizTable;
 
 export interface QuizTypeHandler<TData extends QuizData, TEditor, TDbRow> {
   type: QuizType;
@@ -16,7 +19,7 @@ export interface QuizTypeHandler<TData extends QuizData, TEditor, TDbRow> {
   toEditorValues: (quiz: TData) => TEditor;
   fromEditorValues: (values: TEditor) => Partial<TData>;
 
-  table: any; // Using any to support different table types with quizId property
+  table: QuizSubTable;
   buildDbPayload: (quizId: number, values: TEditor) => TDbRow;
   parseDbRow: (row: TDbRow) => Partial<TData>;
 
@@ -30,12 +33,8 @@ export const quizHandlers = {
   true_false: trueFalseQuizHandler,
 } as const;
 
-export function getQuizHandler<T extends QuizType>(type: T): QuizTypeHandler<Extract<QuizData, { type: T }>, any, any> {
-  const handler = (quizHandlers as any)[type];
-  if (!handler) {
-    throw new Error(`No handler found for quiz type: ${type}`);
-  }
-  return handler;
+export function getQuizHandler<T extends QuizType>(type: T): (typeof quizHandlers)[T] {
+  return quizHandlers[type];
 }
 
 export function validateQuizInput(quiz: QuizData, inputValue: string[]): boolean {
