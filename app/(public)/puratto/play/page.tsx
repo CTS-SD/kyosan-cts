@@ -17,6 +17,7 @@ export const metadata: Metadata = {
   title: "ぷらっとテスト | 京産キャンスタ",
 };
 
+export const dynamic = 'force-dynamic'
 const Page = async () => {
   const config = await getConfig();
 
