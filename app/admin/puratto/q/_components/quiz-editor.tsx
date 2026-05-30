@@ -2,24 +2,16 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDebounce } from "@uidotdev/usehooks";
-import { ArrowLeftIcon, CopyIcon, EllipsisIcon, EyeIcon, ShareIcon, Trash2Icon, XIcon } from "lucide-react";
+import { ArrowLeftIcon, EllipsisIcon, EyeIcon, XIcon } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useNavigationGuard } from "next-navigation-guard";
 import { type ComponentProps, createContext, type ReactNode, useContext, useMemo, useState } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import { Controller, useForm } from "react-hook-form";
-import { toast } from "sonner";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { PlayfulProgress } from "@/components/ui/playful-progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -27,10 +19,10 @@ import { Spinner } from "@/components/ui/spinner";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { getQuizTypes, makePseudoQuiz, type Quiz, QuizEditorSchema, type QuizEditorValues } from "@/features/quizzes";
+import { QuizMenuItems } from "@/features/quizzes/components/quiz-menu";
 import { QuizPlay } from "@/features/quizzes/components/quiz-play";
 import { QuizSessionHeader, QuizSessionMain } from "@/features/quizzes/components/quiz-session";
-import { useDeleteQuiz } from "@/features/quizzes/hooks/use-quiz-mutations";
-import { cn, copyToClipboard } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import { QuizEditorSelect } from "./quiz-editor-select";
 import { QuizEditorText } from "./quiz-editor-text";
 import { QuizEditorTrueFalse } from "./quiz-editor-true-false";
@@ -118,42 +110,10 @@ export const QuizEditorTitle = ({ className, ...props }: ComponentProps<"h1">) =
 
 export const QuizEditorMenu = () => {
   const { form } = useQuizEditor();
-  const router = useRouter();
-  const { mutateAsync: deleteQuiz } = useDeleteQuiz();
 
   const quizId = form.getValues("id");
 
   if (!quizId) return null;
-
-  const handleShare = async () => {
-    if ("share" in navigator) {
-      await navigator
-        .share({
-          title: `ぷらっとテスト No.${quizId}`,
-          url: window.location.href,
-        })
-        .catch(() => {});
-    }
-  };
-
-  const handleCopyUrl = async () => {
-    if (await copyToClipboard(window.location.href)) {
-      toast.success("リンクをコピーしました");
-    } else {
-      toast.error("リンクのコピーに失敗しました");
-    }
-  };
-
-  const handleDelete = async () => {
-    if (!window.confirm("この問題を削除してよろしいですか？")) return;
-    try {
-      await deleteQuiz(quizId);
-      toast.success("問題を削除しました");
-      router.push("/admin/puratto");
-    } catch {
-      toast.error("問題の削除に失敗しました");
-    }
-  };
 
   return (
     <DropdownMenu>
@@ -163,19 +123,7 @@ export const QuizEditorMenu = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={handleCopyUrl}>
-          <CopyIcon />
-          リンクをコピー
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={handleShare}>
-          <ShareIcon />
-          共有
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handleDelete} variant="destructive">
-          <Trash2Icon />
-          削除
-        </DropdownMenuItem>
+        <QuizMenuItems quizId={quizId} />
       </DropdownMenuContent>
     </DropdownMenu>
   );
@@ -268,7 +216,7 @@ export const QuizEditorFooter = ({ className, ...props }: ComponentProps<"div">)
   return (
     <div
       className={cn(
-        "sticky bottom-2 ml-auto flex w-fit gap-2 rounded-3xl bg-inherit p-2 px-4 backdrop-blur-md",
+        "sticky bottom-2 mr-2 ml-auto flex w-fit gap-2 rounded-3xl bg-inherit p-2 backdrop-blur-md",
         className,
       )}
       {...props}
