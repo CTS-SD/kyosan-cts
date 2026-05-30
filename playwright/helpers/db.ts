@@ -1,7 +1,7 @@
 import { eq, sql } from "drizzle-orm";
-import { auth } from "@/lib/auth/server";
-import { db } from "@/lib/db";
-import { user as UserTable } from "@/lib/db/schema";
+import { db } from "@/db";
+import { user as UserTable } from "@/db/schema";
+import { auth } from "@/features/auth/server";
 import { env } from "@/lib/env";
 import { seedDb } from "@/scripts/seed";
 import { assertTestEnv } from "./assert";

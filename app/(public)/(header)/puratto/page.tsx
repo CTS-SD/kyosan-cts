@@ -2,7 +2,7 @@ import { ArrowLeftIcon, InfinityIcon } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PlayfulButton } from "@/components/ui/playful-button";
-import { getCachedConfigValue } from "@/features/config/actions";
+import { getCachedConfigValue } from "@/server/services/config";
 
 export const metadata: Metadata = {
   title: "ぷらっとテスト",

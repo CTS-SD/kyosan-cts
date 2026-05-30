@@ -1,7 +1,7 @@
 import { addMinutes, addSeconds, setHours, startOfDay, subDays } from "date-fns";
 import { eq } from "drizzle-orm";
-import { db } from "@/lib/db";
-import { QuizSessionResultTable, QuizSessionTable, QuizTable } from "@/lib/db/schema";
+import { db } from "@/db";
+import { QuizSessionResultTable, QuizSessionTable, QuizTable } from "@/db/schema";
 
 function randomInt(min: number, max: number) {
   return Math.floor(Math.random() * (max - min + 1)) + min;

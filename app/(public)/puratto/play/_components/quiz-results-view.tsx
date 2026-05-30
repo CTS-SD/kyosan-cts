@@ -7,10 +7,10 @@ import { useEffect, useRef } from "react";
 import { PlayfulButton } from "@/components/ui/playful-button";
 import { SpeechBubble } from "@/components/ui/speech-bubble";
 import { UserAvatar } from "@/features/auth/components/user-avatar";
-import { saveQuizSession } from "@/features/quiz";
-import { QuizResultItem } from "@/features/quiz/components/quiz-result-item";
-import { useQuizSession } from "@/features/quiz/components/quiz-session";
-import { ScoreBox } from "@/features/quiz/components/score-box";
+import { saveQuizSession } from "@/features/quizzes/api";
+import { QuizResultItem } from "@/features/quizzes/components/quiz-result-item";
+import { useQuizSession } from "@/features/quizzes/components/quiz-session";
+import { ScoreBox } from "@/features/quizzes/components/score-box";
 
 const formatPlayTime = (playTimeMs: number) => {
   const totalSeconds = Math.max(0, Math.floor(playTimeMs / 1000));

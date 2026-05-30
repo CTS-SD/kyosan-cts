@@ -4,10 +4,10 @@ import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { cache } from "react";
+import { db } from "@/db";
+import { account as AccountTable, user as UserTable } from "@/db/schema";
+import { auth } from "@/features/auth/server";
 import type { Role } from "@/features/auth/types";
-import { auth } from "@/lib/auth/server";
-import { db } from "@/lib/db";
-import { account as AccountTable, user as UserTable } from "@/lib/db/schema";
 import { env } from "@/lib/env";
 
 export const getUser = cache(async () => {

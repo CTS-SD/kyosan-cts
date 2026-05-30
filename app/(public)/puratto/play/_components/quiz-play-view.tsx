@@ -1,9 +1,9 @@
 "use client";
 
 import { AnimatePresence, motion } from "motion/react";
-import type { QuizResult } from "@/features/quiz";
-import { QuizPlay } from "@/features/quiz/components/quiz-play";
-import { useQuizSession } from "@/features/quiz/components/quiz-session";
+import type { QuizResult } from "@/features/quizzes";
+import { QuizPlay } from "@/features/quizzes/components/quiz-play";
+import { useQuizSession } from "@/features/quizzes/components/quiz-session";
 
 export const QuizPlayView = () => {
   const { quizzes, addResult, currentQuizIndex, setCurrentQuizIndex } = useQuizSession();

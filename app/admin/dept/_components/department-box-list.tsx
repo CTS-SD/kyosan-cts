@@ -1,4 +1,6 @@
-import { getDepartments, getFaculties, getStudents } from "@/features/student/actions";
+import { getDepartments } from "@/server/services/departments";
+import { getFaculties } from "@/server/services/faculties";
+import { getStudents } from "@/server/services/students";
 import { DepartmentBox } from "./department-box";
 
 export const DepartmentBoxList = async () => {

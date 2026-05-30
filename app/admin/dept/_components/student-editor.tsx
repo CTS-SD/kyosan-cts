@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Spinner } from "@/components//ui/spinner";
 import { UserIcon } from "@/components/icons/user-icon";
 import { StudentEditorSchema, type StudentValues } from "@/features/student/editor";
-import type { Department, Faculty, Student } from "@/lib/db/schema";
+import type { Department, Faculty, Student } from "@/features/students/types";
 
 const StudentEditorContext = createContext<{
   form: ReturnType<typeof useForm<StudentValues>>;

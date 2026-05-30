@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldError, FieldLabel } from "@/components/ui/field";
 import { Setting } from "@/components/ui/setting";
 import { Switch } from "@/components/ui/switch";
-import { upsertConfigValue } from "@/features/config/actions";
+import { upsertConfigValue } from "@/features/config/api";
 
 const FormSchema = z.object({
   published: z.boolean(),

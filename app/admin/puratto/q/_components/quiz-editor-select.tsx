@@ -2,7 +2,7 @@ import { Controller, type UseFormReturn } from "react-hook-form";
 import type z from "zod";
 import { Field, FieldDescription, FieldError, FieldLabel } from "@/components/ui/field";
 import { Textarea } from "@/components/ui/textarea";
-import type { QuizEditorSchema } from "@/features/quiz";
+import type { QuizEditorSchema } from "@/features/quizzes";
 
 type Props = {
   form: UseFormReturn<z.infer<typeof QuizEditorSchema>>;

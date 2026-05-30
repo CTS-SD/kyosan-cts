@@ -2,7 +2,7 @@ import { AppHeader } from "@/app/(public)/(header)/_components/app-header";
 import { requireRole } from "@/features/auth/actions";
 import { SessionHeartbeat } from "@/features/auth/components/session-heartbeat";
 import { redirectToSignIn } from "@/features/auth/utils";
-import { getConfigValue } from "@/features/config/actions";
+import { getConfigValue } from "@/server/services/config";
 
 type Props = {
   children: React.ReactNode;

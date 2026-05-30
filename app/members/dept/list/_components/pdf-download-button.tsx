@@ -3,7 +3,7 @@
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { DownloadIcon } from "lucide-react";
 import { PlayfulButton } from "@/components/ui/playful-button";
-import type { DepartmentTable } from "@/lib/db/schema";
+import type { Department } from "@/features/students/types";
 import { ListPdfDocument } from "./list-pdf-document";
 
 type Student = {
@@ -11,8 +11,6 @@ type Student = {
   faculty: string;
   departmentId: number;
 };
-
-type Department = typeof DepartmentTable.$inferSelect;
 
 interface PdfDownloadButtonProps {
   departments: Department[];

@@ -2,7 +2,8 @@ import { ArrowUpRightIcon } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { getDepartments, getFaculties } from "@/features/student/actions";
+import { getDepartments } from "@/server/services/departments";
+import { getFaculties } from "@/server/services/faculties";
 import { AddStudentButton } from "./_components/add-student-button";
 import { DepartmentBoxList } from "./_components/department-box-list";
 

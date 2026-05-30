@@ -1,20 +1,19 @@
 "use client";
 
-import { useQueryClient } from "@tanstack/react-query";
 import { toast } from "sonner";
 import { QuizEditor } from "@/app/admin/puratto/q/_components/quiz-editor";
-import { type Quiz, type QuizEditorValues, toEditorValues, updateQuiz } from "@/features/quiz";
+import { fromEditorValues, type Quiz, type QuizEditorValues, toEditorValues } from "@/features/quizzes";
+import { useUpdateQuiz } from "@/features/quizzes/hooks/use-quiz-mutations";
 
 type Props = {
   quiz: Quiz;
 };
 
 export const ClientView = ({ quiz }: Props) => {
-  const queryClient = useQueryClient();
+  const { mutateAsync: updateQuiz } = useUpdateQuiz();
 
   const handleSubmit = async (values: QuizEditorValues) => {
-    await updateQuiz(quiz.id, values);
-    queryClient.invalidateQueries({ queryKey: ["quiz-tags"] });
+    await updateQuiz({ id: quiz.id, input: fromEditorValues(values) });
     toast.success("問題を保存しました");
   };
 

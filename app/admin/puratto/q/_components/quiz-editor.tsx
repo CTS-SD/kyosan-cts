@@ -2,37 +2,16 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDebounce } from "@uidotdev/usehooks";
-import {
-  ArrowLeftIcon,
-  CopyIcon,
-  EllipsisIcon,
-  EyeIcon,
-  PlusCircleIcon,
-  ShareIcon,
-  Trash2Icon,
-  XIcon,
-} from "lucide-react";
+import { ArrowLeftIcon, CopyIcon, EllipsisIcon, EyeIcon, ShareIcon, Trash2Icon, XIcon } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useNavigationGuard } from "next-navigation-guard";
-import React, { createContext, useContext, useMemo, useState } from "react";
+import { type ComponentProps, createContext, type ReactNode, useContext, useMemo, useState } from "react";
 import type { UseFormReturn } from "react-hook-form";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { useQuizTags } from "@/app/admin/puratto/_components/use-quiz-tags";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Combobox,
-  ComboboxChip,
-  ComboboxChips,
-  ComboboxChipsInput,
-  ComboboxContent,
-  ComboboxItem,
-  ComboboxList,
-  ComboboxValue,
-  useComboboxAnchor,
-} from "@/components/ui/combobox";
 import { Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import {
   DropdownMenu,
@@ -47,16 +26,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Spinner } from "@/components/ui/spinner";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  deleteQuiz,
-  getQuizTypes,
-  makePseudoQuiz,
-  type Quiz,
-  QuizEditorSchema,
-  type QuizEditorValues,
-} from "@/features/quiz";
-import { QuizPlay } from "@/features/quiz/components/quiz-play";
-import { QuizSessionHeader, QuizSessionMain } from "@/features/quiz/components/quiz-session";
+import { getQuizTypes, makePseudoQuiz, type Quiz, QuizEditorSchema, type QuizEditorValues } from "@/features/quizzes";
+import { QuizPlay } from "@/features/quizzes/components/quiz-play";
+import { QuizSessionHeader, QuizSessionMain } from "@/features/quizzes/components/quiz-session";
+import { useDeleteQuiz } from "@/features/quizzes/hooks/use-quiz-mutations";
 import { cn, copyToClipboard } from "@/lib/utils";
 import { QuizEditorSelect } from "./quiz-editor-select";
 import { QuizEditorText } from "./quiz-editor-text";
@@ -84,13 +57,12 @@ export const QuizEditorProvider = ({
     question: "",
     explanation: "",
     isPublished: true,
-    tags: [],
     correctChoicesText: "",
     incorrectChoicesText: "",
   },
   onSubmit,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   defaultValues?: QuizEditorValues;
   onSubmit: (values: QuizEditorValues) => void;
 }) => {
@@ -100,23 +72,17 @@ export const QuizEditorProvider = ({
   });
 
   return (
-    <QuizEditorContext.Provider
-      value={{
-        form,
-        state: form.formState,
-        onSubmit,
-      }}
-    >
+    <QuizEditorContext.Provider value={{ form, state: form.formState, onSubmit }}>
       {children}
     </QuizEditorContext.Provider>
   );
 };
 
-export const QuizEditorWrapper = ({ className, ...props }: React.ComponentProps<"div">) => {
+export const QuizEditorWrapper = ({ className, ...props }: ComponentProps<"div">) => {
   return <div className={cn("mx-auto flex max-w-6xl", className)} {...props} />;
 };
 
-export const QuizEditorMain = ({ className, ...props }: React.ComponentProps<"form">) => {
+export const QuizEditorMain = ({ className, ...props }: ComponentProps<"form">) => {
   const { form, state, onSubmit } = useQuizEditor();
 
   useNavigationGuard({
@@ -132,11 +98,11 @@ export const QuizEditorMain = ({ className, ...props }: React.ComponentProps<"fo
   return <form className={cn("flex-1", className)} onSubmit={handleSubmit} {...props} />;
 };
 
-export const QuizEditorHeader = ({ className, ...props }: React.ComponentProps<"div">) => {
+export const QuizEditorHeader = ({ className, ...props }: ComponentProps<"div">) => {
   return <div className={cn("flex items-center gap-2 p-6", className)} {...props} />;
 };
 
-export const QuizEditorBack = ({ ...props }: React.ComponentProps<"button">) => {
+export const QuizEditorBack = ({ ...props }: ComponentProps<"button">) => {
   return (
     <Button variant="outline" size="icon" asChild {...props}>
       <Link href="/admin/puratto" aria-label="戻る">
@@ -146,13 +112,14 @@ export const QuizEditorBack = ({ ...props }: React.ComponentProps<"button">) => 
   );
 };
 
-export const QuizEditorTitle = ({ className, ...props }: React.ComponentProps<"h1">) => {
+export const QuizEditorTitle = ({ className, ...props }: ComponentProps<"h1">) => {
   return <h1 className={cn("flex gap-2 px-2 font-semibold", className)} {...props} />;
 };
 
 export const QuizEditorMenu = () => {
   const { form } = useQuizEditor();
   const router = useRouter();
+  const { mutateAsync: deleteQuiz } = useDeleteQuiz();
 
   const quizId = form.getValues("id");
 
@@ -280,18 +247,6 @@ export const QuizEditorFields = () => {
         )}
       />
       <Controller
-        name="tags"
-        control={form.control}
-        render={({ field, fieldState }) => (
-          <TagField
-            value={field.value ?? []}
-            onChange={field.onChange}
-            invalid={fieldState.invalid}
-            error={fieldState.error}
-          />
-        )}
-      />
-      <Controller
         name="isPublished"
         control={form.control}
         render={({ field, fieldState }) => (
@@ -309,83 +264,7 @@ export const QuizEditorFields = () => {
   );
 };
 
-const TagField = ({
-  value,
-  onChange,
-  invalid,
-  error,
-}: {
-  value: string[];
-  onChange: (tags: string[]) => void;
-  invalid: boolean;
-  error?: { message?: string };
-}) => {
-  const { data: allTags = [] } = useQuizTags();
-  const [inputValue, setInputValue] = useState("");
-
-  const anchor = useComboboxAnchor();
-
-  const trimmed = inputValue.trim();
-  const lowered = trimmed.toLocaleLowerCase();
-  const selectedSet = new Set(value);
-
-  const suggestions = allTags
-    .filter((t) => !selectedSet.has(t))
-    .filter((t) => !lowered || t.toLocaleLowerCase().includes(lowered));
-
-  const exactExists = allTags.some((t) => t.toLocaleLowerCase() === lowered) || selectedSet.has(trimmed);
-  const showCreate = trimmed !== "" && !exactExists;
-
-  const handleValueChange = (selected: string[]) => {
-    onChange(selected);
-  };
-
-  return (
-    <Field data-invalid={invalid}>
-      <FieldLabel>管理用タグ</FieldLabel>
-      <Combobox
-        inputValue={inputValue}
-        onInputValueChange={setInputValue}
-        value={value}
-        onValueChange={handleValueChange}
-        multiple
-        autoHighlight
-      >
-        <ComboboxChips ref={anchor} className="w-full bg-background">
-          <ComboboxValue>
-            {(values) => (
-              <React.Fragment>
-                {values.map((value: string) => (
-                  <ComboboxChip key={value}>{value}</ComboboxChip>
-                ))}
-                <ComboboxChipsInput />
-              </React.Fragment>
-            )}
-          </ComboboxValue>
-        </ComboboxChips>
-        <ComboboxContent>
-          <ComboboxList className="p-1!">
-            {suggestions.map((tag) => (
-              <ComboboxItem key={tag} value={tag}>
-                {tag}
-              </ComboboxItem>
-            ))}
-            {showCreate && (
-              <ComboboxItem value={trimmed}>
-                <PlusCircleIcon className="text-muted-foreground" />
-                {trimmed}
-              </ComboboxItem>
-            )}
-          </ComboboxList>
-        </ComboboxContent>
-      </Combobox>
-      <FieldDescription>管理用タグを追加すると一覧ページでタグごとに絞り込みが可能になります。</FieldDescription>
-      {invalid && <FieldError errors={[error]} />}
-    </Field>
-  );
-};
-
-export const QuizEditorFooter = ({ className, ...props }: React.ComponentProps<"div">) => {
+export const QuizEditorFooter = ({ className, ...props }: ComponentProps<"div">) => {
   return (
     <div
       className={cn(
@@ -407,7 +286,7 @@ export const QuizEditorCancel = () => {
   );
 };
 
-export const QuizEditorSubmit = ({ children, ...props }: React.ComponentProps<typeof Button>) => {
+export const QuizEditorSubmit = ({ children, ...props }: ComponentProps<typeof Button>) => {
   const { state } = useQuizEditor();
 
   return (

@@ -1,5 +1,5 @@
-import { db } from "@/lib/db";
-import { DepartmentTable, FacultyTable, QuizTable, SelectQuizTable, StudentTable } from "@/lib/db/schema";
+import { db } from "@/db";
+import { DepartmentTable, FacultyTable, QuizTable, StudentTable } from "@/db/schema";
 
 export async function seedDb() {
   // Seed Faculties
@@ -50,33 +50,19 @@ export async function seedDb() {
     ]),
   );
 
-  // Seed Quizzes
-  const quizIds = await db
-    .insert(QuizTable)
-    .values([
-      {
-        type: "select",
-        question: "1+1は？",
-        explanation: "1+1は2です。",
-      },
-      {
-        type: "select",
-        question: "次のうち、果物はどれですか？",
-        explanation: "りんごは果物です。",
-      },
-    ])
-    .returning({ id: QuizTable.id });
-
-  await db.insert(SelectQuizTable).values([
+  // Seed Quizzes (type-specific values live in the `params` jsonb column)
+  await db.insert(QuizTable).values([
     {
-      quizId: quizIds[0].id,
-      correctChoices: ["2"],
-      incorrectChoices: ["1", "3", "4"],
+      type: "select",
+      question: "1+1は？",
+      explanation: "1+1は2です。",
+      params: { correctChoices: ["2"], incorrectChoices: ["1", "3", "4"] },
     },
     {
-      quizId: quizIds[1].id,
-      correctChoices: ["りんご"],
-      incorrectChoices: ["にんじん", "じゃがいも", "ピーマン"],
+      type: "select",
+      question: "次のうち、果物はどれですか？",
+      explanation: "りんごは果物です。",
+      params: { correctChoices: ["りんご"], incorrectChoices: ["にんじん", "じゃがいも", "ピーマン"] },
     },
   ]);
 }

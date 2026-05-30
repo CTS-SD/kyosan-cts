@@ -1,13 +1,14 @@
 "use client";
 
 import { Trash2Icon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { UserIcon } from "@/components/icons/user-icon";
-import { deleteStudent, updateStudent } from "@/features/student/actions";
-import type { StudentValues } from "@/features/student/editor";
-import type { Department, Faculty, Student } from "@/lib/db/schema";
 import { Button } from "@/components//ui/button";
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogTitle, DialogTrigger } from "@/components//ui/dialog";
+import { UserIcon } from "@/components/icons/user-icon";
+import type { StudentValues } from "@/features/student/editor";
+import { deleteStudent, updateStudent } from "@/features/students/api";
+import type { Department, Faculty, Student } from "@/features/students/types";
 import { StudentEditor, StudentEditorCancel, StudentEditorFields, StudentEditorSubmit } from "./student-editor";
 
 type Props = {
@@ -17,29 +18,33 @@ type Props = {
 };
 
 export const StudentItem = ({ student, faculties, departments }: Props) => {
+  const router = useRouter();
+
   const getFacultyName = (facultyId: number) => {
     const faculty = faculties.find((f) => f.id === facultyId);
     return faculty?.name;
   };
 
   const handleUpdateStudent = async (values: StudentValues) => {
-    const updateResult = await updateStudent(student.id, values);
-    if (!updateResult.success) {
-      toast.error(updateResult.message);
-    } else {
-      toast.success(updateResult.message);
+    try {
+      await updateStudent(student.id, values);
+      toast.success("学生を更新しました");
+      router.refresh();
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "学生の更新に失敗しました");
     }
     return false; // false means; Do not reset the form
   };
 
   const handleDeleteStudent = async () => {
     if (!window.confirm("この学生を削除してよろしいですか？")) return;
-    const deleteResult = await deleteStudent(student.id);
-    if (!deleteResult.success) {
-      toast.error(deleteResult.message);
-      return;
+    try {
+      await deleteStudent(student.id);
+      toast.success("学生を削除しました");
+      router.refresh();
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "学生の削除に失敗しました");
     }
-    toast.success(deleteResult.message);
   };
 
   return (

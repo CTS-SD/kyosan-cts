@@ -1,33 +1,26 @@
-import { eq } from "drizzle-orm";
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { getDepartmentAsset } from "@/features/student/department";
-import { db } from "@/lib/db";
-import { DepartmentTable, StudentTable } from "@/lib/db/schema";
 import { cn } from "@/lib/utils";
+import { getDepartments } from "@/server/services/departments";
+import { getStudentByStudentNumber } from "@/server/services/students";
 import { Confetti } from "./_components/confetti";
 
 const Page = async ({ params }: { params: Promise<{ studentNumber: string }> }) => {
   const { studentNumber } = await params;
 
-  const [data] = await db
-    .select({
-      student: StudentTable,
-      department: DepartmentTable,
-    })
-    .from(StudentTable)
-    .innerJoin(DepartmentTable, eq(DepartmentTable.id, StudentTable.departmentId))
-    .where(eq(StudentTable.studentNumber, studentNumber))
-    .limit(1)
-    .execute();
-
-  if (!data) {
+  const student = await getStudentByStudentNumber(studentNumber);
+  if (!student) {
     return notFound();
   }
 
-  const { student, department } = data;
+  const departments = await getDepartments();
+  const department = departments.find((d) => d.id === student.departmentId);
+  if (!department) {
+    return notFound();
+  }
 
   const deptAsset = getDepartmentAsset(department.name);
 

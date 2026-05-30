@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation";
 import { confirm } from "@/components/confirm-store";
 import { Button } from "@/components/ui/button";
 import { PlayfulProgress } from "@/components/ui/playful-progress";
-import { QuizPlayAdminMenu } from "@/features/quiz/components/quiz-play-admin-menu";
-import { QuizSessionHeader as QuizSessionHeaderRoot, useQuizSession } from "@/features/quiz/components/quiz-session";
-import { authClient } from "@/lib/auth/client";
+import { authClient } from "@/features/auth/client";
+import { QuizPlayAdminMenu } from "@/features/quizzes/components/quiz-play-admin-menu";
+import { QuizSessionHeader as QuizSessionHeaderRoot, useQuizSession } from "@/features/quizzes/components/quiz-session";
 
 export const QuizSessionHeader = () => {
   const { data: session } = authClient.useSession();

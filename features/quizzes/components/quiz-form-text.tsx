@@ -1,0 +1,28 @@
+"use client";
+
+import { PlayfulInput } from "@/components/ui/playful-input";
+import { cn } from "@/lib/utils";
+import type { TextQuiz } from "../types";
+import { useQuizPlay } from "./quiz-play";
+
+export const QuizFormText = () => {
+  const { result, inputValue, setInputValue } = useQuizPlay<TextQuiz>();
+
+  const value = inputValue[0] ?? "";
+  const showAnswer = !!result;
+
+  return (
+    <div className="px-4">
+      <PlayfulInput
+        placeholder="回答を入力"
+        value={value ?? ""}
+        onChange={(e) => setInputValue([e.target.value])}
+        readOnly={showAnswer}
+        className={cn("opacity-100!", {
+          "border-green-500 bg-green-500/20": showAnswer && result.isCorrect,
+        })}
+        autoFocus
+      />
+    </div>
+  );
+};

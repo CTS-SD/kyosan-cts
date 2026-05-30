@@ -1,14 +1,10 @@
 import { LockIcon } from "lucide-react";
 import Link from "next/link";
-import { getQuizPrompt, type Quiz } from "@/features/quiz";
-import { Markdown } from "@/features/quiz/components/markdown";
-import { QuizAnswerRenderer } from "@/features/quiz/components/quiz-answer-renderer";
+import { Markdown } from "@/features/quizzes/components/markdown";
+import { QuizAnswerRenderer } from "@/features/quizzes/components/quiz-answer-renderer";
+import type { Quiz } from "@/features/quizzes/types";
 
-type Props = {
-  quiz: Quiz;
-};
-
-export const QuizItem = ({ quiz }: Props) => {
+export const QuizItem = ({ quiz }: { quiz: Quiz }) => {
   return (
     <Link
       href={`/admin/puratto/q/${quiz.id}`}
@@ -16,7 +12,6 @@ export const QuizItem = ({ quiz }: Props) => {
       data-testid="quiz-item"
     >
       <div className="mask-b-from-80% h-[5.5lh] space-y-1.5 overflow-clip px-4 py-3">
-        <div className="text-muted-foreground text-xs">{getQuizPrompt(quiz)}</div>
         <Markdown>{quiz.question}</Markdown>
       </div>
       <div className="p-1.5">
