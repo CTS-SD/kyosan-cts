@@ -6,8 +6,8 @@ import { toast } from "sonner";
 import { Button } from "@/components//ui/button";
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogTitle, DialogTrigger } from "@/components//ui/dialog";
 import { UserIcon } from "@/components/icons/user-icon";
-import type { StudentValues } from "@/features/student/editor";
 import { deleteStudent, updateStudent } from "@/features/students/api";
+import type { StudentValues } from "@/features/students/editor";
 import type { Department, Faculty, Student } from "@/features/students/types";
 import { StudentEditor, StudentEditorCancel, StudentEditorFields, StudentEditorSubmit } from "./student-editor";
 

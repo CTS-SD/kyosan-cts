@@ -1,4 +1,4 @@
-import type { StudentValues } from "@/features/student/editor";
+import type { StudentValues } from "@/features/students/editor";
 import { api } from "@/lib/api-client";
 
 export async function insertStudents(values: StudentValues[]) {

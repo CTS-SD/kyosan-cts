@@ -1,5 +1,5 @@
 import * as motion from "motion/react-client";
-import { getDepartmentAsset } from "@/features/student/department";
+import { getDepartmentAsset } from "@/features/departments/assets";
 import type { Department } from "@/features/students/types";
 import { cn } from "@/lib/utils";
 

@@ -2,7 +2,7 @@ import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { getDepartmentAsset } from "@/features/student/department";
+import { getDepartmentAsset } from "@/features/departments/assets";
 import { cn } from "@/lib/utils";
 import { getDepartments } from "@/server/services/departments";
 import { getStudentByStudentNumber } from "@/server/services/students";

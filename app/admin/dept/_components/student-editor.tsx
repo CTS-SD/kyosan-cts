@@ -9,7 +9,7 @@ import { Input } from "@/components//ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components//ui/select";
 import { Spinner } from "@/components//ui/spinner";
 import { UserIcon } from "@/components/icons/user-icon";
-import { StudentEditorSchema, type StudentValues } from "@/features/student/editor";
+import { StudentEditorSchema, type StudentValues } from "@/features/students/editor";
 import type { Department, Faculty, Student } from "@/features/students/types";
 
 const StudentEditorContext = createContext<{

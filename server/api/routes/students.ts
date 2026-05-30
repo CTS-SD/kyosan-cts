@@ -1,7 +1,7 @@
 import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { z } from "zod";
-import { StudentEditorSchema } from "@/features/student/editor";
+import { StudentEditorSchema } from "@/features/students/editor";
 import {
   deleteStudent,
   existsStudentByStudentNumber,

@@ -2,7 +2,7 @@ import "server-only";
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { StudentTable } from "@/db/schema";
-import type { StudentValues } from "@/features/student/editor";
+import type { StudentValues } from "@/features/students/editor";
 import { StudentSchema, StudentWithRelationsSchema } from "@/features/students/types";
 import { getDepartments } from "./departments";
 import { getFaculties } from "./faculties";
