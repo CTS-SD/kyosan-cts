@@ -2,10 +2,11 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { fetchQuizCounts } from "@/features/quizzes/api";
+import { quizKeys } from "@/features/quizzes/query-keys";
 
 export const QuizListStats = () => {
   const { data } = useQuery({
-    queryKey: ["quizzes", "count"],
+    queryKey: quizKeys.count(),
     queryFn: fetchQuizCounts,
     staleTime: 60 * 1000,
   });

@@ -1,4 +1,5 @@
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
+import { quizKeys } from "@/features/quizzes/query-keys";
 import type { QuizzesCursor } from "@/features/quizzes/types";
 import { getQuizzes } from "@/server/services/quizzes";
 import { QuizListClient } from "./quiz-list-client";
@@ -11,7 +12,7 @@ export const QuizList = async () => {
   });
 
   await queryClient.prefetchInfiniteQuery({
-    queryKey: ["quizzes"],
+    queryKey: quizKeys.list(),
     initialPageParam: null as QuizzesCursor,
     queryFn: ({ pageParam }) => getQuizzes({ limit: QUIZZES_PAGE_SIZE, cursor: pageParam, order: "desc" }),
     getNextPageParam: (last: { nextCursor: QuizzesCursor }) => last.nextCursor,
