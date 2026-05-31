@@ -17,7 +17,7 @@ export const QuizSearchInput = ({ className }: { className?: string }) => {
         type="search"
         value={q}
         onChange={(e) => setQ(e.target.value)}
-        placeholder="問題文・解説・解答で検索"
+        placeholder="問題を検索..."
       />
       {q ? (
         <InputGroupAddon align="inline-end">
