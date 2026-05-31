@@ -122,8 +122,8 @@ export function Dashboard({ summary, perQuiz, trend }: DashboardProps) {
                 <ChartTooltip
                   content={
                     <ChartTooltipContent
-                      labelFormatter={(value: string) => {
-                        const d = new Date(value);
+                      labelFormatter={(value) => {
+                        const d = new Date(value as string);
                         return `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()}`;
                       }}
                     />
