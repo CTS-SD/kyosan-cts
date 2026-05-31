@@ -22,6 +22,9 @@ const quizBase = {
   question: z.string(),
   explanation: z.string().nullable(),
   isPublished: z.boolean(),
+  // Tag names attached to the quiz. Defaults to [] so rows fetched without a
+  // tag join (e.g. play sessions) still parse cleanly.
+  tags: z.array(z.string()).default([]),
   // coerce so the same schema parses both a Date (server-side rows) and an
   // ISO string (client-side, after JSON serialization over the RPC boundary).
   createdAt: z.coerce.date(),
@@ -44,6 +47,7 @@ const quizInputBase = {
   question: z.string().min(1).max(1000),
   explanation: z.string().nullable(),
   isPublished: z.boolean(),
+  tags: z.array(z.string()).default([]),
 };
 
 export const QuizInputSchema = z.discriminatedUnion("type", [

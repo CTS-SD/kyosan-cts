@@ -24,6 +24,7 @@ import { QuizPlay } from "@/features/quizzes/components/quiz-play";
 import { QuizSessionHeader, QuizSessionMain } from "@/features/quizzes/components/quiz-session";
 import { cn } from "@/lib/utils";
 import { QuizEditorSelect } from "./quiz-editor-select";
+import { QuizEditorTags } from "./quiz-editor-tags";
 import { QuizEditorText } from "./quiz-editor-text";
 import { QuizEditorTrueFalse } from "./quiz-editor-true-false";
 
@@ -49,6 +50,7 @@ export const QuizEditorProvider = ({
     question: "",
     explanation: "",
     isPublished: true,
+    tags: [],
     correctChoicesText: "",
     incorrectChoicesText: "",
   },
@@ -194,6 +196,7 @@ export const QuizEditorFields = () => {
           </Field>
         )}
       />
+      <QuizEditorTags />
       <Controller
         name="isPublished"
         control={form.control}

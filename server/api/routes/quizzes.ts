@@ -2,7 +2,15 @@ import { zValidator } from "@hono/zod-validator";
 import { Hono } from "hono";
 import { z } from "zod";
 import { QuizInputSchema } from "@/features/quizzes/types";
-import { deleteQuiz, getQuizById, getQuizCounts, getQuizzes, insertQuiz, updateQuiz } from "@/server/services/quizzes";
+import {
+  deleteQuiz,
+  getQuizById,
+  getQuizCounts,
+  getQuizTags,
+  getQuizzes,
+  insertQuiz,
+  updateQuiz,
+} from "@/server/services/quizzes";
 import { type AuthVariables, requireAdmin } from "../middleware";
 
 const idParam = z.object({ id: z.coerce.number().int().positive() });
@@ -18,16 +26,28 @@ export const quizzesRoute = new Hono<{ Variables: AuthVariables }>()
         limit: z.coerce.number().int().positive().max(100),
         order: z.enum(["asc", "desc"]),
         search: z.string().optional(),
+        // Comma-separated tag names, AND-matched.
+        tags: z.string().optional(),
+        status: z.enum(["published", "draft"]).optional(),
       }),
     ),
     async (c) => {
-      const { limit, cursor, order, search } = c.req.valid("query");
-      const result = await getQuizzes({ limit, cursor, order, search });
+      const { limit, cursor, order, search, tags, status } = c.req.valid("query");
+      const tagList = tags
+        ? tags
+            .split(",")
+            .map((t) => t.trim())
+            .filter(Boolean)
+        : undefined;
+      const result = await getQuizzes({ limit, cursor, order, search, tags: tagList, status });
       return c.json(result);
     },
   )
   .get("/count", async (c) => {
     return c.json(await getQuizCounts());
+  })
+  .get("/tags", async (c) => {
+    return c.json(await getQuizTags());
   })
   .post("/", zValidator("json", QuizInputSchema), async (c) => {
     const input = c.req.valid("json");

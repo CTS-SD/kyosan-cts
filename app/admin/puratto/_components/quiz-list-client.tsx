@@ -1,24 +1,28 @@
 "use client";
 
 import { useDebounce } from "@uidotdev/usehooks";
-import { useQueryState } from "nuqs";
 import { Button } from "@/components/ui/button";
 import { useQuizzes } from "@/features/quizzes/hooks/use-quizzes";
 import { QuizItem } from "./quiz-item";
+import { useQuizFilters } from "./use-quiz-filters";
 
 export const QuizListClient = () => {
-  const [q] = useQueryState("q", { defaultValue: "", clearOnDefault: true });
+  const { q, tags, status } = useQuizFilters();
   const debouncedQ = useDebounce(q, 300);
-  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useQuizzes(debouncedQ);
+  const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useQuizzes({
+    search: debouncedQ,
+    tags,
+    status: status ?? undefined,
+  });
 
   const quizzes = data?.pages.flatMap((page) => page.items) ?? [];
-  const isSearching = debouncedQ.trim().length > 0;
+  const isFiltering = debouncedQ.trim().length > 0 || tags.length > 0 || status !== null;
 
   return (
     <div>
       {quizzes.length === 0 ? (
         <p className="py-12 text-center text-muted-foreground text-sm">
-          {isSearching ? "該当するクイズがありません" : "クイズがありません"}
+          {isFiltering ? "該当するクイズがありません" : "クイズがありません"}
         </p>
       ) : (
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

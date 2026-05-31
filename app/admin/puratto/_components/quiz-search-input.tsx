@@ -1,12 +1,12 @@
 "use client";
 
 import { SearchIcon, XIcon } from "lucide-react";
-import { useQueryState } from "nuqs";
 import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@/components/ui/input-group";
 import { cn } from "@/lib/utils";
+import { useQuizFilters } from "./use-quiz-filters";
 
 export const QuizSearchInput = ({ className }: { className?: string }) => {
-  const [q, setQ] = useQueryState("q", { defaultValue: "", clearOnDefault: true });
+  const { q, setQ } = useQuizFilters();
 
   return (
     <InputGroup className={cn("bg-background", className)}>

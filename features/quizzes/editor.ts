@@ -20,6 +20,7 @@ const editorBase = {
   question: z.string().min(1, "問題文を入力してください。").max(1000, "問題文は1000文字以内で入力してください。"),
   explanation: z.string().nullable(),
   isPublished: z.boolean(),
+  tags: z.array(z.string()),
 };
 
 export const SelectQuizEditorSchema = z
@@ -110,6 +111,7 @@ export function toEditorValues(quiz: Quiz): QuizEditorValues {
     question: quiz.question,
     explanation: quiz.explanation,
     isPublished: quiz.isPublished,
+    tags: quiz.tags,
   };
   switch (quiz.type) {
     case "select":
@@ -132,6 +134,7 @@ export function fromEditorValues(values: QuizEditorValues): QuizInput {
     question: values.question,
     explanation: values.explanation,
     isPublished: values.isPublished,
+    tags: values.tags,
   };
   switch (values.type) {
     case "select":
