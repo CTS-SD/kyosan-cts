@@ -13,12 +13,7 @@ export const QuizSearchInput = ({ className }: { className?: string }) => {
       <InputGroupAddon>
         <SearchIcon />
       </InputGroupAddon>
-      <InputGroupInput
-        type="search"
-        value={q}
-        onChange={(e) => setQ(e.target.value)}
-        placeholder="問題を検索..."
-      />
+      <InputGroupInput type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="問題を検索..." />
       {q ? (
         <InputGroupAddon align="inline-end">
           <InputGroupButton size="icon-xs" aria-label="検索をクリア" onClick={() => setQ("")}>

@@ -15,6 +15,10 @@ export const metadata: Metadata = {
   title: "ぷらっとテスト | 京産キャンスタ",
 };
 
+// The quiz pool is drawn randomly from published quizzes per visit, so this
+// page must render at request time — not be frozen into the build-time pool.
+export const dynamic = "force-dynamic";
+
 const Page = async () => {
   const config = await getConfig();
 

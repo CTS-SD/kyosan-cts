@@ -19,7 +19,9 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "server-only": ["./playwright/stubs/server-only"],
+      "client-only": ["./playwright/stubs/server-only"]
     }
   },
   "include": [

@@ -32,20 +32,30 @@ export async function seedDb() {
     ])
     .returning({ id: DepartmentTable.id });
 
-  // Seed Students
+  // Seed Students.
+  // Student numbers must satisfy the checksum used by StudentNumberSchema
+  // (digit sum divisible by 10); the last digit is a computed check digit so
+  // the seeded numbers can actually be entered via the member lookup form.
+  const withCheckDigit = (base: number) => {
+    const body = String(base).padStart(5, "0");
+    const sum = [...body].reduce((acc, ch) => acc + Number(ch), 0);
+    const check = (10 - (sum % 10)) % 10;
+    return `${body}${check}`;
+  };
+
   await db.insert(StudentTable).values(
     departments.flatMap((dept, index) => [
       {
         name: "田中太郎",
         departmentId: dept.id,
         facultyId: faculties[0].id,
-        studentNumber: `${100000 + index * 10}`,
+        studentNumber: withCheckDigit(10000 + index * 2),
       },
       {
         name: "佐藤花子",
         departmentId: dept.id,
         facultyId: faculties[1].id,
-        studentNumber: `${100001 + index * 10}`,
+        studentNumber: withCheckDigit(10000 + index * 2 + 1),
       },
     ]),
   );
@@ -56,13 +66,22 @@ export async function seedDb() {
       type: "select",
       question: "1+1は？",
       explanation: "1+1は2です。",
+      isPublished: true,
       params: { correctChoices: ["2"], incorrectChoices: ["1", "3", "4"] },
     },
     {
       type: "select",
       question: "次のうち、果物はどれですか？",
       explanation: "りんごは果物です。",
+      isPublished: true,
       params: { correctChoices: ["りんご"], incorrectChoices: ["にんじん", "じゃがいも", "ピーマン"] },
+    },
+    {
+      type: "select",
+      question: "下書きのクイズ",
+      explanation: null,
+      isPublished: false,
+      params: { correctChoices: ["A"], incorrectChoices: ["B", "C"] },
     },
   ]);
 }
