@@ -31,7 +31,6 @@ export const QuizItem = ({ quiz }: { quiz: Quiz }) => {
                 </div>
               </div>
             </div>
-            {!quiz.isPublished && <LockIcon className="size-3.5 text-muted-foreground" strokeWidth={3.2} />}
           </div>
         </div>
       </Link>
@@ -39,6 +38,9 @@ export const QuizItem = ({ quiz }: { quiz: Quiz }) => {
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <button className="flex items-center gap-0 rounded-full border bg-card ps-3 font-semibold text-lg text-muted-foreground">
+              {!quiz.isPublished && (
+                <LockIcon className="mr-2 size-3.5 text-muted-foreground/80" strokeWidth={3.2} aria-label="非公開" />
+              )}
               <div className="text-muted-foreground/80 text-sm tracking-tight">
                 <span className="text-xs">No.</span>
                 {quiz.id}
