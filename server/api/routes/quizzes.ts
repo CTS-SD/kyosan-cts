@@ -17,11 +17,12 @@ export const quizzesRoute = new Hono<{ Variables: AuthVariables }>()
         cursor: z.string().optional(),
         limit: z.coerce.number().int().positive().max(100),
         order: z.enum(["asc", "desc"]),
+        search: z.string().optional(),
       }),
     ),
     async (c) => {
-      const { limit, cursor, order } = c.req.valid("query");
-      const result = await getQuizzes({ limit, cursor, order });
+      const { limit, cursor, order, search } = c.req.valid("query");
+      const result = await getQuizzes({ limit, cursor, order, search });
       return c.json(result);
     },
   )

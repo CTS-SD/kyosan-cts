@@ -5,6 +5,6 @@
  */
 export const quizKeys = {
   all: ["quizzes"] as const,
-  list: () => [...quizKeys.all, "list"] as const,
+  list: (search?: string) => [...quizKeys.all, "list", { search: search ?? "" }] as const,
   count: () => [...quizKeys.all, "count"] as const,
 };

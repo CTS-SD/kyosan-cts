@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { QuizList } from "./_components/quiz-list";
 import { QuizListStats } from "./_components/quiz-list-stats";
+import { QuizSearchInput } from "./_components/quiz-search-input";
 
 export const metadata: Metadata = {
   title: "クイズを管理 - ぷらっとテスト",
@@ -12,9 +13,10 @@ export const metadata: Metadata = {
 const Page = async () => {
   return (
     <div className="mx-auto max-w-6xl p-6">
-      <div className="flex items-center gap-2">
+      <div className="flex flex-wrap items-center gap-2">
         <QuizListStats />
-        <Button className="ml-auto shrink-0" asChild>
+        <QuizSearchInput className="min-w-48 flex-1" />
+        <Button className="shrink-0" asChild>
           <Link href="/admin/puratto/q/new">
             新規作成
             <PlusIcon />

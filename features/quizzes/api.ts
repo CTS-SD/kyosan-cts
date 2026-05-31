@@ -1,12 +1,13 @@
 import { api } from "@/lib/api-client";
 import { type QuizInput, QuizSchema, type QuizzesCursor } from "./types";
 
-export async function fetchQuizzes(input: { cursor: QuizzesCursor; limit: number }) {
+export async function fetchQuizzes(input: { cursor: QuizzesCursor; limit: number; search?: string }) {
   const res = await api.quizzes.$get({
     query: {
       cursor: input.cursor ?? undefined,
       limit: String(input.limit),
       order: "desc",
+      search: input.search?.trim() || undefined,
     },
   });
   if (!res.ok) {

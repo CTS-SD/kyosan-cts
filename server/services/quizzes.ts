@@ -6,15 +6,37 @@ import { type QuizInput, QuizSchema, type QuizzesCursor } from "@/features/quizz
 
 const MAX_LIMIT = 100;
 
-export async function getQuizzes(input: { cursor: QuizzesCursor; limit: number; order: "asc" | "desc" }) {
+/** Escape LIKE/ILIKE wildcards so user input is matched literally. */
+function escapeLike(term: string) {
+  return term.replace(/[\\%_]/g, (c) => `\\${c}`);
+}
+
+export async function getQuizzes(input: {
+  cursor: QuizzesCursor;
+  limit: number;
+  order: "asc" | "desc";
+  search?: string;
+}) {
   const order = input.order;
   const limit = Math.min(Math.max(input.limit, 1), MAX_LIMIT);
   const cursorId = input.cursor ? Number.parseInt(input.cursor, 10) : undefined;
   const hasCursor = cursorId !== undefined && Number.isFinite(cursorId);
+  const term = input.search?.trim();
+  const pattern = term ? `%${escapeLike(term)}%` : undefined;
 
   // Fetch one extra row to detect whether a next page exists.
   const rows = await db.query.QuizTable.findMany({
-    where: hasCursor ? (t, { gt, lt }) => (order === "asc" ? gt(t.id, cursorId) : lt(t.id, cursorId)) : undefined,
+    where: (t, { and, or, gt, lt, ilike }) => {
+      const conds = [];
+      if (hasCursor) conds.push(order === "asc" ? gt(t.id, cursorId) : lt(t.id, cursorId));
+      if (pattern) {
+        // Cast the jsonb params to text so answer/choice content is searchable too.
+        conds.push(
+          or(ilike(t.question, pattern), ilike(t.explanation, pattern), sql`${t.params}::text ilike ${pattern}`),
+        );
+      }
+      return conds.length ? and(...conds) : undefined;
+    },
     orderBy: (t, { asc, desc }) => (order === "asc" ? asc(t.id) : desc(t.id)),
     limit: limit + 1,
   });
