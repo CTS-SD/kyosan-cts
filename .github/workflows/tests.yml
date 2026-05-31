@@ -36,7 +36,7 @@ jobs:
 
   e2e-tests:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
 
     env:
       NODE_ENV: test
@@ -78,7 +78,28 @@ jobs:
 
       - name: Install Playwright browser (Chromium only)
         if: steps.cache-playwright.outputs.cache-hit != 'true'
-        run: pnpm exec playwright install chromium
+        timeout-minutes: 12
+        env:
+          # Abort a stalled download (Playwright has no read timeout by default)
+          # so the retry loop below can recover instead of hanging the whole job.
+          PLAYWRIGHT_DOWNLOAD_CONNECTION_TIMEOUT: "120000"
+          # Log each download/extract step so that if it still wedges (the hang
+          # happens right after the chrome zip hits 100%), the log pinpoints the
+          # exact post-download operation that blocks.
+          DEBUG: "pw:install"
+        run: |
+          for attempt in 1 2 3; do
+            echo "::group::Playwright browser install (attempt $attempt)"
+            if timeout 300 pnpm exec playwright install chromium; then
+              echo "::endgroup::"
+              exit 0
+            fi
+            echo "::endgroup::"
+            echo "Attempt $attempt stalled or failed; retrying..."
+            sleep 5
+          done
+          echo "Playwright browser install failed after 3 attempts" >&2
+          exit 1
 
       - name: Start Test DB
         run: docker compose up -d --wait db_test
