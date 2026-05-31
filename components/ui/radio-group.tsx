@@ -20,7 +20,7 @@ function RadioGroupItem({ className, ...props }: React.ComponentProps<typeof Rad
       {...props}
     >
       <RadioGroupPrimitive.Indicator data-slot="radio-group-indicator">
-        <CheckFilledIcon className="size-4" />
+        <CheckFilledIcon className="size-4.5" />
       </RadioGroupPrimitive.Indicator>
     </RadioGroupPrimitive.Item>
   );
