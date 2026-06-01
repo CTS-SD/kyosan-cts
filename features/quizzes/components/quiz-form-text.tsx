@@ -3,7 +3,7 @@
 import { PlayfulInput } from "@/components/ui/playful-input";
 import { cn } from "@/lib/utils";
 import type { TextQuiz } from "../types";
-import { useQuizPlay } from "./quiz-play";
+import { useQuizPlay } from "./quiz-play-context";
 
 export const QuizFormText = () => {
   const { result, inputValue, setInputValue } = useQuizPlay<TextQuiz>();

@@ -12,10 +12,10 @@ import { upsertConfigValue } from "@/features/config/api";
 
 const FormSchema = z.object({
   year: z
-    .number("年度を入力してください。")
-    .int({ message: "整数で入力してください。" })
-    .min(2000, { message: "2000以上の値を入力してください。" })
-    .max(3000, { message: "3000以下の値を入力してください。" }),
+    .number({ error: "年度を入力してください。" })
+    .int({ error: "整数で入力してください。" })
+    .min(2000, { error: "2000以上の値を入力してください。" })
+    .max(3000, { error: "3000以下の値を入力してください。" }),
 });
 
 export const YearSetting = ({ initialYear }: { initialYear: number }) => {

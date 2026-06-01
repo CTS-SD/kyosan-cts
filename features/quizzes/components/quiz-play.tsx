@@ -1,7 +1,7 @@
 "use client";
 
 import { CornerDownLeftIcon } from "lucide-react";
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { PlayfulButton } from "@/components/ui/playful-button";
 import { cn } from "@/lib/utils";
 import { getQuizPrompt, judgeQuizInput, validateQuizInput } from "../domain";
@@ -10,32 +10,10 @@ import { Markdown } from "./markdown";
 import { QuizFormSelect } from "./quiz-form-select";
 import { QuizFormText } from "./quiz-form-text";
 import { QuizFormTrueFalse } from "./quiz-form-true-false";
+import { QuizPlayContext, useQuizPlay } from "./quiz-play-context";
 import { QuizPlayResult } from "./quiz-play-result";
 
-interface QuizPlayState<T extends Quiz> {
-  inputValue: string[];
-  setInputValue: React.Dispatch<React.SetStateAction<string[]>>;
-  isValidInput: boolean;
-  quiz: T;
-  result: QuizResult | null;
-  setResult: React.Dispatch<React.SetStateAction<QuizResult | null>>;
-
-  onAnswer?: (result: QuizResult) => void;
-  onNext?: () => void;
-
-  enableKeyboard: boolean;
-  choicesRef: React.RefObject<string[]>;
-}
-
-export const QuizPlayContext = createContext<QuizPlayState<Quiz> | null>(null);
-
-export const useQuizPlay = <T extends Quiz>() => {
-  const value = useContext(QuizPlayContext);
-  if (!value) throw new Error("useQuizPlay must be used within a QuizPlayContext.Provider");
-  return value as QuizPlayState<T>;
-};
-
-export const QuizPlayProvider = ({
+const QuizPlayProvider = ({
   children,
   quiz,
   onAnswer,
@@ -54,27 +32,26 @@ export const QuizPlayProvider = ({
 
   const isValidInput = validateQuizInput(quiz, inputValue);
 
-  return (
-    <QuizPlayContext.Provider
-      value={{
-        inputValue,
-        setInputValue,
-        quiz,
-        result,
-        setResult,
-        isValidInput,
-        onAnswer,
-        onNext,
-        enableKeyboard,
-        choicesRef,
-      }}
-    >
-      {children}
-    </QuizPlayContext.Provider>
+  const value = useMemo(
+    () => ({
+      inputValue,
+      setInputValue,
+      quiz,
+      result,
+      setResult,
+      isValidInput,
+      onAnswer,
+      onNext,
+      enableKeyboard,
+      choicesRef,
+    }),
+    [inputValue, quiz, result, isValidInput, onAnswer, onNext, enableKeyboard],
   );
+
+  return <QuizPlayContext.Provider value={value}>{children}</QuizPlayContext.Provider>;
 };
 
-export const QuizPlayContent = () => {
+const QuizPlayContent = () => {
   const { quiz, setResult, result, inputValue, setInputValue, onNext, onAnswer, enableKeyboard, choicesRef } =
     useQuizPlay();
 

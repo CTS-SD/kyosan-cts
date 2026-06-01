@@ -5,7 +5,7 @@ import { useEffect, useMemo } from "react";
 import { PlayfulButton } from "@/components/ui/playful-button";
 import { cn } from "@/lib/utils";
 import type { SelectQuiz } from "../types";
-import { useQuizPlay } from "./quiz-play";
+import { useQuizPlay } from "./quiz-play-context";
 
 export const QuizFormSelect = () => {
   const {
@@ -57,7 +57,7 @@ export const QuizFormSelect = () => {
               variant="outline"
               type="button"
               tint={tint}
-              key={`${quiz.id}-${index}`}
+              key={`${quiz.id}-${choice}`}
               onClick={() => handleChoice(choice)}
               className={cn("relative", enableKeyboard && index < 9 && "pointer-fine:pl-12")}
               disabled={!!result}

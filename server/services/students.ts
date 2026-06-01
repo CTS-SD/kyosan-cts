@@ -26,13 +26,6 @@ export async function getStudents() {
   );
 }
 
-export async function getStudentById(id: number) {
-  const student = await db.query.StudentTable.findFirst({
-    where: (t, { eq }) => eq(t.id, id),
-  });
-  return student ? StudentSchema.parse(student) : null;
-}
-
 export async function getStudentByStudentNumber(studentNumber: string) {
   const student = await db.query.StudentTable.findFirst({
     where: (t, { eq }) => eq(t.studentNumber, studentNumber),

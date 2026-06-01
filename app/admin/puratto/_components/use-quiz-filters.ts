@@ -2,7 +2,7 @@
 
 import { parseAsArrayOf, parseAsString, parseAsStringLiteral, useQueryState } from "nuqs";
 
-export const QUIZ_STATUSES = ["published", "draft"] as const;
+const QUIZ_STATUSES = ["published", "draft"] as const;
 export type QuizStatus = (typeof QUIZ_STATUSES)[number];
 
 /**

@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createContext, useContext } from "react";
+import { createContext, use, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Button } from "@/components//ui/button";
 import { Field, FieldError, FieldLabel, FieldSet } from "@/components//ui/field";
@@ -17,7 +17,7 @@ const StudentEditorContext = createContext<{
 } | null>(null);
 
 const useStudentEditor = () => {
-  const context = useContext(StudentEditorContext);
+  const context = use(StudentEditorContext);
   if (!context) throw new Error("useStudentEditor must be used within a StudentEditorProvider");
   return context;
 };
@@ -53,12 +53,10 @@ export const StudentEditor = ({
     }
   });
 
+  const value = useMemo(() => ({ form }), [form]);
+
   return (
-    <StudentEditorContext.Provider
-      value={{
-        form,
-      }}
-    >
+    <StudentEditorContext.Provider value={value}>
       <form onSubmit={handleSubmit} className="contents">
         {children}
       </form>

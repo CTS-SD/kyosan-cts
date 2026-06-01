@@ -37,7 +37,10 @@ export const QuizItem = ({ quiz }: { quiz: Quiz }) => {
       <div className="absolute -top-2 right-0">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button className="flex items-center gap-0 rounded-full border bg-card ps-3 font-semibold text-lg text-muted-foreground">
+            <button
+              type="button"
+              className="flex items-center gap-0 rounded-full border bg-card ps-3 font-semibold text-lg text-muted-foreground"
+            >
               {!quiz.isPublished && (
                 <LockIcon className="mr-2 size-3.5 text-muted-foreground/80" strokeWidth={3.2} aria-label="非公開" />
               )}

@@ -17,23 +17,26 @@ const looseSplitByLines = (str: string) => splitByLines(str).map((line) => line.
 
 const editorBase = {
   id: z.number().nullable(),
-  question: z.string().min(1, "問題文を入力してください。").max(1000, "問題文は1000文字以内で入力してください。"),
+  question: z
+    .string()
+    .min(1, { error: "問題文を入力してください。" })
+    .max(1000, { error: "問題文は1000文字以内で入力してください。" }),
   explanation: z.string().nullable(),
   isPublished: z.boolean(),
   tags: z.array(z.string()),
 };
 
-export const SelectQuizEditorSchema = z
+const SelectQuizEditorSchema = z
   .object({
     ...editorBase,
     type: z.literal("select"),
     correctChoicesText: z
-      .string("正解の選択肢を入力してください。")
-      .refine((val) => splitByLines(val).length > 0, { message: "正解の選択肢を入力してください。" })
+      .string({ error: "正解の選択肢を入力してください。" })
+      .refine((val) => splitByLines(val).length > 0, { error: "正解の選択肢を入力してください。" })
       .transform((val) => splitByLines(val).join("\n")),
     incorrectChoicesText: z
-      .string("不正解の選択肢を入力してください。")
-      .refine((val) => splitByLines(val).length > 0, { message: "不正解の選択肢を入力してください。" })
+      .string({ error: "不正解の選択肢を入力してください。" })
+      .refine((val) => splitByLines(val).length > 0, { error: "不正解の選択肢を入力してください。" })
       .transform((val) => splitByLines(val).join("\n")),
   })
   .superRefine((val, ctx) => {
@@ -74,12 +77,12 @@ export const SelectQuizEditorSchema = z
     }
   });
 
-export const TextQuizEditorSchema = z.object({
+const TextQuizEditorSchema = z.object({
   ...editorBase,
   type: z.literal("text"),
   textAnswer: z
-    .string("解答を入力してください。")
-    .refine((val) => splitByLines(val).length > 0, { message: "解答を入力してください。" })
+    .string({ error: "解答を入力してください。" })
+    .refine((val) => splitByLines(val).length > 0, { error: "解答を入力してください。" })
     .superRefine((val, ctx) => {
       const answers = looseSplitByLines(val);
       const dup = findDuplicates(answers);
@@ -90,10 +93,10 @@ export const TextQuizEditorSchema = z.object({
     .transform((val) => Array.from(new Set(looseSplitByLines(val))).join("\n")),
 });
 
-export const TrueFalseQuizEditorSchema = z.object({
+const TrueFalseQuizEditorSchema = z.object({
   ...editorBase,
   type: z.literal("true_false"),
-  trueFalseAnswer: z.boolean("解答を選択してください。"),
+  trueFalseAnswer: z.boolean({ error: "解答を選択してください。" }),
 });
 
 export const QuizEditorSchema = z.discriminatedUnion("type", [

@@ -4,7 +4,7 @@ import { PlayfulButton } from "@/components/ui/playful-button";
 import { cn } from "@/lib/utils";
 import { Markdown } from "./markdown";
 import { QuizAnswerRenderer } from "./quiz-answer-renderer";
-import { useQuizPlay } from "./quiz-play";
+import { useQuizPlay } from "./quiz-play-context";
 
 export const QuizPlayResult = () => {
   const { result, quiz } = useQuizPlay();

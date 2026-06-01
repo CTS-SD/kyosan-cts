@@ -5,8 +5,7 @@ import { useDebounce } from "@uidotdev/usehooks";
 import { ArrowLeftIcon, EllipsisIcon, EyeIcon, XIcon } from "lucide-react";
 import Link from "next/link";
 import { useNavigationGuard } from "next-navigation-guard";
-import { type ComponentProps, createContext, type ReactNode, useContext, useMemo, useState } from "react";
-import type { UseFormReturn } from "react-hook-form";
+import { type ComponentProps, type ReactNode, useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -23,26 +22,13 @@ import { QuizMenuItems } from "@/features/quizzes/components/quiz-menu";
 import { QuizPlay } from "@/features/quizzes/components/quiz-play";
 import { QuizSessionHeader, QuizSessionMain } from "@/features/quizzes/components/quiz-session";
 import { cn } from "@/lib/utils";
+import { QuizEditorContext, useQuizEditor } from "./quiz-editor-context";
 import { QuizEditorSelect } from "./quiz-editor-select";
 import { QuizEditorTags } from "./quiz-editor-tags";
 import { QuizEditorText } from "./quiz-editor-text";
 import { QuizEditorTrueFalse } from "./quiz-editor-true-false";
 
-type QuizEditorState = {
-  form: UseFormReturn<QuizEditorValues>;
-  state: UseFormReturn<QuizEditorValues>["formState"];
-  onSubmit: (values: QuizEditorValues) => void;
-};
-
-export const QuizEditorContext = createContext<QuizEditorState | null>(null);
-
-export const useQuizEditor = (): QuizEditorState => {
-  const value = useContext(QuizEditorContext);
-  if (!value) throw new Error("useQuizEditor must be used within a QuizEditorContext.Provider");
-  return value;
-};
-
-export const QuizEditorProvider = ({
+const QuizEditorProvider = ({
   children,
   defaultValues = {
     id: null,
@@ -72,11 +58,11 @@ export const QuizEditorProvider = ({
   );
 };
 
-export const QuizEditorWrapper = ({ className, ...props }: ComponentProps<"div">) => {
+const QuizEditorWrapper = ({ className, ...props }: ComponentProps<"div">) => {
   return <div className={cn("mx-auto flex max-w-6xl", className)} {...props} />;
 };
 
-export const QuizEditorMain = ({ className, ...props }: ComponentProps<"form">) => {
+const QuizEditorMain = ({ className, ...props }: ComponentProps<"form">) => {
   const { form, state, onSubmit } = useQuizEditor();
 
   useNavigationGuard({
@@ -92,11 +78,11 @@ export const QuizEditorMain = ({ className, ...props }: ComponentProps<"form">) 
   return <form className={cn("flex-1", className)} onSubmit={handleSubmit} {...props} />;
 };
 
-export const QuizEditorHeader = ({ className, ...props }: ComponentProps<"div">) => {
+const QuizEditorHeader = ({ className, ...props }: ComponentProps<"div">) => {
   return <div className={cn("flex items-center gap-2 p-6", className)} {...props} />;
 };
 
-export const QuizEditorBack = ({ ...props }: ComponentProps<"button">) => {
+const QuizEditorBack = ({ ...props }: ComponentProps<"button">) => {
   return (
     <Button variant="outline" size="icon" asChild {...props}>
       <Link href="/admin/puratto" aria-label="戻る">
@@ -106,11 +92,11 @@ export const QuizEditorBack = ({ ...props }: ComponentProps<"button">) => {
   );
 };
 
-export const QuizEditorTitle = ({ className, ...props }: ComponentProps<"h1">) => {
+const QuizEditorTitle = ({ className, ...props }: ComponentProps<"h1">) => {
   return <h1 className={cn("flex gap-2 px-2 font-semibold", className)} {...props} />;
 };
 
-export const QuizEditorMenu = () => {
+const QuizEditorMenu = () => {
   const { form } = useQuizEditor();
 
   const quizId = form.getValues("id");
@@ -131,7 +117,7 @@ export const QuizEditorMenu = () => {
   );
 };
 
-export const QuizEditorFields = () => {
+const QuizEditorFields = () => {
   const { form } = useQuizEditor();
   const quizType = form.watch("type");
 
@@ -215,7 +201,7 @@ export const QuizEditorFields = () => {
   );
 };
 
-export const QuizEditorFooter = ({ className, ...props }: ComponentProps<"div">) => {
+const QuizEditorFooter = ({ className, ...props }: ComponentProps<"div">) => {
   return (
     <div
       className={cn(
@@ -227,7 +213,7 @@ export const QuizEditorFooter = ({ className, ...props }: ComponentProps<"div">)
   );
 };
 
-export const QuizEditorCancel = () => {
+const QuizEditorCancel = () => {
   const { state } = useQuizEditor();
 
   return (
@@ -237,7 +223,7 @@ export const QuizEditorCancel = () => {
   );
 };
 
-export const QuizEditorSubmit = ({ children, ...props }: ComponentProps<typeof Button>) => {
+const QuizEditorSubmit = ({ children, ...props }: ComponentProps<typeof Button>) => {
   const { state } = useQuizEditor();
 
   return (
@@ -270,7 +256,7 @@ const MobilePreviewContent = () => {
   );
 };
 
-export const QuizEditorMobilePreviewButton = () => {
+const QuizEditorMobilePreviewButton = () => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -289,7 +275,7 @@ export const QuizEditorMobilePreviewButton = () => {
   );
 };
 
-export const QuizEditorPreview = () => {
+const QuizEditorPreview = () => {
   const quiz = usePreviewQuiz();
 
   if (!quiz) return null;

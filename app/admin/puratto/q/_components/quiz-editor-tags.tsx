@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/combobox";
 import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
 import { useQuizTags } from "@/features/quizzes/hooks/use-quiz-tags";
-import { useQuizEditor } from "./quiz-editor";
+import { useQuizEditor } from "./quiz-editor-context";
 
 export const QuizEditorTags = () => {
   const { form } = useQuizEditor();

@@ -71,7 +71,7 @@ const navGroups: NavGroup[] = [
   },
 ];
 
-export const AdminSidebarContent = ({ className, ...props }: React.ComponentProps<"div">) => {
+const AdminSidebarContent = ({ className, ...props }: React.ComponentProps<"div">) => {
   const { setOpen } = useAdminSidebar();
   const pathname = usePathname();
 
@@ -121,7 +121,7 @@ export const AdminSidebarContent = ({ className, ...props }: React.ComponentProp
   );
 };
 
-export const FixedAdminSidebar = () => {
+const FixedAdminSidebar = () => {
   return (
     <div className="sticky top-0 hidden h-dvh w-64 shrink-0 border-e bg-background px-1.5 lg:flex">
       <AdminSidebarContent />
@@ -129,7 +129,7 @@ export const FixedAdminSidebar = () => {
   );
 };
 
-export const FloatingAdminSidebar = () => {
+const FloatingAdminSidebar = () => {
   const { open, setOpen } = useAdminSidebar();
 
   useEffect(() => {

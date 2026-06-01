@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 export const Confetti = ({ delay }: { delay: number }) => {
   useEffect(() => {
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       confetti();
       confetti({
         angle: 60,
@@ -16,6 +16,7 @@ export const Confetti = ({ delay }: { delay: number }) => {
         origin: { x: 1 },
       });
     }, delay);
+    return () => clearTimeout(timeout);
   }, [delay]);
 
   return null;

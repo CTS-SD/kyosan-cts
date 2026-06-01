@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, use, useCallback, useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
 import type { Quiz, QuizResult } from "../types";
 
@@ -21,7 +21,7 @@ type QuizSessionState = {
 const QuizSessionContext = createContext<QuizSessionState | null>(null);
 
 export const useQuizSession = () => {
-  const value = useContext(QuizSessionContext);
+  const value = use(QuizSessionContext);
   if (!value) throw new Error("useQuizSession must be used within a QuizSessionContext.Provider");
   return value as QuizSessionState;
 };
@@ -34,32 +34,31 @@ export const QuizSessionProvider = ({ quizzes, children }: { quizzes: Quiz[]; ch
 
   const isFinished = currentQuizIndex >= quizzes.length;
 
-  const addResult = (result: QuizResult) => {
+  // Capture the finish time once, during render, the moment the session ends.
+  // (Adjusting state during render is React's recommended alternative to an effect here.)
+  if (isFinished && finishedAt === null) {
+    setFinishedAt(Date.now());
+  }
+
+  const addResult = useCallback((result: QuizResult) => {
     setResults((prev) => [...prev, result]);
-  };
+  }, []);
 
-  useEffect(() => {
-    if (currentQuizIndex >= quizzes.length && finishedAt === null) {
-      setFinishedAt(Date.now());
-    }
-  }, [currentQuizIndex, quizzes.length, finishedAt]);
-
-  return (
-    <QuizSessionContext.Provider
-      value={{
-        quizzes,
-        currentQuizIndex,
-        setCurrentQuizIndex,
-        results,
-        addResult,
-        startedAt,
-        finishedAt,
-        isFinished,
-      }}
-    >
-      {children}
-    </QuizSessionContext.Provider>
+  const value = useMemo<QuizSessionState>(
+    () => ({
+      quizzes,
+      currentQuizIndex,
+      setCurrentQuizIndex,
+      results,
+      addResult,
+      startedAt,
+      finishedAt,
+      isFinished,
+    }),
+    [quizzes, currentQuizIndex, results, addResult, startedAt, finishedAt, isFinished],
   );
+
+  return <QuizSessionContext.Provider value={value}>{children}</QuizSessionContext.Provider>;
 };
 
 export const QuizSessionMainBoundary = ({ children }: { children: React.ReactNode }) => {
