@@ -43,6 +43,20 @@
       "when": 1780425667580,
       "tag": "0005_ambiguous_maverick",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1780432871924,
+      "tag": "0006_stormy_lucky_pierre",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1780433642119,
+      "tag": "0007_dusty_warpath",
+      "breakpoints": true
     }
   ]
 }

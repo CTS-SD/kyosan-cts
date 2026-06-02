@@ -16,6 +16,8 @@ export const StudentTable = pgTable("student", {
 export const DepartmentTable = pgTable("department", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 256 }).unique().notNull(),
+  color: varchar("color", { length: 7 }).notNull().default("#3b82f6"),
+  order: integer("position").notNull().default(0),
 });
 
 export const FacultyTable = pgTable("faculty", {

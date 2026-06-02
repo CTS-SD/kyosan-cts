@@ -24,11 +24,11 @@ export async function seedDb() {
   const departments = await db
     .insert(DepartmentTable)
     .values([
-      { name: "総務部署" },
-      { name: "レク部署" },
-      { name: "SD部署" },
-      { name: "開発部署" },
-      { name: "広報部署" },
+      { name: "総務部署", color: "#2563eb", order: 0 },
+      { name: "レク部署", color: "#16a34a", order: 1 },
+      { name: "SD部署", color: "#ea580c", order: 2 },
+      { name: "開発部署", color: "#db2777", order: 3 },
+      { name: "広報部署", color: "#9333ea", order: 4 },
     ])
     .returning({ id: DepartmentTable.id });
 
