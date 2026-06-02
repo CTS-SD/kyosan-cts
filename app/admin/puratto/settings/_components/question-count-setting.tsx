@@ -8,13 +8,13 @@ import { Button } from "@/components/ui/button";
 import { Field, FieldError } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { Setting } from "@/components/ui/setting";
-import { upsertConfigValue } from "@/features/config/actions";
+import { upsertConfigValue } from "@/features/config/api";
 
 const FormSchema = z.object({
   count: z
-    .number("出題問題数を入力してください")
-    .min(1, "1以上の値を入力してください")
-    .max(100, "100以下の値を入力してください"),
+    .number({ error: "出題問題数を入力してください" })
+    .min(1, { error: "1以上の値を入力してください" })
+    .max(100, { error: "100以下の値を入力してください" }),
 });
 
 export const QuestionCountSetting = ({ initialCount }: { initialCount: number }) => {

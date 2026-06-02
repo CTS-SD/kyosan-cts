@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getConfigValue } from "@/features/config/actions";
+import { getConfigValue } from "@/server/services/config";
 import { QuestionCountSetting } from "./_components/question-count-setting";
 
 export const metadata: Metadata = {

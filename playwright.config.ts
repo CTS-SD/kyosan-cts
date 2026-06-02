@@ -2,83 +2,56 @@ import path from "node:path";
 import { defineConfig, devices } from "@playwright/test";
 import dotenv from "dotenv";
 
+// Load test env (DB on :5433, test secrets) for the Playwright runner process.
 dotenv.config({ path: path.resolve(__dirname, ".env.test") });
 
-const PORT = process.env.TEST_PORT ?? 3001;
+const PORT = Number(process.env.TEST_PORT ?? 3001);
 const BASE_URL = `http://localhost:${PORT}`;
 
+// Ensure the runner process and the web server both run in test mode.
 process.env.PLAYWRIGHT_TEST = "1";
 
-/**
- * See https://playwright.dev/docs/test-configuration.
- */
 export default defineConfig({
   testDir: "./playwright",
-  /* Run tests in files in parallel - but ensure proper test isolation */
-  fullyParallel: false, // Changed to false to avoid race conditions until we implement proper isolation
-  /* Fail the build on CI if you accidentally left test.only in the source code. */
+  // Per-test DB reset against a single shared test DB → run serially so every
+  // test is fully isolated and reproducible.
+  fullyParallel: false,
+  workers: 1,
   forbidOnly: !!process.env.CI,
-  /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
-  /* Allow limited parallelism on CI to keep runtimes reasonable. */
-  workers: 1, // Changed to 1 worker to ensure sequential execution for now
-  /* Reporter to use. See https://playwright.dev/docs/test-reporters */
-  reporter: "html",
-  /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
+  reporter: [["list"], ["html", { open: "never" }]],
+  timeout: 30_000,
+  expect: { timeout: 10_000 },
   use: {
-    /* Base URL to use in actions like `await page.goto('')`. */
     baseURL: BASE_URL,
-
-    /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: "on-first-retry",
-
     screenshot: "only-on-failure",
+    video: "off",
   },
 
-  /* Configure projects for major browsers */
   projects: [
     {
       name: "chromium",
-      use: {
-        ...devices["Desktop Chrome"],
-      },
+      use: { ...devices["Desktop Chrome"] },
     },
-    // {
-    //   name: "firefox",
-    //   use: { ...devices["Desktop Firefox"] },
-    // },
-    // {
-    //   name: "webkit",
-    //   use: { ...devices["Desktop Safari"] },
-    // },
-
-    /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: { ...devices['Pixel 5'] },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: { ...devices['iPhone 12'] },
-    // },
-
-    /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { ...devices['Desktop Edge'], channel: 'msedge' },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: { ...devices['Desktop Chrome'], channel: 'chrome' },
-    // },
+    {
+      // Public + member flows on a phone viewport (staff use the app on mobile).
+      // Admin tooling is desktop-only, so it is excluded here.
+      name: "mobile-chrome",
+      use: { ...devices["Pixel 5"] },
+      testMatch: ["**/public/**/*.spec.ts", "**/members/**/*.spec.ts"],
+    },
   ],
 
   globalSetup: "./playwright/global-setup.ts",
 
   webServer: {
-    command: `pnpm start --port=${PORT}`,
+    // CI builds in a dedicated workflow step; locally build on demand so a bare
+    // `pnpm test:e2e` is self-contained and reproducible.
+    command: process.env.CI ? `pnpm start --port=${PORT}` : `pnpm build && pnpm start --port=${PORT}`,
     url: BASE_URL,
     reuseExistingServer: !process.env.CI,
+    timeout: 180_000,
     env: {
       PLAYWRIGHT_TEST: "1",
       NODE_ENV: "test",

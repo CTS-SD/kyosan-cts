@@ -1,14 +1,12 @@
 "use server";
 
-import { eq } from "drizzle-orm";
 import { headers } from "next/headers";
 import { notFound } from "next/navigation";
 import { cache } from "react";
+import { auth } from "@/features/auth/server";
 import type { Role } from "@/features/auth/types";
-import { auth } from "@/lib/auth/server";
-import { db } from "@/lib/db";
-import { account as AccountTable, user as UserTable } from "@/lib/db/schema";
 import { env } from "@/lib/env";
+import { deleteUser, getUserByEmail, updateUserRole } from "@/server/services/users";
 
 export const getUser = cache(async () => {
   const session = await auth.api.getSession({
@@ -16,29 +14,6 @@ export const getUser = cache(async () => {
   });
   return session?.user ?? null;
 });
-
-export async function getUserById(userId: string) {
-  await requireRole(["admin"]);
-  const [user] = await db.select().from(UserTable).where(eq(UserTable.id, userId));
-  return user;
-}
-
-export async function getUserByEmail(email: string) {
-  await requireRole(["admin"]);
-  const [user] = await db.select().from(UserTable).where(eq(UserTable.email, email));
-  return user;
-}
-
-export async function updateUserRole(userId: string, role: string) {
-  await requireRole(["admin"]);
-  await db.update(UserTable).set({ role }).where(eq(UserTable.id, userId));
-}
-
-export async function deleteUser(userId: string) {
-  await requireRole(["admin"]);
-  await db.delete(UserTable).where(eq(UserTable.id, userId));
-  await db.delete(AccountTable).where(eq(AccountTable.userId, userId));
-}
 
 export async function resetMemberPassword({ newPassword }: { newPassword: string }) {
   await requireRole(["admin"]);

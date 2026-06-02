@@ -1,38 +1,26 @@
-"use client";
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
+import { quizKeys } from "@/features/quizzes/query-keys";
+import type { QuizzesCursor } from "@/features/quizzes/types";
+import { getQuizzes } from "@/server/services/quizzes";
+import { QuizListClient } from "./quiz-list-client";
 
-import { AlertCircleIcon } from "lucide-react";
-import { useQuizList } from "@/app/admin/puratto/_components/use-quiz-list";
-import { Alert, AlertTitle } from "@/components/ui/alert";
-import { Button } from "@/components/ui/button";
-import { QuizItem } from "./quiz-item";
-import { QuizListSkeleton } from "./quiz-list-skeleton";
+const QUIZZES_PAGE_SIZE = 24;
 
-export const QuizList = ({ tags }: { tags?: string[] }) => {
-  const { quizzes, isLoading, isFetchingNextPage, isError, hasNextPage, fetchNextPage } = useQuizList({ tags });
+export const QuizList = async () => {
+  const queryClient = new QueryClient({
+    defaultOptions: { queries: { staleTime: 60 * 1000 } },
+  });
 
-  if (isLoading) return <QuizListSkeleton />;
-  if (isError)
-    return (
-      <Alert variant="destructive">
-        <AlertCircleIcon />
-        <AlertTitle>問題の取得中にエラーが発生しました。</AlertTitle>
-      </Alert>
-    );
+  await queryClient.prefetchInfiniteQuery({
+    queryKey: quizKeys.list(),
+    initialPageParam: null as QuizzesCursor,
+    queryFn: ({ pageParam }) => getQuizzes({ limit: QUIZZES_PAGE_SIZE, cursor: pageParam, order: "desc" }),
+    getNextPageParam: (last: { nextCursor: QuizzesCursor }) => last.nextCursor,
+  });
 
   return (
-    <div>
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {quizzes.map((quiz) => (
-          <QuizItem key={quiz.id} quiz={quiz} />
-        ))}
-      </div>
-      {hasNextPage ? (
-        <div className="mt-4">
-          <Button className="w-full" variant="outline" onClick={() => fetchNextPage()} disabled={isFetchingNextPage}>
-            {isFetchingNextPage ? "読み込み中..." : "さらに表示"}
-          </Button>
-        </div>
-      ) : null}
-    </div>
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <QuizListClient />
+    </HydrationBoundary>
   );
 };

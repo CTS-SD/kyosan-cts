@@ -1,32 +1,26 @@
 "use client";
 
-import { useDebounce } from "@uidotdev/usehooks";
-import { SearchIcon } from "lucide-react";
-import { useQueryState } from "nuqs";
-import { useEffect, useState } from "react";
-import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
+import { SearchIcon, XIcon } from "lucide-react";
+import { InputGroup, InputGroupAddon, InputGroupButton, InputGroupInput } from "@/components/ui/input-group";
+import { cn } from "@/lib/utils";
+import { useQuizFilters } from "./use-quiz-filters";
 
-export const QuizSearchInput = () => {
-  const [query, setQuery] = useQueryState("q");
-  const [inputValue, setInputValue] = useState(query ?? "");
-  const debouncedValue = useDebounce(inputValue, 300);
-
-  useEffect(() => {
-    setQuery(debouncedValue || null);
-  }, [debouncedValue, setQuery]);
+export const QuizSearchInput = ({ className }: { className?: string }) => {
+  const { q, setQ } = useQuizFilters();
 
   return (
-    <InputGroup className="bg-background">
+    <InputGroup className={cn("bg-background", className)}>
       <InputGroupAddon>
         <SearchIcon />
       </InputGroupAddon>
-      <InputGroupInput
-        type="search"
-        className="grow"
-        placeholder="問題を検索"
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-      />
+      <InputGroupInput type="search" value={q} onChange={(e) => setQ(e.target.value)} placeholder="問題を検索..." />
+      {q ? (
+        <InputGroupAddon align="inline-end">
+          <InputGroupButton size="icon-xs" aria-label="検索をクリア" onClick={() => setQ("")}>
+            <XIcon />
+          </InputGroupButton>
+        </InputGroupAddon>
+      ) : null}
     </InputGroup>
   );
 };

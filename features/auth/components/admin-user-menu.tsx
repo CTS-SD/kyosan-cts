@@ -9,20 +9,20 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { authClient } from "@/lib/auth/client";
+import { authClient } from "@/features/auth/client";
 import { ThemeSubmenu } from "./theme-submenu";
 
-export const AdminUserMenu = (props: React.ComponentProps<typeof DropdownMenuTrigger>) => {
-  const handleSignOut = async () => {
-    await authClient.signOut({
-      fetchOptions: {
-        onSuccess: () => {
-          window.location.href = "/";
-        },
+const handleSignOut = async () => {
+  await authClient.signOut({
+    fetchOptions: {
+      onSuccess: () => {
+        window.location.href = "/";
       },
-    });
-  };
+    },
+  });
+};
 
+export const AdminUserMenu = (props: React.ComponentProps<typeof DropdownMenuTrigger>) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild {...props} />

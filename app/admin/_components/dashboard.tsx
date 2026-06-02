@@ -14,13 +14,8 @@ import {
 } from "@/components/ui/chart";
 import { Progress } from "@/components/ui/progress";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import {
-  type DailySessionTrend,
-  getQuizTypeLabel,
-  type PerQuizAccuracy,
-  type QuizType,
-  type SessionSummary,
-} from "@/features/quiz";
+import { getQuizTypeLabel, type QuizType } from "@/features/quizzes";
+import type { DailySessionTrend, PerQuizAccuracy, SessionSummary } from "@/server/services/sessions";
 
 type DashboardProps = {
   summary: SessionSummary;
@@ -127,8 +122,8 @@ export function Dashboard({ summary, perQuiz, trend }: DashboardProps) {
                 <ChartTooltip
                   content={
                     <ChartTooltipContent
-                      labelFormatter={(value: string) => {
-                        const d = new Date(value);
+                      labelFormatter={(value) => {
+                        const d = new Date(value as string);
                         return `${d.getFullYear()}/${d.getMonth() + 1}/${d.getDate()}`;
                       }}
                     />

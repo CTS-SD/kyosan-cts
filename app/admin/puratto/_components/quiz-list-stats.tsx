@@ -1,31 +1,32 @@
 "use client";
 
-import { LockIcon } from "lucide-react";
-import { useQuizListStats } from "@/app/admin/puratto/_components/use-quiz-list-stats";
-import { Badge } from "@/components/ui/badge";
-import { Skeleton } from "@/components/ui/skeleton";
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
+import { useQuery } from "@tanstack/react-query";
+import { Button } from "@/components/ui/button";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { fetchQuizCounts } from "@/features/quizzes/api";
+import { quizKeys } from "@/features/quizzes/query-keys";
 
 export const QuizListStats = () => {
-  const { isLoading, isError, data } = useQuizListStats();
+  const { data } = useQuery({
+    queryKey: quizKeys.count(),
+    queryFn: fetchQuizCounts,
+    staleTime: 60 * 1000,
+  });
 
-  if (isLoading) return <Skeleton className="h-6 w-48" />;
-  if (isError || !data) return <div>Error</div>;
+  if (!data) return null;
 
   return (
-    <div className="flex items-center gap-2">
-      <Badge variant="outline" className="bg-card">
-        計{data.totalCount}問
-      </Badge>
-      <Tooltip delayDuration={300}>
-        <TooltipTrigger>
-          <Badge variant="secondary" className="bg-accent">
-            <LockIcon strokeWidth={2.4} />
-            {data.privateCount}問
-          </Badge>
-        </TooltipTrigger>
-        <TooltipContent side="bottom">非公開</TooltipContent>
-      </Tooltip>
-    </div>
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button className="rounded-full" variant="outline">
+          全{data.total}問
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent align="start">
+        <div>
+          公開中: {data.published}件 / 非公開: {data.unpublished}件
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 };

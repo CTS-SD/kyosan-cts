@@ -1,12 +1,13 @@
 "use client";
 
 import { PlusIcon } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { insertStudents } from "@/features/student/actions";
-import type { StudentValues } from "@/features/student/editor";
-import type { Department, Faculty } from "@/lib/db/schema";
+import { insertStudents } from "@/features/students/api";
+import type { StudentValues } from "@/features/students/editor";
+import type { Department, Faculty } from "@/features/students/types";
 import { StudentEditor, StudentEditorCancel, StudentEditorFields, StudentEditorSubmit } from "./student-editor";
 
 type Props = {
@@ -15,14 +16,18 @@ type Props = {
 };
 
 export const AddStudentButton = ({ faculties, departments }: Props) => {
+  const router = useRouter();
+
   const handleAddStudent = async (studentData: StudentValues) => {
-    const insertResult = await insertStudents([studentData]);
-    if (!insertResult.success) {
-      toast.error(insertResult.message);
+    try {
+      await insertStudents([studentData]);
+      toast.success("学生を追加しました");
+      router.refresh();
+      return true;
+    } catch (e) {
+      toast.error(e instanceof Error ? e.message : "学生の追加に失敗しました");
       return false;
     }
-    toast.success(insertResult.message);
-    return true;
   };
 
   return (

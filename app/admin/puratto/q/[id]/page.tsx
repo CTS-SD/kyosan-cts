@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import { getQuizById } from "@/features/quiz";
+import { getQuizById } from "@/server/services/quizzes";
 import { ClientView } from "./client-view";
 
 type Props = {

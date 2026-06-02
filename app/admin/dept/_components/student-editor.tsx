@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { createContext, useContext } from "react";
+import { createContext, use, useMemo } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Button } from "@/components//ui/button";
 import { Field, FieldError, FieldLabel, FieldSet } from "@/components//ui/field";
@@ -9,15 +9,15 @@ import { Input } from "@/components//ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components//ui/select";
 import { Spinner } from "@/components//ui/spinner";
 import { UserIcon } from "@/components/icons/user-icon";
-import { StudentEditorSchema, type StudentValues } from "@/features/student/editor";
-import type { Department, Faculty, Student } from "@/lib/db/schema";
+import { StudentEditorSchema, type StudentValues } from "@/features/students/editor";
+import type { Department, Faculty, Student } from "@/features/students/types";
 
 const StudentEditorContext = createContext<{
   form: ReturnType<typeof useForm<StudentValues>>;
 } | null>(null);
 
 const useStudentEditor = () => {
-  const context = useContext(StudentEditorContext);
+  const context = use(StudentEditorContext);
   if (!context) throw new Error("useStudentEditor must be used within a StudentEditorProvider");
   return context;
 };
@@ -53,12 +53,10 @@ export const StudentEditor = ({
     }
   });
 
+  const value = useMemo(() => ({ form }), [form]);
+
   return (
-    <StudentEditorContext.Provider
-      value={{
-        form,
-      }}
-    >
+    <StudentEditorContext.Provider value={value}>
       <form onSubmit={handleSubmit} className="contents">
         {children}
       </form>

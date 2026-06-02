@@ -2,81 +2,33 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDebounce } from "@uidotdev/usehooks";
-import {
-  ArrowLeftIcon,
-  CopyIcon,
-  EllipsisIcon,
-  EyeIcon,
-  PlusCircleIcon,
-  ShareIcon,
-  Trash2Icon,
-  XIcon,
-} from "lucide-react";
+import { ArrowLeftIcon, EllipsisIcon, EyeIcon, XIcon } from "lucide-react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { useNavigationGuard } from "next-navigation-guard";
-import React, { createContext, useContext, useMemo, useState } from "react";
-import type { UseFormReturn } from "react-hook-form";
+import { type ComponentProps, type ReactNode, useMemo, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { useQuizTags } from "@/app/admin/puratto/_components/use-quiz-tags";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import {
-  Combobox,
-  ComboboxChip,
-  ComboboxChips,
-  ComboboxChipsInput,
-  ComboboxContent,
-  ComboboxItem,
-  ComboboxList,
-  ComboboxValue,
-  useComboboxAnchor,
-} from "@/components/ui/combobox";
 import { Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
 import { Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { PlayfulProgress } from "@/components/ui/playful-progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Spinner } from "@/components/ui/spinner";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
-import {
-  deleteQuiz,
-  getQuizTypes,
-  makePseudoQuiz,
-  type Quiz,
-  QuizEditorSchema,
-  type QuizEditorValues,
-} from "@/features/quiz";
-import { QuizPlay } from "@/features/quiz/components/quiz-play";
-import { QuizSessionHeader, QuizSessionMain } from "@/features/quiz/components/quiz-session";
-import { cn, copyToClipboard } from "@/lib/utils";
+import { getQuizTypes, makePseudoQuiz, type Quiz, QuizEditorSchema, type QuizEditorValues } from "@/features/quizzes";
+import { QuizMenuItems } from "@/features/quizzes/components/quiz-menu";
+import { QuizPlay } from "@/features/quizzes/components/quiz-play";
+import { QuizSessionHeader, QuizSessionMain } from "@/features/quizzes/components/quiz-session";
+import { cn } from "@/lib/utils";
+import { QuizEditorContext, useQuizEditor } from "./quiz-editor-context";
 import { QuizEditorSelect } from "./quiz-editor-select";
+import { QuizEditorTags } from "./quiz-editor-tags";
 import { QuizEditorText } from "./quiz-editor-text";
 import { QuizEditorTrueFalse } from "./quiz-editor-true-false";
 
-type QuizEditorState = {
-  form: UseFormReturn<QuizEditorValues>;
-  state: UseFormReturn<QuizEditorValues>["formState"];
-  onSubmit: (values: QuizEditorValues) => void;
-};
-
-export const QuizEditorContext = createContext<QuizEditorState | null>(null);
-
-export const useQuizEditor = (): QuizEditorState => {
-  const value = useContext(QuizEditorContext);
-  if (!value) throw new Error("useQuizEditor must be used within a QuizEditorContext.Provider");
-  return value;
-};
-
-export const QuizEditorProvider = ({
+const QuizEditorProvider = ({
   children,
   defaultValues = {
     id: null,
@@ -90,7 +42,7 @@ export const QuizEditorProvider = ({
   },
   onSubmit,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   defaultValues?: QuizEditorValues;
   onSubmit: (values: QuizEditorValues) => void;
 }) => {
@@ -100,23 +52,17 @@ export const QuizEditorProvider = ({
   });
 
   return (
-    <QuizEditorContext.Provider
-      value={{
-        form,
-        state: form.formState,
-        onSubmit,
-      }}
-    >
+    <QuizEditorContext.Provider value={{ form, state: form.formState, onSubmit }}>
       {children}
     </QuizEditorContext.Provider>
   );
 };
 
-export const QuizEditorWrapper = ({ className, ...props }: React.ComponentProps<"div">) => {
+const QuizEditorWrapper = ({ className, ...props }: ComponentProps<"div">) => {
   return <div className={cn("mx-auto flex max-w-6xl", className)} {...props} />;
 };
 
-export const QuizEditorMain = ({ className, ...props }: React.ComponentProps<"form">) => {
+const QuizEditorMain = ({ className, ...props }: ComponentProps<"form">) => {
   const { form, state, onSubmit } = useQuizEditor();
 
   useNavigationGuard({
@@ -132,11 +78,11 @@ export const QuizEditorMain = ({ className, ...props }: React.ComponentProps<"fo
   return <form className={cn("flex-1", className)} onSubmit={handleSubmit} {...props} />;
 };
 
-export const QuizEditorHeader = ({ className, ...props }: React.ComponentProps<"div">) => {
+const QuizEditorHeader = ({ className, ...props }: ComponentProps<"div">) => {
   return <div className={cn("flex items-center gap-2 p-6", className)} {...props} />;
 };
 
-export const QuizEditorBack = ({ ...props }: React.ComponentProps<"button">) => {
+const QuizEditorBack = ({ ...props }: ComponentProps<"button">) => {
   return (
     <Button variant="outline" size="icon" asChild {...props}>
       <Link href="/admin/puratto" aria-label="戻る">
@@ -146,47 +92,16 @@ export const QuizEditorBack = ({ ...props }: React.ComponentProps<"button">) => 
   );
 };
 
-export const QuizEditorTitle = ({ className, ...props }: React.ComponentProps<"h1">) => {
+const QuizEditorTitle = ({ className, ...props }: ComponentProps<"h1">) => {
   return <h1 className={cn("flex gap-2 px-2 font-semibold", className)} {...props} />;
 };
 
-export const QuizEditorMenu = () => {
+const QuizEditorMenu = () => {
   const { form } = useQuizEditor();
-  const router = useRouter();
 
   const quizId = form.getValues("id");
 
   if (!quizId) return null;
-
-  const handleShare = async () => {
-    if ("share" in navigator) {
-      await navigator
-        .share({
-          title: `ぷらっとテスト No.${quizId}`,
-          url: window.location.href,
-        })
-        .catch(() => {});
-    }
-  };
-
-  const handleCopyUrl = async () => {
-    if (await copyToClipboard(window.location.href)) {
-      toast.success("リンクをコピーしました");
-    } else {
-      toast.error("リンクのコピーに失敗しました");
-    }
-  };
-
-  const handleDelete = async () => {
-    if (!window.confirm("この問題を削除してよろしいですか？")) return;
-    try {
-      await deleteQuiz(quizId);
-      toast.success("問題を削除しました");
-      router.push("/admin/puratto");
-    } catch {
-      toast.error("問題の削除に失敗しました");
-    }
-  };
 
   return (
     <DropdownMenu>
@@ -196,25 +111,13 @@ export const QuizEditorMenu = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={handleCopyUrl}>
-          <CopyIcon />
-          リンクをコピー
-        </DropdownMenuItem>
-        <DropdownMenuItem onClick={handleShare}>
-          <ShareIcon />
-          共有
-        </DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={handleDelete} variant="destructive">
-          <Trash2Icon />
-          削除
-        </DropdownMenuItem>
+        <QuizMenuItems quizId={quizId} />
       </DropdownMenuContent>
     </DropdownMenu>
   );
 };
 
-export const QuizEditorFields = () => {
+const QuizEditorFields = () => {
   const { form } = useQuizEditor();
   const quizType = form.watch("type");
 
@@ -279,18 +182,7 @@ export const QuizEditorFields = () => {
           </Field>
         )}
       />
-      <Controller
-        name="tags"
-        control={form.control}
-        render={({ field, fieldState }) => (
-          <TagField
-            value={field.value ?? []}
-            onChange={field.onChange}
-            invalid={fieldState.invalid}
-            error={fieldState.error}
-          />
-        )}
-      />
+      <QuizEditorTags />
       <Controller
         name="isPublished"
         control={form.control}
@@ -309,87 +201,11 @@ export const QuizEditorFields = () => {
   );
 };
 
-const TagField = ({
-  value,
-  onChange,
-  invalid,
-  error,
-}: {
-  value: string[];
-  onChange: (tags: string[]) => void;
-  invalid: boolean;
-  error?: { message?: string };
-}) => {
-  const { data: allTags = [] } = useQuizTags();
-  const [inputValue, setInputValue] = useState("");
-
-  const anchor = useComboboxAnchor();
-
-  const trimmed = inputValue.trim();
-  const lowered = trimmed.toLocaleLowerCase();
-  const selectedSet = new Set(value);
-
-  const suggestions = allTags
-    .filter((t) => !selectedSet.has(t))
-    .filter((t) => !lowered || t.toLocaleLowerCase().includes(lowered));
-
-  const exactExists = allTags.some((t) => t.toLocaleLowerCase() === lowered) || selectedSet.has(trimmed);
-  const showCreate = trimmed !== "" && !exactExists;
-
-  const handleValueChange = (selected: string[]) => {
-    onChange(selected);
-  };
-
-  return (
-    <Field data-invalid={invalid}>
-      <FieldLabel>管理用タグ</FieldLabel>
-      <Combobox
-        inputValue={inputValue}
-        onInputValueChange={setInputValue}
-        value={value}
-        onValueChange={handleValueChange}
-        multiple
-        autoHighlight
-      >
-        <ComboboxChips ref={anchor} className="w-full bg-background">
-          <ComboboxValue>
-            {(values) => (
-              <React.Fragment>
-                {values.map((value: string) => (
-                  <ComboboxChip key={value}>{value}</ComboboxChip>
-                ))}
-                <ComboboxChipsInput />
-              </React.Fragment>
-            )}
-          </ComboboxValue>
-        </ComboboxChips>
-        <ComboboxContent>
-          <ComboboxList className="p-1!">
-            {suggestions.map((tag) => (
-              <ComboboxItem key={tag} value={tag}>
-                {tag}
-              </ComboboxItem>
-            ))}
-            {showCreate && (
-              <ComboboxItem value={trimmed}>
-                <PlusCircleIcon className="text-muted-foreground" />
-                {trimmed}
-              </ComboboxItem>
-            )}
-          </ComboboxList>
-        </ComboboxContent>
-      </Combobox>
-      <FieldDescription>管理用タグを追加すると一覧ページでタグごとに絞り込みが可能になります。</FieldDescription>
-      {invalid && <FieldError errors={[error]} />}
-    </Field>
-  );
-};
-
-export const QuizEditorFooter = ({ className, ...props }: React.ComponentProps<"div">) => {
+const QuizEditorFooter = ({ className, ...props }: ComponentProps<"div">) => {
   return (
     <div
       className={cn(
-        "sticky bottom-2 ml-auto flex w-fit gap-2 rounded-3xl bg-inherit p-2 px-4 backdrop-blur-md",
+        "sticky bottom-2 mr-2 ml-auto flex w-fit gap-2 rounded-3xl bg-inherit p-2 backdrop-blur-md",
         className,
       )}
       {...props}
@@ -397,7 +213,7 @@ export const QuizEditorFooter = ({ className, ...props }: React.ComponentProps<"
   );
 };
 
-export const QuizEditorCancel = () => {
+const QuizEditorCancel = () => {
   const { state } = useQuizEditor();
 
   return (
@@ -407,7 +223,7 @@ export const QuizEditorCancel = () => {
   );
 };
 
-export const QuizEditorSubmit = ({ children, ...props }: React.ComponentProps<typeof Button>) => {
+const QuizEditorSubmit = ({ children, ...props }: ComponentProps<typeof Button>) => {
   const { state } = useQuizEditor();
 
   return (
@@ -440,7 +256,7 @@ const MobilePreviewContent = () => {
   );
 };
 
-export const QuizEditorMobilePreviewButton = () => {
+const QuizEditorMobilePreviewButton = () => {
   const [open, setOpen] = useState(false);
 
   return (
@@ -459,7 +275,7 @@ export const QuizEditorMobilePreviewButton = () => {
   );
 };
 
-export const QuizEditorPreview = () => {
+const QuizEditorPreview = () => {
   const quiz = usePreviewQuiz();
 
   if (!quiz) return null;

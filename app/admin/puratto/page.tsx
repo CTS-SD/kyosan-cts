@@ -1,12 +1,11 @@
 import { PlusIcon } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { QuizFilterButton } from "@/app/admin/puratto/_components/quiz-filter-button";
-import { QuizListStats } from "@/app/admin/puratto/_components/quiz-list-stats";
-import QuizListWrapper from "@/app/admin/puratto/_components/quiz-list-wrapper";
-import { QuizRefreshButton } from "@/app/admin/puratto/_components/quiz-refresh-button";
-import { QuizSearchInput } from "@/app/admin/puratto/_components/quiz-search-input";
 import { Button } from "@/components/ui/button";
+import { QuizFilter } from "./_components/quiz-filter";
+import { QuizList } from "./_components/quiz-list";
+import { QuizListStats } from "./_components/quiz-list-stats";
+import { QuizSearchInput } from "./_components/quiz-search-input";
 
 export const metadata: Metadata = {
   title: "クイズを管理 - ぷらっとテスト",
@@ -15,10 +14,10 @@ export const metadata: Metadata = {
 const Page = async () => {
   return (
     <div className="mx-auto max-w-6xl p-6">
-      <div className="flex gap-2">
-        <QuizRefreshButton />
-        <QuizFilterButton />
-        <QuizSearchInput />
+      <div className="flex flex-wrap items-center gap-2">
+        <QuizListStats />
+        <QuizSearchInput className="min-w-48 flex-1" />
+        <QuizFilter />
         <Button className="shrink-0" asChild>
           <Link href="/admin/puratto/q/new">
             新規作成
@@ -27,10 +26,7 @@ const Page = async () => {
         </Button>
       </div>
       <div className="mt-4">
-        <QuizListStats />
-      </div>
-      <div className="mt-4">
-        <QuizListWrapper />
+        <QuizList />
       </div>
     </div>
   );

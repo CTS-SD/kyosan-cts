@@ -1,4 +1,4 @@
-import { Markdown } from "@/features/quiz/components/markdown";
+import { Markdown } from "@/features/quizzes/components/markdown";
 
 const items = [
   {

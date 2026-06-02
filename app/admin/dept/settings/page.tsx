@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { getConfigValue } from "@/features/config/actions";
+import { getConfigValue } from "@/server/services/config";
 import { VisibilitySetting } from "./_components/visibility-setting";
 import { YearSetting } from "./_components/year-setting";
 

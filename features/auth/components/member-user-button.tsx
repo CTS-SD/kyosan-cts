@@ -8,23 +8,23 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { authClient } from "@/lib/auth/client";
+import { authClient } from "@/features/auth/client";
 import { ThemeSubmenu } from "./theme-submenu";
 import { UserAvatar } from "./user-avatar";
+
+const handleSignOut = async () => {
+  await authClient.signOut({
+    fetchOptions: {
+      onSuccess: () => {
+        window.location.href = "/";
+      },
+    },
+  });
+};
 
 export const MemberUserButton = () => {
   const { data: session } = authClient.useSession();
   if (!session?.user) return null;
-
-  const handleSignOut = async () => {
-    await authClient.signOut({
-      fetchOptions: {
-        onSuccess: () => {
-          window.location.href = "/";
-        },
-      },
-    });
-  };
 
   return (
     <DropdownMenu>

@@ -1,11 +1,13 @@
 packages:
-  - .
-
-onlyBuiltDependencies:
-  - '@parcel/watcher'
-  - '@tailwindcss/oxide'
-  - esbuild
-  - msw
-  - sharp
-  - supabase
-  - unrs-resolver
+  - '*'
+overrides:
+  react-pdf-tailwind>@react-pdf/renderer: ^4.5.1
+  react-pdf-tailwind>@react-pdf/types: ^2.11.1
+  # better-auth's kysely-adapter imports DEFAULT_MIGRATION_TABLE, which kysely
+  # dropped from its root exports in 0.29; pin to the 0.28 line.
+  kysely: ^0.28.17
+allowBuilds:
+  esbuild: true
+  msw: true
+  sharp: true
+  supabase: true
