@@ -1,7 +1,7 @@
 import { env } from "@/lib/env";
 
 export function assertTestEnv() {
-  if (env.NODE_ENV !== "test") {
+  if (process.env.NODE_ENV !== "test") {
     throw new Error("Blocked: NODE_ENV is not test");
   }
 

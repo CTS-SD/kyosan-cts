@@ -14,7 +14,7 @@ export const PostHogProvider = ({ children }: { children: React.ReactNode }) => 
     if (!posthogKey || posthog.__loaded) return;
 
     posthog.init(posthogKey, {
-      debug: env.NODE_ENV === "development",
+      debug: process.env.NODE_ENV === "development",
       api_host: env.NEXT_PUBLIC_POSTHOG_HOST,
       capture_pageview: false,
       capture_pageleave: true,
