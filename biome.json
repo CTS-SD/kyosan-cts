@@ -26,7 +26,7 @@
       "recommended": true,
       "a11y": "off",
       "suspicious": {
-        "noArrayIndexKey": "warn"
+        "noArrayIndexKey": "off"
       },
       "nursery": {
         "useSortedClasses": {
