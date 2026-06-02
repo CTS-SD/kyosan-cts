@@ -1,16 +1,44 @@
-name: Tests
+name: CI
 
+# Reusable quality-check workflow shared by the Tests (PR/dev) and Deploy
+# (staging/main) workflows. Keeps the complex e2e setup in a single place.
 on:
-  push:
-    branches: [main, staging, dev]
-  pull_request:
-    branches: [main, staging, dev]
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  workflow_call:
+    # Least privilege: only the member-login credentials the e2e job needs,
+    # rather than forwarding every repo/org secret via `secrets: inherit`.
+    secrets:
+      TEST_USER_EMAIL:
+        required: false
+      TEST_USER_PASSWORD:
+        required: false
 
 jobs:
+  lint-typecheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Typecheck
+        run: pnpm typecheck
+
   unit-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -78,28 +106,7 @@ jobs:
 
       - name: Install Playwright browser (Chromium only)
         if: steps.cache-playwright.outputs.cache-hit != 'true'
-        timeout-minutes: 12
-        env:
-          # Abort a stalled download (Playwright has no read timeout by default)
-          # so the retry loop below can recover instead of hanging the whole job.
-          PLAYWRIGHT_DOWNLOAD_CONNECTION_TIMEOUT: "120000"
-          # Log each download/extract step so that if it still wedges (the hang
-          # happens right after the chrome zip hits 100%), the log pinpoints the
-          # exact post-download operation that blocks.
-          DEBUG: "pw:install"
-        run: |
-          for attempt in 1 2 3; do
-            echo "::group::Playwright browser install (attempt $attempt)"
-            if timeout 300 pnpm exec playwright install chromium; then
-              echo "::endgroup::"
-              exit 0
-            fi
-            echo "::endgroup::"
-            echo "Attempt $attempt stalled or failed; retrying..."
-            sleep 5
-          done
-          echo "Playwright browser install failed after 3 attempts" >&2
-          exit 1
+        run: pnpm exec playwright install chromium
 
       - name: Start Test DB
         run: docker compose up -d --wait db_test

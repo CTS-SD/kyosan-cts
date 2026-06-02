@@ -1,0 +1,20 @@
+name: Quality
+
+on:
+  push:
+    # Every branch except main/staging — those run the same gate via the Deploy
+    # workflow, so triggering here too would duplicate the run.
+    branches-ignore: [main, staging]
+  pull_request:
+    branches: [main, staging, dev]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    uses: ./.github/workflows/ci.yml
+    secrets:
+      TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
+      TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
