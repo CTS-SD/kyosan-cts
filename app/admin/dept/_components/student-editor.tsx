@@ -53,10 +53,8 @@ export const StudentEditor = ({
     }
   });
 
-  const value = useMemo(() => ({ form }), [form]);
-
   return (
-    <StudentEditorContext.Provider value={value}>
+    <StudentEditorContext.Provider value={{ form }}>
       <form onSubmit={handleSubmit} className="contents">
         {children}
       </form>
