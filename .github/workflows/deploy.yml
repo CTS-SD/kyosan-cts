@@ -1,37 +1,20 @@
 name: Deploy
 
-# Explicit deploy pipeline (Vercel Git auto-deploy is disabled via vercel.json).
-# On push to staging/main: quality gate -> DB migration -> Vercel deploy.
-#   staging -> Vercel Preview deployment, aliased to a stable staging domain
-#   main    -> Vercel Production deployment
-#
-# Ordering hazard: migrations run BEFORE the new code is deployed, so during the
-# window between the two (and on rollback) the OLD code runs against the NEW
-# schema. Only ship backward-compatible migrations through this pipeline; make
-# breaking changes in two steps (expand, then contract). If `release` fails
-# after the migration step, the DB is already migrated while old code is live —
-# re-run the workflow (deploy is idempotent) or roll the schema forward by hand.
 on:
   push:
     branches: [main, staging]
 
 concurrency:
   group: deploy-${{ github.ref }}
-  cancel-in-progress: false # never interrupt an in-flight migration/deploy
+  cancel-in-progress: false
 
 jobs:
-  # Quality gate: lint, typecheck, unit, e2e (+ build). Reuses the CI workflow.
   ci:
     uses: ./.github/workflows/ci.yml
     secrets:
       TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
       TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}
 
-  # Migrate the DB then deploy, as a single environment-gated job. Keeping both
-  # steps in one job means the `production` environment's protection rule
-  # (required reviewers) prompts for approval exactly ONCE per release; splitting
-  # them into two jobs that both reference the environment would require two
-  # separate approvals. The same gate also lets us pause before the DDL runs.
   release:
     needs: ci
     runs-on: ubuntu-latest
@@ -59,8 +42,7 @@ jobs:
 
       - name: Run migrations
         env:
-          # session/direct connection (not the 6543 transaction pooler) for DDL
-          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          DATABASE_URL: ${{ secrets.SESSION_POOLER_URL }}
           # production-mode migrate: keep drizzle-kit's verbose schema dump off
           NODE_ENV: production
         run: pnpm db:migrate

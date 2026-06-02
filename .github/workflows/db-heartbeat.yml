@@ -1,0 +1,31 @@
+name: DB Heartbeat
+
+on:
+  schedule:
+    - cron: "0 6 */5 * *"
+  workflow_dispatch: {}
+
+concurrency:
+  group: db-heartbeat
+  cancel-in-progress: true
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    strategy:
+      fail-fast: false
+      matrix:
+        environment: [staging, production]
+    environment: ${{ matrix.environment }}
+    steps:
+      - name: Ping ${{ matrix.environment }} DB
+        env:
+          SESSION_POOLER_URL: ${{ secrets.SESSION_POOLER_URL }}
+        run: |
+          if [ -z "$SESSION_POOLER_URL" ]; then
+            echo "::error::Missing SESSION_POOLER_URL secret for environment ${{ matrix.environment }}"
+            exit 1
+          fi
+          psql "$SESSION_POOLER_URL" -tAc "select 1;"
+          echo "✅ ${{ matrix.environment }} DB reachable" >> "$GITHUB_STEP_SUMMARY"

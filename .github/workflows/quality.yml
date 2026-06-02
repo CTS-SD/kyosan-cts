@@ -1,9 +1,6 @@
 name: Quality
 
 on:
-  # push only on dev (the integration branch). Feature branches are validated
-  # via pull_request, and main/staging run this gate through the Deploy
-  # workflow — so a feature branch with an open PR isn't checked twice.
   push:
     branches: [dev]
   pull_request:
