@@ -7,7 +7,9 @@ overrides:
   # dropped from its root exports in 0.29; pin to the 0.28 line.
   kysely: ^0.28.17
 allowBuilds:
+  core-js: false
   esbuild: true
   msw: true
+  protobufjs: false
   sharp: true
   supabase: true

@@ -15,6 +15,8 @@ export const env = createEnv({
   client: {
     NEXT_PUBLIC_MEMBER_EMAIL: z.string().min(1),
     NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: z.string().optional(),
+    NEXT_PUBLIC_POSTHOG_KEY: z.string().optional(),
+    NEXT_PUBLIC_POSTHOG_HOST: z.url().default("https://us.i.posthog.com"),
   },
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
@@ -28,5 +30,7 @@ export const env = createEnv({
 
     NEXT_PUBLIC_MEMBER_EMAIL: process.env.NEXT_PUBLIC_MEMBER_EMAIL,
     NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID,
+    NEXT_PUBLIC_POSTHOG_KEY: process.env.NEXT_PUBLIC_POSTHOG_KEY,
+    NEXT_PUBLIC_POSTHOG_HOST: process.env.NEXT_PUBLIC_POSTHOG_HOST,
   },
 });
