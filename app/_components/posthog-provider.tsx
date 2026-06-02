@@ -7,14 +7,14 @@ import { Suspense, useEffect } from "react";
 import { authClient } from "@/features/auth/client";
 import { env } from "@/lib/env";
 
-const posthogKey = env.NEXT_PUBLIC_POSTHOG_KEY;
+const posthogEnabled = env.NEXT_PUBLIC_POSTHOG_KEY && process.env.NODE_ENV === "production";
+const posthogKey = posthogEnabled ? env.NEXT_PUBLIC_POSTHOG_KEY : undefined;
 
 export const PostHogProvider = ({ children }: { children: React.ReactNode }) => {
   useEffect(() => {
     if (!posthogKey || posthog.__loaded) return;
 
     posthog.init(posthogKey, {
-      debug: process.env.NODE_ENV === "development",
       api_host: env.NEXT_PUBLIC_POSTHOG_HOST,
       capture_pageview: false,
       capture_pageleave: true,
