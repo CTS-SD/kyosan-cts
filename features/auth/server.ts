@@ -12,6 +12,17 @@ export const auth = betterAuth({
   }),
   emailAndPassword: {
     enabled: true,
+    minPasswordLength: 12,
+    maxPasswordLength: 128,
+  },
+  rateLimit: {
+    enabled: process.env.PLAYWRIGHT_TEST !== "1",
+    storage: "database",
+    window: 60,
+    max: 100,
+    customRules: {
+      "/sign-in/email": { window: 60, max: 30 },
+    },
   },
   socialProviders: {
     google: {
