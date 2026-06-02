@@ -7,9 +7,10 @@ overrides:
   # dropped from its root exports in 0.29; pin to the 0.28 line.
   kysely: ^0.28.17
 allowBuilds:
-  core-js: false
+  "@sentry/cli": true
+  core-js: true
   esbuild: true
   msw: true
-  protobufjs: false
+  protobufjs: true
   sharp: true
   supabase: true
