@@ -1,0 +1,21 @@
+name: Quality
+
+on:
+  # push only on dev (the integration branch). Feature branches are validated
+  # via pull_request, and main/staging run this gate through the Deploy
+  # workflow — so a feature branch with an open PR isn't checked twice.
+  push:
+    branches: [dev]
+  pull_request:
+    branches: [main, staging, dev]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  ci:
+    uses: ./.github/workflows/ci.yml
+    secrets:
+      TEST_USER_EMAIL: ${{ secrets.TEST_USER_EMAIL }}
+      TEST_USER_PASSWORD: ${{ secrets.TEST_USER_PASSWORD }}

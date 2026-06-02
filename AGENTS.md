@@ -33,6 +33,12 @@ Local dev requires Postgres via `docker compose up -d`: dev DB on `:5432`, ephem
 
 Git hooks (husky): **pre-commit** runs lint + typecheck + `test:unit run`; **pre-push** additionally runs `build` and `test:e2e`.
 
+## CI / Deploy
+
+GitHub Actions: `ci.yml` is a reusable workflow (lint, typecheck, unit, e2e) called by `tests.yml` (PRs + push to `dev`) and `deploy.yml` (push to `staging`/`main`). `deploy.yml` runs the quality gate, then a single environment-gated `release` job that **migrates the DB before deploying** to Vercel (`staging`→Preview, `main`→Production; Vercel Git auto-deploy is off via `vercel.json`). The `production` environment requires reviewer approval, which pauses `release` before the migration runs.
+
+Because migrations apply before the new code ships, the old code briefly runs against the new schema. **Only ship backward-compatible migrations** through this pipeline; split breaking changes into expand-then-contract steps across two deploys.
+
 ## Architecture
 
 **Type-safe RPC stack.** API runs on Hono, not Next.js route handlers. All routes mount under one catch-all (`app/api/[[...route]]/route.ts` → `server/api/app.ts`). The Hono app's chained route type is exported as `AppType`, and `lib/api-client.ts` wraps it with `hc<AppType>` so the client (`api.quizzes.$get(...)`) is fully typed end-to-end. **When adding/changing a route, keep the `.route(...)` chain in `app.ts` intact** — breaking the chain drops types from the client.
