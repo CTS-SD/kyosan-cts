@@ -21,11 +21,11 @@ const getErrorMessage = (message?: string) => {
 const Page = () => {
   const [password, setPassword] = useState("");
   const [isStaffPending, startStaffTransition] = useTransition();
-  const [isAdminPending, setIsAdminPending] = useState(false);
+  const [isAdminPending, startAdminTransition] = useTransition();
 
   const isPending = isStaffPending || isAdminPending;
 
-  const staffSignIn = async (e: React.FormEvent<HTMLFormElement>) => {
+  const staffSignIn = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
     startStaffTransition(async () => {
       const { error } = await authClient.signIn.email({
@@ -41,10 +41,14 @@ const Page = () => {
   };
 
   const adminSignIn = async () => {
-    setIsAdminPending(true);
-    await authClient.signIn.social({
-      provider: "google",
-      callbackURL: "/admin",
+    startAdminTransition(async () => {
+      const { error } = await authClient.signIn.social({
+        provider: "google",
+        callbackURL: "/admin",
+      });
+      if (error) {
+        toast.error(getErrorMessage(error.message));
+      }
     });
   };
 
