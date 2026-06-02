@@ -27,6 +27,13 @@ const Page = () => {
 
   const staffSignIn = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (password.trim() === "") {
+      toast.error("パスワードを入力してください。");
+      setPassword("");
+      return;
+    }
+
     startStaffTransition(async () => {
       const { error } = await authClient.signIn.email({
         email: env.NEXT_PUBLIC_MEMBER_EMAIL,
