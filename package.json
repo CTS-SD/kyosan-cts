@@ -16,6 +16,7 @@
     "db:studio": "dotenv -e .env.local -- drizzle-kit studio",
     "db:backup": "tsx scripts/backup-db.ts",
     "test:unit": "vitest",
+    "test:unit:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
     "prepare": "husky",
     "knip": "knip"
@@ -75,6 +76,7 @@
     "@types/pg": "^8.20.0",
     "@types/react": "^19.2.15",
     "@types/react-dom": "^19.2.3",
+    "@vitest/coverage-v8": "^4.1.7",
     "dotenv-cli": "^11.0.0",
     "drizzle-kit": "^0.31.10",
     "husky": "^9.1.7",
