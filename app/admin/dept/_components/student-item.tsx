@@ -4,8 +4,16 @@ import { Trash2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { Button } from "@/components//ui/button";
-import { Dialog, DialogClose, DialogContent, DialogFooter, DialogTitle, DialogTrigger } from "@/components//ui/dialog";
 import { UserIcon } from "@/components/icons/user-icon";
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { deleteStudent, updateStudent } from "@/features/students/api";
 import type { StudentValues } from "@/features/students/editor";
 import type { Department, Faculty, Student } from "@/features/students/types";
@@ -63,6 +71,7 @@ export const StudentItem = ({ student, faculties, departments }: Props) => {
       </DialogTrigger>
       <DialogContent>
         <DialogTitle className="sr-only">学生を編集</DialogTitle>
+        <DialogDescription className="sr-only">配属部署発表で表示する学生を編集</DialogDescription>
         <StudentEditor defaultValues={student} onSubmit={handleUpdateStudent}>
           <StudentEditorFields faculties={faculties} departments={departments} />
           <DialogFooter>
