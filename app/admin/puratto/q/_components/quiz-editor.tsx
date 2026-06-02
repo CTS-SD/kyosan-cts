@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
+import { Field, FieldContent, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { PlayfulProgress } from "@/components/ui/playful-progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Spinner } from "@/components/ui/spinner";
@@ -22,6 +22,7 @@ import { QuizMenuItems } from "@/features/quizzes/components/quiz-menu";
 import { QuizPlay } from "@/features/quizzes/components/quiz-play";
 import { QuizSessionHeader, QuizSessionMain } from "@/features/quizzes/components/quiz-session";
 import { cn } from "@/lib/utils";
+import { FieldHeader, FieldNotice } from "./field-notice";
 import { QuizEditorContext, useQuizEditor } from "./quiz-editor-context";
 import { QuizEditorSelect } from "./quiz-editor-select";
 import { QuizEditorTags } from "./quiz-editor-tags";
@@ -150,14 +151,16 @@ const QuizEditorFields = () => {
         control={form.control}
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
-            <FieldLabel>問題文</FieldLabel>
+            <FieldHeader>
+              <FieldLabel>問題文</FieldLabel>
+              <FieldNotice>
+                <Link href="/admin/docs/markdown" target="_blank">
+                  マークダウン記法
+                </Link>
+                を使用できます。
+              </FieldNotice>
+            </FieldHeader>
             <Textarea {...field} placeholder="問題文を入力" data-testid="question-textarea" className="bg-background" />
-            <FieldDescription>
-              <Link href="/admin/docs/markdown" target="_blank">
-                マークダウン記法
-              </Link>
-              を使用できます。
-            </FieldDescription>
             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
           </Field>
         )}
@@ -170,14 +173,16 @@ const QuizEditorFields = () => {
         control={form.control}
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
-            <FieldLabel>解説</FieldLabel>
+            <FieldHeader>
+              <FieldLabel>解説</FieldLabel>
+              <FieldNotice>
+                <Link href="/admin/docs/markdown" target="_blank">
+                  マークダウン記法
+                </Link>
+                を使用できます。
+              </FieldNotice>
+            </FieldHeader>
             <Textarea {...field} value={field.value ?? ""} placeholder="解説を入力（任意）" className="bg-background" />
-            <FieldDescription>
-              <Link href="/admin/docs/markdown" target="_blank">
-                マークダウン記法
-              </Link>
-              を使用できます。
-            </FieldDescription>
             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
           </Field>
         )}
@@ -189,8 +194,10 @@ const QuizEditorFields = () => {
         render={({ field, fieldState }) => (
           <Field orientation="horizontal" data-invalid={fieldState.invalid}>
             <FieldContent>
-              <FieldLabel htmlFor="publish">問題を公開する</FieldLabel>
-              <FieldDescription>非公開にした問題は出題されません</FieldDescription>
+              <FieldHeader>
+                <FieldLabel htmlFor="publish">問題を公開する</FieldLabel>
+                <FieldNotice>非公開にした問題は出題されません</FieldNotice>
+              </FieldHeader>
             </FieldContent>
             <Switch id="publish" checked={field.value} onCheckedChange={field.onChange} />
             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}

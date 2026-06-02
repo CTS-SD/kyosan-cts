@@ -14,8 +14,9 @@ import {
   ComboboxValue,
   useComboboxAnchor,
 } from "@/components/ui/combobox";
-import { Field, FieldDescription, FieldLabel } from "@/components/ui/field";
+import { Field, FieldLabel } from "@/components/ui/field";
 import { useQuizTags } from "@/features/quizzes/hooks/use-quiz-tags";
+import { FieldHeader, FieldNotice } from "./field-notice";
 import { useQuizEditor } from "./quiz-editor-context";
 
 export const QuizEditorTags = () => {
@@ -43,7 +44,10 @@ export const QuizEditorTags = () => {
 
         return (
           <Field>
-            <FieldLabel>タグ</FieldLabel>
+            <FieldHeader>
+              <FieldLabel>タグ</FieldLabel>
+              <FieldNotice>既存のタグから選択、または入力して新規作成できます。</FieldNotice>
+            </FieldHeader>
             <Combobox
               items={items}
               multiple
@@ -77,7 +81,6 @@ export const QuizEditorTags = () => {
                 </ComboboxList>
               </ComboboxContent>
             </Combobox>
-            <FieldDescription>既存のタグから選択、または入力して新規作成できます。</FieldDescription>
           </Field>
         );
       }}
