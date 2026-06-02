@@ -7,16 +7,17 @@ import { QuizItem } from "./quiz-item";
 import { useQuizFilters } from "./use-quiz-filters";
 
 export const QuizListClient = () => {
-  const { q, tags, status } = useQuizFilters();
+  const { q, tags, untagged, status } = useQuizFilters();
   const debouncedQ = useDebounce(q, 300);
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useQuizzes({
     search: debouncedQ,
     tags,
+    untagged,
     status: status ?? undefined,
   });
 
   const quizzes = data?.pages.flatMap((page) => page.items) ?? [];
-  const isFiltering = debouncedQ.trim().length > 0 || tags.length > 0 || status !== null;
+  const isFiltering = debouncedQ.trim().length > 0 || tags.length > 0 || untagged || status !== null;
 
   return (
     <div>

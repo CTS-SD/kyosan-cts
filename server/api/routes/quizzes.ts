@@ -28,18 +28,20 @@ export const quizzesRoute = new Hono<{ Variables: AuthVariables }>()
         search: z.string().optional(),
         // Comma-separated tag names, AND-matched.
         tags: z.string().optional(),
+        // Match only quizzes with no tags (mutually exclusive with `tags`).
+        untagged: z.stringbool().optional(),
         status: z.enum(["published", "draft"]).optional(),
       }),
     ),
     async (c) => {
-      const { limit, cursor, order, search, tags, status } = c.req.valid("query");
+      const { limit, cursor, order, search, tags, untagged, status } = c.req.valid("query");
       const tagList = tags
         ? tags
             .split(",")
             .map((t) => t.trim())
             .filter(Boolean)
         : undefined;
-      const result = await getQuizzes({ limit, cursor, order, search, tags: tagList, status });
+      const result = await getQuizzes({ limit, cursor, order, search, tags: tagList, untagged, status });
       return c.json(result);
     },
   )

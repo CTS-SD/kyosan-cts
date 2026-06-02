@@ -41,6 +41,7 @@ export async function getQuizzes(input: {
   order: "asc" | "desc";
   search?: string;
   tags?: string[];
+  untagged?: boolean;
   status?: QuizStatus;
 }) {
   const order = input.order;
@@ -62,9 +63,16 @@ export async function getQuizzes(input: {
           .having(sql`count(distinct ${QuizTagMapTable.tagName}) = ${tags.length}`)
       : undefined;
 
+  // Untagged match: the quiz must not appear in the tag map at all.
+  // Mutually exclusive with `tags` in the UI, so ignore it when tags are set.
+  const untaggedFilter =
+    input.untagged && tags.length === 0
+      ? db.select({ quizId: QuizTagMapTable.quizId }).from(QuizTagMapTable)
+      : undefined;
+
   // Fetch one extra row to detect whether a next page exists.
   const rows = await db.query.QuizTable.findMany({
-    where: (t, { and, or, gt, lt, ilike, eq, inArray }) => {
+    where: (t, { and, or, gt, lt, ilike, eq, inArray, notInArray }) => {
       const conds = [];
       if (hasCursor) conds.push(order === "asc" ? gt(t.id, cursorId) : lt(t.id, cursorId));
       if (pattern) {
@@ -75,6 +83,7 @@ export async function getQuizzes(input: {
       }
       if (input.status) conds.push(eq(t.isPublished, input.status === "published"));
       if (tagFilter) conds.push(inArray(t.id, tagFilter));
+      if (untaggedFilter) conds.push(notInArray(t.id, untaggedFilter));
       return conds.length ? and(...conds) : undefined;
     },
     orderBy: (t, { asc, desc }) => (order === "asc" ? asc(t.id) : desc(t.id)),
