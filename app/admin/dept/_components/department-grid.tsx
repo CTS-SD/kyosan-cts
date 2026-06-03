@@ -17,7 +17,7 @@ import {
   useSortable,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { ArrowUpDownIcon, GripVerticalIcon } from "lucide-react";
+import { ArrowUpDownIcon, GripVerticalIcon, PointerIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -92,7 +92,10 @@ export const DepartmentGrid = ({ departments, counts, addButton, children }: Pro
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-center gap-2">
-        <span className="text-muted-foreground text-sm">ドラッグして並び替え</span>
+        <span className="flex items-center gap-2 text-muted-foreground text-sm">
+          <PointerIcon className="size-4" />
+          <span className="font-semibold">ドラッグして並び替え</span>
+        </span>
         <Button variant="ghost" size="sm" className="ml-auto" onClick={() => setReordering(false)} disabled={saving}>
           キャンセル
         </Button>
