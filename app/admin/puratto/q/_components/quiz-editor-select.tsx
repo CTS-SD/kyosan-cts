@@ -19,7 +19,7 @@ export const QuizEditorSelect = ({ form }: Props) => {
           <Field data-invalid={fieldState.invalid}>
             <FieldHeader>
               <FieldLabel>正解の選択肢</FieldLabel>
-              <FieldNotice>改行区切りで複数の正解選択肢を入力できます。</FieldNotice>
+              <FieldNotice>改行区切りで複数の正解選択肢を入力できます。すべて一致で正解となります。</FieldNotice>
             </FieldHeader>
             <Textarea {...field} placeholder={"選択肢1\n選択肢2\n..."} className="bg-background" />
             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}

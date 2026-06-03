@@ -19,7 +19,7 @@ export const QuizEditorText = ({ form }: Props) => {
           <FieldHeader>
             <FieldLabel>解答</FieldLabel>
             <FieldNotice>
-              改行区切りで複数パターンの解答を入力でき、いずれか一つに一致すると正解となります。空白は無視されます。
+              改行区切りで複数パターンの解答を入力できます。いずれかに一致すると正解となります。空白は無視されます。
             </FieldNotice>
           </FieldHeader>
           <Textarea {...field} placeholder={"荒木俊馬\nあらきとしま\n..."} className="bg-background" />

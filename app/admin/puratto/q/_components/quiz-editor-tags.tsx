@@ -46,7 +46,7 @@ export const QuizEditorTags = () => {
           <Field>
             <FieldHeader>
               <FieldLabel>タグ</FieldLabel>
-              <FieldNotice>既存のタグから選択、または入力して新規作成できます。</FieldNotice>
+              <FieldNotice>問題一覧でタグごとに絞り込みができます。</FieldNotice>
             </FieldHeader>
             <Combobox
               items={items}

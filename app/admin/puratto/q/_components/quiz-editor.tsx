@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDebounce } from "@uidotdev/usehooks";
-import { ArrowLeftIcon, EllipsisIcon, EyeIcon, XIcon } from "lucide-react";
+import { ArrowLeftIcon, EllipsisIcon, EyeIcon, PlayIcon, XIcon } from "lucide-react";
 import Link from "next/link";
 import { useNavigationGuard } from "next-navigation-guard";
 import { type ComponentProps, type ReactNode, useMemo, useState } from "react";
@@ -154,6 +154,7 @@ const QuizEditorFields = () => {
             <FieldHeader>
               <FieldLabel>問題文</FieldLabel>
               <FieldNotice>
+                出題するクイズの問題文を入力してください。
                 <Link href="/admin/docs/markdown" target="_blank">
                   マークダウン記法
                 </Link>
@@ -176,6 +177,7 @@ const QuizEditorFields = () => {
             <FieldHeader>
               <FieldLabel>解説</FieldLabel>
               <FieldNotice>
+                問題の解説を入力してください。
                 <Link href="/admin/docs/markdown" target="_blank">
                   マークダウン記法
                 </Link>
@@ -196,7 +198,7 @@ const QuizEditorFields = () => {
             <FieldContent>
               <FieldHeader>
                 <FieldLabel htmlFor="publish">問題を公開する</FieldLabel>
-                <FieldNotice>非公開にした問題は出題されません</FieldNotice>
+                <FieldNotice>非公開にした問題は下書きとして保存され、ユーザーには出題されません。</FieldNotice>
               </FieldHeader>
             </FieldContent>
             <Switch id="publish" checked={field.value} onCheckedChange={field.onChange} />
@@ -270,11 +272,11 @@ const QuizEditorMobilePreviewButton = () => {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="md:hidden" asChild>
         <Button variant="outline" aria-label="プレビューを表示">
-          <EyeIcon />
+          <PlayIcon />
           プレビュー
         </Button>
       </DialogTrigger>
-      <DialogContent className="flex h-[95dvh] w-full flex-col bg-background" showCloseButton={false}>
+      <DialogContent className="flex h-[99dvh] w-full flex-col bg-background" showCloseButton={false}>
         <DialogTitle className="sr-only">プレビュー</DialogTitle>
         {open && <MobilePreviewContent />}
       </DialogContent>
