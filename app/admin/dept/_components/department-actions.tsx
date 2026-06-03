@@ -1,6 +1,6 @@
 "use client";
 
-import { EllipsisIcon, PencilIcon, Trash2Icon } from "lucide-react";
+import { EllipsisIcon, PencilIcon, PlusIcon, Trash2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -26,11 +26,13 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { deleteDepartment, updateDepartment } from "@/features/departments/api";
 import type { DepartmentValues } from "@/features/departments/editor";
-import type { Department } from "@/features/students/types";
+import type { Department, Faculty } from "@/features/students/types";
+import { AddStudentDialogContent } from "./add-student-dialog";
 import {
   DepartmentEditor,
   DepartmentEditorCancel,
@@ -41,12 +43,15 @@ import {
 type Props = {
   department: Department;
   studentCount: number;
+  faculties: Faculty[];
+  departments: Department[];
 };
 
-export const DepartmentActions = ({ department, studentCount }: Props) => {
+export const DepartmentActions = ({ department, studentCount, faculties, departments }: Props) => {
   const router = useRouter();
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
+  const [addStudentOpen, setAddStudentOpen] = useState(false);
 
   const handleUpdate = async (values: DepartmentValues) => {
     try {
@@ -75,18 +80,28 @@ export const DepartmentActions = ({ department, studentCount }: Props) => {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button size="icon-sm" variant="ghost" className="ml-auto shrink-0" aria-label="部署メニュー">
+          <Button
+            size="icon-sm"
+            variant="ghost"
+            className="ml-auto shrink-0 text-muted-foreground"
+            aria-label="部署メニュー"
+          >
             <EllipsisIcon />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuItem onSelect={() => setEditOpen(true)}>
             <PencilIcon />
-            編集
+            部署を編集
           </DropdownMenuItem>
+          <DropdownMenuItem onSelect={() => setAddStudentOpen(true)}>
+            <PlusIcon />
+            学生を追加
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
           <DropdownMenuItem variant="destructive" onSelect={() => setDeleteOpen(true)}>
             <Trash2Icon />
-            削除
+            削除する
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
@@ -123,6 +138,10 @@ export const DepartmentActions = ({ department, studentCount }: Props) => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
+      <Dialog open={addStudentOpen} onOpenChange={setAddStudentOpen}>
+        <AddStudentDialogContent defaultDepartmentId={department.id} faculties={faculties} departments={departments} />
+      </Dialog>
     </>
   );
 };

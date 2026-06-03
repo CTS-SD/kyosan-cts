@@ -103,7 +103,7 @@ export const DepartmentGrid = ({ departments, counts, addButton, children }: Pro
       </div>
       <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
         <SortableContext items={order} strategy={rectSortingStrategy}>
-          <div className="flex flex-col gap-2 rounded-3xl bg-background p-2">
+          <div className="flex flex-col gap-2 rounded-3xl bg-accent p-2">
             {order.map((id) => {
               const dept = byId.get(id);
               if (!dept) return null;
@@ -138,14 +138,14 @@ const SortableDepartmentCard = ({
       aria-label={`${name} を並び替え`}
       style={{ transform: CSS.Transform.toString(transform), transition }}
       className={cn(
-        "flex touch-none items-center gap-3 rounded-2xl border bg-accent px-4 py-3 text-left outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
+        "flex touch-none items-center gap-3 rounded-2xl border bg-card px-4 py-3 text-left outline-hidden focus-visible:ring-2 focus-visible:ring-ring",
         isDragging ? "z-10 cursor-grabbing opacity-80 shadow-lg" : "cursor-grab",
       )}
       {...attributes}
       {...listeners}
     >
       <GripVerticalIcon className="size-4 shrink-0 text-muted-foreground" />
-      <span className="size-3.5 shrink-0 rounded-full" style={departmentGradientStyle(color)} />
+      <span className="size-3 shrink-0 rounded-full" style={departmentGradientStyle(color)} />
       <span className="font-semibold">{name}</span>
       <span className="ml-auto shrink-0 text-muted-foreground text-sm">{count}名</span>
     </button>
