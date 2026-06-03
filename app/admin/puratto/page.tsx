@@ -14,13 +14,18 @@ export const metadata: Metadata = {
 const Page = async () => {
   return (
     <div className="mx-auto max-w-6xl p-6">
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex items-center gap-2">
         <QuizListStats />
-        <QuizSearchInput className="min-w-48 flex-1" />
+        <QuizSearchInput className="w-auto grow" />
         <QuizFilter />
-        <Button className="shrink-0" asChild>
+        <Button className="shrink-0 max-sm:hidden" asChild>
           <Link href="/admin/puratto/q/new">
             新規作成
+            <PlusIcon />
+          </Link>
+        </Button>
+        <Button className="shrink-0 sm:hidden" asChild size="icon">
+          <Link href="/admin/puratto/q/new">
             <PlusIcon />
           </Link>
         </Button>

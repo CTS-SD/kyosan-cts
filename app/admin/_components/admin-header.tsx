@@ -20,7 +20,7 @@ export const AdminHeader = () => {
           variant="ghost"
           onClick={() => setOpen(true)}
         >
-          <MenuIcon strokeWidth={2.6} className="size-5" />
+          <MenuIcon className="size-5" />
         </Button>
         <Link href="/" className="">
           <LogoText />

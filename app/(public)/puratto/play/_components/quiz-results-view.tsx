@@ -57,7 +57,7 @@ export const QuizResultsView = () => {
           value={
             <div className="mx-auto flex w-fit items-baseline sm:gap-1">
               <span className="text-3xl">{correctCount}</span>
-              <SlashIcon className="size-4 -rotate-16 text-muted-foreground" strokeWidth={2.8} />
+              <SlashIcon className="size-4 -rotate-16 text-muted-foreground" />
               <div className="text-muted-foreground">
                 <span className="mr-0.5">{totalCount}</span>
                 <span className="text-lg">問</span>

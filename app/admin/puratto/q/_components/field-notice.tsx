@@ -28,11 +28,24 @@ export const FieldNotice = ({
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button type="button" variant="ghost" size="icon-xs" className={cn("", className)} aria-label={label}>
-          <InfoIcon strokeWidth={2.4} />
+        <Button
+          type="button"
+          variant="ghost"
+          size="icon-xs"
+          className={cn("text-muted-foreground", className)}
+          aria-label={label}
+        >
+          <InfoIcon />
         </Button>
       </PopoverTrigger>
-      <PopoverContent align={align} side={side} className={cn("", contentClassName)}>
+      <PopoverContent
+        align={align}
+        side={side}
+        className={cn(
+          "block text-xs [&_a]:text-muted-foreground [&_a]:underline [&_a]:underline-offset-4",
+          contentClassName,
+        )}
+      >
         {children}
       </PopoverContent>
     </Popover>

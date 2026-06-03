@@ -173,9 +173,7 @@ const QuizPlayContent = () => {
             tint={showAnswer ? (result.isCorrect ? "green" : "red") : isValidInput ? "green" : "disabled"}
           >
             {result ? "次へ" : "送信する"}
-            {enableKeyboard && (
-              <CornerDownLeftIcon strokeWidth={2.6} className="absolute right-4 pointer-coarse:hidden opacity-60" />
-            )}
+            {enableKeyboard && <CornerDownLeftIcon className="absolute right-4 pointer-coarse:hidden opacity-60" />}
           </PlayfulButton>
         </div>
       </div>

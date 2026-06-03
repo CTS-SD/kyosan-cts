@@ -64,7 +64,7 @@ function DialogContent({
             className="pointer-events-auto fixed top-4 right-4 isolate z-200 rounded-full"
             size="icon"
           >
-            <XIcon className="size-5 text-muted-foreground" strokeWidth={2.6} />
+            <XIcon className="size-5 text-muted-foreground" />
             <span className="sr-only">Close</span>
           </Button>
         </DialogPrimitive.Close>

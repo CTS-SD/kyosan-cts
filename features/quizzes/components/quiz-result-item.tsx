@@ -17,12 +17,12 @@ export const QuizResultItem = ({ result, quiz }: { result: QuizResult; quiz?: Qu
               <span className="sr-only">あなたの回答は</span>
               {result.isCorrect ? (
                 <span className="contents text-green-500">
-                  <CircleIcon strokeWidth={3} className="size-5" />
+                  <CircleIcon className="size-5" />
                   正解
                 </span>
               ) : (
                 <>
-                  <XIcon strokeWidth={3} className="size-5" />
+                  <XIcon className="size-5" />
                   不正解
                 </>
               )}

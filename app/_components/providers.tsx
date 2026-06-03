@@ -1,5 +1,6 @@
 "use client";
 
+import { LucideProvider } from "lucide-react";
 import { NavigationGuardProvider } from "next-navigation-guard";
 import { ThemeProvider } from "next-themes";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
@@ -10,18 +11,20 @@ import { Toaster } from "@/components/ui/sonner";
 
 export const Providers = ({ children }: { children: React.ReactNode }) => {
   return (
-    <NavigationGuardProvider>
-      <NuqsAdapter>
-        <ThemeProvider attribute="class" defaultTheme="light">
-          <QueryProvider>
-            <PostHogProvider>
-              {children}
-              <Toaster />
-              <ConfirmDialogHost />
-            </PostHogProvider>
-          </QueryProvider>
-        </ThemeProvider>
-      </NuqsAdapter>
-    </NavigationGuardProvider>
+    <LucideProvider strokeWidth={2.6}>
+      <NavigationGuardProvider>
+        <NuqsAdapter>
+          <ThemeProvider attribute="class" defaultTheme="light">
+            <QueryProvider>
+              <PostHogProvider>
+                {children}
+                <Toaster />
+                <ConfirmDialogHost />
+              </PostHogProvider>
+            </QueryProvider>
+          </ThemeProvider>
+        </NuqsAdapter>
+      </NavigationGuardProvider>
+    </LucideProvider>
   );
 };
