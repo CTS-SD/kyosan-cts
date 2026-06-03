@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDebounce } from "@uidotdev/usehooks";
-import { ArrowLeftIcon, EllipsisIcon, EyeIcon, PlayIcon, XIcon } from "lucide-react";
+import { ArrowLeftIcon, EllipsisIcon, PlayIcon, XIcon } from "lucide-react";
 import Link from "next/link";
 import { useNavigationGuard } from "next-navigation-guard";
 import { type ComponentProps, type ReactNode, useMemo, useState } from "react";
