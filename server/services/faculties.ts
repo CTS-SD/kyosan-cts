@@ -1,14 +1,15 @@
 import "server-only";
 import { eq } from "drizzle-orm";
+import { cache } from "react";
 import { db } from "@/db";
 import { FacultyTable } from "@/db/schema";
 import type { FacultyValues } from "@/features/faculties/editor";
 import { FacultySchema } from "@/features/students/types";
 
-export async function getFaculties() {
+export const getFaculties = cache(async () => {
   const rows = await db.query.FacultyTable.findMany();
   return rows.map((row) => FacultySchema.parse(row));
-}
+});
 
 export async function insertFaculty(values: FacultyValues) {
   const [row] = await db.insert(FacultyTable).values(values).returning();

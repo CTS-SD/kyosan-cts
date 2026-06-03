@@ -14,7 +14,6 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { ItemActions, ItemContent, ItemDescription, ItemTitle } from "@/components/ui/item";
 import { List, ListItem } from "@/components/ui/list";
@@ -204,25 +203,5 @@ const FacultyNameForm = ({
         <XIcon />
       </Button>
     </form>
-  );
-};
-
-export const FacultyListDialogContent = ({
-  faculties,
-  facultyCounts,
-}: {
-  faculties: Faculty[];
-  facultyCounts: Record<number, number>;
-}) => {
-  return (
-    <DialogContent className="bg-accent">
-      <DialogHeader>
-        <DialogTitle>学部を管理</DialogTitle>
-        <DialogDescription className="sr-only">学部の追加・編集・削除ができます。</DialogDescription>
-      </DialogHeader>
-      <div className="px-4 pb-4">
-        <FacultyList faculties={faculties} counts={facultyCounts} />
-      </div>
-    </DialogContent>
   );
 };

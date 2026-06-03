@@ -1,16 +1,17 @@
 import "server-only";
 import { asc, eq } from "drizzle-orm";
+import { cache } from "react";
 import { db } from "@/db";
 import { DepartmentTable } from "@/db/schema";
 import type { DepartmentValues } from "@/features/departments/editor";
 import { DepartmentSchema } from "@/features/departments/types";
 
-export async function getDepartments() {
+export const getDepartments = cache(async () => {
   const rows = await db.query.DepartmentTable.findMany({
     orderBy: [asc(DepartmentTable.order), asc(DepartmentTable.id)],
   });
   return rows.map((row) => DepartmentSchema.parse(row));
-}
+});
 
 export async function insertDepartment(values: DepartmentValues) {
   // Append the new department after the existing ones.

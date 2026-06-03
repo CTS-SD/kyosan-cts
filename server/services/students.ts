@@ -1,5 +1,6 @@
 import "server-only";
 import { eq } from "drizzle-orm";
+import { cache } from "react";
 import { db } from "@/db";
 import { StudentTable } from "@/db/schema";
 import type { StudentValues } from "@/features/students/editor";
@@ -7,7 +8,7 @@ import { StudentSchema, StudentWithRelationsSchema } from "@/features/students/t
 import { getDepartments } from "./departments";
 import { getFaculties } from "./faculties";
 
-export async function getStudents() {
+export const getStudents = cache(async () => {
   const [students, departments, faculties] = await Promise.all([
     db.query.StudentTable.findMany(),
     getDepartments(),
@@ -24,7 +25,23 @@ export async function getStudents() {
       faculty: facultyById.get(student.facultyId) ?? null,
     }),
   );
-}
+});
+
+export const getDepartmentCounts = cache(async () => {
+  const students = await getStudents();
+  return students.reduce<Record<number, number>>((acc, student) => {
+    acc[student.departmentId] = (acc[student.departmentId] ?? 0) + 1;
+    return acc;
+  }, {});
+});
+
+export const getFacultyCounts = cache(async () => {
+  const students = await getStudents();
+  return students.reduce<Record<number, number>>((acc, student) => {
+    acc[student.facultyId] = (acc[student.facultyId] ?? 0) + 1;
+    return acc;
+  }, {});
+});
 
 export async function getStudentByStudentNumber(studentNumber: string) {
   const student = await db.query.StudentTable.findFirst({

@@ -11,22 +11,17 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import type { Department, Faculty } from "@/features/students/types";
 import { AddDepartmentDialogContent } from "./add-department-dialog";
-import { DepartmentListDialogContent } from "./department-list";
-import { FacultyListDialogContent } from "./faculty-list";
 
 type Props = {
-  departments: Department[];
-  counts: Record<number, number>;
-  faculties: Faculty[];
-  facultyCounts: Record<number, number>;
+  reorderDialog: React.ReactNode;
+  facultyDialog: React.ReactNode;
 };
 
-export const DeptActionsMenu = ({ departments, counts, faculties, facultyCounts }: Props) => {
+export const DeptActionsMenu = ({ reorderDialog, facultyDialog }: Props) => {
   const [addDeptOpen, setAddDeptOpen] = useState(false);
-  const [deptMenuOpen, setDeptMenuOpen] = useState(false);
-  const [facultyMenuOpen, setFacultyMenuOpen] = useState(false);
+  const [reorderOpen, setReorderOpen] = useState(false);
+  const [facultyOpen, setFacultyOpen] = useState(false);
 
   return (
     <>
@@ -41,12 +36,12 @@ export const DeptActionsMenu = ({ departments, counts, faculties, facultyCounts 
             <PlusIcon />
             部署を追加
           </DropdownMenuItem>
-          <DropdownMenuItem onClick={() => setDeptMenuOpen(true)}>
+          <DropdownMenuItem onClick={() => setReorderOpen(true)}>
             <ArrowDownUpIcon />
             部署を並び替え
           </DropdownMenuItem>
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => setFacultyMenuOpen(true)}>
+          <DropdownMenuItem onClick={() => setFacultyOpen(true)}>
             <SettingsIcon />
             学部を管理
           </DropdownMenuItem>
@@ -57,12 +52,12 @@ export const DeptActionsMenu = ({ departments, counts, faculties, facultyCounts 
         <AddDepartmentDialogContent onAdded={() => setAddDeptOpen(false)} />
       </Dialog>
 
-      <Dialog open={deptMenuOpen} onOpenChange={setDeptMenuOpen}>
-        <DepartmentListDialogContent departments={departments} counts={counts} />
+      <Dialog open={reorderOpen} onOpenChange={setReorderOpen}>
+        {reorderDialog}
       </Dialog>
 
-      <Dialog open={facultyMenuOpen} onOpenChange={setFacultyMenuOpen}>
-        <FacultyListDialogContent faculties={faculties} facultyCounts={facultyCounts} />
+      <Dialog open={facultyOpen} onOpenChange={setFacultyOpen}>
+        {facultyDialog}
       </Dialog>
     </>
   );

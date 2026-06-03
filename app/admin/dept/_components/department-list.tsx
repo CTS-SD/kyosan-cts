@@ -22,7 +22,6 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Spinner } from "@/components/ui/spinner";
 import { reorderDepartments } from "@/features/departments/api";
 import { departmentGradientStyle } from "@/features/departments/assets";
@@ -127,25 +126,5 @@ const SortableDepartmentCard = ({
       <span className="font-semibold">{name}</span>
       <span className="ml-auto shrink-0 text-muted-foreground text-sm">{count}名</span>
     </button>
-  );
-};
-
-export const DepartmentListDialogContent = ({
-  departments,
-  counts,
-}: {
-  departments: Department[];
-  counts: Record<number, number>;
-}) => {
-  return (
-    <DialogContent>
-      <DialogHeader>
-        <DialogTitle>部署を並び替え</DialogTitle>
-        <DialogDescription>配属発表ページの並び順に影響します</DialogDescription>
-      </DialogHeader>
-      <div className="p-2 pt-0">
-        <DepartmentList departments={departments} counts={counts} />
-      </div>
-    </DialogContent>
   );
 };

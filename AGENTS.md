@@ -45,6 +45,8 @@ Because migrations apply before the new code ships, the old code briefly runs ag
 
 Request flow: React component → TanStack Query hook (`features/*/hooks/`) → feature API fn (`features/*/api.ts`, calls `api.*`) → Hono route (`server/api/routes/`, validates with `@hono/zod-validator`) → service (`server/services/`, the only place that touches `db`). Services are marked `"server-only"`.
 
+Server Components read services directly (not through the RPC client); wrap such reads in React `cache()` so repeated calls dedupe within a request. Pass self-fetching Server Components into Client Components as props/children rather than drilling fetched data through the tree.
+
 **Two auth layers.**
 - `proxy.ts` (Next.js 16 renamed `middleware`→`proxy`) does a cheap session-cookie presence check and redirects `/admin` and `/members` to `/sign-in`. It does *not* check roles.
 - Real authorization is enforced independently: Hono routes use `requireAuth` / `requireAdmin` middleware (`server/api/middleware.ts`); server components / server actions use `requireRole([...])` from `features/auth/actions.ts`.
@@ -68,6 +70,7 @@ Auth is Better-Auth (`features/auth/server.ts`) with Drizzle adapter, Google OAu
 - Path alias `@/*` → repo root.
 - Env access goes through `lib/env.ts`'s `env` object, never raw `process.env` (except the test-only `PLAYWRIGHT_TEST` guard).
 - Validation schemas are Zod 4.
+- DO NOT add AI Slop comments. Source code should describe itself.
 
 ## Testing
 
