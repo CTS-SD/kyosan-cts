@@ -9,6 +9,8 @@ import { Input } from "@/components//ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components//ui/select";
 import { Spinner } from "@/components//ui/spinner";
 import { UserIcon } from "@/components/icons/user-icon";
+import { ItemActions, ItemContent, ItemDescription, ItemTitle } from "@/components/ui/item";
+import { List, ListItem } from "@/components/ui/list";
 import { StudentEditorSchema, type StudentValues } from "@/features/students/editor";
 import type { Department, Faculty, Student } from "@/features/students/types";
 
@@ -83,67 +85,94 @@ export const StudentEditorFields = ({
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid} className="flex-1 gap-0">
               <FieldLabel className="sr-only">氏名</FieldLabel>
-              <Input className="-ms-3 grow border-none font-semibold text-2xl!" {...field} placeholder="京産 花子" />
+              <Input
+                className="-ms-3 grow border-none bg-transparent font-semibold text-2xl! ring-0!"
+                {...field}
+                placeholder="京産 花子"
+              />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}
         />
       </div>
-      <Controller
-        name="studentNumber"
-        control={form.control}
-        render={({ field, fieldState }) => (
-          <Field data-invalid={fieldState.invalid} className="flex-1">
-            <FieldLabel>学籍番号（6桁）</FieldLabel>
-            <Input {...field} type="number" placeholder="123456" />
-            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-          </Field>
-        )}
-      />
-      <Controller
-        name="facultyId"
-        control={form.control}
-        render={({ field, fieldState }) => (
-          <Field data-invalid={fieldState.invalid}>
-            <FieldLabel>学部</FieldLabel>
-            <Select onValueChange={(val) => field.onChange(Number(val) || undefined)} value={field.value?.toString()}>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="学部を選択" />
-              </SelectTrigger>
-              <SelectContent>
-                {faculties.map((faculty) => (
-                  <SelectItem key={faculty.id} value={faculty.id?.toString()}>
-                    {faculty.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-          </Field>
-        )}
-      />
-      <Controller
-        name="departmentId"
-        control={form.control}
-        render={({ field, fieldState }) => (
-          <Field data-invalid={fieldState.invalid}>
-            <FieldLabel>配属部署</FieldLabel>
-            <Select onValueChange={(val) => field.onChange(Number(val) || undefined)} value={field.value?.toString()}>
-              <SelectTrigger className="w-full">
-                <SelectValue placeholder="部署を選択" />
-              </SelectTrigger>
-              <SelectContent>
-                {departments.map((department) => (
-                  <SelectItem key={department.id} value={department.id?.toString()}>
-                    {department.name}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-          </Field>
-        )}
-      />
+      <List>
+        <Controller
+          name="studentNumber"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <ListItem>
+              <ItemContent>
+                <ItemTitle>学籍番号</ItemTitle>
+                <ItemDescription>学生の学籍番号6桁を入力してください。</ItemDescription>
+                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+              </ItemContent>
+              <ItemActions>
+                <Input className="w-30" {...field} placeholder="123456" />
+              </ItemActions>
+            </ListItem>
+          )}
+        />
+        <Controller
+          name="facultyId"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <ListItem>
+              <ItemContent>
+                <ItemTitle>学部</ItemTitle>
+                <ItemDescription>所属学部を選択してください。</ItemDescription>
+                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+              </ItemContent>
+              <ItemActions>
+                <Select
+                  onValueChange={(val) => field.onChange(Number(val) || undefined)}
+                  value={field.value?.toString()}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="学部を選択" />
+                  </SelectTrigger>
+                  <SelectContent align="end" position="popper">
+                    {faculties.map((faculty) => (
+                      <SelectItem key={faculty.id} value={faculty.id?.toString()}>
+                        {faculty.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </ItemActions>
+            </ListItem>
+          )}
+        />
+        <Controller
+          name="departmentId"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <ListItem>
+              <ItemContent>
+                <ItemTitle>配属部署</ItemTitle>
+                <ItemDescription>配属部署を選択してください。</ItemDescription>
+                {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+              </ItemContent>
+              <ItemActions>
+                <Select
+                  onValueChange={(val) => field.onChange(Number(val) || undefined)}
+                  value={field.value?.toString()}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="部署を選択" />
+                  </SelectTrigger>
+                  <SelectContent align="end" position="popper">
+                    {departments.map((department) => (
+                      <SelectItem key={department.id} value={department.id?.toString()}>
+                        {department.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </ItemActions>
+            </ListItem>
+          )}
+        />
+      </List>
     </FieldSet>
   );
 };
