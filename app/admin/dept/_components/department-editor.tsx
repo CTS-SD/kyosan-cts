@@ -73,7 +73,7 @@ export const DepartmentEditorFields = () => {
         <span className="font-bold text-lg">{name || "部署名"}</span>
       </div>
       <FieldSet disabled={form.formState.isSubmitting} className="pt-4">
-        <List>
+        <List className="px-0">
           <Controller
             name="name"
             control={form.control}

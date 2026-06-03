@@ -49,7 +49,7 @@ function DialogContent({
       <DialogPrimitive.Content
         data-slot="dialog-content"
         className={cn(
-          "sm:data-closed:fade-out-0 sm:data-open:zoom-in-80 sm:data-closed:zoom-out-80 sm:data-open:fade-in-0 data-closed:slide-out-to-bottom sm:data-closed:slide-out-to-bottom-0 sm:data-open:slide-in-from-bottom-0 data-open:slide-in-from-bottom fixed bottom-0 left-1/2 z-50 grid w-full max-w-full -translate-x-1/2 gap-6 overflow-clip rounded-t-3xl bg-popover outline-none duration-320 ease-gentle data-closed:animate-out data-open:animate-in sm:bottom-1/2 sm:max-w-lg sm:origin-bottom sm:translate-y-1/2 sm:rounded-b-3xl sm:duration-220",
+          "sm:data-closed:fade-out-0 sm:data-open:zoom-in-80 sm:data-closed:zoom-out-80 sm:data-open:fade-in-0 data-closed:slide-out-to-bottom sm:data-closed:slide-out-to-bottom-0 sm:data-open:slide-in-from-bottom-0 data-open:slide-in-from-bottom fixed bottom-0 left-1/2 z-50 grid max-h-[96dvh] w-full max-w-full -translate-x-1/2 gap-6 overflow-auto rounded-t-3xl bg-popover shadow-2xl outline-none duration-320 ease-gentle data-closed:animate-out data-open:animate-in sm:bottom-1/2 sm:max-w-lg sm:origin-bottom sm:translate-y-1/2 sm:rounded-b-3xl sm:duration-220",
           className,
         )}
         onOpenAutoFocus={(e) => e.preventDefault()}

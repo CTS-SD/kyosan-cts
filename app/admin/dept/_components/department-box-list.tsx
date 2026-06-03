@@ -8,15 +8,8 @@ import { DepartmentGrid } from "./department-grid";
 export const DepartmentBoxList = async () => {
   const [students, departments, faculties] = await Promise.all([getStudents(), getDepartments(), getFaculties()]);
 
-  const counts = Object.fromEntries(
-    departments.map((department) => [
-      department.id,
-      students.filter((student) => student.departmentId === department.id).length,
-    ]),
-  );
-
   return (
-    <DepartmentGrid departments={departments} counts={counts} addButton={<AddDepartmentButton />}>
+    <DepartmentGrid addButton={<AddDepartmentButton />}>
       {departments.map((department) => (
         <DepartmentBox
           key={department.id}

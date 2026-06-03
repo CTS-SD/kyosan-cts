@@ -95,7 +95,7 @@ export const StudentEditorFields = ({
           )}
         />
       </div>
-      <List>
+      <List className="px-0">
         <Controller
           name="studentNumber"
           control={form.control}
