@@ -63,54 +63,56 @@ export const DepartmentEditorFields = () => {
   const [name, color] = form.watch(["name", "color"]);
 
   return (
-    <FieldSet disabled={form.formState.isSubmitting} className="px-6 pt-6 pb-2">
+    <div className="p-4">
       <div
-        className="flex items-center justify-center rounded-2xl px-4 py-5 text-white shadow-inner"
+        className="flex items-center justify-center rounded-xl px-4 py-5 text-white shadow-inner"
         style={departmentGradientStyle(color)}
       >
-        <span className="font-bold text-2xl">{name || "部署名"}</span>
+        <span className="font-bold text-xl">{name || "部署名"}</span>
       </div>
-      <Controller
-        name="name"
-        control={form.control}
-        render={({ field, fieldState }) => (
-          <Field data-invalid={fieldState.invalid}>
-            <FieldLabel>部署名</FieldLabel>
-            <Input {...field} placeholder="総務部署" />
-            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-          </Field>
-        )}
-      />
-      <Controller
-        name="color"
-        control={form.control}
-        render={({ field, fieldState }) => (
-          <Field data-invalid={fieldState.invalid}>
-            <FieldLabel>色</FieldLabel>
-            <Popover>
-              <PopoverTrigger asChild>
-                <Button type="button" variant="outline" className="justify-start gap-2 font-normal">
-                  <span className="size-5 rounded-full border" style={{ backgroundColor: field.value }} />
-                  <span className="uppercase">{field.value}</span>
-                </Button>
-              </PopoverTrigger>
-              <PopoverContent className="w-auto items-center gap-3">
-                <HexColorPicker color={field.value} onChange={field.onChange} />
-                <div className="flex items-center gap-1 self-stretch">
-                  <span className="text-muted-foreground">#</span>
-                  <HexColorInput
-                    color={field.value}
-                    onChange={field.onChange}
-                    className="h-9 w-full rounded-md border bg-transparent px-3 text-sm uppercase outline-hidden focus-visible:ring-1 focus-visible:ring-ring"
-                  />
-                </div>
-              </PopoverContent>
-            </Popover>
-            {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
-          </Field>
-        )}
-      />
-    </FieldSet>
+      <FieldSet disabled={form.formState.isSubmitting} className="px-2 pt-8">
+        <Controller
+          name="name"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel>部署名</FieldLabel>
+              <Input {...field} placeholder="総務部署" />
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
+          )}
+        />
+        <Controller
+          name="color"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <Field data-invalid={fieldState.invalid}>
+              <FieldLabel>色</FieldLabel>
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button type="button" variant="outline" className="justify-start gap-2 font-normal">
+                    <span className="size-5 rounded-full border" style={{ backgroundColor: field.value }} />
+                    <span className="uppercase">{field.value}</span>
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto items-center gap-3">
+                  <HexColorPicker color={field.value} onChange={field.onChange} />
+                  <div className="flex items-center gap-1 self-stretch">
+                    <span className="text-muted-foreground">#</span>
+                    <HexColorInput
+                      color={field.value}
+                      onChange={field.onChange}
+                      className="h-9 w-full rounded-md border bg-transparent px-3 text-sm uppercase outline-hidden focus-visible:ring-1 focus-visible:ring-ring"
+                    />
+                  </div>
+                </PopoverContent>
+              </Popover>
+              {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
+            </Field>
+          )}
+        />
+      </FieldSet>
+    </div>
   );
 };
 
