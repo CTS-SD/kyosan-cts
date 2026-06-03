@@ -85,17 +85,13 @@ export const StudentEditorFields = ({
           render={({ field, fieldState }) => (
             <Field data-invalid={fieldState.invalid} className="flex-1 gap-0">
               <FieldLabel className="sr-only">氏名</FieldLabel>
-              <Input
-                className="-ms-3 grow border-none bg-transparent font-semibold text-2xl! ring-0!"
-                {...field}
-                placeholder="京産 花子"
-              />
+              <input className="grow font-semibold text-2xl outline-0" placeholder="京産 花子" {...field} />
               {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
             </Field>
           )}
         />
       </div>
-      <List className="px-0">
+      <div>
         <Controller
           name="studentNumber"
           control={form.control}
@@ -172,7 +168,7 @@ export const StudentEditorFields = ({
             </ListItem>
           )}
         />
-      </List>
+      </div>
     </FieldSet>
   );
 };
