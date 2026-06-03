@@ -140,7 +140,11 @@ export const DepartmentActions = ({ department, studentCount, faculties, departm
       </AlertDialog>
 
       <Dialog open={addStudentOpen} onOpenChange={setAddStudentOpen}>
-        <AddStudentDialogContent defaultDepartmentId={department.id} faculties={faculties} departments={departments} />
+        <AddStudentDialogContent
+          defaultValues={{ departmentId: department.id }}
+          faculties={faculties}
+          departments={departments}
+        />
       </Dialog>
     </>
   );

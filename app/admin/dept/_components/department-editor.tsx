@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { FieldError, FieldSet } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { ItemActions, ItemContent, ItemDescription, ItemTitle } from "@/components/ui/item";
-import { List, ListItem } from "@/components/ui/list";
+import { ListItem } from "@/components/ui/list";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Spinner } from "@/components/ui/spinner";
 import { departmentGradientStyle } from "@/features/departments/assets";

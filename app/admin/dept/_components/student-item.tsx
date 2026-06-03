@@ -1,9 +1,7 @@
 "use client";
 
-import { Trash2Icon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { Button } from "@/components//ui/button";
 import { UserIcon } from "@/components/icons/user-icon";
 import {
   Dialog,
@@ -15,9 +13,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { deleteStudent, updateStudent } from "@/features/students/api";
-import type { StudentValues } from "@/features/students/editor";
 import type { Department, Faculty, Student } from "@/features/students/types";
-import { StudentEditor, StudentEditorCancel, StudentEditorFields, StudentEditorSubmit } from "./student-editor";
+import { StudentEditor, type StudentEditorContextValue } from "./student-editor";
 
 type Props = {
   student: Student;
@@ -33,18 +30,18 @@ export const StudentItem = ({ student, faculties, departments }: Props) => {
     return faculty?.name;
   };
 
-  const handleUpdateStudent = async (values: StudentValues) => {
+  const handleUpdate: StudentEditorContextValue["actions"]["submit"] = async ({ values, form }) => {
     try {
       await updateStudent(student.id, values);
       toast.success("学生を更新しました");
+      form.reset(values);
       router.refresh();
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "学生の更新に失敗しました");
     }
-    return false; // false means; Do not reset the form
   };
 
-  const handleDeleteStudent = async () => {
+  const handleDelete = async () => {
     if (!window.confirm("この学生を削除してよろしいですか？")) return;
     try {
       await deleteStudent(student.id);
@@ -71,27 +68,37 @@ export const StudentItem = ({ student, faculties, departments }: Props) => {
       </DialogTrigger>
       <DialogContent>
         <DialogTitle className="sr-only">学生を編集</DialogTitle>
-        <DialogDescription className="sr-only">配属部署発表で表示する学生を編集</DialogDescription>
-        <StudentEditor defaultValues={student} onSubmit={handleUpdateStudent}>
-          <StudentEditorFields faculties={faculties} departments={departments} />
-          <DialogFooter>
-            <div className="flex grow items-center justify-between gap-2">
-              <Button
-                type="button"
-                variant="outline"
-                className="flex-1 sm:mr-auto sm:flex-initial"
-                onClick={handleDeleteStudent}
-              >
-                <Trash2Icon />
-                削除
-              </Button>
-              <DialogClose asChild className="flex-1 sm:flex-initial">
-                <StudentEditorCancel />
+        <DialogDescription className="sr-only">学生を編集します</DialogDescription>
+        <StudentEditor.Provider
+          defaultValues={student}
+          departments={departments}
+          faculties={faculties}
+          actions={{
+            submit: handleUpdate,
+            delete: handleDelete,
+          }}
+        >
+          <StudentEditor.Frame>
+            <StudentEditor.FieldSet>
+              <StudentEditor.Hero>
+                <StudentEditor.Avatar />
+                <StudentEditor.Field.Name />
+              </StudentEditor.Hero>
+              <div>
+                <StudentEditor.Field.StudentNumber />
+                <StudentEditor.Field.Faculty />
+                <StudentEditor.Field.Department />
+                <StudentEditor.Field.Delete />
+              </div>
+            </StudentEditor.FieldSet>
+            <DialogFooter>
+              <DialogClose asChild>
+                <StudentEditor.Cancel />
               </DialogClose>
-            </div>
-            <StudentEditorSubmit>変更を保存</StudentEditorSubmit>
-          </DialogFooter>
-        </StudentEditor>
+              <StudentEditor.Submit>保存</StudentEditor.Submit>
+            </DialogFooter>
+          </StudentEditor.Frame>
+        </StudentEditor.Provider>
       </DialogContent>
     </Dialog>
   );

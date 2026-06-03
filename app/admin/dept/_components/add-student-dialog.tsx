@@ -4,31 +4,27 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { DialogClose, DialogContent, DialogDescription, DialogFooter, DialogTitle } from "@/components/ui/dialog";
 import { insertStudents } from "@/features/students/api";
-import type { StudentValues } from "@/features/students/editor";
-import type { Department, Faculty } from "@/features/students/types";
-import { StudentEditor, StudentEditorCancel, StudentEditorFields, StudentEditorSubmit } from "./student-editor";
+import { StudentEditor, type StudentEditorContextValue, type StudentEditorProviderProps } from "./student-editor";
 
-type Props = {
-  faculties: Faculty[];
-  departments: Department[];
-  defaultDepartmentId?: number;
-  open?: boolean;
-  onOpenChange?: (open: boolean) => void;
-  children?: React.ReactNode;
-};
-
-export const AddStudentDialogContent = ({ faculties, departments, defaultDepartmentId }: Props) => {
+export const AddStudentDialogContent = ({
+  faculties,
+  departments,
+  defaultValues,
+}: Omit<StudentEditorProviderProps, "actions" | "children">) => {
   const router = useRouter();
 
-  const handleAddStudent = async (studentData: StudentValues) => {
+  const handleAdd: StudentEditorContextValue["actions"]["submit"] = async ({ values, form }) => {
     try {
-      await insertStudents([studentData]);
+      await insertStudents([values]);
       toast.success("学生を追加しました");
+      form.reset({
+        ...values,
+        name: "",
+        studentNumber: "",
+      });
       router.refresh();
-      return true;
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "学生の追加に失敗しました");
-      return false;
     }
   };
 
@@ -36,18 +32,34 @@ export const AddStudentDialogContent = ({ faculties, departments, defaultDepartm
     <DialogContent>
       <DialogTitle className="sr-only">学生を追加</DialogTitle>
       <DialogDescription className="sr-only">配属部署発表で表示する学生を追加</DialogDescription>
-      <StudentEditor
-        defaultValues={defaultDepartmentId ? { departmentId: defaultDepartmentId } : undefined}
-        onSubmit={handleAddStudent}
+      <StudentEditor.Provider
+        departments={departments}
+        faculties={faculties}
+        actions={{
+          submit: handleAdd,
+        }}
+        defaultValues={defaultValues}
       >
-        <StudentEditorFields faculties={faculties} departments={departments} />
-        <DialogFooter>
-          <DialogClose asChild>
-            <StudentEditorCancel />
-          </DialogClose>
-          <StudentEditorSubmit>追加</StudentEditorSubmit>
-        </DialogFooter>
-      </StudentEditor>
+        <StudentEditor.Frame>
+          <StudentEditor.FieldSet>
+            <StudentEditor.Hero>
+              <StudentEditor.Avatar />
+              <StudentEditor.Field.Name />
+            </StudentEditor.Hero>
+            <div>
+              <StudentEditor.Field.StudentNumber />
+              <StudentEditor.Field.Faculty />
+              <StudentEditor.Field.Department />
+            </div>
+          </StudentEditor.FieldSet>
+          <DialogFooter>
+            <DialogClose asChild>
+              <StudentEditor.Cancel />
+            </DialogClose>
+            <StudentEditor.Submit>追加</StudentEditor.Submit>
+          </DialogFooter>
+        </StudentEditor.Frame>
+      </StudentEditor.Provider>
     </DialogContent>
   );
 };
