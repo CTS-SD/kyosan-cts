@@ -1,7 +1,6 @@
 import { getDepartments } from "@/server/services/departments";
 import { getFaculties } from "@/server/services/faculties";
 import { getStudents } from "@/server/services/students";
-import { AddDepartmentButton } from "./add-department-button";
 import { DepartmentBox } from "./department-box";
 import { DepartmentGrid } from "./department-grid";
 
@@ -9,7 +8,7 @@ export const DepartmentBoxList = async () => {
   const [students, departments, faculties] = await Promise.all([getStudents(), getDepartments(), getFaculties()]);
 
   return (
-    <DepartmentGrid addButton={<AddDepartmentButton />}>
+    <DepartmentGrid>
       {departments.map((department) => (
         <DepartmentBox
           key={department.id}

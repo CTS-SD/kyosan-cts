@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowDownUpIcon, GraduationCapIcon, MenuIcon } from "lucide-react";
+import { ArrowDownUpIcon, MenuIcon, PlusIcon, SettingsIcon } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog } from "@/components/ui/dialog";
@@ -8,9 +8,11 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import type { Department, Faculty } from "@/features/students/types";
+import { AddDepartmentDialogContent } from "./add-department-dialog";
 import { DepartmentListDialogContent } from "./department-list";
 import { FacultyListDialogContent } from "./faculty-list";
 
@@ -22,6 +24,7 @@ type Props = {
 };
 
 export const DeptActionsMenu = ({ departments, counts, faculties, facultyCounts }: Props) => {
+  const [addDeptOpen, setAddDeptOpen] = useState(false);
   const [deptMenuOpen, setDeptMenuOpen] = useState(false);
   const [facultyMenuOpen, setFacultyMenuOpen] = useState(false);
 
@@ -34,16 +37,25 @@ export const DeptActionsMenu = ({ departments, counts, faculties, facultyCounts 
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
+          <DropdownMenuItem onClick={() => setAddDeptOpen(true)}>
+            <PlusIcon />
+            部署を追加
+          </DropdownMenuItem>
           <DropdownMenuItem onClick={() => setDeptMenuOpen(true)}>
             <ArrowDownUpIcon />
             部署を並び替え
           </DropdownMenuItem>
+          <DropdownMenuSeparator />
           <DropdownMenuItem onClick={() => setFacultyMenuOpen(true)}>
-            <GraduationCapIcon />
+            <SettingsIcon />
             学部を管理
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+
+      <Dialog open={addDeptOpen} onOpenChange={setAddDeptOpen}>
+        <AddDepartmentDialogContent onAdded={() => setAddDeptOpen(false)} />
+      </Dialog>
 
       <Dialog open={deptMenuOpen} onOpenChange={setDeptMenuOpen}>
         <DepartmentListDialogContent departments={departments} counts={counts} />
