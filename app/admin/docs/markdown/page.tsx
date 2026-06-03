@@ -1,4 +1,4 @@
-import { ArrowDownIcon, PencilLineIcon, PenIcon, ScrollText, ScrollTextIcon } from "lucide-react";
+import { ArrowDownIcon } from "lucide-react";
 import { Markdown } from "@/features/quizzes/components/markdown";
 
 const items = [
