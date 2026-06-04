@@ -31,7 +31,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { deleteDepartment, updateDepartment } from "@/features/departments/api";
 import type { DepartmentValues } from "@/features/departments/editor";
-import type { Department, Faculty } from "@/features/students/types";
+import type { Department } from "@/features/students/types";
 import { AddStudentDialogContent } from "./add-student-dialog";
 import {
   DepartmentEditor,
@@ -43,11 +43,9 @@ import {
 type Props = {
   department: Department;
   studentCount: number;
-  faculties: Faculty[];
-  departments: Department[];
 };
 
-export const DepartmentActions = ({ department, studentCount, faculties, departments }: Props) => {
+export const DepartmentActions = ({ department, studentCount }: Props) => {
   const router = useRouter();
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
@@ -140,11 +138,7 @@ export const DepartmentActions = ({ department, studentCount, faculties, departm
       </AlertDialog>
 
       <Dialog open={addStudentOpen} onOpenChange={setAddStudentOpen}>
-        <AddStudentDialogContent
-          defaultValues={{ departmentId: department.id }}
-          faculties={faculties}
-          departments={departments}
-        />
+        <AddStudentDialogContent defaultValues={{ departmentId: department.id }} />
       </Dialog>
     </>
   );

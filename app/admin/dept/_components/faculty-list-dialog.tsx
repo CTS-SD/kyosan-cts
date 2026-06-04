@@ -4,7 +4,7 @@ import { getFacultyCounts } from "@/server/services/students";
 import { FacultyList } from "./faculty-list";
 
 export const FacultyListDialogContent = async () => {
-  const [faculties, counts] = await Promise.all([getFaculties(), getFacultyCounts()]);
+  const [faculties, studentCounts] = await Promise.all([getFaculties(), getFacultyCounts()]);
 
   return (
     <DialogContent className="bg-accent">
@@ -13,7 +13,7 @@ export const FacultyListDialogContent = async () => {
         <DialogDescription className="sr-only">学部の追加・編集・削除ができます。</DialogDescription>
       </DialogHeader>
       <div className="px-4 pb-4">
-        <FacultyList faculties={faculties} counts={counts} />
+        <FacultyList faculties={faculties} studentCounts={studentCounts} />
       </div>
     </DialogContent>
   );

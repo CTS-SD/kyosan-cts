@@ -13,17 +13,17 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { deleteStudent, updateStudent } from "@/features/students/api";
-import type { Department, Faculty, Student } from "@/features/students/types";
+import type { Student } from "@/features/students/types";
+import { useDeptRefs } from "./dept-refs-context";
 import { StudentEditor, type StudentEditorContextValue } from "./student-editor";
 
 type Props = {
   student: Student;
-  faculties: Faculty[];
-  departments: Department[];
 };
 
-export const StudentItem = ({ student, faculties, departments }: Props) => {
+export const StudentItem = ({ student }: Props) => {
   const router = useRouter();
+  const { faculties, departments } = useDeptRefs();
 
   const getFacultyName = (facultyId: number) => {
     const faculty = faculties.find((f) => f.id === facultyId);

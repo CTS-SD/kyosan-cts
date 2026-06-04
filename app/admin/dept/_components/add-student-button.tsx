@@ -3,15 +3,9 @@
 import { PlusIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogTrigger } from "@/components/ui/dialog";
-import type { Department, Faculty } from "@/features/students/types";
 import { AddStudentDialogContent } from "./add-student-dialog";
 
-type Props = {
-  faculties: Faculty[];
-  departments: Department[];
-};
-
-export const AddStudentButton = ({ faculties, departments }: Props) => {
+export const AddStudentButton = () => {
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -20,7 +14,7 @@ export const AddStudentButton = ({ faculties, departments }: Props) => {
           <PlusIcon />
         </Button>
       </DialogTrigger>
-      <AddStudentDialogContent faculties={faculties} departments={departments} />
+      <AddStudentDialogContent />
     </Dialog>
   );
 };

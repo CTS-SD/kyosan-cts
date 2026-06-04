@@ -243,7 +243,7 @@ const StudentEditorCancel = ({ ...props }: React.ComponentProps<"button">) => {
   const {
     state: { form },
   } = useStudentEditor();
-  
+
   return (
     <Button type="button" disabled={form.formState.isSubmitting} variant="ghost" {...props}>
       キャンセル

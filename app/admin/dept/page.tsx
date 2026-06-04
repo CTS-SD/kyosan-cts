@@ -8,6 +8,7 @@ import { AddStudentButton } from "./_components/add-student-button";
 import { DepartmentBoxList } from "./_components/department-box-list";
 import { DepartmentListDialogContent } from "./_components/department-list-dialog";
 import { DeptActionsMenu } from "./_components/dept-actions-menu";
+import { DeptRefsProvider } from "./_components/dept-refs-context";
 import { FacultyListDialogContent } from "./_components/faculty-list-dialog";
 
 export const metadata: Metadata = {
@@ -18,21 +19,26 @@ const Page = async () => {
   const [faculties, departments] = await Promise.all([getFaculties(), getDepartments()]);
 
   return (
-    <div className="mx-auto max-w-6xl p-6">
-      <div className="flex gap-2">
-        <Button variant="link" className="ml-auto" asChild>
-          <Link href="/members/dept/list" target="_blank" rel="noreferrer">
-            プレビュー
-            <ArrowUpRightIcon />
-          </Link>
-        </Button>
-        <AddStudentButton faculties={faculties} departments={departments} />
-        <DeptActionsMenu reorderDialog={<DepartmentListDialogContent />} facultyDialog={<FacultyListDialogContent />} />
+    <DeptRefsProvider faculties={faculties} departments={departments}>
+      <div className="mx-auto max-w-6xl p-6">
+        <div className="flex gap-2">
+          <Button variant="link" className="ml-auto" asChild>
+            <Link href="/members/dept/list" target="_blank" rel="noreferrer">
+              プレビュー
+              <ArrowUpRightIcon />
+            </Link>
+          </Button>
+          <AddStudentButton />
+          <DeptActionsMenu
+            reorderDialog={<DepartmentListDialogContent />}
+            facultyDialog={<FacultyListDialogContent />}
+          />
+        </div>
+        <div className="mt-4">
+          <DepartmentBoxList />
+        </div>
       </div>
-      <div className="mt-4">
-        <DepartmentBoxList />
-      </div>
-    </div>
+    </DeptRefsProvider>
   );
 };
 

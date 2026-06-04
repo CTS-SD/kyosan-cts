@@ -1,17 +1,15 @@
 import React from "react";
 import { departmentGradientStyle } from "@/features/departments/assets";
-import type { Department, Faculty, Student } from "@/features/students/types";
+import type { Department, Student } from "@/features/students/types";
 import { DepartmentActions } from "./department-actions";
 import { StudentItem } from "./student-item";
 
 type Props = {
   department: Department;
   students: Student[];
-  faculties: Faculty[];
-  departments: Department[];
 };
 
-export const DepartmentBox = ({ department, students, faculties, departments }: Props) => {
+export const DepartmentBox = ({ department, students }: Props) => {
   const computedStudents = students.sort((a, b) => a.studentNumber.localeCompare(b.studentNumber));
 
   return (
@@ -25,18 +23,13 @@ export const DepartmentBox = ({ department, students, faculties, departments }: 
           <h2 className="font-semibold">{department.name}</h2>
           <div className="font-medium text-muted-foreground text-sm">{students.length}名</div>
         </div>
-        <DepartmentActions
-          department={department}
-          studentCount={students.length}
-          faculties={faculties}
-          departments={departments}
-        />
+        <DepartmentActions department={department} studentCount={students.length} />
       </div>
       <div className="flex grow flex-col rounded-b-3xl rounded-tr-3xl bg-accent p-1">
         <div className="flex grow flex-col gap-0.5 rounded-2xl border bg-background p-1">
           {computedStudents.map((student) => (
             <React.Fragment key={student.id}>
-              <StudentItem student={student} faculties={faculties} departments={departments} />
+              <StudentItem student={student} />
               <div className="mx-3 h-px rounded-full bg-border/60 last:hidden" />
             </React.Fragment>
           ))}

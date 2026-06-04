@@ -26,3 +26,6 @@ export const StudentWithRelationsSchema = StudentSchema.extend({
 export type Faculty = z.infer<typeof FacultySchema>;
 export type Student = z.infer<typeof StudentSchema>;
 export type StudentWithRelations = z.infer<typeof StudentWithRelationsSchema>;
+
+/** Map of department or faculty id → number of students assigned to it. */
+export type StudentCountById = Record<number, number>;

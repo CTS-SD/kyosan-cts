@@ -4,7 +4,7 @@ import { getDepartmentCounts } from "@/server/services/students";
 import { DepartmentList } from "./department-list";
 
 export const DepartmentListDialogContent = async () => {
-  const [departments, counts] = await Promise.all([getDepartments(), getDepartmentCounts()]);
+  const [departments, studentCounts] = await Promise.all([getDepartments(), getDepartmentCounts()]);
 
   return (
     <DialogContent>
@@ -13,7 +13,7 @@ export const DepartmentListDialogContent = async () => {
         <DialogDescription>配属発表ページの並び順に影響します</DialogDescription>
       </DialogHeader>
       <div className="p-2 pt-0">
-        <DepartmentList departments={departments} counts={counts} />
+        <DepartmentList departments={departments} studentCounts={studentCounts} />
       </div>
     </DialogContent>
   );

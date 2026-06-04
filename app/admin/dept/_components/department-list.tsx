@@ -25,17 +25,17 @@ import { Button } from "@/components/ui/button";
 import { Spinner } from "@/components/ui/spinner";
 import { reorderDepartments } from "@/features/departments/api";
 import { departmentGradientStyle } from "@/features/departments/assets";
-import type { Department } from "@/features/students/types";
+import type { Department, StudentCountById } from "@/features/students/types";
 import { cn } from "@/lib/utils";
 
 type Props = {
   departments: Department[];
-  counts: Record<number, number>;
+  studentCounts: StudentCountById;
   onSaved?: () => void;
   onCancel?: () => void;
 } & React.ComponentProps<"div">;
 
-export const DepartmentList = ({ departments, counts, onSaved, onCancel, className, ...props }: Props) => {
+export const DepartmentList = ({ departments, studentCounts, onSaved, onCancel, className, ...props }: Props) => {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
   const [order, setOrder] = useState<number[]>(() => departments.map((d) => d.id));
@@ -85,7 +85,13 @@ export const DepartmentList = ({ departments, counts, onSaved, onCancel, classNa
               const dept = byId.get(id);
               if (!dept) return null;
               return (
-                <SortableDepartmentCard key={id} id={id} name={dept.name} color={dept.color} count={counts[id] ?? 0} />
+                <SortableDepartmentCard
+                  key={id}
+                  id={id}
+                  name={dept.name}
+                  color={dept.color}
+                  count={studentCounts[id] ?? 0}
+                />
               );
             })}
           </div>

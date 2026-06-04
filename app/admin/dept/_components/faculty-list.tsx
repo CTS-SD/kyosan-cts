@@ -20,14 +20,14 @@ import { List, ListItem } from "@/components/ui/list";
 import { Spinner } from "@/components/ui/spinner";
 import { deleteFaculty, insertFaculty, updateFaculty } from "@/features/faculties/api";
 import { FacultyEditorSchema, type FacultyValues } from "@/features/faculties/editor";
-import type { Faculty } from "@/features/students/types";
+import type { Faculty, StudentCountById } from "@/features/students/types";
 
 type Props = {
   faculties: Faculty[];
-  counts: Record<number, number>;
+  studentCounts: StudentCountById;
 };
 
-export const FacultyList = ({ faculties, counts }: Props) => {
+export const FacultyList = ({ faculties, studentCounts }: Props) => {
   const router = useRouter();
   const [adding, setAdding] = useState(false);
 
@@ -57,7 +57,7 @@ export const FacultyList = ({ faculties, counts }: Props) => {
       )}
       <List>
         {sorted.map((faculty) => (
-          <FacultyItem key={faculty.id} faculty={faculty} count={counts[faculty.id] ?? 0} />
+          <FacultyItem key={faculty.id} faculty={faculty} count={studentCounts[faculty.id] ?? 0} />
         ))}
         {sorted.length === 0 && !adding && (
           <ListItem>

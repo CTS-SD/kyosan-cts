@@ -4,14 +4,12 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { DialogClose, DialogContent, DialogDescription, DialogFooter, DialogTitle } from "@/components/ui/dialog";
 import { insertStudents } from "@/features/students/api";
+import { useDeptRefs } from "./dept-refs-context";
 import { StudentEditor, type StudentEditorContextValue, type StudentEditorProviderProps } from "./student-editor";
 
-export const AddStudentDialogContent = ({
-  faculties,
-  departments,
-  defaultValues,
-}: Omit<StudentEditorProviderProps, "actions" | "children">) => {
+export const AddStudentDialogContent = ({ defaultValues }: Pick<StudentEditorProviderProps, "defaultValues">) => {
   const router = useRouter();
+  const { faculties, departments } = useDeptRefs();
 
   const handleAdd: StudentEditorContextValue["actions"]["submit"] = async ({ values, form }) => {
     try {
