@@ -1,5 +1,6 @@
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { nextCookies } from "better-auth/next-js";
 import { db } from "@/db";
 import * as schema from "@/db/schema";
 import { env } from "@/lib/env";
@@ -11,6 +12,17 @@ export const auth = betterAuth({
   }),
   emailAndPassword: {
     enabled: true,
+    minPasswordLength: 12,
+    maxPasswordLength: 128,
+  },
+  rateLimit: {
+    enabled: process.env.PLAYWRIGHT_TEST !== "1",
+    storage: "database",
+    window: 60,
+    max: 100,
+    customRules: {
+      "/sign-in/email": { window: 60, max: 30 },
+    },
   },
   socialProviders: {
     google: {
@@ -34,4 +46,5 @@ export const auth = betterAuth({
       },
     },
   },
+  plugins: [nextCookies()],
 });

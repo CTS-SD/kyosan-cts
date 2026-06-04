@@ -6,7 +6,7 @@ export const CheckFilledIcon = ({ fill = "var(--color-sky-500)", ...props }: Rea
       height="24"
       viewBox="0 0 24 24"
       fill={fill}
-      strokeWidth="2"
+      strokeWidth="2.4"
       strokeLinecap="round"
       strokeLinejoin="round"
       {...props}

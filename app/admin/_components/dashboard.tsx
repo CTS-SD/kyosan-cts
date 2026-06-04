@@ -141,7 +141,6 @@ export function Dashboard({ summary, perQuiz, trend }: DashboardProps) {
                   yAxisId="right"
                   dataKey="avgAccuracyRate"
                   stroke="var(--color-avgAccuracyRate)"
-                  strokeWidth={2}
                   dot={false}
                   type="monotone"
                   connectNulls={true}

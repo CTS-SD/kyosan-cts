@@ -1,7 +1,6 @@
 import * as motion from "motion/react-client";
-import { getDepartmentAsset } from "@/features/departments/assets";
+import { departmentGradientStyle } from "@/features/departments/assets";
 import type { Department } from "@/features/students/types";
-import { cn } from "@/lib/utils";
 
 type Props = {
   department: Department;
@@ -12,7 +11,7 @@ type Props = {
 };
 
 export const DepartmentMembers = ({ department, students }: Props) => {
-  const deptAsset = getDepartmentAsset(department.name);
+  const gradientStyle = departmentGradientStyle(department.color);
 
   return (
     <motion.section
@@ -21,10 +20,7 @@ export const DepartmentMembers = ({ department, students }: Props) => {
       className="bg-background text-foreground shadow-lg sm:rounded-4xl sm:even:translate-x-12 sm:even:rotate-1 sm:odd:-translate-x-12 sm:odd:-rotate-1 dark:bg-background/40"
     >
       <div className="flex items-center justify-center gap-2.5 py-6">
-        <div className="text-foreground/50 dark:text-foreground/80">
-          <deptAsset.icon className="size-6" />
-        </div>
-        <h2 className={cn("bg-clip-text font-bold text-2xl text-transparent dark:text-foreground", deptAsset.styles)}>
+        <h2 className="bg-clip-text font-bold text-2xl text-transparent dark:text-foreground" style={gradientStyle}>
           {department.name}
         </h2>
         <div className="ml-1 font-bold text-foreground/50 dark:text-foreground/80">{students.length}名</div>
@@ -34,10 +30,8 @@ export const DepartmentMembers = ({ department, students }: Props) => {
           {students.map((student, i) => (
             <li
               key={`${department.id}-${i}`}
-              className={cn(
-                "flex min-w-30 flex-col items-center rounded-full border-3 border-border/40 px-5 py-1 text-white",
-                deptAsset.styles,
-              )}
+              className="flex min-w-30 flex-col items-center rounded-full border-3 border-border/40 px-5 py-1 text-white"
+              style={gradientStyle}
             >
               <div className="font-bold">{student.name}</div>
               <div className="-mt-1 font-semibold text-white/80 text-xs">{student.faculty}</div>

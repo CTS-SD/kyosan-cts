@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useDebounce } from "@uidotdev/usehooks";
-import { ArrowLeftIcon, EllipsisIcon, EyeIcon, XIcon } from "lucide-react";
+import { ArrowLeftIcon, EllipsisIcon, PlayIcon, XIcon } from "lucide-react";
 import Link from "next/link";
 import { useNavigationGuard } from "next-navigation-guard";
 import { type ComponentProps, type ReactNode, useMemo, useState } from "react";
@@ -11,7 +11,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogClose, DialogContent, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import { Field, FieldContent, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
+import { Field, FieldContent, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { PlayfulProgress } from "@/components/ui/playful-progress";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Spinner } from "@/components/ui/spinner";
@@ -22,6 +22,7 @@ import { QuizMenuItems } from "@/features/quizzes/components/quiz-menu";
 import { QuizPlay } from "@/features/quizzes/components/quiz-play";
 import { QuizSessionHeader, QuizSessionMain } from "@/features/quizzes/components/quiz-session";
 import { cn } from "@/lib/utils";
+import { FieldHeader, FieldNotice } from "./field-notice";
 import { QuizEditorContext, useQuizEditor } from "./quiz-editor-context";
 import { QuizEditorSelect } from "./quiz-editor-select";
 import { QuizEditorTags } from "./quiz-editor-tags";
@@ -150,14 +151,17 @@ const QuizEditorFields = () => {
         control={form.control}
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
-            <FieldLabel>問題文</FieldLabel>
+            <FieldHeader>
+              <FieldLabel>問題文</FieldLabel>
+              <FieldNotice>
+                出題するクイズの問題文を入力してください。
+                <Link href="/admin/docs/markdown" target="_blank">
+                  マークダウン記法
+                </Link>
+                を使用できます。
+              </FieldNotice>
+            </FieldHeader>
             <Textarea {...field} placeholder="問題文を入力" data-testid="question-textarea" className="bg-background" />
-            <FieldDescription>
-              <Link href="/admin/docs/markdown" target="_blank">
-                マークダウン記法
-              </Link>
-              を使用できます。
-            </FieldDescription>
             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
           </Field>
         )}
@@ -170,14 +174,17 @@ const QuizEditorFields = () => {
         control={form.control}
         render={({ field, fieldState }) => (
           <Field data-invalid={fieldState.invalid}>
-            <FieldLabel>解説</FieldLabel>
+            <FieldHeader>
+              <FieldLabel>解説</FieldLabel>
+              <FieldNotice>
+                問題の解説を入力してください。
+                <Link href="/admin/docs/markdown" target="_blank">
+                  マークダウン記法
+                </Link>
+                を使用できます。
+              </FieldNotice>
+            </FieldHeader>
             <Textarea {...field} value={field.value ?? ""} placeholder="解説を入力（任意）" className="bg-background" />
-            <FieldDescription>
-              <Link href="/admin/docs/markdown" target="_blank">
-                マークダウン記法
-              </Link>
-              を使用できます。
-            </FieldDescription>
             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
           </Field>
         )}
@@ -189,8 +196,10 @@ const QuizEditorFields = () => {
         render={({ field, fieldState }) => (
           <Field orientation="horizontal" data-invalid={fieldState.invalid}>
             <FieldContent>
-              <FieldLabel htmlFor="publish">問題を公開する</FieldLabel>
-              <FieldDescription>非公開にした問題は出題されません</FieldDescription>
+              <FieldHeader>
+                <FieldLabel htmlFor="publish">問題を公開する</FieldLabel>
+                <FieldNotice>非公開にした問題は下書きとして保存され、ユーザーには出題されません。</FieldNotice>
+              </FieldHeader>
             </FieldContent>
             <Switch id="publish" checked={field.value} onCheckedChange={field.onChange} />
             {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -263,11 +272,11 @@ const QuizEditorMobilePreviewButton = () => {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger className="md:hidden" asChild>
         <Button variant="outline" aria-label="プレビューを表示">
-          <EyeIcon />
+          <PlayIcon />
           プレビュー
         </Button>
       </DialogTrigger>
-      <DialogContent className="flex h-[95dvh] w-full flex-col bg-background" showCloseButton={false}>
+      <DialogContent className="flex h-[99dvh] w-full flex-col bg-background" showCloseButton={false}>
         <DialogTitle className="sr-only">プレビュー</DialogTitle>
         {open && <MobilePreviewContent />}
       </DialogContent>

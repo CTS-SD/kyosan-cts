@@ -4,6 +4,7 @@ import { type QuizInput, QuizSchema, type QuizzesCursor } from "./types";
 export type QuizFilters = {
   search?: string;
   tags?: string[];
+  untagged?: boolean;
   status?: "published" | "draft";
 };
 
@@ -15,6 +16,7 @@ export async function fetchQuizzes(input: { cursor: QuizzesCursor; limit: number
       order: "desc",
       search: input.search?.trim() || undefined,
       tags: input.tags && input.tags.length > 0 ? input.tags.join(",") : undefined,
+      untagged: input.untagged ? "true" : undefined,
       status: input.status,
     },
   });

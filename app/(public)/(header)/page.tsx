@@ -1,10 +1,10 @@
 import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
 import { PlayfulButton } from "@/components/ui/playful-button";
-import { getCachedConfigValue } from "@/server/services/config";
+import { getConfigValue } from "@/server/services/config";
 
 export default async function Home() {
-  const showDeptButton = await getCachedConfigValue("departmentAnnouncementsPublished");
+  const showDeptButton = await getConfigValue("departmentAnnouncementsPublished");
 
   return (
     <div className="flex flex-col">

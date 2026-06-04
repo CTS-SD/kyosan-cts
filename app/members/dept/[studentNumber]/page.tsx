@@ -2,8 +2,7 @@ import { ArrowRightIcon } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { getDepartmentAsset } from "@/features/departments/assets";
-import { cn } from "@/lib/utils";
+import { departmentGradientStyle } from "@/features/departments/assets";
 import { getDepartments } from "@/server/services/departments";
 import { getStudentByStudentNumber } from "@/server/services/students";
 import { Confetti } from "./_components/confetti";
@@ -21,8 +20,6 @@ const Page = async ({ params }: { params: Promise<{ studentNumber: string }> }) 
   if (!department) {
     return notFound();
   }
-
-  const deptAsset = getDepartmentAsset(department.name);
 
   return (
     <>
@@ -44,7 +41,10 @@ const Page = async ({ params }: { params: Promise<{ studentNumber: string }> }) 
             </div>
             <div className="flex w-fit starting:scale-80 items-baseline starting:opacity-0 transition delay-6800 duration-400 ease-out">
               <div className="bg-white shadow-2xl">
-                <div className={cn("bg-clip-text font-bold text-5xl text-transparent", deptAsset.styles)}>
+                <div
+                  className="bg-clip-text font-bold text-5xl text-transparent"
+                  style={departmentGradientStyle(department.color)}
+                >
                   {department.name}
                 </div>
               </div>

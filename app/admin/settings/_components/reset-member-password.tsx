@@ -13,7 +13,7 @@ import { resetMemberPassword } from "@/features/auth/actions";
 const FormSchema = z.object({
   password: z
     .string()
-    .min(8, "パスワードは8文字以上で入力してください。")
+    .min(12, "パスワードは12文字以上で入力してください。")
     .max(128, "パスワードは128文字以下で入力してください。"),
 });
 

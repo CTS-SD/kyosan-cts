@@ -1,29 +1,47 @@
 "use client";
 
-import { ListFilterIcon } from "lucide-react";
+import { HashIcon, ListFilterIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
+  DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
   DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useQuizTags } from "@/features/quizzes/hooks/use-quiz-tags";
 import { type QuizStatus, useQuizFilters } from "./use-quiz-filters";
 
 export const QuizFilter = () => {
-  const { tags, setTags, status, setStatus } = useQuizFilters();
+  const { q, setQ, tags, setTags, untagged, setUntagged, status, setStatus } = useQuizFilters();
   const { data: allTags } = useQuizTags();
 
-  const activeCount = (status ? 1 : 0) + tags.length;
+  const activeCount = (status ? 1 : 0) + (untagged ? 1 : 0) + tags.length;
+  const hasActiveFilters = activeCount > 0 || q.trim().length > 0;
+
+  const toggleUntagged = () => {
+    setUntagged((prev) => !prev);
+    setTags([]);
+  };
 
   const toggleTag = (tag: string) => {
     setTags((prev) => (prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag]));
+    setUntagged(false);
+  };
+
+  const resetFilters = () => {
+    setQ("");
+    setTags([]);
+    setUntagged(false);
+    setStatus(null);
   };
 
   return (
@@ -52,16 +70,43 @@ export const QuizFilter = () => {
           <>
             <DropdownMenuSeparator />
             <DropdownMenuLabel>タグ</DropdownMenuLabel>
-            {allTags.map((tag) => (
-              <DropdownMenuCheckboxItem
-                key={tag}
-                checked={tags.includes(tag)}
-                onCheckedChange={() => toggleTag(tag)}
-                onSelect={(e) => e.preventDefault()}
-              >
-                {tag}
-              </DropdownMenuCheckboxItem>
-            ))}
+            <DropdownMenuCheckboxItem
+              checked={untagged}
+              onCheckedChange={toggleUntagged}
+              onSelect={(e) => e.preventDefault()}
+            >
+              タグなし
+            </DropdownMenuCheckboxItem>
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger>
+                {tags.length > 0 ? (
+                  <span className="font-medium">{tags.length}個のタグを選択中</span>
+                ) : (
+                  <span className="text-muted-foreground">タグを選択</span>
+                )}
+              </DropdownMenuSubTrigger>
+              <DropdownMenuSubContent>
+                {allTags.map((tag) => (
+                  <DropdownMenuCheckboxItem
+                    key={tag}
+                    checked={tags.includes(tag)}
+                    onCheckedChange={() => toggleTag(tag)}
+                    onSelect={(e) => e.preventDefault()}
+                  >
+                    <HashIcon className="text-muted-foreground/60" />
+                    {tag}
+                  </DropdownMenuCheckboxItem>
+                ))}
+              </DropdownMenuSubContent>
+            </DropdownMenuSub>
+          </>
+        )}
+        {hasActiveFilters && (
+          <>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem variant="destructive" onSelect={resetFilters}>
+              絞り込みを解除
+            </DropdownMenuItem>
           </>
         )}
       </DropdownMenuContent>

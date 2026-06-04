@@ -1,9 +1,8 @@
 import { z } from "zod";
+import { DepartmentSchema } from "@/features/departments/types";
 
-export const DepartmentSchema = z.object({
-  id: z.number(),
-  name: z.string(),
-});
+export type { Department } from "@/features/departments/types";
+export { DepartmentSchema };
 
 export const FacultySchema = z.object({
   id: z.number(),
@@ -24,7 +23,9 @@ export const StudentWithRelationsSchema = StudentSchema.extend({
   faculty: FacultySchema.nullable(),
 });
 
-export type Department = z.infer<typeof DepartmentSchema>;
 export type Faculty = z.infer<typeof FacultySchema>;
 export type Student = z.infer<typeof StudentSchema>;
 export type StudentWithRelations = z.infer<typeof StudentWithRelationsSchema>;
+
+/** Map of department or faculty id → number of students assigned to it. */
+export type StudentCountById = Record<number, number>;

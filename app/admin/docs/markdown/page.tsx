@@ -1,6 +1,15 @@
+import { ArrowDownIcon } from "lucide-react";
 import { Markdown } from "@/features/quizzes/components/markdown";
 
 const items = [
+  {
+    title: "文章を改行する方法",
+    content: `吾輩は\\
+猫である。
+
+名前はまだない。
+`,
+  },
   {
     title: "見出し",
     content: `# 見出し1（最大）
@@ -102,7 +111,7 @@ const MarkdownPage = () => {
   return (
     <div className="mx-auto max-w-5xl p-6">
       <h1 className="my-8 font-bold text-2xl">マークダウン記法について</h1>
-      <h2 className="mt-12 mb-6 font-semibold text-lg">マークダウン記法とは？</h2>
+      <h2 className="mt-12 mb-6 font-semibold text-lg">マークダウンとは？</h2>
       <p className="text-foreground/80 leading-relaxed">
         マークダウンは、テキストを簡単に装飾するための記法です。見出しやリスト、リンク、画像などをシンプルな記号で表現できます。例えば、見出しは「#」を使い、リストは「-」や「1.」を使います。マークダウンは多くのプラットフォームでサポートされており、ブログやドキュメント作成などで広く利用されています。
       </p>
@@ -121,9 +130,17 @@ const MarkdownPage = () => {
 
 export const MarkdownExample = ({ content }: { content: string }) => {
   return (
-    <div className="min-w-0 grow rounded-3xl border bg-card p-1.5 shadow-xs">
+    <div className="flex min-w-0 grow flex-col rounded-3xl border bg-card p-1.5 shadow-lg">
       <pre className="min-w-0 overflow-x-auto rounded-2xl bg-accent p-4 text-sm">{content}</pre>
-      <Markdown className="p-4">{content}</Markdown>
+      <div className="flex justify-center">
+        <div className="z-1 -my-3 flex w-fit cursor-default items-center gap-1.5 rounded-full border bg-card px-3 py-1.5 font-semibold text-muted-foreground text-xs shadow-sm transition-all active:translate-y-0.5 active:shadow-none">
+          <ArrowDownIcon className="size-3.5" />
+          実際の表示
+        </div>
+      </div>
+      <div className="grow rounded-2xl border-2 border-dashed p-4">
+        <Markdown className="">{content}</Markdown>
+      </div>
     </div>
   );
 };
