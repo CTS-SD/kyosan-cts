@@ -27,7 +27,7 @@ export const DeptActionsMenu = ({ reorderDialog, facultyDialog }: Props) => {
     <>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button size="icon" variant="outline">
+          <Button size="icon" variant="outline" aria-label="管理メニュー">
             <MenuIcon />
           </Button>
         </DropdownMenuTrigger>

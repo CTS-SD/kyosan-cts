@@ -9,7 +9,8 @@ test("lists the seeded departments", async ({ adminPage }) => {
 test("creates a department", async ({ adminPage }) => {
   await adminPage.goto("/admin/dept");
 
-  await adminPage.getByRole("button", { name: "部署を追加" }).click();
+  await adminPage.getByRole("button", { name: "管理メニュー" }).click();
+  await adminPage.getByRole("menuitem", { name: "部署を追加" }).click();
   await adminPage.getByPlaceholder("総務部署").fill("テスト部署");
   await adminPage.getByRole("button", { name: "追加", exact: true }).click();
 

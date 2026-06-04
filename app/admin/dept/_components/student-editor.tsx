@@ -163,7 +163,7 @@ const StudentEditorFacultyField = () => {
           </ItemContent>
           <ItemActions>
             <Select onValueChange={(val) => field.onChange(Number(val) || undefined)} value={field.value?.toString()}>
-              <SelectTrigger className="w-full">
+              <SelectTrigger className="w-full" aria-label="学部">
                 <SelectValue placeholder="学部を選択" />
               </SelectTrigger>
               <SelectContent align="end" position="popper">
@@ -199,7 +199,7 @@ const StudentEditorDepartmentField = () => {
           </ItemContent>
           <ItemActions>
             <Select onValueChange={(val) => field.onChange(Number(val) || undefined)} value={field.value?.toString()}>
-              <SelectTrigger className="w-full">
+              <SelectTrigger className="w-full" aria-label="配属部署">
                 <SelectValue placeholder="部署を選択" />
               </SelectTrigger>
               <SelectContent align="end" position="popper">
